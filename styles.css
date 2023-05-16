@@ -91,12 +91,12 @@ li {
   padding: 25px;
 }
 
-#welcome-video {
+#welcome-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin: 0 auto;
-  padding-top: 100px;
+  padding-top: 200px;
 }
 
 .projects, #links, .spotify-links {
