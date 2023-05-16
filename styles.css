@@ -91,6 +91,13 @@ li {
   padding: 25px;
 }
 
+#welcome-video {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+}
+
 .projects, #links, .spotify-links {
   display:flex;
   flex-direction: row;
