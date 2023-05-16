@@ -67,6 +67,15 @@ li {
   top: 100px;
 }
 
+.box {
+  width: 50px;
+  height: 50 px;
+  border-radius: 10px;
+  border-color: indianred;
+  position: fixed;
+  top: 150px;
+}
+
 .container {
   width: 100%;
   text-align: center;
@@ -193,7 +202,6 @@ input[type=button], input[type=submit], input[type=reset] {
   margin: 4px 2px;
   cursor: pointer;
 }
-
 
 
 
