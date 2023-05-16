@@ -108,7 +108,7 @@ li {
 #welcome-section {
   height: 100vh;
   padding-top: 200px;
-  position: absolute;
+  position: relative;
 }
 
 section {
