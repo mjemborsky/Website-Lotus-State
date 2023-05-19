@@ -23,34 +23,27 @@ header {
   top: 0px;
   text-align: center;
   background-color: skyblue;
-  height: 150px;
+  height: 100px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
   border-radius: 0% 0% 150% 150%;
   opacity: .95;
+  z-index: 2;
 }
 
-nav > ul {
-  display: flex;
-  position: relative;
-  flex-direction: row;
-  left: -18px;
-}
-
-#navbar {
-  top: 75px;
-  height: 75px;
+.header-text {
+  top: 25px;
 }
 
 li {
   list-style: none;
   font-family: arial;
-  padding-left: 40px;
-  padding-right: 40px;
+  width: 12%;
+  height: 100px;
 }
 
 .nav-link {
