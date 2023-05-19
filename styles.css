@@ -24,37 +24,29 @@ header {
   text-align: center;
   background-color: skyblue;
   height: 100px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
   border-radius: 0% 0% 150% 150%;
   opacity: .95;
   z-index: 2;
 }
 
 .header-text {
-  top: 25px;
+  top: 50px;
 }
-
-.link {
-  width: 12%;
-  height: 50px;
-}
-
 
 #navbar {
   width: 100%;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav-link {
   text-decoration: none;
   font-weight: bold;
   color: black;
+  height: 25px;
+  width: 50px;
 }
 
 .spacer {
