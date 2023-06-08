@@ -80,7 +80,7 @@ header, #navbar {
 
 .link, img {
   width: 75px;
-  height: 75px;
+  height: 25px;
   border-radius: 30%;
   padding: 25px;
 }
