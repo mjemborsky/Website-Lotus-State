@@ -82,16 +82,17 @@ header, #navbar {
   width: 75px;
   height: 25px;
   border-radius: 30%;
-  padding: 25px;
 }
 
 .link-left {
   position: absolute;
+  height: 25px;
   left: 10px; /* Adjust the left position as needed */
 }
 
 .link-right {
   position: absolute;
+  height: 25px;
   right: 10px; /* Adjust the right position as needed */
 }
 
