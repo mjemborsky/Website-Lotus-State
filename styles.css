@@ -216,30 +216,6 @@ input[type=button], input[type=submit], input[type=reset] {
 }
 
 
-.video-background {
-  width: 900px;
-  height: 900px;
-  position: absolute;
-  background-color: chartreuse;
-  top: 150px;
-  left: 26.5%;
-  z-index: 2;
-  transform: rotate(46deg);
-}
-
-.second-background {
-  width: 900px;
-  height: 900px;
-  position: absolute;
-  background-color: slateblue;
-  top: 150px;
-  left: 26.5%;
-  z-index: -1;
-  transform: rotate(46deg);
-  opacity: .90;
-}
-
-
 
 @keyframes upcoming-animation {
   from {
