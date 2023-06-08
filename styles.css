@@ -15,6 +15,7 @@ body {
     width: 100%; 
     background-repeat:repeat;
     display: block;
+
 }
 
 header, #navbar {
@@ -53,15 +54,6 @@ header, #navbar {
   top: 100px;
 }
 
-.box {
-  width: 50px;
-  height: 50 px;
-  border-radius: 10px;
-  border-color: indianred;
-  position: fixed;
-  top: 150px;
-}
-
 .container {
   width: 100%;
   text-align: center;
@@ -98,6 +90,16 @@ header, #navbar {
   height: 75px;
   border-radius: 30%;
   padding: 25px;
+}
+
+.link-left {
+  position: absolute;
+  left: 50px;
+}
+
+.link-right {
+  position: absolute;
+  right: 50px;
 }
 
 section {
@@ -195,19 +197,14 @@ input[type=button], input[type=submit], input[type=reset] {
   cursor: pointer;
 }
 
+.spotify-links, .spotify-link {
+  display: none;
+}
 
 
 
 }
 /* Background Shapes and Elements*/ 
-
-
-.grid-item {
-  width: 10px;
-  height: 10px;
-  position: absolute;
-  background-color: skyblue;
-}
 
 @keyframes upcoming-animation {
   from {
@@ -223,10 +220,7 @@ input[type=button], input[type=submit], input[type=reset] {
 }
 
 
-
-.spotify-links, .spotify-link {
-  display: none;
-}
+/* Media Querys */ 
 
 @media screen and (max-width: 900px) {
   .spotify-iframe {
