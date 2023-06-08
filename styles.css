@@ -199,23 +199,12 @@ input[type=button], input[type=submit], input[type=reset] {
 /* Background Shapes and Elements*/ 
 
 
-#grid-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
 .grid-item {
   width: 10px;
   height: 10px;
   position: absolute;
   background-color: #000;
 }
-
-
 
 @keyframes upcoming-animation {
   from {

@@ -6,18 +6,7 @@
     <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="animations.js"></script>
-    <script src="gsap-public/minified/gsap.min.js">
-      document.addEventListener('DOMContentLoaded', function() {
-        function createGrid() {
-          // ...
-        }
-        function getRandomOffset() {
-          // ...
-        }
-      createGrid();
-      });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <base href="https://lotusstate.com/">
     <title>Lotus State</title>
   </head>
@@ -47,5 +36,39 @@
         </section>
       </div>
     </div>
+    <script>
+  // Define the animation
+  function animateGrid() {
+    const gridContainer = document.getElementById('grid-container');
+    const numItems = Math.floor(window.innerWidth / 10) * Math.floor(window.innerHeight / 10);
+    
+    for (let i = 0; i < numItems; i++) {
+      const gridItem = document.createElement('div');
+      gridItem.classList.add('grid-item');
+      gridContainer.appendChild(gridItem);
+    }
+
+    const gridItems = document.querySelectorAll('.grid-item');
+
+    gsap.set(gridItems, { scale: 0, rotation: 360 });
+
+    gsap.to(gridItems, {
+      scale: 1,
+      rotation: 0,
+      duration: 0.5,
+      repeat: -1,
+      yoyo: true,
+      stagger: 0.1,
+      ease: "power2.out"
+    });
+  }
+
+  // Call the animation function once the DOM has loaded
+  document.addEventListener("DOMContentLoaded", function() {
+    animateGrid();
+  });
+</script>
+
+
   </body>
 </html>
