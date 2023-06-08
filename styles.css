@@ -109,6 +109,9 @@ section {
   padding-right: 25px;
 }
 
+#container {
+  background: darkslateblue;
+}
 
 #upcoming {
   border-style: solid 1px;
