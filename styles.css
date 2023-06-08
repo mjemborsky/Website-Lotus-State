@@ -75,7 +75,7 @@ header, #navbar {
   flex-direction: column;
   justify-content: center;
   margin: 0 auto;
-  padding-top: 200px;
+  padding-top: 50px;
 }
 
 .projects, #links, .spotify-links {
