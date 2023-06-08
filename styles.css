@@ -47,13 +47,6 @@ header, #navbar {
   width: 50px;
 }
 
-.spacer {
-  width: 100%;
-  height: 50px;
-  position: fixed;
-  top: 100px;
-}
-
 .container {
   width: 100%;
   text-align: center;
@@ -94,12 +87,12 @@ header, #navbar {
 
 .link-left {
   position: absolute;
-  left: 50px;
+  left: 10px; /* Adjust the left position as needed */
 }
 
 .link-right {
   position: absolute;
-  right: 50px;
+  right: 10px; /* Adjust the right position as needed */
 }
 
 section {
