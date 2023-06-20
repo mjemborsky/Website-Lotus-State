@@ -90,13 +90,13 @@ header, #navbar {
 
 .link-left {
   position: absolute;
-  height: 25px;
+  height: 10px;
   left: 10px; /* Adjust the left position as needed */
 }
 
 .link-right {
   position: absolute;
-  height: 25px;
+  height: 10px;
   right: 10px; /* Adjust the right position as needed */
 }
 
