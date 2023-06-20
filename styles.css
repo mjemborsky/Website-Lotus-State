@@ -8,14 +8,18 @@
 }
 
 body {
-    height: 100%;
-    margin: 0 auto;
+  height: 100%;
+  margin: 0 auto;
     background-size: 100%;
     z-index: -1;
     width: 100%; 
     background-repeat:repeat;
     display: block;
     background-color: #333333;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><polygon fill="%231f1f1f" points="0,0 10,5 0,10"/><polygon fill="%231f1f1f" points="0,0 5,10 10,0"/></svg>');
+    background-size: 20px 20px;
+}
+
 
 }
 
