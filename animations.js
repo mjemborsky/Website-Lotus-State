@@ -24,48 +24,57 @@ function createRandomTriangle() {
   return triangle;
 }
 
-// Function to check if two triangles overlap
-function doTrianglesOverlap(triangle1, triangle2) {
+// Function to check if two triangles are within the specified distance
+function areTrianglesClose(triangle1, triangle2, distance) {
   var rect1 = triangle1.getBoundingClientRect();
   var rect2 = triangle2.getBoundingClientRect();
 
-  return !(
-    rect1.right + 5 < rect2.left ||
-    rect1.left - 5 > rect2.right ||
-    rect1.bottom + 5 < rect2.top ||
-    rect1.top - 5 > rect2.bottom
+  return (
+    Math.abs(rect1.right - rect2.left) <= distance &&
+    Math.abs(rect1.left - rect2.right) <= distance &&
+    Math.abs(rect1.bottom - rect2.top) <= distance &&
+    Math.abs(rect1.top - rect2.bottom) <= distance
   );
 }
 
-// Function to add random triangles with a specific spacing
+// Function to add random triangles in a grid formation
 function addRandomTriangles() {
   var container = document.querySelector('.container');
   var numTriangles = 50; // Adjust the number of triangles as desired
   var triangles = [];
 
+  var triangleWidth = 10; // Adjust the width of the triangles
+  var triangleHeight = Math.sqrt(3) * (triangleWidth / 2); // Calculate the height based on the width
+
+  var containerWidth = container.offsetWidth;
+  var containerHeight = container.offsetHeight;
+
+  var cols = Math.floor(containerWidth / (triangleWidth + 5)); // Calculate the number of columns
+  var rows = Math.floor(containerHeight / (triangleHeight + 5)); // Calculate the number of rows
+
   for (var i = 0; i < numTriangles; i++) {
     var triangle = createRandomTriangle();
     triangles.push(triangle);
 
-    var containerWidth = container.offsetWidth;
-    var containerHeight = container.offsetHeight;
     var posX, posY;
 
     do {
-      posX = getRandomNumber(0, containerWidth);
-      posY = getRandomNumber(0, containerHeight);
+      var col = i % cols;
+      var row = Math.floor(i / cols);
+
+      posX = col * (triangleWidth + 5);
+      posY = row * (triangleHeight + 5);
       triangle.style.top = posY + 'px';
       triangle.style.left = posX + 'px';
     } while (
       triangles.some(function (otherTriangle) {
-        return doTrianglesOverlap(triangle, otherTriangle);
+        return areTrianglesClose(triangle, otherTriangle, 5);
       })
     );
 
     container.appendChild(triangle);
   }
 }
-
 
 // Call the function to add random triangles when the page loads
 window.addEventListener('load', addRandomTriangles);
