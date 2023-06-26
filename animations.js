@@ -77,4 +77,4 @@ function addRandomTriangles() {
 }
 
 // Call the function to add random triangles when the page loads
-window.addEventListener('load', addRandomTriangles);
+document.addEventListener('DOMContentLoaded', addRandomTriangles);

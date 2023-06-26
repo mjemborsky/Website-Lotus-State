@@ -1,8 +1,3 @@
-:root {
-  --upcoming-background: linear-gradient(-45deg, rgb(118, 201, 255), rgb(247, 255, 222));
-  --reversed-background: linear-gradient(45deg, rgb(118, 201, 255), rgb(247, 255, 222));
-}
-
 * {
   font-family: garamond;
 }
@@ -10,12 +5,12 @@
 body {
   height: 100%;
   margin: 0 auto;
-    background-size: 100%;
-    z-index: -1;
-    width: 100%; 
-    display: block;
-    background-color: #333333;
-    background-size: 20px 20px;
+  background-size: 100%;
+  z-index: -1;
+  width: 100%; 
+  display: block;
+  background-color: #333333;
+  background-size: 20px 20px;
 }
 
 header, #navbar {
@@ -50,6 +45,7 @@ header, #navbar {
 .container {
   width: 100%;
   height: 100vh;
+  position: relative;
   text-align: center;
   justify-content: center;
   display: flex;
