@@ -45,18 +45,10 @@ header, #navbar {
 
 .container {
   width: 100%;
-  text-align: center;
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
-  margin-top: 100px;
-  margin-left: auto;
-  margin-right: auto;
-  overflow: hidden;
-}
-
-#container {
   height: 100vh;
+  background-image: url("background.svg");
+  background-repeat: repeat;
+  background-size: cover;
   position: relative;
 }
 

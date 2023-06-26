@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 2000 2000">
+  <!-- Adjust the number of triangles as desired -->
+  <polygon points="100 100, 200 200, 300 100" fill="#FF0000" transform="rotate(45 200 150)" />
+  <polygon points="400 200, 500 300, 600 200" fill="#00FF00" transform="rotate(90 500 250)" />
+  <polygon points="700 300, 800 400, 900 300" fill="#0000FF" transform="rotate(135 800 350)" />
+  <polygon points="1000 200, 1100 300, 1200 200" fill="#FFFF00" transform="rotate(180 1100 250)" />
+  <polygon points="1300 100, 1400 200, 1500 100" fill="#FF00FF" transform="rotate(-45 1400 150)" />
+  <polygon points="1600 300, 1700 400, 1800 300" fill="#00FFFF" transform="rotate(-90 1700 350)" />
+  
+  <!-- Additional polygons to fill the remaining space -->
+  <!-- Rows -->
+  <g>
+    <!-- Adjust the number of rows as desired -->
+    <g transform="translate(0 100)">
+      <g transform="translate(0 150)">
+        <polygon points="200 0, 300 100, 400 0" fill="#FF0000" transform="rotate(45 300 50)" />
+        <polygon points="500 0, 600 100, 700 0" fill="#00FF00" transform="rotate(90 600 50)" />
+        <polygon points="800 0, 900 100, 1000 0" fill="#0000FF" transform="rotate(135 900 50)" />
+        <polygon points="1100 0, 1200 100, 1300 0" fill="#FFFF00" transform="rotate(180 1200 50)" />
+        <polygon points="1400 0, 1500 100, 1600 0" fill="#FF00FF" transform="rotate(-45 1500 50)" />
+        <polygon points="1700 0, 1800 100, 1900 0" fill="#00FFFF" transform="rotate(-90 1800 50)" />
+      </g>
+    </g>
+    <!-- Duplicate the above group for additional rows -->
+  </g>
+
+  <!-- Columns -->
+  <g>
+    <!-- Adjust the number of columns as desired -->
+    <g transform="translate(100 0)">
+      <g transform="translate(150 0)">
+        <polygon points="0 200, 100 300, 200 200" fill="#FF0000" transform="rotate(45 100 250)" />
+        <polygon points="0 400, 100 500, 200 400" fill="#00FF00" transform="rotate(90 100 450)" />
+        <polygon points="0 600, 100 700, 200 600" fill="#0000FF" transform="rotate(135 100 650)" />
+        <polygon points="0 800, 100 900, 200 800" fill="#FFFF00" transform="rotate(180 100 850)" />
+        <polygon points="0 1000, 100 1100, 200 1000" fill="#FF00FF" transform="rotate(-45 100 1050)" />
+        <polygon points="0 1200, 100 1300, 200 1200" fill="#00FFFF" transform="rotate(-90 100 1250)" />
+      </g>
+    </g>
+    <!-- Duplicate the above group for additional columns -->
+  </g>
+</svg>
