@@ -31,4 +31,34 @@ document.addEventListener("DOMContentLoaded", function() {
       changeBackground(4);
     });
   }
+
+  // Additional code to handle smooth transitions
+
+  var transitionDuration = 2000; // 2 seconds
+
+  container.style.transition = "background-image " + transitionDuration / 1000 + "s";
+
+  function changeBackgroundWithTransition(index) {
+    container.style.backgroundImage = "url('" + backgrounds[index] + "')";
+  }
+
+  for (var i = 0; i < linkLeft.length; i++) {
+    linkLeft[i].addEventListener("click", function() {
+      container.style.opacity = "0";
+      setTimeout(function() {
+        changeBackgroundWithTransition(1);
+        container.style.opacity = "1";
+      }, transitionDuration);
+    });
+  }
+
+  for (var i = 0; i < linkRight.length; i++) {
+    linkRight[i].addEventListener("click", function() {
+      container.style.opacity = "0";
+      setTimeout(function() {
+        changeBackgroundWithTransition(4);
+        container.style.opacity = "1";
+      }, transitionDuration);
+    });
+  }
 });
