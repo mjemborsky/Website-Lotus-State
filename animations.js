@@ -6,27 +6,35 @@ document.addEventListener("DOMContentLoaded", function() {
   var backgrounds = [
     "background.svg",
     "backgroundTwo.svg",
-    "backgroundThree.svg"
+    "backgroundThree.svg",
+    "backgroundFour.svg",
+    "backgroundFive.svg"
   ];
 
   // Set the initial background image
   container.style.backgroundImage = "url('" + backgrounds[0] + "')";
 
   // Function to change the background image
-  function changeBackground() {
-    // Get the current background image URL
-    var currentBg = container.style.backgroundImage;
-
-    // Get the index of the current background image in the array
-    var currentIndex = backgrounds.indexOf(currentBg);
-
-    // Calculate the index of the next background image
-    var nextIndex = (currentIndex + 1) % backgrounds.length;
-
-    // Set the next background image
-    container.style.backgroundImage = "url('" + backgrounds[nextIndex] + "')";
+  function changeBackground(index) {
+    // Set the background image
+    container.style.backgroundImage = "url('" + backgrounds[index] + "')";
   }
 
-  // Call the changeBackground function every 3 seconds (3000 milliseconds)
-  setInterval(changeBackground, 3000);
+  // Add event listeners to links with the class "link-left"
+  var linkLeft = document.querySelectorAll(".link-left");
+  for (var i = 0; i < linkLeft.length; i++) {
+    linkLeft[i].addEventListener("click", function() {
+      // Call the changeBackground function with the index of backgroundTwo.svg
+      changeBackground(1);
+    });
+  }
+
+  // Add event listeners to links with the class "link-right"
+  var linkRight = document.querySelectorAll(".link-right");
+  for (var i = 0; i < linkRight.length; i++) {
+    linkRight[i].addEventListener("click", function() {
+      // Call the changeBackground function with the index of backgroundFive.svg
+      changeBackground(4);
+    });
+  }
 });
