@@ -64,6 +64,8 @@ header, #navbar {
   margin: 0 auto;
   background-size: cover;
   position: absolute;
+  text-align: center;
+  color: ghostwhite;
 }
 
 .container-one {
