@@ -32,13 +32,13 @@ header, #navbar {
 
 .header-text {
   position: relative;
-  color: ghostwhite;
+  color: black;
 }
 
 .nav-link {
   text-decoration: none;
   font-weight: bold;
-  color: ghostwhite;
+  color: black;
   height: 25px;
   width: 50px;
   opacity: 1;
