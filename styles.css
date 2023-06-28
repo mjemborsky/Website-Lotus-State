@@ -41,6 +41,7 @@ header, #navbar {
   color: ghostwhite;
   height: 25px;
   width: 50px;
+  opacity: 1;
 }
 
 .container {
@@ -49,6 +50,8 @@ header, #navbar {
   top: 100px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   margin: 0 auto;
   background-repeat: repeat;
   background-size: cover;
@@ -66,10 +69,7 @@ header, #navbar {
   justify-content: center;
   margin: 0 auto;
   padding-top: 50px;
-}
-
-.welcome-video {
-  top: 100px;
+  top:100px;
 }
 
 .projects, #links, .spotify-links {
@@ -86,14 +86,14 @@ header, #navbar {
 
 .left-links {
   position: absolute;
-  left: 10px;
-  top: 0;
+  left: 20px;
+  top: 20px;
 }
 
 .link-right {
   position: absolute;
-  right: 10px;
-  top: 0;
+  right: 20px;
+  top: 20px;
 }
 
 section {
