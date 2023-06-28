@@ -1,62 +1,73 @@
-var container = document.querySelector(".container");
-var backgrounds = [
-  "background.svg",
-  "backgroundTwo.svg",
-  "backgroundThree.svg",
-  "backgroundFour.svg",
-  "backgroundFive.svg"
-];
 
-container.style.backgroundImage = "url('" + backgrounds[0] + "')";
+document.addEventListener("DOMContentLoaded", function() {
+  var projectsLink = document.querySelector(".projects-link");
+  var expandedLinks = document.querySelector(".expanded-links");
 
-$(document).ready(function() {
-  $('.link-left').on('click', function() {
-    pageTransitionOne();
-  });
-  $('.link-right').on('click', function() {
-    pageTransitionOne();
+  projectsLink.addEventListener("click", function() {
+    expandedLinks.classList.toggle("show");
   });
 });
 
 
-function pageTransitionOne() {
-  // Get the SVG element
-  const svg = document.getElementById('backgroundTwo');
+// var container = document.querySelector(".container");
+// var backgrounds = [
+//   "background.svg",
+//   "backgroundTwo.svg",
+//   "backgroundThree.svg",
+//   "backgroundFour.svg",
+//   "backgroundFive.svg"
+// ];
 
-  // Get the circle elements
-  const circles = svg.getElementsByTagName('circle');
+// container.style.backgroundImage = "url('" + backgrounds[0] + "')";
 
-  // Define the final positions array
-  const finalPositions = [];
+// $(document).ready(function() {
+//   $('.link-left').on('click', function() {
+//     pageTransitionOne();
+//   });
+//   $('.link-right').on('click', function() {
+//     pageTransitionOne();
+//   });
+// });
 
-  // Iterate over the circles and extract their final positions
-  for (let i = 0; i < circles.length; i++) {
-    const circle = circles[i];
-    const cx = parseFloat(circle.getAttribute('cx'));
-    const cy = parseFloat(circle.getAttribute('cy'));
 
-    // Add the final position to the array
-    finalPositions.push({ cx, cy });
-  }
+// function pageTransitionOne() {
+//   // Get the SVG element
+//   const svg = document.getElementById('backgroundTwo');
 
-  // Iterate over the circles and animate the transition
-  for (let i = 0; i < circles.length; i++) {
-    const circle = circles[i];
-    const finalPosition = finalPositions[i];
+//   // Get the circle elements
+//   const circles = svg.getElementsByTagName('circle');
 
-    // Animate the circle's transition
-    circle.animate(
-      [
-        { cx: circle.cx.baseVal.value, cy: circle.cy.baseVal.value },
-        { cx: finalPosition.cx, cy: finalPosition.cy }
-      ],
-      {
-        duration: 2000, // 2 seconds
-        easing: 'ease-out' // Adjust easing function as needed
-      }
-    );
-  }
-}
+//   // Define the final positions array
+//   const finalPositions = [];
+
+//   // Iterate over the circles and extract their final positions
+//   for (let i = 0; i < circles.length; i++) {
+//     const circle = circles[i];
+//     const cx = parseFloat(circle.getAttribute('cx'));
+//     const cy = parseFloat(circle.getAttribute('cy'));
+
+//     // Add the final position to the array
+//     finalPositions.push({ cx, cy });
+//   }
+
+//   // Iterate over the circles and animate the transition
+//   for (let i = 0; i < circles.length; i++) {
+//     const circle = circles[i];
+//     const finalPosition = finalPositions[i];
+
+//     // Animate the circle's transition
+//     circle.animate(
+//       [
+//         { cx: circle.cx.baseVal.value, cy: circle.cy.baseVal.value },
+//         { cx: finalPosition.cx, cy: finalPosition.cy }
+//       ],
+//       {
+//         duration: 2000, // 2 seconds
+//         easing: 'ease-out' // Adjust easing function as needed
+//       }
+//     );
+//   }
+// }
 
 
 // function animateCircles() {
