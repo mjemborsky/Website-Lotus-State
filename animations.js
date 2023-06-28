@@ -21,7 +21,7 @@ $(document).ready(function() {
 
 function pageTransitionOne() {
   // Get the SVG element
-  const svg = document.getElementById('backgroundTwo.svg');
+  const svg = document.getElementById('backgroundTwo');
 
   // Get the circle elements
   const circles = svg.getElementsByTagName('circle');
