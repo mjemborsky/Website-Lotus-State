@@ -62,9 +62,8 @@ header, #navbar {
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  background-repeat: repeat;
   background-size: cover;
-  position: relative;
+  position: absolute;
 }
 
 .container-one {
