@@ -44,13 +44,13 @@ header, #navbar {
   opacity: 1;
 }
 
-.expanded-links {
+/*.expanded-links {
   display: none;
 }
 
 .expanded-links.show {
   display: block;
-}
+}*/
 
 
 .container-one, .container-two, .container-five {

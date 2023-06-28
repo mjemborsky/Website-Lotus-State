@@ -1,12 +1,12 @@
 
-document.addEventListener("DOMContentLoaded", function() {
-  var projectsLink = document.querySelector(".projects-link");
-  var expandedLinks = document.querySelector(".expanded-links");
+// document.addEventListener("DOMContentLoaded", function() {
+//   var projectsLink = document.querySelector(".projects-link");
+//   var expandedLinks = document.querySelector(".expanded-links");
 
-  projectsLink.addEventListener("click", function() {
-    expandedLinks.classList.toggle("show");
-  });
-});
+//   projectsLink.addEventListener("click", function() {
+//     expandedLinks.classList.toggle("show");
+//   });
+// });
 
 
 // var container = document.querySelector(".container");
