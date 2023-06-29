@@ -145,7 +145,7 @@ section {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: var(--upcoming-background);
+  background: black;
   animation: upcoming-animation 4s linear 0s infinite alternate-reverse;
 }
 
@@ -162,9 +162,11 @@ section {
   margin: 0 auto;
   justify-content: center;
   height: 700px;
+  top:100px;
 }
 
 .lotusmane-coverart {
+  top:100px;
   position: relative;
   height: 1000px;
   width: 1000px;
