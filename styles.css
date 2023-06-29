@@ -80,8 +80,9 @@ header, #navbar {
   background-image: url('backgroundFive.svg');
 }
 
-
-
+#lotusmane, #new-projects {
+  top: 150px;
+}
 
 .project-tile {
   min-width: 225px;
@@ -124,10 +125,6 @@ header, #navbar {
   position: absolute;
   right: 20px;
   top: 20px;
-}
-
-section {
-  padding-top: 70px;
 }
 
 #links {
