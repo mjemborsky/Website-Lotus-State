@@ -84,6 +84,10 @@ header, #navbar {
   top: 150px;
 }
 
+#projects {
+  top: 20px;
+}
+
 .project-tile {
   min-width: 225px;
   padding: 25px;
