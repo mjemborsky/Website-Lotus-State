@@ -1,15 +1,14 @@
 function animateCircles(sourceSVG, targetSVG, duration) {
   // Load the source and target SVG files
-  gsap.registerPlugin(MorphSVGPlugin);
-  var sourceCircles = gsap.utils.toArray(sourceSVG + ' g:first-of-type circle');
-  var targetCircles = gsap.utils.toArray(targetSVG + ' g:first-of-type circle');
+  var sourceCircles = Snap.selectAll(sourceSVG + ' g:first-of-type circle');
+  var targetCircles = Snap.selectAll(targetSVG + ' g:first-of-type circle');
 
   // Extract the positions of the circles from the source SVG
   var sourcePositions = [];
   sourceCircles.forEach(function(circle) {
     sourcePositions.push({
-      x: circle.getAttribute('cx'),
-      y: circle.getAttribute('cy')
+      x: circle.attr('cx'),
+      y: circle.attr('cy')
     });
   });
 
@@ -17,32 +16,25 @@ function animateCircles(sourceSVG, targetSVG, duration) {
   var targetPositions = [];
   targetCircles.forEach(function(circle) {
     targetPositions.push({
-      x: circle.getAttribute('cx'),
-      y: circle.getAttribute('cy')
+      x: circle.attr('cx'),
+      y: circle.attr('cy')
     });
   });
 
   // Apply the positions from the source SVG to the target SVG
   targetCircles.forEach(function(circle, index) {
-    gsap.set(circle, {
-      attr: {
-        cx: sourcePositions[index].x,
-        cy: sourcePositions[index].y
-      }
+    circle.attr({
+      cx: sourcePositions[index].x,
+      cy: sourcePositions[index].y
     });
   });
 
   // Animate the circles to the new positions in the target SVG
-  gsap.to(targetCircles, {
-    duration: duration,
-    attr: {
-      cx: function(index, target) {
-        return targetPositions[index].x;
-      },
-      cy: function(index, target) {
-        return targetPositions[index].y;
-      }
-    }
+  targetCircles.forEach(function(circle, index) {
+    circle.animate({
+      cx: targetPositions[index].x,
+      cy: targetPositions[index].y
+    }, duration);
   });
 }
 
@@ -54,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
   links.forEach(function(link) {
     link.addEventListener('click', function(event) {
       event.preventDefault(); // Prevent the default link behavior
-      animateCircles('#background', '#backgroundTwo', 2);
+      animateCircles('#background', '#backgroundTwo', 2000); // Adjust duration as needed
     });
   });
 });
