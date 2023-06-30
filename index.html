@@ -41,16 +41,43 @@
         </section>
     </div>
     <script>
-      function animateCircles(sourceId, targetId, duration) {
-        var sourceSvg = Snap.selectAll(sourceId + ' circle');
-        var targetSvg = Snap.selectAll(targetId + ' circle');
+      function animateCircles(sourceSVG, targetSVG, duration) {
+        // Load the source and target SVG files
+        var sourceCircles = Snap.selectAll(sourceSVG + ' g:first-of-type circle');
+        var targetCircles = Snap.selectAll(targetSVG + ' g:first-of-type circle');
 
-        sourceSvg.forEach(function (circle, index) {
-          var targetCircle = targetSvg[index];
-          var targetCx = targetCircle.attr('cx');
-          var targetCy = targetCircle.attr('cy');
+        // Extract the positions of the circles from the source SVG
+        var sourcePositions = [];
+        sourceCircles.forEach(function(circle) {
+          sourcePositions.push({
+            x: circle.attr('cx'),
+            y: circle.attr('cy')
+          });
+        });
 
-          circle.animate({ cx: targetCx, cy: targetCy }, duration);
+        // Extract the positions of the circles from the target SVG
+        var targetPositions = [];
+        targetCircles.forEach(function(circle) {
+          targetPositions.push({
+            x: circle.attr('cx'),
+            y: circle.attr('cy')
+          });
+        });
+
+        // Apply the positions from the source SVG to the target SVG
+        targetCircles.forEach(function(circle, index) {
+          circle.attr({
+            cx: sourcePositions[index].x,
+            cy: sourcePositions[index].y
+          });
+        });
+
+        // Animate the circles to the new positions in the target SVG
+        targetCircles.forEach(function(circle, index) {
+          circle.animate({
+            cx: targetPositions[index].x,
+            cy: targetPositions[index].y
+          }, duration);
         });
       }
 
@@ -64,9 +91,6 @@
           animateCircles('#background', '#backgroundTwo', 2000);
           container.style.backgroundColor = '';
         }, 2000);
-
-        // Start the circle animation
-        animateCircles('#source', '#target', 1000);
       };
     </script>
   </body>
