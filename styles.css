@@ -82,7 +82,7 @@ header, #navbar {
 }
 
 #new-projects {
-  top: 200px;
+  top: 400px;
 }
 
 #projects {
@@ -174,7 +174,7 @@ header, #navbar {
   height: 500px;
   position: relative;
   width: 500px;
-  border-radius: 10%;
+  border-radius: 50%;
 }
 
 #beatpack {
