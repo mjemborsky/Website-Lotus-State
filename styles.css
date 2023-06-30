@@ -66,6 +66,7 @@ header, #navbar {
   position: absolute;
   text-align: center;
   color: ghostwhite;
+  background-color: black;
 }
 
 .container-one {
