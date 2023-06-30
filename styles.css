@@ -83,6 +83,7 @@ header, #navbar {
 
 #new-projects {
   top: 400px;
+  position: absolute;
 }
 
 #projects {
@@ -165,7 +166,7 @@ header, #navbar {
   width: 100%;
   margin: 0 auto;
   justify-content: center;
-  height: 700px;
+  height: 600px;
   top:100px;
 }
 
