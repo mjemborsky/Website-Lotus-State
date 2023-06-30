@@ -80,8 +80,8 @@ header, #navbar {
   background-image: url('backgroundFive.svg');
 }
 
-#lotusmane, #new-projects {
-  top: 150px;
+#new-projects {
+  top: 200px;
 }
 
 #projects {
