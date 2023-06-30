@@ -169,11 +169,11 @@ header, #navbar {
 }
 
 .lotusmane-coverart {
-  top: 50px;
+  top: 10px;
   height: 500px;
   position: relative;
   width: 500px;
-  border-radius: 75%;
+  border-radius: 100%;
 }
 
 #beatpack {
