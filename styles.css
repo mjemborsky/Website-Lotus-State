@@ -82,7 +82,7 @@ header, #navbar {
 }
 
 #new-projects {
-  top: 400px;
+  top: 100px;
   position: absolute;
 }
 
@@ -166,8 +166,6 @@ header, #navbar {
   width: 100%;
   margin: 0 auto;
   justify-content: center;
-  height: 600px;
-  top:100px;
 }
 
 .lotusmane-coverart {
@@ -175,7 +173,7 @@ header, #navbar {
   height: 500px;
   position: relative;
   width: 500px;
-  border-radius: 50%;
+  border-radius: 75%;
 }
 
 #beatpack {
