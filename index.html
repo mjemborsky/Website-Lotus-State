@@ -41,14 +41,32 @@
         </section>
     </div>
     <script>
-      window.onload = function() {
-        var links = document.querySelectorAll('.link-left');
-        links.forEach(function(link) {
-          link.addEventListener('click', function(event) {
-            event.preventDefault();
-            animateCircles('#background', '#backgroundTwo', 2000);
-          });
+      function animateCircles(sourceId, targetId, duration) {
+        var sourceSvg = Snap.selectAll(sourceId + ' circle');
+        var targetSvg = Snap.selectAll(targetId + ' circle');
+
+        sourceSvg.forEach(function (circle, index) {
+          var targetCircle = targetSvg[index];
+          var targetCx = targetCircle.attr('cx');
+          var targetCy = targetCircle.attr('cy');
+
+          circle.animate({ cx: targetCx, cy: targetCy }, duration);
         });
+      }
+
+      window.onload = function () {
+        // Set the initial background color to solid black
+        var container = document.querySelector('.container');
+        container.style.backgroundColor = '#000';
+
+        // After 2 seconds, change the background color back to the default
+        setTimeout(function () {
+          animateCircles('#background', '#backgroundTwo', 2000);
+          container.style.backgroundColor = '';
+        }, 2000);
+
+        // Start the circle animation
+        animateCircles('#source', '#target', 1000);
       };
     </script>
   </body>
