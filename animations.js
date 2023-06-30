@@ -4,11 +4,19 @@ function animateCircles(sourceSVG, targetSVG, duration) {
   var sourceCircles = gsap.utils.toArray(sourceSVG + ' g:first-of-type circle');
   var targetCircles = gsap.utils.toArray(targetSVG + ' g:first-of-type circle');
 
-
   // Extract the positions of the circles from the source SVG
   var sourcePositions = [];
   sourceCircles.forEach(function(circle) {
     sourcePositions.push({
+      x: circle.getAttribute('cx'),
+      y: circle.getAttribute('cy')
+    });
+  });
+
+  // Extract the positions of the circles from the target SVG
+  var targetPositions = [];
+  targetCircles.forEach(function(circle) {
+    targetPositions.push({
       x: circle.getAttribute('cx'),
       y: circle.getAttribute('cy')
     });
@@ -37,7 +45,6 @@ function animateCircles(sourceSVG, targetSVG, duration) {
     }
   });
 }
-
 
 document.addEventListener('DOMContentLoaded', function() {
   // Get all the links with the class "link-left"
