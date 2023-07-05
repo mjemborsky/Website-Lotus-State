@@ -1,5 +1,60 @@
-* {
-  font-family: garamond;
+/*! FONTS */
+
+@font-face {
+    font-family: 'gilroy-ultralightuploadedfile';
+    src: url('gilroy-ultralight-webfont.woff2') format('woff2'),
+         url('gilroy-ultralight-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'gilroy-ultralightuploadedfile';
+    src: url('gilroy-ultralightitalic-webfont.woff2') format('woff2'),
+         url('gilroy-ultralightitalic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'montserratthin_italic';
+    src: url('montserrat-italic-variablefont_wght-webfont.woff2') format('woff2'),
+         url('montserrat-italic-variablefont_wght-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'montserratthin';
+    src: url('montserrat-variablefont_wght-webfont.woff2') format('woff2'),
+         url('montserrat-variablefont_wght-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ralewaythin_italic';
+    src: url('raleway-italic-variablefont_wght-webfont.woff2') format('woff2'),
+         url('raleway-italic-variablefont_wght-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ralewaythin';
+    src: url('raleway-variablefont_wght-webfont.woff2') format('woff2'),
+         url('raleway-variablefont_wght-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'zorus_serifitalic';
+    src: url('zorus_serif_italic-webfont.woff2') format('woff2'),
+         url('zorus_serif_italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'zorus_serifnormal';
+    src: url('zorus_serif-webfont.woff2') format('woff2'),
+         url('zorus_serif-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 body {
@@ -11,6 +66,7 @@ body {
   display: block;
   background-color: #333333;
   background-size: 20px 20px;
+  font-family: 'ralewaythin';
 }
 
 header, #navbar {
@@ -28,6 +84,7 @@ header, #navbar {
   opacity: .80;
   z-index: 2;
   margin: 0 auto;
+  font-family: 'zorus_serifnormal';
 }
 
 .header-text {
