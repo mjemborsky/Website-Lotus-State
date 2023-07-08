@@ -6,35 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="https://lotusstate.com/">
     <title>Lotus State</title>
+    <script src="snap.svg-min.js"></script>
+    <script src="animations.js"></script>
   </head>
   <body>
-      <header id="header">
-        <nav id="navbar">
-            <div class="link">
-              <a class="nav-link" href="index.html">Home</a>
+    <header id="header">
+      <nav id="navbar">
+        <div class="left-links">
+          <a class="nav-link" >Projects</a>
+            <div class="expanded-links">
+              <a class="link-left" href="projects.html">Lotus State</a>
+              <a class="link-left" href="lotusmane.html">LOTUSMANE</a>
+              <a class="link-left" href="lotusstatebeats.html">Lotus State Beats</a>
             </div>
-            <div class="header-text">
-              <h1>Lotus State</h1>
-            </div>
-            <div class="link">
-              <a class="nav-link" href="extra.html">More</a>
-            </div>
-        </nav>
-      </header>
-      <div class="container">
-        <div class="video-background"></div>
-        <div class="second-background"></div>
+        </div>
+        <div class="header-text">
+          <a class="nav-link" href="index.html">
+            <h1>Lotus State</h1>
+          </a>
+        </div>
+        <div class="link-right">
+          <a class="nav-link" href="extra.html">More</a>
+        </div>
+      </nav>
+    </header>
+      <div class="container-two">
         <section id="projects">
           <h1>Currently Released Albums<h1>
           <div class="projects">
               <div class="project-tile">
-                <iframe class="spotify-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/album/7g8ERPmjszBxKdLnhnRW30?utm_source=generator" width="100%" height="393" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <iframe class="spotify-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/album/7g8ERPmjszBxKdLnhnRW30?utm_source=generator" width="100%" height="465" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
               </div>
               <div class="project-tile">
-                <iframe class="spotify-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/album/17tSBduOk8u4rW8UPBceuO?utm_source=generator" width="100%" height="393" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <iframe class="spotify-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/album/17tSBduOk8u4rW8UPBceuO?utm_source=generator" width="100%" height="465" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
               </div>
               <div class="project-tile">
-                <iframe class="spotify-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/album/1maxisxYAOryOajSkr99NC?utm_source=generator" width="100%" height="393" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <iframe class="spotify-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/album/1maxisxYAOryOajSkr99NC?utm_source=generator" width="100%" height="465" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
               </div>
             </div>
             <div class="spotify-links">
@@ -54,37 +61,60 @@
                   </a>
                 </div>
             </div>
-            <h1>Upcoming Projects</h1>
-            <div class="all-upcoming">
-              <div class="upcoming-projects">
-                <div class="main-album" id="upcoming">
-                  <h3>New Vocal Album</h3>
-                </div>
-                <div class="electronic-ep" id="upcoming">
-                  <h3>Electronic EP</h3>
-                </div>
-              </div>
-              <div class="upcoming-projects">
-                <div class="lotusmane" id="upcoming">
-                  <h3>Lotusmane - Trip Till Death</h3>
-                  <p>New Remix/Sample Album</p>
-                </div>
-                <div class="beat-albums" id="upcoming">
-                  <h3>Beat Packs</h3>
-                  <div class="inspo" id="beatpack">
-                    <p class="beat">1# - Feel Good</p>
-                  </div>
-                  <div class="savage" id="beatpack">
-                    <p class="beat">2# - Savage</p>
-                  </div>
-                  <div class="vinyl" id="beatpack">
-                    <p class="beat">3# - Vinyl</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="singles"></div>
-      </section>
-    </div>
+        </section>
+      </div>
+    <script>
+      function animateCircles(sourceSVG, targetSVG, duration) {
+        // Load the source and target SVG files
+        var sourceCircles = Snap.selectAll(sourceSVG + ' g:first-of-type circle');
+        var targetCircles = Snap.selectAll(targetSVG + ' g:first-of-type circle');
+
+        // Extract the positions of the circles from the source SVG
+        var sourcePositions = [];
+        sourceCircles.forEach(function(circle) {
+          sourcePositions.push({
+            x: circle.attr('cx'),
+            y: circle.attr('cy')
+          });
+        });
+
+        // Extract the positions of the circles from the target SVG
+        var targetPositions = [];
+        targetCircles.forEach(function(circle) {
+          targetPositions.push({
+            x: circle.attr('cx'),
+            y: circle.attr('cy')
+          });
+        });
+
+        // Apply the positions from the source SVG to the target SVG
+        targetCircles.forEach(function(circle, index) {
+          circle.attr({
+            cx: sourcePositions[index].x,
+            cy: sourcePositions[index].y
+          });
+        });
+
+        // Animate the circles to the new positions in the target SVG
+        targetCircles.forEach(function(circle, index) {
+          circle.animate({
+            cx: targetPositions[index].x,
+            cy: targetPositions[index].y
+          }, duration);
+        });
+      }
+
+      window.onload = function () {
+        // Set the initial background color to solid black
+        var container = document.querySelector('.container-two');
+        container.style.backgroundColor = '#000';
+
+        // After 2 seconds, change the background color back to the default
+        setTimeout(function () {
+          animateCircles('#background', '#backgroundTwo', 2000);
+          container.style.backgroundColor = '';
+        }, 2000);
+      };
+    </script>
   </body>
 </html>
