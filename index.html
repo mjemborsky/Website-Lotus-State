@@ -8,44 +8,49 @@
   <title>Lotus State</title>
   <script src="animations.js"></script>
   <style>
-    /* CSS styles for the header */
-    #header {
+    /* CSS styles for the div elements */
+    .left-links,
+    .center-link,
+    .right-links {
       background-color: black;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       padding: 10px;
     }
 
-    .header-link {
+    /* CSS styles for the links inside the div elements */
+    .left-links a,
+    .center-link a,
+    .right-links a {
       color: white;
       text-decoration: none;
-      padding: 10px;
     }
 
-    .header-link:hover {
+    .left-links a:hover,
+    .center-link a:hover,
+    .right-links a:hover {
       background-color: darkgray;
     }
   </style>
 </head>
 <body>
   <header id="header">
-    <div class="left-links">
-      <a class="header-link" href="#">Projects</a>
-      <div class="expanded-links">
-        <a class="header-link" href="projects.html">Lotus State</a>
-        <a class="header-link" href="lotusmane.html">LOTUSMANE</a>
-        <a class="header-link" href="lotusstatebeats.html">Lotus State Beats</a>
+    <nav id="navbar">
+      <div class="left-links">
+        <a class="left-link" href="#">Projects</a>
+        <div class="expanded-links">
+          <a class="link-left" href="projects.html">Lotus State</a>
+          <a class="link-left" href="lotusmane.html">LOTUSMANE</a>
+          <a class="link-left" href="lotusstatebeats.html">Lotus State Beats</a>
+        </div>
       </div>
-    </div>
-    <div class="center-link">
-      <a class="header-link" href="index.html">
-        <h1>Lotus State</h1>
-      </a>
-    </div>
-    <div class="right-links">
-      <a class="header-link" href="extra.html">More</a>
-    </div>
+      <div class="center-link">
+        <a class="header-text" href="index.html">
+          <h1>Lotus State</h1>
+        </a>
+      </div>
+      <div class="right-links">
+        <a class="link-right" href="extra.html">More</a>
+      </div>
+    </nav>
   </header>
   <div class="container-one">
     <section id="welcome-section">

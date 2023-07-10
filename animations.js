@@ -1,3 +1,10 @@
+// animations.js
+// Created by: Michael Emborsky
+// Purpose: Main source of animations for Lotus State website, including 
+// the expansion of the project sub-links in the header and the background page 
+// transition animation and idle animation.
+
+// Function: Responsible for displaying either the "Projects" label or the various sub options.
 document.addEventListener('DOMContentLoaded', function() {
   var leftLink = document.querySelector('.left-link');
   var expandedLinks = document.querySelector('.expanded-links');
@@ -18,16 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
-
-
-
-
-
-
-
-
-
+// Function: Potential animation for circles
 // function animateCircles(sourceSVG, targetSVG, duration) {
 //   // Load the source and target SVG files
 //   var sourceCircles = Snap.selectAll(sourceSVG + ' g:first-of-type circle');

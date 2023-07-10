@@ -90,6 +90,7 @@ body {
 .left-links, .right-links {
   display: flex;
   align-items: center;
+  
 }
 
 .left-link, .link-right {
