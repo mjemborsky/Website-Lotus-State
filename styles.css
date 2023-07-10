@@ -125,6 +125,7 @@
   font-size: 40px;
   font-family: 'zorus_serifnormal';
   top: 10px;
+  position: absolute;
 }
 
 /*! MAIN BODY */
@@ -132,8 +133,6 @@
 body {
   height: 100%;
   margin: 0 auto;
-  background-size: 100%;
-  z-index: -1;
   width: 100%; 
   display: block;
   background-color: #333333;
