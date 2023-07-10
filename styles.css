@@ -79,15 +79,15 @@ header, #navbar {
   justify-content: center;
   height: 100px;
   border-radius: 0% 0% 150% 150%;
-  opacity: 0;
-  z-index: 4;
+  background-color: transparent;
+  z-index: 2;
   margin: 0 auto;
   font-family: 'montserratthin';
 }
 
 .header-text {
   position: relative;
-  color: black;
+  color: whitesmoke;
   font-size: 40px;
   font-family: 'zorus_serifnormal';
 }
