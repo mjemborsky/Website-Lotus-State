@@ -323,8 +323,7 @@ p {
 /* Media Querys */ 
 
 @media screen and (max-width: 900px) {
-  #projects {
-    display: flex;
+  .projects {
     flex-direction: column;
   }
 
