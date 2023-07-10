@@ -83,7 +83,7 @@ body {
   font-family: 'montserratthin';
 }
 
-#nav-bar {
+#navbar {
   display: flex;
   flex-direction: row;
   justify-content: center;
