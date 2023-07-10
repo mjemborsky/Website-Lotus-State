@@ -91,6 +91,14 @@ header, #navbar {
   font-size: 40px;
   font-family: 'zorus_serifnormal';
 }
+#center-link {
+  width: 300px;
+  height: 100px;
+  top: -100;
+  border-radius: 25%;
+  position: relative;
+  background-color: black;
+}
 
 .nav-link {
   text-decoration: none;
