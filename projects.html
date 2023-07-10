@@ -31,87 +31,17 @@
         <section id="projects">
           <h1>Currently Released Albums<h1>
           <div class="projects">
-              <div class="project-tile">
-                <iframe class="spotify-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/album/7g8ERPmjszBxKdLnhnRW30?utm_source=generator" width="100%" height="465" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-              </div>
-              <div class="project-tile">
-                <iframe class="spotify-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/album/17tSBduOk8u4rW8UPBceuO?utm_source=generator" width="100%" height="465" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-              </div>
-              <div class="project-tile">
-                <iframe class="spotify-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/album/1maxisxYAOryOajSkr99NC?utm_source=generator" width="100%" height="465" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-              </div>
+            <div class="project-tile">
+              <iframe class="spotify-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/album/7g8ERPmjszBxKdLnhnRW30?utm_source=generator" width="100%" height="465" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </div>
-            <!-- <div class="spotify-links">
-                <div class="spotify-link">
-                  <a href="https://open.spotify.com/album/7g8ERPmjszBxKdLnhnRW30">
-                    <img src="https://www.freeiconspng.com/uploads/spotify-icon-11.png" width="75">
-                  </a>
-                </div>
-                <div class="spotify-link">
-                  <a href="https://open.spotify.com/album/17tSBduOk8u4rW8UPBceuO">
-                    <img src="https://www.freeiconspng.com/uploads/spotify-icon-11.png" width="75">
-                  </a>
-                </div>
-                <div class="spotify-link">
-                  <a href="https://open.spotify.com/album/1maxisxYAOryOajSkr99NC">
-                    <img src="https://www.freeiconspng.com/uploads/spotify-icon-11.png" width="75">
-                  </a>
-                </div>
-            </div> -->
+            <div class="project-tile">
+              <iframe class="spotify-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/album/17tSBduOk8u4rW8UPBceuO?utm_source=generator" width="100%" height="465" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+            <div class="project-tile">
+              <iframe class="spotify-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/album/1maxisxYAOryOajSkr99NC?utm_source=generator" width="100%" height="465" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+          </div>
         </section>
       </div>
-    <script>
-      function animateCircles(sourceSVG, targetSVG, duration) {
-        // Load the source and target SVG files
-        var sourceCircles = Snap.selectAll(sourceSVG + ' g:first-of-type circle');
-        var targetCircles = Snap.selectAll(targetSVG + ' g:first-of-type circle');
-
-        // Extract the positions of the circles from the source SVG
-        var sourcePositions = [];
-        sourceCircles.forEach(function(circle) {
-          sourcePositions.push({
-            x: circle.attr('cx'),
-            y: circle.attr('cy')
-          });
-        });
-
-        // Extract the positions of the circles from the target SVG
-        var targetPositions = [];
-        targetCircles.forEach(function(circle) {
-          targetPositions.push({
-            x: circle.attr('cx'),
-            y: circle.attr('cy')
-          });
-        });
-
-        // Apply the positions from the source SVG to the target SVG
-        targetCircles.forEach(function(circle, index) {
-          circle.attr({
-            cx: sourcePositions[index].x,
-            cy: sourcePositions[index].y
-          });
-        });
-
-        // Animate the circles to the new positions in the target SVG
-        targetCircles.forEach(function(circle, index) {
-          circle.animate({
-            cx: targetPositions[index].x,
-            cy: targetPositions[index].y
-          }, duration);
-        });
-      }
-
-      window.onload = function () {
-        // Set the initial background color to solid black
-        var container = document.querySelector('.container-two');
-        container.style.backgroundColor = '#000';
-
-        // After 2 seconds, change the background color back to the default
-        setTimeout(function () {
-          animateCircles('#background', '#backgroundTwo', 2000);
-          container.style.backgroundColor = '';
-        }, 2000);
-      };
-    </script>
   </body>
 </html>

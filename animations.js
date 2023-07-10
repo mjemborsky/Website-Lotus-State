@@ -65,3 +65,14 @@ document.addEventListener('DOMContentLoaded', function() {
 //     }, duration);
 //   });
 // }
+// window.onload = function () {
+//         // Set the initial background color to solid black
+//         var container = document.querySelector('.container-two');
+//         container.style.backgroundColor = '#000';
+
+//         // After 2 seconds, change the background color back to the default
+//         setTimeout(function () {
+//           animateCircles('#background', '#backgroundTwo', 2000);
+//           container.style.backgroundColor = '';
+//         }, 2000);
+//       };

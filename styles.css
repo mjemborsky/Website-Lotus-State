@@ -186,7 +186,7 @@ body {
   top:100px;
 }
 
-.projects, #links, .spotify-links {
+.projects, #links {
   display:flex;
   flex-direction: row;
   justify-content: center;
@@ -277,10 +277,6 @@ p {
   margin: 0;
 }
 
-.spotify-links, .spotify-link {
-  display: none;
-}
-
 /* Background Shapes and Elements*/ 
 
 @keyframes upcoming-animation {
@@ -303,23 +299,7 @@ p {
     flex-direction: column;
     top: 200px;
   }
-
-  .spotify-link {
-    display: block;
-    width: 75px;
-    height: 75px;
-    padding-left: 25px;
-    padding-right: 25px;
-  }
-  .spotify-links {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 50px;
-  }
 }
-
 @media screen and (max-width: 1100px) {
   .intro-video {
     height: 315px;
