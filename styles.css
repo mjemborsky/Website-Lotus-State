@@ -305,6 +305,7 @@ p {
 @media screen and (max-width: 900px) {
   .projects {
     flex-direction: column;
+    top: 200px;
   }
 
   .spotify-link {
