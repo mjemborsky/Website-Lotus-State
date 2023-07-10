@@ -97,18 +97,18 @@ body {
 }
 
 /* Div Element - Background Shape for Left and Right Header Links */
-.right-left-link-backcircle {
-  width: 50px;
+.right-left-link-backcircle, .left-link {
+  width: 75px;
   height: 50px;
   border-radius: 50%;
   position: relative;
   background-color: black;
-}
-/* a Element - Link to Expand Projects */
-.left-link {
   position: absolute;
   left: 20px;
   top: 20px;
+}
+/* a Element - Link to Expand Left Projects */
+.left-link {
 }
 
 .expanded-links {
