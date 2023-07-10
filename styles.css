@@ -79,7 +79,7 @@ body {
   color: ghostwhite;
 }
 
-.left-links, .right-links, .center-link{
+.left-links, .right-links, .center-link {
   display: flex;
   align-items: center;
 
@@ -134,7 +134,7 @@ body {
 .center-link {
   position: absolute;
   margin: 0 auto;
-  top: -50px;
+  top: -150px;
   height: 200px;
   padding-left: 50px;
   padding-right: 50px;
