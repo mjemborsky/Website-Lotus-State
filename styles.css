@@ -114,7 +114,7 @@ body {
 .expanded-links {
   display: none;
   position: absolute;
-  top: 70px;
+  top: 60px;
   left: 20px;
   background-color: black;
   border-radius: 50%;
@@ -132,8 +132,14 @@ body {
 }
 
 .center-link {
-  flex-grow: 1;
-  text-align: center;
+  position: absolute;
+  margin: 0 auto;
+  top: -50px;
+  height: 200px;
+  padding-left: 50px;
+  padding-right: 50px;
+  border-radius: 35%;
+
 }
 
 .header-text {
@@ -141,6 +147,7 @@ body {
   text-decoration: none;
   font-size: 40px;
   font-family: 'zorus_serifnormal';
+  top: 10px;
 }
 
 
