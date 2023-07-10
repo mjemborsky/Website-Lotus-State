@@ -125,7 +125,7 @@ body {
 
 }
 /* Div Element - Background Shape for Center Lotus State text */
-#center-link {
+.center-link {
   width: 400px;
   height: 200px;
   top: -50px;
