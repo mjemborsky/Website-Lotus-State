@@ -134,8 +134,7 @@ body {
 .center-link {
   position: absolute;
   margin: 0 auto;
-  top: -150px;
-  height: 200px;
+  height: 100px;
   padding-left: 50px;
   padding-right: 50px;
   border-radius: 0% 0% 150% 150%;
