@@ -69,14 +69,12 @@ body {
   font-family: 'ralewaythin';
 }
 
-header, #navbar {
+header {
   position: fixed;
   top: 0px;
   width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
   height: 100px;
   border-radius: 0% 0% 150% 150%;
   background-color: transparent;
@@ -123,6 +121,18 @@ header, #navbar {
   border-radius: 50%;
   position: relative;
   background-color: black;
+}
+
+.left-links {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+}
+
+.link-right {
+  position: absolute;
+  right: 20px;
+  top: 20px;
 }
 
 #center-link {
@@ -192,10 +202,6 @@ header, #navbar {
   margin: 0 auto;
 }
 
-#links {
-  top: 400px;
-}
-
 .link, .extra-links {
   width: 75px;
   height: 75px;
@@ -204,19 +210,8 @@ header, #navbar {
   padding-left: 10px;
 }
 
-.left-links {
-  position: absolute;
-  left: 20px;
-  top: 20px;
-}
-
-.link-right {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-}
-
 #links {
+  top: 400px;
   padding-bottom: 25px;
   padding-right: 25px;
 }
