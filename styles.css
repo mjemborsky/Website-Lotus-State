@@ -90,15 +90,6 @@ body {
   color: ghostwhite;
 }
 
-#navbar {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: ghostwhite;
-}
-
 .nav-link {
   height: 25px;
   width: 50px;
