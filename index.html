@@ -37,11 +37,13 @@
       </div>
     </section>
   </div>
-
   <script>
     window.onload = function() {
       var projectExpand = document.getElementById('project-expand');
       var expandedLinks = document.querySelector('.expanded-links');
+
+      // Hide the expanded links by default
+      expandedLinks.style.display = 'none';
 
       projectExpand.addEventListener('click', function(event) {
         event.preventDefault(); // Prevent the default link behavior
