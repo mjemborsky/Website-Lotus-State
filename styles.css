@@ -71,7 +71,7 @@ body {
 
 /*! HEADER/LINKS */
 
-header {
+#header {
   position: fixed;
   top: 0px;
   width: 100%;
