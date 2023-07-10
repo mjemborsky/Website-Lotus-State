@@ -107,9 +107,11 @@ header {
 }
 
 .left-links {
+  position: absolute;
   left: 20px;
 }
 .link-right {
+  position: absolute;
   right: 20px;
 }
 
