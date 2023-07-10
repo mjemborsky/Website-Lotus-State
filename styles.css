@@ -111,14 +111,12 @@
   color: ghostwhite;
   text-decoration: none;
 }
-.center-link {
+.center-link, .header-text {
   margin: 0 auto;
   height: 100px;
   padding-left: 50px;
   padding-right: 50px;
   border-radius: 0% 0% 150% 150%;
-}
-.header-text {
   color: whitesmoke;
   text-decoration: none;
   font-size: 40px;
