@@ -83,21 +83,6 @@ header {
   font-family: 'montserratthin';
 }
 
-.header-text {
-  position: relative;
-  color: whitesmoke;
-  font-size: 40px;
-  font-family: 'zorus_serifnormal';
-}
-#center-link {
-  width: 300px;
-  height: 100px;
-  top: -100;
-  border-radius: 25%;
-  position: relative;
-  background-color: black;
-}
-
 .nav-link {
   text-decoration: none;
   font-weight: bold;
@@ -105,14 +90,6 @@ header {
   height: 25px;
   width: 50px;
   opacity: 1;
-}
-
-.expanded-links {
-  display: none;
-}
-
-.expanded-links.show,  {
-  display: block;
 }
 
 #right-left-link {
@@ -129,12 +106,6 @@ header {
   top: 20px;
 }
 
-.link-right {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-}
-
 #center-link {
   width: 300px;
   height: 100px;
@@ -143,6 +114,28 @@ header {
   position: relative;
   background-color: black;
 }
+.header-text {
+  position: relative;
+  color: whitesmoke;
+  font-size: 40px;
+  font-family: 'zorus_serifnormal';
+}
+
+.link-right {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+.expanded-links {
+  display: none;
+}
+
+.expanded-links.show,  {
+  display: block;
+}
+
+
 
 .container-one, .container-two, .container-five {
   width: 100%;
