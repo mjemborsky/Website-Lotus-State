@@ -118,7 +118,7 @@ header {
 #center-link {
   width: 300px;
   height: 100px;
-  top: -100;
+  top: -100px;
   border-radius: 25%;
   position: relative;
   background-color: black;
