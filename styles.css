@@ -63,7 +63,7 @@ body {
 
 /*! HEADER/LINKS */
 
-#header, #navbar {
+#header {
   position: fixed;
   width: 100%;
   height: 100px;
@@ -89,6 +89,26 @@ body {
   margin-right: 20px;
   text-decoration: none;
   color: ghostwhite;
+}
+
+.left-links,
+.center-link,
+.right-links {
+  background-color: black;
+  padding: 10px;
+}
+
+.left-links a,
+.center-link a,
+.right-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.left-links a:hover,
+.center-link a:hover,
+.right-links a:hover {
+  background-color: ghostwhite;
 }
 
 .expanded-links {
