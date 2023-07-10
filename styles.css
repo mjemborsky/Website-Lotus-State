@@ -99,38 +99,19 @@ body {
   opacity: 1;
 }
 
-#right-left-link {
+/* Div Element - Background Shape for Left and Right Header Links */
+.right-left-link-backcircle {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   position: relative;
   background-color: black;
 }
-
-.left-links {
+/* a Element - Link to Expand Projects */
+.left-link {
   position: absolute;
   left: 20px;
   top: 20px;
-}
-.link-right {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-}
-
-#center-link {
-  width: 400px;
-  height: 200px;
-  top: 0px;
-  border-radius: 50%;
-  position: relative;
-  background-color: black;
-}
-
-.header-text {
-  color: whitesmoke;
-  font-size: 40px;
-  font-family: 'zorus_serifnormal';
 }
 
 .expanded-links {
@@ -138,6 +119,32 @@ body {
 }
 .expanded-links.show,  {
   display: block;
+}
+
+.link-left {
+
+}
+/* Div Element - Background Shape for Center Lotus State text */
+#center-link {
+  width: 400px;
+  height: 200px;
+  top: -50px;
+  border-radius: 60%;
+  position: relative;
+  background-color: black;
+}
+
+.header-text {
+  color: whitesmoke;
+  text-decoration: none;
+  font-size: 40px;
+  font-family: 'zorus_serifnormal';
+}
+/* a Element - Link to More page (extra.html) */
+.link-right {
+  position: absolute;
+  right: 20px;
+  top: 20px;
 }
 
 /*! MAIN BODY */
