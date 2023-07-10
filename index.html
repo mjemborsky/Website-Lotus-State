@@ -6,6 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <base href="https://lotusstate.com/">
   <title>Lotus State</title>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var leftLink = document.querySelector('.left-link');
+      var expandedLinks = document.querySelector('.expanded-links');
+      // Initially hide the expanded links
+      expandedLinks.style.display = 'none';
+      // When the left link is clicked
+      leftLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        leftLink.style.display = 'none';
+        expandedLinks.style.display = 'block';
+       });
+      });
+  </script>
+
 <!--   <script src="snap.svg-min.js"></script>
   <script src="animations.js"></script> -->
 </head>
@@ -37,21 +52,5 @@
       </div>
     </section>
   </div>
-  <script>
-    window.onload = function() {
-      var projectExpand = document.querySelector('left-link');
-      var expandedLinks = document.querySelector('.expanded-links');
-
-      // Hide the expanded links by default
-      expandedLinks.style.display = 'none';
-
-      projectExpand.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent the default link behavior
-
-        projectExpand.style.display = 'none'; // Hide the project expand link
-        expandedLinks.style.display = 'block'; // Show the expanded links
-      });
-    };
-  </script>
 </body>
 </html>
