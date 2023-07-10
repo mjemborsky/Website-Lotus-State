@@ -5,57 +5,49 @@
     src: url('fonts/gilroy-ultralight-webfont.woff2') format('woff2'),
          url('fonts/gilroy-ultralight-webfont.woff') format('woff');
     font-weight: normal;
-    font-style: normal;
-}
+    font-style: normal;}
 @font-face {
     font-family: 'gilroy-ultralightuploadedfile';
     src: url('fonts/gilroy-ultralightitalic-webfont.woff2') format('woff2'),
          url('fonts/gilroy-ultralightitalic-webfont.woff') format('woff');
     font-weight: normal;
-    font-style: normal;
-}
+    font-style: normal;}
 @font-face {
     font-family: 'montserratthin_italic';
     src: url('fonts/montserrat-italic-variablefont_wght-webfont.woff2') format('woff2'),
          url('fonts/montserrat-italic-variablefont_wght-webfont.woff') format('woff');
     font-weight: normal;
-    font-style: normal;
-}
+    font-style: normal;}
 @font-face {
     font-family: 'montserratthin';
     src: url('fonts/montserrat-variablefont_wght-webfont.woff2') format('woff2'),
          url('fonts/montserrat-variablefont_wght-webfont.woff') format('woff');
     font-weight: normal;
-    font-style: normal;
-}
+    font-style: normal;}
 @font-face {
     font-family: 'ralewaythin_italic';
     src: url('fonts/raleway-italic-variablefont_wght-webfont.woff2') format('woff2'),
          url('fonts/raleway-italic-variablefont_wght-webfont.woff') format('woff');
     font-weight: normal;
-    font-style: normal;
-}
+    font-style: normal;}
 @font-face {
     font-family: 'ralewaythin';
     src: url('fonts/raleway-variablefont_wght-webfont.woff2') format('woff2'),
          url('fonts/raleway-variablefont_wght-webfont.woff') format('woff');
     font-weight: normal;
-    font-style: normal;
-}
+    font-style: normal;}
 @font-face {
     font-family: 'zorus_serifitalic';
     src: url('fonts/zorus_serif_italic-webfont.woff2') format('woff2'),
          url('fonts/zorus_serif_italic-webfont.woff') format('woff');
     font-weight: normal;
-    font-style: normal;
-}
+    font-style: normal;}
 @font-face {
     font-family: 'zorus_serifnormal';
     src: url('fonts/zorus_serif-webfont.woff2') format('woff2'),
          url('fonts/zorus_serif-webfont.woff') format('woff');
     font-weight: normal;
-    font-style: normal;
-}
+    font-style: normal;}
 
 body {
   height: 100%;
@@ -90,7 +82,7 @@ body {
 .left-links, .right-links {
   display: flex;
   align-items: center;
-  
+
 }
 
 .left-link, .link-right {
@@ -316,9 +308,11 @@ p {
 /* Media Querys */ 
 
 @media screen and (max-width: 900px) {
-  .spotify-iframe {
-    display: none;
+  #projects {
+    display: flex;
+    flex-direction: column;
   }
+
   .spotify-link {
     display: block;
     width: 75px;
