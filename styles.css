@@ -69,6 +69,8 @@ body {
   font-family: 'ralewaythin';
 }
 
+/*! HEADER/LINKS */
+
 header {
   position: fixed;
   top: 0px;
@@ -89,7 +91,7 @@ header {
 .nav-link {
   text-decoration: none;
   font-weight: bold;
-  color: black;
+  color: ghostwhite;
   height: 25px;
   width: 50px;
   opacity: 1;
@@ -101,12 +103,14 @@ header {
   border-radius: 50%;
   position: relative;
   background-color: black;
+  top: 20px;
 }
 
 .left-links {
-  position: absolute;
   left: 20px;
-  top: 20px;
+}
+.link-right {
+  right: 20px;
 }
 
 #center-link {
@@ -124,21 +128,14 @@ header {
   font-family: 'zorus_serifnormal';
 }
 
-.link-right {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-}
-
 .expanded-links {
   display: none;
 }
-
 .expanded-links.show,  {
   display: block;
 }
 
-
+/*! MAIN BODY */
 
 .container-one, .container-two, .container-five {
   width: 100%;
