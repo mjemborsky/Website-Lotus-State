@@ -81,6 +81,7 @@ body {
   z-index: 2;
   margin: 0 auto;
   font-family: 'montserratthin';
+  text-decoration: none;
 }
 
 #navbar {
@@ -89,12 +90,10 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
+  color: ghostwhite;
 }
 
 .nav-link {
-  text-decoration: none;
-  font-weight: bold;
-  color: ghostwhite;
   height: 25px;
   width: 50px;
   opacity: 1;
@@ -106,16 +105,17 @@ body {
   border-radius: 50%;
   position: relative;
   background-color: black;
-  top: 20px;
 }
 
 .left-links {
   position: absolute;
   left: 20px;
+  top: 20px;
 }
 .link-right {
   position: absolute;
   right: 20px;
+  top: 20px;
 }
 
 #center-link {
