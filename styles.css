@@ -140,16 +140,10 @@
   text-decoration: none;
   font-size: 32px;
   font-family: 'zorus_serifnormal';
-}
-.center-link {
   position: fixed;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-}
-.header-text {
-  position: relative;
-  top: 15px;
 }
 
 /*! MAIN BODY */
