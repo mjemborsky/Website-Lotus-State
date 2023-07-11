@@ -130,6 +130,7 @@
 }
 .center-link, .header-text {
   height: 125px;
+  width: 300px;
   margin: 0 auto;
   padding-left: 50px;
   padding-right: 50px;
