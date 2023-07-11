@@ -129,7 +129,7 @@
   font-size: 32px;
   font-family: 'zorus_serifnormal';
   position: fixed;
-  
+
 }
 .header-text {
   top: 15px;
@@ -168,7 +168,7 @@ body {
   position: absolute;
 }
 #projects {
-  top: 30px;
+  top: 100px;
 }
 .project-tile {
   min-width: 225px;
