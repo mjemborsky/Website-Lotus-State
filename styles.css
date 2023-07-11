@@ -80,13 +80,13 @@
 .center-link,
 .right-links {
   background-color: black;
-  padding: 10px;
 }
 .left-links a,
 .center-link a,
 .right-links a {
   color: white;
   text-decoration: none;
+  background-color: black;
 }
 .left-links a:hover,
 .center-link a:hover,
@@ -96,14 +96,15 @@
 .expanded-links {
   display: none;
   position: absolute;
-  top: 60px;
+  top: 40px;
   left: 20px;
   background-color: black;
   border-radius: 50%;
   padding: 10px;
 }
 .expanded-links.show,  {
-  display: block;
+  display: flex;
+  align-items: center;
 }
 .link-left {
   display: block;

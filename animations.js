@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
   leftLink.addEventListener('click', function(e) {
     e.preventDefault();
     leftLink.style.display = 'none';
-    expandedLinks.style.display = 'block';
+    expandedLinks.style.display = 'flex';
   });
 });
 
