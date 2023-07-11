@@ -140,9 +140,7 @@
   font-size: 32px;
   font-family: 'zorus_serifnormal';
   position: fixed;
-  top: 0;
   left: 50%;
-  transform: translateX(-50%);
 }
 
 /*! MAIN BODY */
