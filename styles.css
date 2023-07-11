@@ -76,7 +76,7 @@
 .right-links, .left-links a, .link-rights a {
   position: fixed;
   top: 0;
-  height: 75px;
+  height: 50px;
   width: 100px;
   background-color: black;
   text-decoration: none;
@@ -84,11 +84,11 @@
   font-size: 18px;
 }
 .left-links {
-  border-radius: 0% 0% 0% 150%;
+  border-radius: 0% 0% 150% 0%;
   left: 0;
 }
 .right-links {
-  border-radius: 0% 0% 150% 0%;
+  border-radius: 0% 0% 0% 150%;
   right: 0;
 }
 .left-links,
