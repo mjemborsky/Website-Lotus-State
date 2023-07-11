@@ -154,7 +154,7 @@
 }
 
 
-.center-link {
+.center-link, .header-text {
   height: 125px;
   width: 300px;
   margin: 0 auto; /* Center horizontally */
