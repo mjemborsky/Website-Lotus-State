@@ -114,7 +114,6 @@
 }
 .center-link, .header-text {
   margin: 0 auto;
-  height: 100px;
   padding-left: 50px;
   padding-right: 50px;
   border-radius: 0% 0% 150% 150%;
@@ -122,6 +121,9 @@
   text-decoration: none;
   font-size: 40px;
   font-family: 'zorus_serifnormal';
+}
+.header-text {
+  top: 15px;
 }
 
 /*! MAIN BODY */
