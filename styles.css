@@ -81,7 +81,6 @@
   width: 50px;
   background-color: black;
   border-radius: 50%;
-  z-index: 3;
   color: whitesmoke;
   text-decoration: none;
 }
@@ -125,7 +124,8 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  left: 0px;
+  left: 20px;
+  top: 20px;
 }
 .link-left {
   color: ghostwhite;
