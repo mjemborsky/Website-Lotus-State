@@ -72,12 +72,26 @@
   align-items: center;
 
 }
-.left-links a, .link-rights a {
+
+.left-links,
+.right-links {
+  position: fixed;
   top: 0;
-  margin-bottom: 25px;
+  height: 50px;
+  width: 50px;
+  background-color: black;
+  border-radius: 50%;
+  z-index: 3;
+}
+.left-links {
+  left: 0;
+}
+.right-links {
+  right: 0;
+}
+.left-links a, .link-rights a {
   text-decoration: none;
   color: ghostwhite;
-
 }
 .left-links,
 .center-link,
@@ -114,8 +128,6 @@
   left: 0px;
 }
 .link-left {
-  display: block;
-  margin-bottom: 10px;
   color: ghostwhite;
   text-decoration: none;
 }
