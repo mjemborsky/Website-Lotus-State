@@ -121,14 +121,15 @@
 }
 .center-link, .header-text {
   margin: 0 auto;
-  height: 75px;
   padding-left: 50px;
   padding-right: 50px;
   border-radius: 0% 0% 150% 150%;
   color: whitesmoke;
   text-decoration: none;
-  font-size: 40px;
+  font-size: 32px;
   font-family: 'zorus_serifnormal';
+  position: fixed;
+  
 }
 .header-text {
   top: 15px;
