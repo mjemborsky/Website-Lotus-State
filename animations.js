@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set CSS properties dynamically using JavaScript
     expandedLinks.style.alignItems = 'center';
     expandedLinks.style.flexDirection = 'column';
-    expandedLinks.style.left = '20px';
-    expandedLinks.style.top = '20px';
+    expandedLinks.style.left = '25px';
+    expandedLinks.style.top = '75px';
   });
 });
 
