@@ -71,10 +71,12 @@
   align-items: center;
 
 }
-.left-link, .link-right {
-  margin-right: 20px;
+.left-link a, .link-right a {
+  top: 0;
+  margin-bottom: 25px;
   text-decoration: none;
   color: ghostwhite;
+
 }
 .left-links,
 .center-link,
@@ -115,6 +117,7 @@
 }
 .center-link, .header-text {
   margin: 0 auto;
+  height: 75px;
   padding-left: 50px;
   padding-right: 50px;
   border-radius: 0% 0% 150% 150%;
