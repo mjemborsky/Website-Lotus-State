@@ -69,11 +69,21 @@
 .left-links, .right-links, .center-link {
   display: flex;
   align-items: center;
+}
+.left-link, .link-right {
+  display: flex;
+  padding-top: 5px;
+  padding-bottom: 5px;
 
 }
-
+.left-link {
+  padding-left: 5px;
+}
+.link-right {
+  padding-right: 5px;
+}
 .left-links,
-.right-links, .left-links a, .link-rights a {
+.right-links, .left-link, .link-right {
   position: fixed;
   top: 0;
   height: 50px;
@@ -83,11 +93,11 @@
   color: ghostwhite;
   font-size: 18px;
 }
-.left-links {
+.left-links, .left-link {
   border-radius: 0% 0% 150% 0%;
   left: 0;
 }
-.right-links {
+.right-links, .link-right {
   border-radius: 0% 0% 0% 150%;
   right: 0;
 }
