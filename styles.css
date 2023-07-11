@@ -109,6 +109,8 @@
 .expanded-links.show,  {
   display: flex;
   align-items: center;
+  flex-direction: column;
+  left: 0px;
 }
 .link-left {
   display: block;
