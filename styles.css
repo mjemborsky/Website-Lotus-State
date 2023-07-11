@@ -58,6 +58,7 @@
   border-radius: 0% 0% 150% 150%;
   background-color: transparent;
   z-index: 2;
+  opacity: .92;
   margin: 0 auto;
   font-family: 'montserratthin';
   text-decoration: none;
