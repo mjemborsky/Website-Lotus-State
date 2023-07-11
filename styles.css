@@ -153,6 +153,27 @@
   left: 50%;
 }
 
+
+.center-link {
+  height: 125px;
+  width: 300px;
+  margin: 0 auto; /* Center horizontally */
+  left: 0;
+  right: 0;
+  text-align: center; /* Center the text */
+  color: whitesmoke;
+  text-decoration: none;
+  font-size: 32px;
+  font-family: 'zorus_serifnormal';
+  position: fixed;
+  top: 0;
+}
+.header-text {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the content vertically */
+}
+
 /*! MAIN BODY */
 
 body {
