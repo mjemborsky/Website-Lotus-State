@@ -144,47 +144,8 @@ body {
   font-family: 'ralewaythin';
 }
 
-.container-one, .container-two, .container-five {
-  width: 100%;
-  height: 100vh;
-  top: 0 px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  background-size: cover;
-  position: absolute;
-  text-align: center;
-  color: ghostwhite;
-  background-color: #000;
-  background-repeat: repeat;
-}
-
-.container-one {
-  background-image: url('background.svg');
-}
-
 .container-two {
   background-image: url('backgroundTwo.svg');
-}
-
-.container-five {
-  background-image: url('backgroundFive.svg');
-}
-
-#new-projects {
-  top: 100px;
-  position: absolute;
-}
-
-#projects {
-  top: 30px;
-}
-
-.project-tile {
-  min-width: 225px;
-  padding: 25px;
 }
 
 #welcome-section {
@@ -195,6 +156,27 @@ body {
   padding-top: 50px;
   top:100px;
 }
+.container-one {
+  background-image: url('background.svg');
+}
+
+/*extra.html*/
+#new-projects {
+  top: 100px;
+  position: absolute;
+}
+#projects {
+  top: 30px;
+}
+.project-tile {
+  min-width: 225px;
+  padding: 25px;
+}
+/*background*/
+.container-five {
+  background-image: url('backgroundFive.svg');
+}
+
 
 .projects, #links {
   display:flex;
@@ -288,6 +270,23 @@ p {
 }
 
 /* Background Shapes and Elements*/ 
+
+.container-one, .container-two, .container-five {
+  width: 100%;
+  height: 100vh;
+  top: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  background-size: cover;
+  position: absolute;
+  text-align: center;
+  color: ghostwhite;
+  background-color: #000;
+  background-repeat: repeat;
+}
 
 @keyframes upcoming-animation {
   from {
