@@ -13,8 +13,18 @@ document.addEventListener('DOMContentLoaded', function() {
   // When the left link is clicked
   leftLink.addEventListener('click', function(e) {
     e.preventDefault();
+
+    // Hide the left link
     leftLink.style.display = 'none';
+
+    // Show the expanded links
     expandedLinks.style.display = 'flex';
+
+    // Set CSS properties dynamically using JavaScript
+    expandedLinks.style.alignItems = 'center';
+    expandedLinks.style.flexDirection = 'column';
+    expandedLinks.style.left = '20px';
+    expandedLinks.style.top = '20px';
   });
 });
 
