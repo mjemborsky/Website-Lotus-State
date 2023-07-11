@@ -84,7 +84,7 @@
 .left-links a,
 .center-link a,
 .right-links a {
-  color: white;
+  color: whitesmoke;
   text-decoration: none;
   background-color: black;
 }
@@ -92,6 +92,7 @@
 .center-link a:hover,
 .right-links a:hover {
   background-color: ghostwhite;
+  color: black;
 }
 .expanded-links {
   display: none;
