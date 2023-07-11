@@ -177,7 +177,9 @@ body {
   background-image: url('backgroundFive.svg');
 }
 
-
+#links {
+  top: 100px;
+}
 .projects, #links {
   display:flex;
   flex-direction: row;
