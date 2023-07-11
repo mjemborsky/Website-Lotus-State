@@ -82,6 +82,8 @@
   background-color: black;
   border-radius: 50%;
   z-index: 3;
+  color: whitesmoke;
+  text-decoration: none;
 }
 .left-links {
   left: 0;
@@ -101,8 +103,6 @@
 .left-links a,
 .center-link a,
 .right-links a {
-  color: whitesmoke;
-  text-decoration: none;
   background-color: black;
 }
 .left-links a:hover,
