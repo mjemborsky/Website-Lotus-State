@@ -203,11 +203,11 @@ body {
 
 /*extra.html*/
 #new-projects {
-  top: 100px;
+  top: 150px;
   position: absolute;
 }
 #projects {
-  top: 100px;
+  top: 150px;
 }
 .project-tile {
   min-width: 225px;
@@ -270,7 +270,7 @@ body {
   justify-content: center;
 }
 #lotusmane {
-  top: 100px;
+  top: 150px;
 }
 .lotusmane-coverart {
   top: 10px;
