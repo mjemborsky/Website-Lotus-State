@@ -62,11 +62,63 @@ document.addEventListener('DOMContentLoaded', function() {
     i.preventDefault();
     const link = i.target;
     targetBackground = "backgroundFive.svg";
-    animateBackground(targetBackground);
+    animateBackground(currentBackground, targetBackground);
   })
+
+
+  // Animating Background
+  function animateCircles(currentBackground, targetBackground) {
+    // Get the circles from the currentBackground SVG
+    const currentCircles = Array.from(currentBackground.getElementsByTagName('circle'));
+
+    // Get the circles from the targetBackground SVG
+    const targetCircles = Array.from(targetBackground.getElementsByTagName('circle'));
+
+    // Store the initial positions and required information of the current circles
+    const initialPositions = currentCircles.map(circle => ({
+      cx: circle.getAttribute('cx'),
+      cy: circle.getAttribute('cy'),
+      radius: circle.getAttribute('r')
+      // Add any other required information you need
+    }));
+
+    // Store the target positions and required information of the target circles
+    const targetPositions = targetCircles.map(circle => ({
+      cx: circle.getAttribute('cx'),
+      cy: circle.getAttribute('cy'),
+      radius: circle.getAttribute('r')
+      // Add any other required information you need
+    }));
+
+    // Animate the positions of the circles
+    // You can use any animation library or implement your own animation logic here
+
+    // Example using the anime.js library
+    anime({
+      targets: currentCircles,
+      duration: 1000, // Animation duration in milliseconds
+      easing: 'easeInOutSine', // Easing function
+      update: function (anim) {
+        const progress = anim.progress; // Animation progress from 0 to 1
+
+        // Update the position of each circle based on the progress
+        currentCircles.forEach((circle, index) => {
+          const initialPos = initialPositions[index];
+          const targetPos = targetPositions[index];
+
+          const currentX = initialPos.cx + (targetPos.cx - initialPos.cx) * progress;
+          const currentY = initialPos.cy + (targetPos.cy - initialPos.cy) * progress;
+
+          circle.setAttribute('cx', currentX);
+          circle.setAttribute('cy', currentY);
+        });
+      }
+    });
+  }
 
   // Animate the background transition using GSAP
   function animateBackground(targetBackground) {
+    
     gsap.to(targetBackground {
       opacity: 0, // Fade out the current background
       duration: 0.5,
