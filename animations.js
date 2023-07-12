@@ -45,14 +45,14 @@ document.addEventListener('DOMContentLoaded', function() {
   index.addEventListener('click', function(i) {
     i.preventDefault();
     targetBackground = "background.svg";
-    animateBackground(targetBackground);
+    animateBackground(currentBackground, targetBackground);
   })
 
   // Background: projects
   projects.addEventListener('click', function(i) {
     i.preventDefault();
     targetBackground = "backgroundTwo.svg";
-    animateBackground(targetBackground);
+    animateBackground(currentBackground, targetBackground);
   })
 
   // Background: more
