@@ -30,59 +30,56 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
-
-
-
-
 // Function: Potential animation for circles
-// function animateCircles(sourceSVG, targetSVG, duration) {
-//   // Load the source and target SVG files
-//   var sourceCircles = Snap.selectAll(sourceSVG + ' g:first-of-type circle');
-//   var targetCircles = Snap.selectAll(targetSVG + ' g:first-of-type circle');
+function animateCircles(sourceSVG, targetSVG, duration) {
+  // Load the source and target SVG files
+  var sourceCircles = Snap.selectAll(sourceSVG + ' g:first-of-type circle');
+  var targetCircles = Snap.selectAll(targetSVG + ' g:first-of-type circle');
 
-//   // Extract the positions of the circles from the source SVG
-//   var sourcePositions = [];
-//   sourceCircles.forEach(function(circle) {
-//     sourcePositions.push({
-//       x: circle.attr('cx'),
-//       y: circle.attr('cy')
-//     });
-//   });
+  // Extract the positions of the circles from the source SVG
+  var sourcePositions = [];
+  sourceCircles.forEach(function(circle) {
+    sourcePositions.push({
+      x: circle.attr('cx'),
+      y: circle.attr('cy')
+    });
+  });
 
-//   // Extract the positions of the circles from the target SVG
-//   var targetPositions = [];
-//   targetCircles.forEach(function(circle) {
-//     targetPositions.push({
-//       x: circle.attr('cx'),
-//       y: circle.attr('cy')
-//     });
-//   });
+  // Extract the positions of the circles from the target SVG
+  var targetPositions = [];
+  targetCircles.forEach(function(circle) {
+    targetPositions.push({
+      x: circle.attr('cx'),
+      y: circle.attr('cy')
+    });
+  });
 
-//   // Apply the positions from the source SVG to the target SVG
-//   targetCircles.forEach(function(circle, index) {
-//     circle.attr({
-//       cx: sourcePositions[index].x,
-//       cy: sourcePositions[index].y
-//     });
-//   });
+  // Apply the positions from the source SVG to the target SVG
+  targetCircles.forEach(function(circle, index) {
+    circle.attr({
+      cx: sourcePositions[index].x,
+      cy: sourcePositions[index].y
+    });
+  });
 
-//   // Animate the circles to the new positions in the target SVG
-//   targetCircles.forEach(function(circle, index) {
-//     circle.animate({
-//       cx: targetPositions[index].x,
-//       cy: targetPositions[index].y
-//     }, duration);
-//   });
-// }
-// window.onload = function () {
-//         // Set the initial background color to solid black
-//         var container = document.querySelector('.container-two');
-//         container.style.backgroundColor = '#000';
+  // Animate the circles to the new positions in the target SVG
+  targetCircles.forEach(function(circle, index) {
+    circle.animate({
+      cx: targetPositions[index].x,
+      cy: targetPositions[index].y
+    }, duration);
+  });
+}
 
-//         // After 2 seconds, change the background color back to the default
-//         setTimeout(function () {
-//           animateCircles('#background', '#backgroundTwo', 2000);
-//           container.style.backgroundColor = '';
-//         }, 2000);
-//       };
+// Run the animation when the page finishes loading
+window.onload = function() {
+  // Set the initial background color to solid black
+  var container = document.querySelector('.container-two');
+  container.style.backgroundColor = '#000';
+
+  // After 2 seconds, change the background color back to the default and animate the circles
+  setTimeout(function() {
+    animateCircles('#background', '#backgroundTwo', 2000);
+    container.style.backgroundColor = '';
+  }, 2000);
+};
