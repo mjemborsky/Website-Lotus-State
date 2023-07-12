@@ -19,9 +19,10 @@ document.addEventListener('DOMContentLoaded', function() {
   const more = document.querySelector('.link-right');
 
   // Initializing
-  expandedLinks.style.display = 'none';
-  var currentBackground = document.getElementById('background');
+  var currentBackground = document.getElementById('#background');
   var targetBackground = "";
+  expandedLinks.style.display = 'none';
+  currentBackground.style.display = '#background';
 
   // EVENT LISTENERS //
 
