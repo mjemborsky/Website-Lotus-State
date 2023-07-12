@@ -65,8 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
     currentBackground = document.getElementById('background');
     targetBackground = document.getElementById('backgroundFive');
     animateCircles(currentBackground, targetBackground);
-  })
-
+  });
 
   // Animating Background
   function animateCircles(currentBackground, targetBackground) {
