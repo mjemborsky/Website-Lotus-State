@@ -13,13 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
   // When the left link is clicked
   leftLink.addEventListener('click', function(e) {
     e.preventDefault();
-
     // Hide the left link
     leftLink.style.display = 'none';
-
     // Show the expanded links
     expandedLinks.style.display = 'flex';
-
     // Set CSS properties dynamically using JavaScript
     expandedLinks.style.alignItems = 'center';
     expandedLinks.style.flexDirection = 'column';
@@ -28,58 +25,56 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+// Get the link elements
+const index = document.querySelector('.header-text');
+const projects = document.querySelector('.link-left');
+const more = document.querySelector('.link-right');
+
+// Add event listeners to the links
+index.addEventListener('click', () => {
+  animateBackground('page1-container', 'page1-background', '#container-one', '#background');
+});
+
+projects.addEventListener('click', () => {
+  animateBackground('page2-container', 'page2-background', '#container-two', '#backgroundTwo');
+});
+
+more.addEventListener('click', () => {
+  animateBackground('page3-container', 'page3-background', 'page1-container', '#backgroundFive');
+});
+
+// Animation function
+function animateBackground(currentContainerId, currentBackgroundId, nextContainerId, nextBackgroundId) {
+  const currentContainer = document.getElementById(currentContainerId);
+  const currentBackground = document.getElementById(currentBackgroundId);
+  const nextContainer = document.getElementById(nextContainerId);
+  const nextBackground = document.getElementById(nextBackgroundId);
+
+  // Add animation logic using a library like GSAP or any other animation
 
 
-// Function: Potential animation for circles
-function animateCircles(sourceSVG, targetSVG, duration) {
-  // Load the source and target SVG files
-  var sourceCircles = Snap.selectAll(sourceSVG + ' g:first-of-type circle');
-  var targetCircles = Snap.selectAll(targetSVG + ' g:first-of-type circle');
 
-  // Extract the positions of the circles from the source SVG
-  var sourcePositions = [];
-  sourceCircles.forEach(function(circle) {
-    sourcePositions.push({
-      x: circle.attr('cx'),
-      y: circle.attr('cy')
-    });
-  });
+function animateBackground(source, target) {
+  // Get the source and target SVG elements
+  const sourceSVG = document.getElementById(source);
+  const targetSVG = document.getElementById(target);
 
-  // Extract the positions of the circles from the target SVG
-  var targetPositions = [];
-  targetCircles.forEach(function(circle) {
-    targetPositions.push({
-      x: circle.attr('cx'),
-      y: circle.attr('cy')
-    });
-  });
+  // Perform any necessary setup or adjustments before the animation
 
-  // Apply the positions from the source SVG to the target SVG
-  targetCircles.forEach(function(circle, index) {
-    circle.attr({
-      cx: sourcePositions[index].x,
-      cy: sourcePositions[index].y
-    });
-  });
-
-  // Animate the circles to the new positions in the target SVG
-  targetCircles.forEach(function(circle, index) {
-    circle.animate({
-      cx: targetPositions[index].x,
-      cy: targetPositions[index].y
-    }, duration);
+  // Animate the circle positions
+  // You can use a library like GSAP (GreenSock Animation Platform) for smooth animations
+  // Here's an example using GSAP
+  gsap.to(sourceSVG.querySelectorAll('circle'), {
+    duration: 1, // Adjust the duration as needed
+    attr: {
+      cx: (index, target) => target.getAttribute('cx') // Animate the 'cx' attribute to the target value
+    },
+    onComplete: () => {
+      // Animation complete
+      // Update the current page and set the background to the target SVG
+      currentPage = target;
+      sourceSVG.style.display = 'none'; // Hide the source SVG
+      targetSVG.style.display = 'block'; // Show the target SVG
+    }
   });
 }
-
-// Run the animation when the page finishes loading
-window.onload = function() {
-  // Set the initial background color to solid black
-  var container = document.querySelector('.container-two');
-  container.style.backgroundColor = '#000';
-
-  // After 2 seconds, change the background color back to the default and animate the circles
-  setTimeout(function() {
-    animateCircles('#background', '#backgroundTwo', 2000);
-    container.style.backgroundColor = '';
-  }, 2000);
-};
