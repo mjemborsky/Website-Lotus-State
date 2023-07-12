@@ -22,23 +22,26 @@ document.addEventListener('DOMContentLoaded', function() {
   var currentBackground = document.getElementById('background');
   var targetBackground = "";
   expandedLinks.style.display = 'none';
+  var isExpanded = false; // Flag to track the state of expanded links
 
   // EVENT LISTENERS //
 
-  // Expanded Links
+  // Expand or Collapse Links
   leftLink.addEventListener('click', function(e) {
     e.preventDefault();
-    // Show the expanded links
-    expandedLinks.style.display = 'flex';
-    // Set CSS properties dynamically using JavaScript
-    expandedLinks.style.alignItems = 'center';
-    expandedLinks.style.flexDirection = 'column';
-    expandedLinks.style.left = '25px';
-    expandedLinks.style.top = '75px';
-    leftLink.addEventListener('click', function(e) {
-      e.preventDefault();
+    if (isExpanded) {
+      // Collapse the links
       expandedLinks.style.display = 'none';
-    });
+      isExpanded = false;
+    } else {
+      // Expand the links
+      expandedLinks.style.display = 'flex';
+      expandedLinks.style.alignItems = 'center';
+      expandedLinks.style.flexDirection = 'column';
+      expandedLinks.style.left = '25px';
+      expandedLinks.style.top = '75px';
+      isExpanded = true;
+    }
   });
 
   // Background: index
