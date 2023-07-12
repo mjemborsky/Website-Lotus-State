@@ -72,14 +72,14 @@
 }
 .left-link, .link-right {
   display: flex;
-  padding-top: 5px;
+  padding-top: 10px;
   padding-bottom: 5px;
 }
 .left-link {
   padding-left: 5px;
 }
 .link-right {
-  padding-right: 5px;
+  padding-left: 15px;
 }
 .left-links,
 .right-links, .left-link, .link-right {
