@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const more = document.querySelector('.link-right');
 
   // Initializing
-  var currentBackground = document.getElementById('background');
+  var currentBackground = document.querySelector('object[data="' + window.location.pathname + '"]');
   var targetBackground = "";
   expandedLinks.style.display = 'none';
   var isExpanded = false; // Flag to track the state of expanded links
