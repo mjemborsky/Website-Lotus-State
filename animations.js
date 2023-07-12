@@ -4,13 +4,28 @@
 // the expansion of the project sub-links in the header and the background page 
 // transition animation and idle animation.
 
-// Function: Responsible for displaying either the "Projects" label or the various sub options.
+
+// IDEA: Maybe when index.html first loads, FOR THE FIRST TIME, loads from black and all elements fade in
+
+
 document.addEventListener('DOMContentLoaded', function() {
+  // For Expanding
   var leftLink = document.querySelector('.left-link');
   var expandedLinks = document.querySelector('.expanded-links');
-  // Initially hide the expanded links
+
+  // Constants for Background Animation
+  const index = document.querySelector('.header-text');
+  const projects = document.querySelector('.link-left');
+  const more = document.querySelector('.link-right');
+
+  // Initializing
   expandedLinks.style.display = 'none';
-  // When the left link is clicked
+  let currentBackground = "background.svg";
+  let targetBackground = "";
+
+  // EVENT LISTENERS //
+
+  // Expanded Links
   leftLink.addEventListener('click', function(e) {
     e.preventDefault();
     // Hide the left link
@@ -23,12 +38,53 @@ document.addEventListener('DOMContentLoaded', function() {
     expandedLinks.style.left = '25px';
     expandedLinks.style.top = '75px';
   });
+
+  // Background
+  links.forEach(link => {
+    link.addEventListener("click", handleClick);
+  });
+
+  // Handle link click event
+  function handleClick(event) {
+    event.preventDefault();
+    const link = event.target;
+
+    // Determine the target background based on the link's class
+    if (link.classList.contains("link-left")) {
+      targetBackground = "backgroundTwo.svg";
+    } else if (link.classList.contains("header-text")) {
+      targetBackground = "background.svg";
+    } else if (link.classList.contains("link-right")) {
+      targetBackground = "backgroundFive.svg";
+    }
+
+    // Animate the background transition
+    animateBackground();
+  }
+
+  // Animate the background transition using GSAP
+  function animateBackground() {
+    gsap.to(".background", {
+      opacity: 0, // Fade out the current background
+      duration: 0.5,
+      onComplete: () => {
+        // Update the current background to the target background
+        currentBackground = targetBackground;
+
+        // Load the new page or update content accordingly
+        // ...
+        
+        // Update the background image and fade it in
+        gsap.set(".background", { backgroundImage: `url(${currentBackground})` });
+        gsap.to(".background", { opacity: 1, duration: 0.5 });
+      }
+    });
+  }
+
 });
 
-// // Get the link elements
-// const index = document.querySelector('.header-text');
-// const projects = document.querySelector('.link-left');
-// const more = document.querySelector('.link-right');
+
+
 
 // // Add event listeners to the links
 // index.addEventListener('click', () => {
