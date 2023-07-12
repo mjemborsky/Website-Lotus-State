@@ -149,20 +149,8 @@
   font-size: 32px;
   font-family: 'zorus_serifnormal';
   position: fixed;
-  left: 50%;
-}
-.center-link, .header-text {
-  height: 125px;
-  width: 300px;
-  margin: 0 auto; /* Center horizontally */
   left: 0;
   right: 0;
-  text-align: center; /* Center the text */
-  color: whitesmoke;
-  text-decoration: none;
-  font-size: 32px;
-  font-family: 'zorus_serifnormal';
-  position: fixed;
   top: 0;
 }
 .header-text {
@@ -308,7 +296,6 @@ p {
 }
 
 /* Background Shapes and Elements */ 
-
 .container-one, .container-two, .container-five {
   width: 100%;
   height: 100vh;
@@ -357,6 +344,8 @@ p {
     font-size: 22px;
     height: 90px;
     width: 150px;
+    padding-right: 0;
+    padding-left: 0;
   }
 }
 @media screen and (max-width: 900px) {
