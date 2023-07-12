@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Background: index
   index.addEventListener('click', function(i) {
     i.preventDefault();
-    targetBackground = "background.svg";
+    targetBackground = document.getElementById('background');
     animateCircles(currentBackground, targetBackground);
   })
 
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
   projects.forEach(function(link) {
     link.element.addEventListener('click', function(i) {
       i.preventDefault();
-      targetBackground = "backgroundTwo.svg";
+      targetBackground = document.getElementById('backgroundTwo');
       animateCircles(currentBackground, targetBackground);
     });
   });
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Background: more
   more.addEventListener('click', function(i) {
     i.preventDefault();
-    targetBackground = "backgroundFive.svg";
+    targetBackground = document.getElementById('backgroundFive');
     animateCircles(currentBackground, targetBackground);
   })
 
