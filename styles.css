@@ -315,13 +315,13 @@ p {
 
 /* Background SVG */
 #container-one {
-  background-image: url('background.svg');
+  background-image: '#background';
 }
 #container-two {
-  background-image: url('backgroundTwo.svg');
+  background-image: '#backgroundTwo';
 }
 #container-five {
-  background-image: url('backgroundFive.svg');
+  background-image: '#backgroundFive';
 }
 
 .background-svg {
