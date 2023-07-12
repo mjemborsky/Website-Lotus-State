@@ -25,56 +25,56 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Get the link elements
-const index = document.querySelector('.header-text');
-const projects = document.querySelector('.link-left');
-const more = document.querySelector('.link-right');
+// // Get the link elements
+// const index = document.querySelector('.header-text');
+// const projects = document.querySelector('.link-left');
+// const more = document.querySelector('.link-right');
 
-// Add event listeners to the links
-index.addEventListener('click', () => {
-  animateBackground('page1-container', 'page1-background', '#container-one', '#background');
-});
+// // Add event listeners to the links
+// index.addEventListener('click', () => {
+//   animateBackground('page1-container', 'page1-background', '#container-one', '#background');
+// });
 
-projects.addEventListener('click', () => {
-  animateBackground('page2-container', 'page2-background', '#container-two', '#backgroundTwo');
-});
+// projects.addEventListener('click', () => {
+//   animateBackground('page2-container', 'page2-background', '#container-two', '#backgroundTwo');
+// });
 
-more.addEventListener('click', () => {
-  animateBackground('page3-container', 'page3-background', 'page1-container', '#backgroundFive');
-});
+// more.addEventListener('click', () => {
+//   animateBackground('page3-container', 'page3-background', 'page1-container', '#backgroundFive');
+// });
 
-// Animation function
-function animateBackground(currentContainerId, currentBackgroundId, nextContainerId, nextBackgroundId) {
-  const currentContainer = document.getElementById(currentContainerId);
-  const currentBackground = document.getElementById(currentBackgroundId);
-  const nextContainer = document.getElementById(nextContainerId);
-  const nextBackground = document.getElementById(nextBackgroundId);
+// // Animation function
+// function animateBackground(currentContainerId, currentBackgroundId, nextContainerId, nextBackgroundId) {
+//   const currentContainer = document.getElementById(currentContainerId);
+//   const currentBackground = document.getElementById(currentBackgroundId);
+//   const nextContainer = document.getElementById(nextContainerId);
+//   const nextBackground = document.getElementById(nextBackgroundId);
 
-  // Add animation logic using a library like GSAP or any other animation
+//   // Add animation logic using a library like GSAP or any other animation
 
 
 
-function animateBackground(source, target) {
-  // Get the source and target SVG elements
-  const sourceSVG = document.getElementById(source);
-  const targetSVG = document.getElementById(target);
+// function animateBackground(source, target) {
+//   // Get the source and target SVG elements
+//   const sourceSVG = document.getElementById(source);
+//   const targetSVG = document.getElementById(target);
 
-  // Perform any necessary setup or adjustments before the animation
+//   // Perform any necessary setup or adjustments before the animation
 
-  // Animate the circle positions
-  // You can use a library like GSAP (GreenSock Animation Platform) for smooth animations
-  // Here's an example using GSAP
-  gsap.to(sourceSVG.querySelectorAll('circle'), {
-    duration: 1, // Adjust the duration as needed
-    attr: {
-      cx: (index, target) => target.getAttribute('cx') // Animate the 'cx' attribute to the target value
-    },
-    onComplete: () => {
-      // Animation complete
-      // Update the current page and set the background to the target SVG
-      currentPage = target;
-      sourceSVG.style.display = 'none'; // Hide the source SVG
-      targetSVG.style.display = 'block'; // Show the target SVG
-    }
-  });
-}
+//   // Animate the circle positions
+//   // You can use a library like GSAP (GreenSock Animation Platform) for smooth animations
+//   // Here's an example using GSAP
+//   gsap.to(sourceSVG.querySelectorAll('circle'), {
+//     duration: 1, // Adjust the duration as needed
+//     attr: {
+//       cx: (index, target) => target.getAttribute('cx') // Animate the 'cx' attribute to the target value
+//     },
+//     onComplete: () => {
+//       // Animation complete
+//       // Update the current page and set the background to the target SVG
+//       currentPage = target;
+//       sourceSVG.style.display = 'none'; // Hide the source SVG
+//       targetSVG.style.display = 'block'; // Show the target SVG
+//     }
+//   });
+// }
