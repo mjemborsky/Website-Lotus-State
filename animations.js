@@ -44,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // Background: index
   index.addEventListener('click', function(i) {
     i.preventDefault();
-    const link = i.target;
     targetBackground = "background.svg";
     animateBackground(targetBackground);
   })
@@ -52,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // Background: projects
   projects.addEventListener('click', function(i) {
     i.preventDefault();
-    const link = i.target;
     targetBackground = "backgroundTwo.svg";
     animateBackground(targetBackground);
   })
@@ -60,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // Background: more
   more.addEventListener('click', function(i) {
     i.preventDefault();
-    const link = i.target;
     targetBackground = "backgroundFive.svg";
     animateBackground(currentBackground, targetBackground);
   })
@@ -114,26 +111,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
       }
     });
-  }
-
-  // Animate the background transition using GSAP
-  function animateBackground(targetBackground) {
-    
-    gsap.to(targetBackground {
-      opacity: 0, // Fade out the current background
-      duration: 0.5,
-      onComplete: () => {
-        // Update the current background to the target background
-        currentBackground = targetBackground;
-
-        // Load the new page or update content accordingly
-
-        // Update the background image
-        gsap.set(".background", { backgroundImage: `url(${currentBackground})` });
-        return currentBackground;
-      }
-
-    });
-    return currentBackground;
   }
 });
