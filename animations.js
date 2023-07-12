@@ -39,32 +39,33 @@ document.addEventListener('DOMContentLoaded', function() {
     expandedLinks.style.top = '75px';
   });
 
-  // Background
-  links.forEach(link => {
-    link.addEventListener("click", handleClick);
-  });
+  // Background: index
+  index.addEventListener('click', function(i) {
+    i.preventDefault();
+    const link = i.target;
+    targetBackground = "background.svg";
+    animateBackground(targetBackground);
+  })
 
-  // Handle link click event
-  function handleClick(event) {
-    event.preventDefault();
-    const link = event.target;
+  // Background: projects
+  projects.addEventListener('click', function(i) {
+    i.preventDefault();
+    const link = i.target;
+    targetBackground = "backgroundTwo.svg";
+    animateBackground(targetBackground);
+  })
 
-    // Determine the target background based on the link's class
-    if (link.classList.contains("link-left")) {
-      targetBackground = "backgroundTwo.svg";
-    } else if (link.classList.contains("header-text")) {
-      targetBackground = "background.svg";
-    } else if (link.classList.contains("link-right")) {
-      targetBackground = "backgroundFive.svg";
-    }
-
-    // Animate the background transition
-    animateBackground();
-  }
+  // Background: more
+  more.addEventListener('click', function(i) {
+    i.preventDefault();
+    const link = i.target;
+    targetBackground = "backgroundFive.svg";
+    animateBackground(targetBackground);
+  })
 
   // Animate the background transition using GSAP
-  function animateBackground() {
-    gsap.to(".background", {
+  function animateBackground(targetBackground) {
+    gsap.to(targetBackground {
       opacity: 0, // Fade out the current background
       duration: 0.5,
       onComplete: () => {
@@ -72,65 +73,14 @@ document.addEventListener('DOMContentLoaded', function() {
         currentBackground = targetBackground;
 
         // Load the new page or update content accordingly
-        // ...
-        
-        // Update the background image and fade it in
+
+        // Update the background image
         gsap.set(".background", { backgroundImage: `url(${currentBackground})` });
-        gsap.to(".background", { opacity: 1, duration: 0.5 });
+        return currentBackground;
       }
+
     });
+    return currentBackground;
   }
 
 });
-
-
-
-
-// // Add event listeners to the links
-// index.addEventListener('click', () => {
-//   animateBackground('page1-container', 'page1-background', '#container-one', '#background');
-// });
-
-// projects.addEventListener('click', () => {
-//   animateBackground('page2-container', 'page2-background', '#container-two', '#backgroundTwo');
-// });
-
-// more.addEventListener('click', () => {
-//   animateBackground('page3-container', 'page3-background', 'page1-container', '#backgroundFive');
-// });
-
-// // Animation function
-// function animateBackground(currentContainerId, currentBackgroundId, nextContainerId, nextBackgroundId) {
-//   const currentContainer = document.getElementById(currentContainerId);
-//   const currentBackground = document.getElementById(currentBackgroundId);
-//   const nextContainer = document.getElementById(nextContainerId);
-//   const nextBackground = document.getElementById(nextBackgroundId);
-
-//   // Add animation logic using a library like GSAP or any other animation
-
-
-
-// function animateBackground(source, target) {
-//   // Get the source and target SVG elements
-//   const sourceSVG = document.getElementById(source);
-//   const targetSVG = document.getElementById(target);
-
-//   // Perform any necessary setup or adjustments before the animation
-
-//   // Animate the circle positions
-//   // You can use a library like GSAP (GreenSock Animation Platform) for smooth animations
-//   // Here's an example using GSAP
-//   gsap.to(sourceSVG.querySelectorAll('circle'), {
-//     duration: 1, // Adjust the duration as needed
-//     attr: {
-//       cx: (index, target) => target.getAttribute('cx') // Animate the 'cx' attribute to the target value
-//     },
-//     onComplete: () => {
-//       // Animation complete
-//       // Update the current page and set the background to the target SVG
-//       currentPage = target;
-//       sourceSVG.style.display = 'none'; // Hide the source SVG
-//       targetSVG.style.display = 'block'; // Show the target SVG
-//     }
-//   });
-// }
