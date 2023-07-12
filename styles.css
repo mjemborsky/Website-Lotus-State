@@ -5,63 +5,164 @@
     src: url('fonts/gilroy-ultralight-webfont.woff2') format('woff2'),
          url('fonts/gilroy-ultralight-webfont.woff') format('woff');
     font-weight: normal;
-    font-style: normal;
-}
+    font-style: normal;}
 @font-face {
     font-family: 'gilroy-ultralightuploadedfile';
     src: url('fonts/gilroy-ultralightitalic-webfont.woff2') format('woff2'),
          url('fonts/gilroy-ultralightitalic-webfont.woff') format('woff');
     font-weight: normal;
-    font-style: normal;
-}
+    font-style: normal;}
 @font-face {
     font-family: 'montserratthin_italic';
     src: url('fonts/montserrat-italic-variablefont_wght-webfont.woff2') format('woff2'),
          url('fonts/montserrat-italic-variablefont_wght-webfont.woff') format('woff');
     font-weight: normal;
-    font-style: normal;
-}
+    font-style: normal;}
 @font-face {
     font-family: 'montserratthin';
     src: url('fonts/montserrat-variablefont_wght-webfont.woff2') format('woff2'),
          url('fonts/montserrat-variablefont_wght-webfont.woff') format('woff');
     font-weight: normal;
-    font-style: normal;
-}
+    font-style: normal;}
 @font-face {
     font-family: 'ralewaythin_italic';
     src: url('fonts/raleway-italic-variablefont_wght-webfont.woff2') format('woff2'),
          url('fonts/raleway-italic-variablefont_wght-webfont.woff') format('woff');
     font-weight: normal;
-    font-style: normal;
-}
+    font-style: normal;}
 @font-face {
     font-family: 'ralewaythin';
     src: url('fonts/raleway-variablefont_wght-webfont.woff2') format('woff2'),
          url('fonts/raleway-variablefont_wght-webfont.woff') format('woff');
     font-weight: normal;
-    font-style: normal;
-}
+    font-style: normal;}
 @font-face {
     font-family: 'zorus_serifitalic';
     src: url('fonts/zorus_serif_italic-webfont.woff2') format('woff2'),
          url('fonts/zorus_serif_italic-webfont.woff') format('woff');
     font-weight: normal;
-    font-style: normal;
-}
+    font-style: normal;}
 @font-face {
     font-family: 'zorus_serifnormal';
     src: url('fonts/zorus_serif-webfont.woff2') format('woff2'),
          url('fonts/zorus_serif-webfont.woff') format('woff');
     font-weight: normal;
-    font-style: normal;
+    font-style: normal;}
+
+/*! HEADER/LINKS */
+
+#header {
+  position: fixed;
+  width: 100%;
+  height: 100px;
+  background-color: transparent;
+  z-index: 2;
+  opacity: .92;
+  margin: 0 auto;
+  font-family: 'montserratthin';
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: ghostwhite;
+}
+.left-links, .right-links, .center-link {
+  display: flex;
+  align-items: center;
+}
+.left-link, .link-right {
+  display: flex;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.left-link {
+  padding-left: 5px;
+}
+.link-right {
+  padding-right: 5px;
+}
+.left-links,
+.right-links, .left-link, .link-right {
+  position: fixed;
+  top: 0;
+  height: 50px;
+  width: 100px;
+  background-color: black;
+  text-decoration: none;
+  color: ghostwhite;
+  font-size: 18px;
+}
+.left-links, .left-link {
+  border-radius: 0% 0% 150% 0%;
+  left: 0;
+}
+.right-links, .link-right {
+  border-radius: 0% 0% 0% 150%;
+  right: 0;
+}
+.left-links,
+.center-link,
+.right-links {
+  background-color: black;
+}
+.left-links a,
+.center-link a,
+.right-links a {
+  background-color: black;
+}
+.left-links a:hover,
+.center-link a:hover,
+.right-links a:hover {
+  background-color: ghostwhite;
+  color: black;
+}
+.expanded-links {
+  display: none;
+  position: absolute;
+  top: 40px;
+  left: 20px;
+  background-color: black;
+  border-radius: 50%;
+  padding: 10px;
+  z-index: 3;
+}
+.expanded-links.show,  {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  left: 20px;
+  top: 20px;
+}
+.link-left {
+  color: ghostwhite;
+  text-decoration: none;
+}
+.center-link, .header-text {
+  height: 125px;
+  width: 300px;
+  margin: 0 auto;
+  padding-left: 50px;
+  padding-right: 50px;
+  border-radius: 0% 0% 150% 150%;
+  color: whitesmoke;
+  text-decoration: none;
+  font-size: 32px;
+  font-family: 'zorus_serifnormal';
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+.header-text {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the content vertically */
 }
 
+/*! MAIN BODY */
+
 body {
-  height: 100%;
   margin: 0 auto;
-  background-size: 100%;
-  z-index: -1;
   width: 100%; 
   display: block;
   background-color: #333333;
@@ -69,91 +170,8 @@ body {
   font-family: 'ralewaythin';
 }
 
-header, #navbar {
-  position: fixed;
-  width: 100%;
-  top: 0px;
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  background-color: darkgray;
-  height: 100px;
-  border-radius: 0% 0% 150% 150%;
-  opacity: .80;
-  z-index: 2;
-  margin: 0 auto;
-  font-family: 'ralewaythin';
-}
 
-.header-text {
-  position: relative;
-  color: black;
-  font-size: 40px;
-  font-family: 'zorus_serifnormal';
-}
-
-.nav-link {
-  text-decoration: none;
-  font-weight: bold;
-  color: black;
-  height: 25px;
-  width: 50px;
-  opacity: 1;
-}
-
-/*.expanded-links {
-  display: none;
-}
-
-.expanded-links.show {
-  display: block;
-}*/
-
-
-.container-one, .container-two, .container-five {
-  width: 100%;
-  height: 100vh;
-  top: 0 px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  background-size: cover;
-  position: absolute;
-  text-align: center;
-  color: ghostwhite;
-  background-color: #000;
-}
-
-.container-one {
-  background-image: url('background.svg');
-}
-
-.container-two {
-  background-image: url('backgroundTwo.svg');
-}
-
-.container-five {
-  background-image: url('backgroundFive.svg');
-}
-
-#new-projects {
-  top: 100px;
-  position: absolute;
-}
-
-#projects {
-  top: 30px;
-}
-
-.project-tile {
-  min-width: 225px;
-  padding: 25px;
-}
-
+/*index.html*/
 #welcome-section {
   display: flex;
   flex-direction: column;
@@ -163,15 +181,32 @@ header, #navbar {
   top:100px;
 }
 
-.projects, #links, .spotify-links {
+/*projects.html*/
+
+
+/*extra.html*/
+#new-projects {
+  top: 150px;
+  position: absolute;
+}
+#projects {
+  top: 150px;
+}
+.project-tile {
+  min-width: 225px;
+  padding: 25px;
+}
+/*background*/
+
+
+#links {
+  top: 100px;
+}
+.projects, #links {
   display:flex;
   flex-direction: row;
   justify-content: center;
   margin: 0 auto;
-}
-
-#links {
-  top: 400px;
 }
 
 .link, .extra-links {
@@ -182,19 +217,8 @@ header, #navbar {
   padding-left: 10px;
 }
 
-.left-links {
-  position: absolute;
-  left: 20px;
-  top: 20px;
-}
-
-.link-right {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-}
-
 #links {
+  top: 400px;
   padding-bottom: 25px;
   padding-right: 25px;
 }
@@ -226,7 +250,9 @@ header, #navbar {
   margin: 0 auto;
   justify-content: center;
 }
-
+#lotusmane {
+  top: 150px;
+}
 .lotusmane-coverart {
   top: 10px;
   height: 400px;
@@ -269,12 +295,36 @@ p {
   margin: 0;
 }
 
-.spotify-links, .spotify-link {
-  display: none;
+/* Background Shapes and Elements */ 
+.container-one, .container-two, .container-five {
+  width: 100%;
+  height: 100vh;
+  top: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  background-size: cover;
+  position: absolute;
+  text-align: center;
+  color: ghostwhite;
+  background-color: #000;
+  background-repeat: repeat;
 }
 
-/* Background Shapes and Elements*/ 
+/* Background SVG */
+.container-one {
+  background-image: url('background.svg');
+}
+.container-two {
+  background-image: url('backgroundTwo.svg');
+}
+.container-five {
+  background-image: url('backgroundFive.svg');
+}
 
+/* Animations */
 @keyframes upcoming-animation {
   from {
     width: 300px;
@@ -288,46 +338,22 @@ p {
   }
 }
 
-@keyframes fade-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 /* Media Querys */ 
-
-@media screen and (max-width: 900px) {
-  .spotify-iframe {
-    display: none;
-  }
-  .spotify-link {
-    display: block;
-    width: 75px;
-    height: 75px;
-    padding-left: 25px;
-    padding-right: 25px;
-  }
-  .spotify-links {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 50px;
+@media screen and (max-width: 675px) {
+  .center-link, .header-text {
+    font-size: 22px;
+    height: 90px;
+    width: 150px;
+    padding-right: 0;
+    padding-left: 0;
   }
 }
-
+@media screen and (max-width: 900px) {
+  .projects {
+    flex-direction: column;
+    top: 200px;
+  }
+}
 @media screen and (max-width: 1100px) {
   .intro-video {
     height: 315px;

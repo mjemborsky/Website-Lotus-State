@@ -1,97 +1,38 @@
-<!-- HTML document for Lotus State website -->
-<!-- Base (home) page -->
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <link rel="stylesheet" href="styles.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="https://lotusstate.com/">
-    <title>Lotus State</title>
-    <script src="snap.svg-min.js"></script>
-    <script src="animations.js"></script>
-  </head>
-  <body>
-    <header id="header">
-      <nav id="navbar">
-        <div class="left-links">
-          <a class="nav-link" >Projects</a>
-            <div class="expanded-links">
-              <a class="link-left" href="projects.html">Lotus State</a>
-              <a class="link-left" href="lotusmane.html">LOTUSMANE</a>
-              <a class="link-left" href="lotusstatebeats.html">Lotus State Beats</a>
-            </div>
-        </div>
-        <div class="header-text">
-          <a class="nav-link" href="index.html">
-            <h1>Lotus State</h1>
-          </a>
-        </div>
-        <div class="link-right">
-          <a class="nav-link" href="extra.html">More</a>
-        </div>
-      </nav>
-    </header>
-    <div class="container-one">
-      <section id="welcome-section">
-          <div class="welcome-video">
-            <iframe class="intro-video" width="1000" height="563" src="https://www.youtube.com/embed/jyyE36DKAdk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </section>
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="https://lotusstate.com/">
+  <title>Lotus State</title>
+  <script src="animations.js"></script>
+</head>
+<body>
+  <header id="header">
+    <div class="left-links">
+      <a class="left-link" href="#">Projects</a>
+      <div class="expanded-links">
+        <a class="link-left" href="projects.html">Lotus State</a>
+        <a class="link-left" href="lotusmane.html">LOTUSMANE</a>
+        <a class="link-left" href="lotusstatebeats.html">Lotus State Beats</a>
+      </div>
     </div>
-    <script>
-      function animateCircles(sourceSVG, targetSVG, duration) {
-        // Load the source and target SVG files
-        var sourceCircles = Snap.selectAll(sourceSVG + ' g:first-of-type circle');
-        var targetCircles = Snap.selectAll(targetSVG + ' g:first-of-type circle');
-
-        // Extract the positions of the circles from the source SVG
-        var sourcePositions = [];
-        sourceCircles.forEach(function(circle) {
-          sourcePositions.push({
-            x: circle.attr('cx'),
-            y: circle.attr('cy')
-          });
-        });
-
-        // Extract the positions of the circles from the target SVG
-        var targetPositions = [];
-        targetCircles.forEach(function(circle) {
-          targetPositions.push({
-            x: circle.attr('cx'),
-            y: circle.attr('cy')
-          });
-        });
-
-        // Apply the positions from the source SVG to the target SVG
-        targetCircles.forEach(function(circle, index) {
-          circle.attr({
-            cx: sourcePositions[index].x,
-            cy: sourcePositions[index].y
-          });
-        });
-
-        // Animate the circles to the new positions in the target SVG
-        targetCircles.forEach(function(circle, index) {
-          circle.animate({
-            cx: targetPositions[index].x,
-            cy: targetPositions[index].y
-          }, duration);
-        });
-      }
-
-      window.onload = function () {
-        // Set the initial background color to solid black
-        var container = document.querySelector('.container-one');
-        container.style.backgroundColor = '#000';
-
-        // After 2 seconds, change the background color back to the default
-        setTimeout(function () {
-          animateCircles('#background', '#backgroundTwo', 2000);
-          container.style.backgroundColor = '';
-        }, 2000);
-      };
-    </script>
-  </body>
+    <div class="center-link">
+      <a class="header-text" href="index.html">
+        <h1>Lotus State</h1>
+      </a>
+    </div>
+    <div class="right-links">
+      <a class="link-right" href="extra.html">More</a>
+    </div>
+  </header>
+  <div class="container-one">
+    <section id="welcome-section">
+      <div class="welcome-video">
+        <iframe class="intro-video" width="1000" height="563" src="https://www.youtube.com/embed/jyyE36DKAdk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </section>
+  </div>
+</body>
 </html>
