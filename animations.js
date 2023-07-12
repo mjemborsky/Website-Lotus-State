@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Initializing
   expandedLinks.style.display = 'none';
-  var currentBackground = "background.svg";
+  var currentBackground = document.getElementById('background');
   var targetBackground = "";
 
   // EVENT LISTENERS //
