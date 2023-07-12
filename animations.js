@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
   index.addEventListener('click', function(i) {
     i.preventDefault();
     targetBackground = document.getElementById('background');
+    currentBackground = document.getElementById('background');
     animateCircles(currentBackground, targetBackground);
   })
 
@@ -52,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
   projects.forEach(function(link) {
     link.addEventListener('click', function(i) {
       i.preventDefault();
+      currentBackground = document.getElementById('background');
       targetBackground = document.getElementById('backgroundTwo');
       animateCircles(currentBackground, targetBackground);
     });
@@ -60,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Background: more
   more.addEventListener('click', function(i) {
     i.preventDefault();
+    currentBackground = document.getElementById('background');
     targetBackground = document.getElementById('backgroundFive');
     animateCircles(currentBackground, targetBackground);
   })
