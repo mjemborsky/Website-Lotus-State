@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Constants for Background Animation
   const index = document.querySelector('.header-text');
-  const projects = document.querySelector('.link-left');
+  const projects = document.querySelectorAll('.link-left');
   const more = document.querySelector('.link-right');
 
   // Initializing
@@ -45,21 +45,23 @@ document.addEventListener('DOMContentLoaded', function() {
   index.addEventListener('click', function(i) {
     i.preventDefault();
     targetBackground = "background.svg";
-    animateBackground(currentBackground, targetBackground);
+    animateCircles(currentBackground, targetBackground);
   })
 
   // Background: projects
-  projects.addEventListener('click', function(i) {
-    i.preventDefault();
-    targetBackground = "backgroundTwo.svg";
-    animateBackground(currentBackground, targetBackground);
-  })
+  projects.forEach(function(link) {
+    link.element.addEventListener('click', function(i) {
+      i.preventDefault();
+      targetBackground = "backgroundTwo.svg";
+      animateCircles(currentBackground, targetBackground);
+    });
+  });
 
   // Background: more
   more.addEventListener('click', function(i) {
     i.preventDefault();
     targetBackground = "backgroundFive.svg";
-    animateBackground(currentBackground, targetBackground);
+    animateCircles(currentBackground, targetBackground);
   })
 
 
