@@ -133,7 +133,22 @@
   left: 20px;
   top: 20px;
 }
+#project-expanded-one {
+  top: 20px;
+  right: 100px;
+}
+#project-expanded-two {
+  top: 100px;
+  right: 60px;
+}
+#project-expanded-three {
+  top: 150px;
+  right: 20px;
+}
 .link-left {
+  position: fixed;
+  height: 75px;
+  width: 75px;
   color: ghostwhite;
   text-decoration: none;
 }
