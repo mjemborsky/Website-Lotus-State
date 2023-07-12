@@ -348,6 +348,15 @@ p {
 
 /* Media Querys */ 
 
+@media screen and (max-width: 675px) {
+  .center-link, .header-text {
+    font-size: 22px;
+    height: 90px;
+    width: 150px;
+  }
+}
+
+
 @media screen and (max-width: 900px) {
   .projects {
     flex-direction: column;
