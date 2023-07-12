@@ -19,10 +19,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const more = document.querySelector('.link-right');
 
   // Initializing
-  var currentBackground = document.getElementById('#background');
+  var currentBackground = document.getElementById('background');
   var targetBackground = "";
   expandedLinks.style.display = 'none';
-  currentBackground.style.display = '#background';
 
   // EVENT LISTENERS //
 
@@ -46,9 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
   index.addEventListener('click', function(i) {
     i.preventDefault();
     targetBackground = document.getElementById('background');
-    currentBackground = document.getElementById('background');
     animateCircles(currentBackground, targetBackground);
-  })
+  });
 
   // Background: projects
   projects.forEach(function(link) {
