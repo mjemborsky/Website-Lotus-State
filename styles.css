@@ -74,7 +74,6 @@
   display: flex;
   padding-top: 5px;
   padding-bottom: 5px;
-
 }
 .left-link {
   padding-left: 5px;
@@ -152,8 +151,6 @@
   position: fixed;
   left: 50%;
 }
-
-
 .center-link, .header-text {
   height: 125px;
   width: 300px;
@@ -185,10 +182,8 @@ body {
   font-family: 'ralewaythin';
 }
 
-.container-two {
-  background-image: url('backgroundTwo.svg');
-}
 
+/*index.html*/
 #welcome-section {
   display: flex;
   flex-direction: column;
@@ -197,9 +192,9 @@ body {
   padding-top: 50px;
   top:100px;
 }
-.container-one {
-  background-image: url('background.svg');
-}
+
+/*projects.html*/
+
 
 /*extra.html*/
 #new-projects {
@@ -214,9 +209,7 @@ body {
   padding: 25px;
 }
 /*background*/
-.container-five {
-  background-image: url('backgroundFive.svg');
-}
+
 
 #links {
   top: 100px;
@@ -314,7 +307,7 @@ p {
   margin: 0;
 }
 
-/* Background Shapes and Elements*/ 
+/* Background Shapes and Elements */ 
 
 .container-one, .container-two, .container-five {
   width: 100%;
@@ -333,6 +326,18 @@ p {
   background-repeat: repeat;
 }
 
+/* Background SVG */
+.container-one {
+  background-image: url('background.svg');
+}
+.container-two {
+  background-image: url('backgroundTwo.svg');
+}
+.container-five {
+  background-image: url('backgroundFive.svg');
+}
+
+/* Animations */
 @keyframes upcoming-animation {
   from {
     width: 300px;
@@ -347,7 +352,6 @@ p {
 }
 
 /* Media Querys */ 
-
 @media screen and (max-width: 675px) {
   .center-link, .header-text {
     font-size: 22px;
@@ -355,8 +359,6 @@ p {
     width: 150px;
   }
 }
-
-
 @media screen and (max-width: 900px) {
   .projects {
     flex-direction: column;
