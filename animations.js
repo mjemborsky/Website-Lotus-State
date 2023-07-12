@@ -20,16 +20,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Initializing
   expandedLinks.style.display = 'none';
-  let currentBackground = "background.svg";
-  let targetBackground = "";
+  var currentBackground = "background.svg";
+  var targetBackground = "";
 
   // EVENT LISTENERS //
 
   // Expanded Links
   leftLink.addEventListener('click', function(e) {
     e.preventDefault();
-    // Hide the left link
-    leftLink.style.display = 'none';
     // Show the expanded links
     expandedLinks.style.display = 'flex';
     // Set CSS properties dynamically using JavaScript
@@ -37,6 +35,10 @@ document.addEventListener('DOMContentLoaded', function() {
     expandedLinks.style.flexDirection = 'column';
     expandedLinks.style.left = '25px';
     expandedLinks.style.top = '75px';
+    leftLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      expandedLinks.style.display = 'none';
+    });
   });
 
   // Background: index
@@ -82,5 +84,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     return currentBackground;
   }
-
 });
