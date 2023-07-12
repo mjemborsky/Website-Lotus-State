@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Background: projects
   projects.forEach(function(link) {
-    link.element.addEventListener('click', function(i) {
+    link.addEventListener('click', function(i) {
       i.preventDefault();
       targetBackground = document.getElementById('backgroundTwo');
       animateCircles(currentBackground, targetBackground);
