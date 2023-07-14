@@ -61,7 +61,8 @@ document.addEventListener('DOMContentLoaded', function() {
   // Background: index
   index.addEventListener('click', function(i) {
     i.preventDefault();
-    targetBackground = document.getElementById('background');
+    const currentBackground = document.getElementById('background');
+    const targetBackground = document.getElementById('background');
     animateCircles(currentBackground, targetBackground);
   });
 
@@ -69,8 +70,8 @@ document.addEventListener('DOMContentLoaded', function() {
   projects.forEach(function(link) {
     link.addEventListener('click', function(i) {
       i.preventDefault();
-      currentBackground = document.getElementById('background');
-      targetBackground = document.getElementById('backgroundTwo');
+      const currentBackground = document.getElementById('background');
+      const targetBackground = document.getElementById('backgroundTwo');
       animateCircles(currentBackground, targetBackground);
     });
   });
@@ -78,8 +79,8 @@ document.addEventListener('DOMContentLoaded', function() {
   // Background: more
   more.addEventListener('click', function(i) {
     i.preventDefault();
-    currentBackground = document.getElementById('background');
-    targetBackground = document.getElementById('backgroundFive');
+    const currentBackground = document.getElementById('background');
+    const targetBackground = document.getElementById('backgroundFive');
     animateCircles(currentBackground, targetBackground);
   });
 
