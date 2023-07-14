@@ -134,3 +134,76 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+// POTENTIAL CODE
+// // JavaScript
+// // Animating Background
+// function animateCircles(currentBackground, targetBackground) {
+//   // Get the container element
+//   const container = document.getElementById("backgroundContainer");
+
+//   // Clone the target background SVG and append it to the container
+//   const targetBackgroundClone = targetBackground.cloneNode(true);
+//   container.appendChild(targetBackgroundClone);
+
+//   // Get the circles from the current background SVG
+//   const currentCircles = Array.from(currentBackground.getElementsByTagName("circle"));
+
+//   // Get the circles from the target background SVG
+//   const targetCircles = Array.from(targetBackgroundClone.getElementsByTagName("circle"));
+
+//   // Store the initial positions and required information of the current circles
+//   const initialPositions = currentCircles.map((circle) => ({
+//     cx: circle.getAttribute("cx"),
+//     cy: circle.getAttribute("cy"),
+//     radius: circle.getAttribute("r"),
+//     // Add any other required information you need
+//   }));
+
+//   // Store the target positions and required information of the target circles
+//   const targetPositions = targetCircles.map((circle) => ({
+//     cx: circle.getAttribute("cx"),
+//     cy: circle.getAttribute("cy"),
+//     radius: circle.getAttribute("r"),
+//     // Add any other required information you need
+//   }));
+
+//   // Set the initial positions of the target circles to match the current circles
+//   targetCircles.forEach((circle, index) => {
+//     const initialPos = initialPositions[index];
+//     circle.setAttribute("cx", initialPos.cx);
+//     circle.setAttribute("cy", initialPos.cy);
+//   });
+
+//   // Animate the positions of the circles
+//   anime({
+//     targets: targetCircles,
+//     duration: 1000, // Animation duration in milliseconds
+//     easing: "easeInOutSine", // Easing function
+//     update: function (anim) {
+//       const progress = anim.progress; // Animation progress from 0 to 1
+
+//       // Update the position of each circle based on the progress
+//       targetCircles.forEach((circle, index) => {
+//         const initialPos = initialPositions[index];
+//         const targetPos = targetPositions[index];
+
+//         const currentX = initialPos.cx + (targetPos.cx - initialPos.cx) * progress;
+//         const currentY = initialPos.cy + (targetPos.cy - initialPos.cy) * progress;
+
+//         circle.setAttribute("cx", currentX);
+//         circle.setAttribute("cy", currentY);
+//       });
+//     },
+//     complete: function () {
+//       // Remove the target background clone from the container
+//       container.removeChild(targetBackgroundClone);
+//     },
+//   });
+// }
+
+// // Usage example
+// const currentBackground = document.getElementById("background");
+// const targetBackground = document.getElementById("backgroundTwo");
+// animateCircles(currentBackground, targetBackground);
+
