@@ -206,6 +206,7 @@ body {
   position: absolute;
 }
 #projects {
+  position: absolute;
   top: 150px;
 }
 .project-tile {
