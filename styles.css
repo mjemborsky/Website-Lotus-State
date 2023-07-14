@@ -269,6 +269,7 @@ body {
   justify-content: center;
 }
 #lotusmane {
+  position: absolute;
   top: 150px;
 }
 .lotusmane-coverart {
