@@ -45,11 +45,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Retrieve the current page's SVG element
     var currentBackground = document.querySelector('object[data^="' + window.location.pathname + '"]');
     // Get the SVG document within the object element
-    var svgDoc = currentBackground.contentDocument;
-    // Get the SVG root element
-    var svgRoot = svgDoc.querySelector('svg');
-    // Add your code to work with the SVG element here
-    console.log(svgRoot); // Example: Output the SVG root element to the console
+    // var svgDoc = currentBackground.contentDocument;
+    // // Get the SVG root element
+    // var svgRoot = svgDoc.querySelector('svg');
+    // // Add your code to work with the SVG element here
+    // console.log(svgRoot); // Example: Output the SVG root element to the console
   });
 
   // Background: index
