@@ -78,55 +78,70 @@ document.addEventListener('DOMContentLoaded', function() {
     animateCircles(currentBackground, targetBackground);
   });
 
-  // Animating Background
   function animateCircles(currentBackground, targetBackground) {
-    // Get the circles from the currentBackground SVG
-    const currentCircles = Array.from(currentBackground.getElementsByTagName('circle'));
+    currentBackground.style.backgroundColor = 'transparent'; // Set the current background to transparent
+    targetBackground.style.backgroundColor = 'white'; // Set the target background to white
 
-    // Get the circles from the targetBackground SVG
-    const targetCircles = Array.from(targetBackground.getElementsByTagName('circle'));
+    // Optionally, you can add animation effects using CSS transitions
+    currentBackground.style.transition = 'background-color 0.5s ease';
+    targetBackground.style.transition = 'background-color 0.5s ease';
 
-    // Store the initial positions and required information of the current circles
-    const initialPositions = currentCircles.map(circle => ({
-      cx: circle.getAttribute('cx'),
-      cy: circle.getAttribute('cy'),
-      radius: circle.getAttribute('r')
-      // Add any other required information you need
-    }));
+    // Delay the background color transition to ensure the initial styles are applied
+    setTimeout(function() {
+      currentBackground.style.backgroundColor = 'white';
+      targetBackground.style.backgroundColor = 'transparent';
+    }, 10);
+  };
 
-    // Store the target positions and required information of the target circles
-    const targetPositions = targetCircles.map(circle => ({
-      cx: circle.getAttribute('cx'),
-      cy: circle.getAttribute('cy'),
-      radius: circle.getAttribute('r')
-      // Add any other required information you need
-    }));
+  // Animating Background
+  // function animateCircles(currentBackground, targetBackground) {
+  //   // Get the circles from the currentBackground SVG
+  //   const currentCircles = Array.from(currentBackground.getElementsByTagName('circle'));
 
-    // Animate the positions of the circles
-    // You can use any animation library or implement your own animation logic here
+  //   // Get the circles from the targetBackground SVG
+  //   const targetCircles = Array.from(targetBackground.getElementsByTagName('circle'));
 
-    // Example using the anime.js library
-    anime({
-      targets: currentCircles,
-      duration: 1000, // Animation duration in milliseconds
-      easing: 'easeInOutSine', // Easing function
-      update: function (anim) {
-        const progress = anim.progress; // Animation progress from 0 to 1
+  //   // Store the initial positions and required information of the current circles
+  //   const initialPositions = currentCircles.map(circle => ({
+  //     cx: circle.getAttribute('cx'),
+  //     cy: circle.getAttribute('cy'),
+  //     radius: circle.getAttribute('r')
+  //     // Add any other required information you need
+  //   }));
 
-        // Update the position of each circle based on the progress
-        currentCircles.forEach((circle, index) => {
-          const initialPos = initialPositions[index];
-          const targetPos = targetPositions[index];
+  //   // Store the target positions and required information of the target circles
+  //   const targetPositions = targetCircles.map(circle => ({
+  //     cx: circle.getAttribute('cx'),
+  //     cy: circle.getAttribute('cy'),
+  //     radius: circle.getAttribute('r')
+  //     // Add any other required information you need
+  //   }));
 
-          const currentX = initialPos.cx + (targetPos.cx - initialPos.cx) * progress;
-          const currentY = initialPos.cy + (targetPos.cy - initialPos.cy) * progress;
+  //   // Animate the positions of the circles
+  //   // You can use any animation library or implement your own animation logic here
 
-          circle.setAttribute('cx', currentX);
-          circle.setAttribute('cy', currentY);
-        });
-      }
-    });
-  }
+  //   // Example using the anime.js library
+  //   anime({
+  //     targets: currentCircles,
+  //     duration: 1000, // Animation duration in milliseconds
+  //     easing: 'easeInOutSine', // Easing function
+  //     update: function (anim) {
+  //       const progress = anim.progress; // Animation progress from 0 to 1
+
+  //       // Update the position of each circle based on the progress
+  //       currentCircles.forEach((circle, index) => {
+  //         const initialPos = initialPositions[index];
+  //         const targetPos = targetPositions[index];
+
+  //         const currentX = initialPos.cx + (targetPos.cx - initialPos.cx) * progress;
+  //         const currentY = initialPos.cy + (targetPos.cy - initialPos.cy) * progress;
+
+  //         circle.setAttribute('cx', currentX);
+  //         circle.setAttribute('cy', currentY);
+  //       });
+  //     }
+  //   });
+  // }
 });
 
 // POTENTIAL CODE
