@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Background: get current svg
   currentBackground.addEventListener('load', function() {
     // Retrieve the current page's SVG element
-    var currentBackground = document.querySelector('object[data^="' + window.location.pathname + '"]');
+    currentBackground = document.querySelector('object[data^="' + window.location.pathname + '"]');
     // Get the SVG document within the object element
     // var svgDoc = currentBackground.contentDocument;
     // // Get the SVG root element
