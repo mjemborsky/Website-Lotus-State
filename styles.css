@@ -234,7 +234,8 @@ body {
 }
 
 #links {
-  top: 400px;
+  position: absolute;
+  top: 150px;
   padding-bottom: 25px;
   padding-right: 25px;
 }
