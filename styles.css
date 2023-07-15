@@ -72,14 +72,14 @@
 }
 .left-link, .link-right {
   display: flex;
-  padding-top: 5px;
+  padding-top: 10px;
   padding-bottom: 5px;
 }
 .left-link {
   padding-left: 5px;
 }
 .link-right {
-  padding-right: 5px;
+  padding-left: 30px;
 }
 .left-links,
 .right-links, .left-link, .link-right {
@@ -133,7 +133,23 @@
   left: 20px;
   top: 20px;
 }
+#project-expanded-one {
+  top: 20px;
+  left: 100px;
+}
+#project-expanded-two {
+  top: 100px;
+  left: 60px;
+}
+#project-expanded-three {
+  top: 150px;
+  left: 20px;
+}
 .link-left {
+  position: fixed;
+  height: 50px;
+  width: 75px;
+  border-radius: 50%;
   color: ghostwhite;
   text-decoration: none;
 }
@@ -165,7 +181,7 @@ body {
   margin: 0 auto;
   width: 100%; 
   display: block;
-  background-color: #333333;
+  background-color: #000000;
   background-size: 20px 20px;
   font-family: 'ralewaythin';
 }
@@ -190,6 +206,7 @@ body {
   position: absolute;
 }
 #projects {
+  position: absolute;
   top: 150px;
 }
 .project-tile {
@@ -218,7 +235,6 @@ body {
 }
 
 #links {
-  top: 400px;
   padding-bottom: 25px;
   padding-right: 25px;
 }
@@ -251,6 +267,7 @@ body {
   justify-content: center;
 }
 #lotusmane {
+  position: absolute;
   top: 150px;
 }
 .lotusmane-coverart {
@@ -271,7 +288,7 @@ body {
 }
 
 .about-me {
-  width: 890px;
+  width: 750px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -279,8 +296,8 @@ body {
   margin: 0 auto;
   background-color: bisque;
   color: darkgray;
-  opacity: .7;
-  height: 400px;
+  opacity: .8;
+  height: 300px;
   border-radius: 20% 20% 30% 30%;
 }
 
@@ -296,7 +313,7 @@ p {
 }
 
 /* Background Shapes and Elements */ 
-.container-one, .container-two, .container-five {
+#container-one, #container-two, #container-five {
   width: 100%;
   height: 100vh;
   top: 0px;
@@ -309,19 +326,25 @@ p {
   position: absolute;
   text-align: center;
   color: ghostwhite;
-  background-color: #000;
-  background-repeat: repeat;
 }
 
 /* Background SVG */
-.container-one {
-  background-image: url('background.svg');
+#container-one {
+  background-image: '#background';
 }
-.container-two {
-  background-image: url('backgroundTwo.svg');
+#container-two {
+  background-image: '#backgroundTwo';
 }
-.container-five {
-  background-image: url('backgroundFive.svg');
+#container-five {
+  background-image: '#backgroundFive';
+}
+
+.background-svg {
+  display: none;
+}
+
+.background-svg.current {
+  display: block;
 }
 
 /* Animations */
