@@ -56,7 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // Background: index
   index.addEventListener('click', function(i) {
     i.preventDefault();
-    const currentBackground = document.getElementById('background');
     const targetBackground = document.getElementById('background');
     animateCircles(currentBackground, targetBackground);
   });
@@ -65,7 +64,6 @@ document.addEventListener('DOMContentLoaded', function() {
   projects.forEach(function(link) {
     link.addEventListener('click', function(i) {
       i.preventDefault();
-      const currentBackground = document.getElementById('background');
       const targetBackground = document.getElementById('backgroundTwo');
       animateCircles(currentBackground, targetBackground);
     });
@@ -74,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // Background: more
   more.addEventListener('click', function(i) {
     i.preventDefault();
-    const currentBackground = document.getElementById('background');
     const targetBackground = document.getElementById('backgroundFive');
     animateCircles(currentBackground, targetBackground);
   });
@@ -93,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
       targetBackground.style.backgroundColor = 'transparent';
     }, 10);
   };
-
+});
   // Animating Background
   // function animateCircles(currentBackground, targetBackground) {
   //   // Get the circles from the currentBackground SVG
@@ -143,19 +140,6 @@ document.addEventListener('DOMContentLoaded', function() {
   //     }
   //   });
   // }
-});
-
-// POTENTIAL CODE
-// // JavaScript
-// // Animating Background
-// function animateCircles(currentBackground, targetBackground) {
-//   // Get the container element
-//   const container = document.getElementById("backgroundContainer");
-
-//   // Clone the target background SVG and append it to the container
-//   const targetBackgroundClone = targetBackground.cloneNode(true);
-//   container.appendChild(targetBackgroundClone);
-
 //   // Get the circles from the current background SVG
 //   const currentCircles = Array.from(currentBackground.getElementsByTagName("circle"));
 
@@ -211,9 +195,4 @@ document.addEventListener('DOMContentLoaded', function() {
 //     },
 //   });
 // }
-
-// // Usage example
-// const currentBackground = document.getElementById("background");
-// const targetBackground = document.getElementById("backgroundTwo");
-// animateCircles(currentBackground, targetBackground);
 
