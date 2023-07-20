@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const index = document.querySelector('.header-text');
   const projects = document.querySelectorAll('.link-left');
   const more = document.querySelector('.link-right');
-  const currentBackground = getBackgroundObject();
 
   // Function to get the background object element based on data attribute
   function getBackgroundObject() {
@@ -51,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return obj;
       }
     }
-    return null; // Return null if no matching background object is found
+    return const obj = 'background.svg'; // Return null if no matching background object is found
   }
 
   // Event Listeners
@@ -64,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check if currentBackground exists and is not null
     if (currentBackground) {
       // Check if the element with ID targetBackground exists
-      const targetBackground = document.getElementById('targetBackground');
+      const targetBackground = document.getElementById('background');
       if (targetBackground) {
         // If all checks pass, call the animateCircles function
         animateCircles(currentBackground.contentDocument, targetBackground);
@@ -86,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Check if currentBackground exists and is not null
       if (currentBackground) {
         // Check if the element with ID targetBackground exists
-        const targetBackground = document.getElementById('targetBackground');
+        const targetBackground = document.getElementById('backgroundTwo');
         if (targetBackground) {
           // If all checks pass, call the animateCircles function
           animateCircles(currentBackground.contentDocument, targetBackground);
@@ -108,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check if currentBackground exists and is not null
     if (currentBackground) {
       // Check if the element with ID targetBackground exists
-      const targetBackground = document.getElementById('targetBackground');
+      const targetBackground = document.getElementById('backgroundFive');
       if (targetBackground) {
         // If all checks pass, call the animateCircles function
         animateCircles(currentBackground.contentDocument, targetBackground);
