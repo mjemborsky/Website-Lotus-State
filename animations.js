@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return obj;
       }
     }
-    return const obj = 'background.svg'; // Return null if no matching background object is found
+    return document.getElementById('background'); // Return null if no matching background object is found
   }
 
   // Event Listeners
