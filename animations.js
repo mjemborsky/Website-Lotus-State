@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const index = document.querySelector('.header-text');
   const projects = document.querySelectorAll('.link-left');
   const more = document.querySelector('.link-right');
-  var currentBackground;
+  var currentBackground = document.querySelector('object[data^="' + window.location.pathname + '"]');
 
   // Event Listeners //
   // Background: get current svg
