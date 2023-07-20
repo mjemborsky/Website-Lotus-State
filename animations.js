@@ -38,7 +38,38 @@ document.addEventListener('DOMContentLoaded', function() {
   const index = document.querySelector('.header-text');
   const projects = document.querySelectorAll('.link-left');
   const more = document.querySelector('.link-right');
-  const currentBackground = document.querySelector('object[data^="' + window.location.pathname + '"]');
+  // const currentBackground = document.querySelector('object[data^="' + window.location.pathname + '"]');
+  const currentBackgroundObject = getBackgroundObject();
+  const currentBackgroundSVG = currentBackgroundObject ? currentBackgroundObject.contentDocument : null;
+
+  // Optional: Check if the currentBackgroundSVG is not null before proceeding
+  if (currentBackgroundSVG) {
+    // Now you can work with the SVG elements inside the SVG document
+    const svgRoot = currentBackgroundSVG.querySelector('svg');
+    // Add your code to work with the SVG element here
+    console.log(svgRoot); // Example: Output the SVG root element to the console
+  }
+
+  // Event Listeners //
+  // ... (Your existing event listeners for background transitions)
+
+  // Function to get the background object element based on data attribute
+  function getBackgroundObject() {
+    const backgroundObjects = document.querySelectorAll('object[data]');
+    const currentPath = window.location.pathname;
+
+    for (const obj of backgroundObjects) {
+      const dataValue = obj.getAttribute('data');
+      if (dataValue && currentPath.includes(dataValue)) {
+        return obj;
+      }
+    }
+
+    return null; // Return null if no matching background object is found
+  }
+
+
+
 
   // // Event Listeners //
   // // Background: get current svg
