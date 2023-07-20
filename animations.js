@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const index = document.querySelector('.header-text');
   const projects = document.querySelectorAll('.link-left');
   const more = document.querySelector('.link-right');
+  const currentBackground = getBackgroundObject();
 
   // Function to get the background object element based on data attribute
   function getBackgroundObject() {
@@ -60,7 +61,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const targetBackgroundId = this.getAttribute('data-background');
     const targetBackground = document.getElementById(targetBackgroundId);
     const currentBackground = getBackgroundObject();
-    animateCircles(currentBackground.contentDocument, targetBackground);
+    // Check if currentBackground exists and is not null
+    if (currentBackground) {
+      // Check if the element with ID targetBackground exists
+      const targetBackground = document.getElementById('targetBackground');
+      if (targetBackground) {
+        // If all checks pass, call the animateCircles function
+        animateCircles(currentBackground.contentDocument, targetBackground);
+      } else {
+        console.error('Element with ID "targetBackground" not found.');
+      }
+    } else {
+      console.error('currentBackground is null.');
+    }
   });
 
   // Background: projects
@@ -70,7 +83,19 @@ document.addEventListener('DOMContentLoaded', function() {
       const targetBackgroundId = this.getAttribute('data-background');
       const targetBackground = document.getElementById(targetBackgroundId);
       const currentBackground = getBackgroundObject();
-      animateCircles(currentBackground.contentDocument, targetBackground);
+      // Check if currentBackground exists and is not null
+      if (currentBackground) {
+        // Check if the element with ID targetBackground exists
+        const targetBackground = document.getElementById('targetBackground');
+        if (targetBackground) {
+          // If all checks pass, call the animateCircles function
+          animateCircles(currentBackground.contentDocument, targetBackground);
+        } else {
+          console.error('Element with ID "targetBackground" not found.');
+        }
+      } else {
+        console.error('currentBackground is null.');
+      }
     });
   });
 
@@ -80,7 +105,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const targetBackgroundId = this.getAttribute('data-background');
     const targetBackground = document.getElementById(targetBackgroundId);
     const currentBackground = getBackgroundObject();
-    animateCircles(currentBackground.contentDocument, targetBackground);
+    // Check if currentBackground exists and is not null
+    if (currentBackground) {
+      // Check if the element with ID targetBackground exists
+      const targetBackground = document.getElementById('targetBackground');
+      if (targetBackground) {
+        // If all checks pass, call the animateCircles function
+        animateCircles(currentBackground.contentDocument, targetBackground);
+      } else {
+        console.error('Element with ID "targetBackground" not found.');
+      }
+    } else {
+      console.error('currentBackground is null.');
+    }
   });
 
   function animateCircles(currentBackground, targetBackground) {
