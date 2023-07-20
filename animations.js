@@ -38,20 +38,20 @@ document.addEventListener('DOMContentLoaded', function() {
   const index = document.querySelector('.header-text');
   const projects = document.querySelectorAll('.link-left');
   const more = document.querySelector('.link-right');
-  var currentBackground = document.querySelector('object[data^="' + window.location.pathname + '"]');
+  const currentBackground = document.querySelector('object[data^="' + window.location.pathname + '"]');
 
-  // Event Listeners //
-  // Background: get current svg
-  currentBackground.addEventListener('load', function() {
-    // Retrieve the current page's SVG element
-    var currentBackground = document.querySelector('object[data^="' + window.location.pathname + '"]');
-    // Get the SVG document within the object element
-    // var svgDoc = currentBackground.contentDocument;
-    // // Get the SVG root element
-    // var svgRoot = svgDoc.querySelector('svg');
-    // // Add your code to work with the SVG element here
-    // console.log(svgRoot); // Example: Output the SVG root element to the console
-  });
+  // // Event Listeners //
+  // // Background: get current svg
+  // currentBackground.addEventListener('load', function() {
+  //   // Retrieve the current page's SVG element
+  //   var currentBackground = document.querySelector('object[data^="' + window.location.pathname + '"]');
+  //   // Get the SVG document within the object element
+  //   // var svgDoc = currentBackground.contentDocument;
+  //   // // Get the SVG root element
+  //   // var svgRoot = svgDoc.querySelector('svg');
+  //   // // Add your code to work with the SVG element here
+  //   // console.log(svgRoot); // Example: Output the SVG root element to the console
+  // });
 
   // Background: index
   index.addEventListener('click', function(i) {
