@@ -1,4 +1,6 @@
-// BACKGROUND ANIMATION //
+  
+document.addEventListener('DOMContentLoaded', function() {
+  // BACKGROUND ANIMATION //
   // Initializing Properties
   const index = document.querySelector('.header-text');
   const projects = document.querySelectorAll('.link-left');
@@ -97,3 +99,4 @@
       }
     });
   };
+});
