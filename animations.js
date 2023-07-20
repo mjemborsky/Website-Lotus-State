@@ -38,20 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const index = document.querySelector('.header-text');
   const projects = document.querySelectorAll('.link-left');
   const more = document.querySelector('.link-right');
-  // const currentBackground = document.querySelector('object[data^="' + window.location.pathname + '"]');
-  const currentBackgroundObject = getBackgroundObject();
-  const currentBackgroundSVG = currentBackgroundObject ? currentBackgroundObject.contentDocument : null;
-
-  // Optional: Check if the currentBackgroundSVG is not null before proceeding
-  if (currentBackgroundSVG) {
-    // Now you can work with the SVG elements inside the SVG document
-    const svgRoot = currentBackgroundSVG.querySelector('svg');
-    // Add your code to work with the SVG element here
-    console.log(svgRoot); // Example: Output the SVG root element to the console
-  }
-
-  // Event Listeners //
-  // ... (Your existing event listeners for background transitions)
 
   // Function to get the background object element based on data attribute
   function getBackgroundObject() {
@@ -64,62 +50,51 @@ document.addEventListener('DOMContentLoaded', function() {
         return obj;
       }
     }
-
     return null; // Return null if no matching background object is found
   }
 
-
-
-
-  // // Event Listeners //
-  // // Background: get current svg
-  // currentBackground.addEventListener('load', function() {
-  //   // Retrieve the current page's SVG element
-  //   var currentBackground = document.querySelector('object[data^="' + window.location.pathname + '"]');
-  //   // Get the SVG document within the object element
-  //   // var svgDoc = currentBackground.contentDocument;
-  //   // // Get the SVG root element
-  //   // var svgRoot = svgDoc.querySelector('svg');
-  //   // // Add your code to work with the SVG element here
-  //   // console.log(svgRoot); // Example: Output the SVG root element to the console
-  // });
-
+  // Event Listeners
   // Background: index
   index.addEventListener('click', function(i) {
     i.preventDefault();
-    const targetBackground = document.getElementById('background');
-    animateCircles(currentBackgroundSVG, targetBackground);
+    const targetBackgroundId = this.getAttribute('data-background');
+    const targetBackground = document.getElementById(targetBackgroundId);
+    const currentBackground = getBackgroundObject();
+    animateCircles(currentBackground.contentDocument, targetBackground);
   });
 
   // Background: projects
   projects.forEach(function(link) {
     link.addEventListener('click', function(i) {
       i.preventDefault();
-      const targetBackground = document.getElementById('backgroundTwo');
-      animateCircles(currentBackgroundSVG, targetBackground);
+      const targetBackgroundId = this.getAttribute('data-background');
+      const targetBackground = document.getElementById(targetBackgroundId);
+      const currentBackground = getBackgroundObject();
+      animateCircles(currentBackground.contentDocument, targetBackground);
     });
   });
 
   // Background: more
   more.addEventListener('click', function(i) {
     i.preventDefault();
-    const targetBackground = document.getElementById('backgroundFive');
-    animateCircles(currentBackgroundSVG, targetBackground);
+    const targetBackgroundId = this.getAttribute('data-background');
+    const targetBackground = document.getElementById(targetBackgroundId);
+    const currentBackground = getBackgroundObject();
+    animateCircles(currentBackground.contentDocument, targetBackground);
   });
 
   function animateCircles(currentBackground, targetBackground) {
-    currentBackground.style.backgroundColor = 'transparent'; // Set the current background to transparent
-    targetBackground.style.backgroundColor = 'white'; // Set the target background to white
-
-    // Optionally, you can add animation effects using CSS transitions
-    currentBackground.style.transition = 'background-color 2s ease';
-    targetBackground.style.transition = 'background-color 2s ease';
-
-    // Delay the background color transition to ensure the initial styles are applied
-    setTimeout(function() {
-      currentBackground.style.backgroundColor = 'white';
-      targetBackground.style.backgroundColor = 'transparent';
-    }, 10);
+    anime({
+      targets: currentBackground.querySelectorAll('circle'),
+      r: [576, 0], // From the initial radius to 0
+      easing: 'easeInOutSine',
+      duration: 1000, // Duration of the animation in milliseconds
+      complete: function() {
+      // After the animation is complete, switch the backgrounds
+      currentBackground.style.display = 'none';
+      targetBackground.style.display = 'block';
+      }
+    });
   };
 });
   // Animating Background
