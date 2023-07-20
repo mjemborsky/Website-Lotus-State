@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
   index.addEventListener('click', function(i) {
     i.preventDefault();
     const targetBackground = document.getElementById('background');
-    animateCircles(currentBackground, targetBackground);
+    animateCircles(currentBackgroundSVG, targetBackground);
   });
 
   // Background: projects
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
     link.addEventListener('click', function(i) {
       i.preventDefault();
       const targetBackground = document.getElementById('backgroundTwo');
-      animateCircles(currentBackground, targetBackground);
+      animateCircles(currentBackgroundSVG, targetBackground);
     });
   });
 
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
   more.addEventListener('click', function(i) {
     i.preventDefault();
     const targetBackground = document.getElementById('backgroundFive');
-    animateCircles(currentBackground, targetBackground);
+    animateCircles(currentBackgroundSVG, targetBackground);
   });
 
   function animateCircles(currentBackground, targetBackground) {
@@ -112,8 +112,8 @@ document.addEventListener('DOMContentLoaded', function() {
     targetBackground.style.backgroundColor = 'white'; // Set the target background to white
 
     // Optionally, you can add animation effects using CSS transitions
-    currentBackground.style.transition = 'background-color 0.5s ease';
-    targetBackground.style.transition = 'background-color 0.5s ease';
+    currentBackground.style.transition = 'background-color 2s ease';
+    targetBackground.style.transition = 'background-color 2s ease';
 
     // Delay the background color transition to ensure the initial styles are applied
     setTimeout(function() {
