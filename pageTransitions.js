@@ -1,32 +1,26 @@
 
 document.addEventListener('load', function() {
   // BACKGROUND ANIMATION //
-  // Initializing Properties
+  // Initializing Links
   const index = document.querySelector('.header-text');
   const projects = document.querySelectorAll('.link-left');
   const more = document.querySelector('.link-right');
-  const currentBackground = getFirstSvgElement()
+
+  // Initializing SVG's
+  const svgOne = document.getElementById('sprites_backgroundOne');
+  const svgTwo = document.getElementById('sprites_backgroundTwo');
+  const svgThree = document.getElementById('sprites_backgroundThree');
+  const svgFour = document.getElementById('sprites_backgroundFour');
+  const svgFive = document.getElementById('sprites_backgroundFive');
+
+  const currentBackground = getCurrentSvgElement();
 
   // Event Listeners
   // Background: index
   index.addEventListener('click', function(i) {
     i.preventDefault();
     const targetBackground = document.getElementById('background');
-    const currentBackground = getBackgroundObject();
-    animateCircles(currentBackground.contentDocument, targetBackground);
-    // // Check if currentBackground exists and is not null
-    // if (currentBackground) {
-    //   // Check if the element with ID targetBackground exists
-    //   const targetBackground = document.getElementById('background');
-    //   if (targetBackground) {
-    //     // If all checks pass, call the animateCircles function
-    //     animateCircles(currentBackground.contentDocument, targetBackground);
-    //   } else {
-    //     console.error('Element with ID "targetBackground" not found.');
-    //   }
-    // } else {
-    //   console.error('currentBackground is null.');
-    // }
+    animateCircles(currentBackground, targetBackground);
   });
 
   // Background: projects
