@@ -1,24 +1,11 @@
-  
-document.addEventListener('DOMContentLoaded', function() {
+
+document.addEventListener('load', function() {
   // BACKGROUND ANIMATION //
   // Initializing Properties
   const index = document.querySelector('.header-text');
   const projects = document.querySelectorAll('.link-left');
   const more = document.querySelector('.link-right');
-
-  // Function to get the background object element based on data attribute
-  function getBackgroundObject() {
-    const backgroundObjects = document.querySelectorAll('object[data]');
-    const currentPath = window.location.pathname;
-
-    for (const obj of backgroundObjects) {
-      const dataValue = obj.getAttribute('data');
-      if (dataValue && currentPath.includes(dataValue)) {
-        return obj;
-      }
-    }
-    return document.getElementById('background'); // Return null if no matching background object is found
-  }
+  const currentBackground = getFirstSvgElement()
 
   // Event Listeners
   // Background: index
@@ -103,3 +90,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   };
 });
+
+
+function getFirstSvgElement() {
+  const svgElements = document.getElementsByTagName("svg");
+  if (svgElements.length > 0) {
+    return svgElements[0];
+  }
+  return null; // Return null if no SVG elements are found on the page
+}
