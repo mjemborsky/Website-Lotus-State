@@ -1,5 +1,5 @@
 
-document.addEventListener('load', function() {
+document.addEventListener('DOMContentLoaded', function() {
   // BACKGROUND ANIMATION //
   // Initializing Links
   const index = document.querySelector('.header-text');
@@ -17,14 +17,17 @@ document.addEventListener('load', function() {
   // Get Current Background SVG
   const currentBackgroundSymbol = findCurrentSymbolElement();
 
-  if (currentSymbolId === 'backgroundOne') {
+  if (currentBackgroundSymbol === 'backgroundOne') {
     // Code for when backgroundOne is active
+    const currentBackground = svgOne;
     console.log('backgroundOne is currently used.');
-  } else if (currentSymbolId === 'backgroundTwo') {
+  } else if (currentBackgroundSymbol === 'backgroundTwo') {
     // Code for when backgroundTwo is active
+    const currentBackground = svgTwo;
     console.log('backgroundTwo is currently used.');
-  } else if (currentSymbolId === 'backgroundFive') {
+  } else if (currentBackgroundSymbol === 'backgroundFive') {
     // Code for when backgroundFive is active
+    const currentBackground = svgFive;
     console.log('backgroundFive is currently used.');
   } else {
     // Code for when none of the specified symbols is active
@@ -72,7 +75,6 @@ document.addEventListener('load', function() {
 
 function findCurrentSymbolElement() {
   const useElements = document.getElementsByTagName('use');
-
   for (const useElement of useElements) {
     const href = useElement.getAttribute('xlink:href');
     const symbolId = href.substring(1); // Remove the leading '#' from the ID
