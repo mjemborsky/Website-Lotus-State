@@ -15,14 +15,6 @@ Included Content: Lotusmane OR EP OR something else -->
     <script src="linkExpansion.js"></script>
   </head>
   <body>
-    <svg id="sprites" style="display: none;">
-      <!-- Reference to the external SVG sprite file -->
-      <use xlink:href="sprites.svg#backgroundOne"></use>
-      <use xlink:href="sprites.svg#backgroundTwo"></use>
-      <use xlink:href="sprites.svg#backgroundThree"></use>
-      <use xlink:href="sprites.svg#backgroundFour"></use>
-      <use xlink:href="sprites.svg#backgroundFive"></use>
-    </svg>
     <header id="header">
       <div class="left-links">
         <a class="left-link" href="#">Projects</a>
@@ -61,6 +53,9 @@ Included Content: Lotusmane OR EP OR something else -->
           </section>
         </section>
       </div>
-      <script src="pageTransitions.js"></script>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <use xlink:href="backgroundSprite.svg#backgroundTwo"></use>
+    </svg>
+    <script src="pageTransitions.js"></script>
   </body>
 </html>

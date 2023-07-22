@@ -15,7 +15,7 @@ document.addEventListener('load', function() {
   const svgFive = document.getElementById('backgroundFive');
 
   // Get Current Background SVG
-  const currentBackground = getCurrentSvgElement();
+  const currentBackground = findCurrentSymbolElement();
 
   // Event Listeners
   // Background: index
@@ -55,3 +55,17 @@ document.addEventListener('load', function() {
     });
   };
 });
+
+function findCurrentSymbolElement() {
+  const useElements = document.getElementsByTagName('use');
+
+  for (const useElement of useElements) {
+    const href = useElement.getAttribute('xlink:href');
+    const symbolId = href.substring(1); // Remove the leading '#' from the ID
+    // Check if the symbol is currently used (active)
+    if (useElement.instanceRoot === useElement && symbolId !== "") {
+      return symbolId; // Return the ID of the active symbol
+    }
+  }
+  return null; // Return null if no symbol is currently used
+}
