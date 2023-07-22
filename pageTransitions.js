@@ -7,19 +7,21 @@ document.addEventListener('load', function() {
   const more = document.querySelector('.link-right');
 
   // Initializing SVG's
-  const svgOne = document.getElementById('sprites_backgroundOne');
-  const svgTwo = document.getElementById('sprites_backgroundTwo');
-  const svgThree = document.getElementById('sprites_backgroundThree');
-  const svgFour = document.getElementById('sprites_backgroundFour');
-  const svgFive = document.getElementById('sprites_backgroundFive');
+  // svgOne - for index.html
+  const svgOne = document.getElementById('backgroundOne');
+  // svgTwo - for any project pages
+  const svgTwo = document.getElementById('backgroundTwo');
+  // svgFive - for extra.html
+  const svgFive = document.getElementById('backgroundFive');
 
+  // Get Current Background SVG
   const currentBackground = getCurrentSvgElement();
 
   // Event Listeners
   // Background: index
   index.addEventListener('click', function(i) {
     i.preventDefault();
-    const targetBackground = document.getElementById('background');
+    const targetBackground = document.getElementById('backgroundOne');
     animateCircles(currentBackground, targetBackground);
   });
 
@@ -28,24 +30,7 @@ document.addEventListener('load', function() {
     link.addEventListener('click', function(i) {
       i.preventDefault();
       const targetBackground = document.getElementById('backgroundTwo');
-      const currentBackground = getBackgroundObject();
-      animateCircles(currentBackground.contentDocument, targetBackground);
-      // const targetBackgroundId = this.getAttribute('data-background');
-      // const targetBackground = document.getElementById(targetBackgroundId);
-      // const currentBackground = getBackgroundObject();
-      // // Check if currentBackground exists and is not null
-      // if (currentBackground) {
-      //   // Check if the element with ID targetBackground exists
-      //   const targetBackground = document.getElementById('backgroundTwo');
-      //   if (targetBackground) {
-      //     // If all checks pass, call the animateCircles function
-      //     animateCircles(currentBackground.contentDocument, targetBackground);
-      //   } else {
-      //     console.error('Element with ID "targetBackground" not found.');
-      //   }
-      // } else {
-      //   console.error('currentBackground is null.');
-      // }
+      animateCircles(currentBackground, targetBackground);
     });
   });
 
@@ -53,21 +38,7 @@ document.addEventListener('load', function() {
   more.addEventListener('click', function(i) {
     i.preventDefault();
     const targetBackground = document.getElementById('backgroundFive');
-    const currentBackground = getBackgroundObject();
-    animateCircles(currentBackground.contentDocument, targetBackground);
-    // // Check if currentBackground exists and is not null
-    // if (currentBackground) {
-    //   // Check if the element with ID targetBackground exists
-    //   const targetBackground = document.getElementById('backgroundFive');
-    //   if (targetBackground) {
-    //     // If all checks pass, call the animateCircles function
-    //     animateCircles(currentBackground.contentDocument, targetBackground);
-    //   } else {
-    //     console.error('Element with ID "targetBackground" not found.');
-    //   }
-    // } else {
-    //   console.error('currentBackground is null.');
-    // }
+    animateCircles(currentBackground, targetBackground);
   });
 
   function animateCircles(currentBackground, targetBackground) {
@@ -84,12 +55,3 @@ document.addEventListener('load', function() {
     });
   };
 });
-
-
-function getFirstSvgElement() {
-  const svgElements = document.getElementsByTagName("svg");
-  if (svgElements.length > 0) {
-    return svgElements[0];
-  }
-  return null; // Return null if no SVG elements are found on the page
-}
