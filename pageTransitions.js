@@ -15,7 +15,21 @@ document.addEventListener('load', function() {
   const svgFive = document.getElementById('backgroundFive');
 
   // Get Current Background SVG
-  const currentBackground = findCurrentSymbolElement();
+  const currentBackgroundSymbol = findCurrentSymbolElement();
+
+  if (currentSymbolId === 'backgroundOne') {
+    // Code for when backgroundOne is active
+    console.log('backgroundOne is currently used.');
+  } else if (currentSymbolId === 'backgroundTwo') {
+    // Code for when backgroundTwo is active
+    console.log('backgroundTwo is currently used.');
+  } else if (currentSymbolId === 'backgroundFive') {
+    // Code for when backgroundFive is active
+    console.log('backgroundFive is currently used.');
+  } else {
+    // Code for when none of the specified symbols is active
+    console.log('No specified symbol is currently used.');
+  }
 
   // Event Listeners
   // Background: index
