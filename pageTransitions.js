@@ -16,6 +16,7 @@ function setSVGBackground() {
       console.log("Background Applied");
     }
   }
+  return svgObject;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -35,43 +36,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // NEED TO INITIALIZE CONTAINERS?
 
-  setSVGBackground();
+  const currentBackground = setSVGBackground();
 
- //  // Event Listeners
- //  // Background: index
- //  index.addEventListener('click', function(i) {
- //    i.preventDefault();
- //    const targetBackground = document.getElementById('backgroundOne');
- //    animateCircles(currentBackground, targetBackground);
- //  });
+  // Event Listeners
+  // Background: index
+  index.addEventListener('click', function(i) {
+    i.preventDefault();
+    const targetBackground = document.getElementById('backgroundOne');
+    animateCircles(currentBackground, targetBackground);
+  });
 
- //  // Background: projects
- //  projects.forEach(function(link) {
- //    link.addEventListener('click', function(i) {
- //      i.preventDefault();
- //      const targetBackground = document.getElementById('backgroundTwo');
- //      animateCircles(currentBackground, targetBackground);
- //    });
- //  });
+  // Background: projects
+  projects.forEach(function(link) {
+    link.addEventListener('click', function(i) {
+      i.preventDefault();
+      const targetBackground = document.getElementById('backgroundTwo');
+      animateCircles(currentBackground, targetBackground);
+    });
+  });
 
- //  // Background: more
- //  more.addEventListener('click', function(i) {
- //    i.preventDefault();
- //    const targetBackground = document.getElementById('backgroundFive');
- //    animateCircles(currentBackground, targetBackground);
- //  });
+  // Background: more
+  more.addEventListener('click', function(i) {
+    i.preventDefault();
+    const targetBackground = document.getElementById('backgroundFive');
+    animateCircles(currentBackground, targetBackground);
+  });
 
- //  function animateCircles(currentBackground, targetBackground) {
- //    anime({
- //      targets: currentBackground.querySelectorAll('circle'),
- //      r: [576, 0], // From the initial radius to 0
- //      easing: 'easeInOutSine',
- //      duration: 1000, // Duration of the animation in milliseconds
- //      complete: function() {
- //        // After the animation is complete, switch the backgrounds
- //        currentBackground.style.display = 'none';
- //        targetBackground.style.display = 'block';
- //      }
- //    });
- // }
+  function animateCircles(currentBackground, targetBackground) {
+    console.log("Animate Background");
+ }
 });
