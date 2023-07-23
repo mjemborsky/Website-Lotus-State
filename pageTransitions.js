@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var targetSnap = Snap(targetBackground);
 
     // Fetch all circles and positions from the current SVG
-    var currentCircles = currentSnap.selectAll("circle");
+    var currentCircles = Snap.set(currentSnap.selectAll("circle"));
     var currentPositions = currentCircles.map(function (circle) {
       return {
         cx: parseFloat(circle.attr("cx")),
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Fetch all circles and positions from the target SVG
-    var targetCircles = targetSnap.selectAll("circle");
+    var currentCircles = Snap.set(targetSnap.selectAll("circle"));
     var targetPositions = targetCircles.map(function (circle) {
       return {
         cx: parseFloat(circle.attr("cx")),
