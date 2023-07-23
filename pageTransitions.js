@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Background: index
   index.addEventListener('click', function(i) {
     i.preventDefault();
-    loadSVGFile('backgroundOne').then(function(targetBackground) {
+    loadSVGFile('backgroundOne.svg').then(function(targetBackground) {
       animateBackground(currentBackground, targetBackground);
     });
   });
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
   projects.forEach(function(link) {
     link.addEventListener('click', function(i) {
       i.preventDefault();
-      loadSVGFile('backgroundTwo').then(function(targetBackground) {
+      loadSVGFile('backgroundTwo.svg').then(function(targetBackground) {
         animateBackground(currentBackground, targetBackground);
       });
     });
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Background: more
   more.addEventListener('click', function(i) {
     i.preventDefault();
-    loadSVGFile('backgroundFive').then(function(targetBackground) {
+    loadSVGFile('backgroundFive.svg').then(function(targetBackground) {
       animateBackground(currentBackground, targetBackground);
     });
   });
