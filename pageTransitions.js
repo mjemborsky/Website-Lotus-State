@@ -13,6 +13,7 @@ function setSVGBackground() {
       var svgDataUri = 'data:image/svg+xml;base64,' + btoa(svgContent);
       // Apply the SVG content as a background image to the content element
       contentElement.style.backgroundImage = 'url(' + svgDataUri + ')';
+      console.log("Background Applied");
     }
   }
 }
