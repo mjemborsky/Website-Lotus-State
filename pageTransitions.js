@@ -1,11 +1,11 @@
 function setSVGBackground() {
   // Get current svg object and container (maybe have this specifically on each page)
-  var svgObject = document.getElementById('backgroundOne');
-  var contentElement = document.getElementById('container-one');
+  var svgObject = document.querySelector('background-svg');
+  var contentElement = document.querySelector('container');
 
   if (svgObject && svgObject.contentDocument && contentElement) {
     var svgDoc = svgObject.contentDocument;
-    var svgElement = svgDoc.getElementById('backgroundElement');
+    var svgElement = svgDoc.querySelector('background-svg');;
     if (svgElement) {
       // Get the SVG content as XML
       var svgContent = new XMLSerializer().serializeToString(svgElement);
@@ -32,32 +32,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // svgFive - for extra.html
   const svgFive = document.getElementById('backgroundFive');
 
-  // NEED TO INITIALIZE CONTAINERS
+  // NEED TO INITIALIZE CONTAINERS?
 
-
-
-  // Get Current Background SVG and Set
-  let currentBackgroundSymbol;
-  let currentBackground;
-
-  currentBackgroundSymbol = findCurrentSymbolElement();
-  if (currentBackgroundSymbol === 'backgroundOne') {
-    // Code for when backgroundOne is active
-    currentBackground = svgOne;
-    console.log('backgroundOne is currently used.');
-  } else if (currentBackgroundSymbol === 'backgroundTwo') {
-    // Code for when backgroundTwo is active
-    currentBackground = svgTwo;
-    console.log('backgroundTwo is currently used.');
-  } else if (currentBackgroundSymbol === 'backgroundFive') {
-    // Code for when backgroundFive is active
-    currentBackground = svgFive;
-    console.log('backgroundFive is currently used.');
-  } else {
-    // Code for when none of the specified symbols is active
-    currentBackground = svgOne;
-    console.log('No specified symbol is currently used.');
-  }
+  setSVGBackground();
 
   // Event Listeners
   // Background: index
