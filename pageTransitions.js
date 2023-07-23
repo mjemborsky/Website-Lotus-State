@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
   index.addEventListener('click', function(i) {
     i.preventDefault();
     const targetBackground = "backgroundOne.svg";
-    animateCircles(currentBackground, targetBackground);
+    animateBackground(currentBackground, targetBackground);
   });
 
   // Background: projects
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
     link.addEventListener('click', function(i) {
       i.preventDefault();
       const targetBackground = "backgroundTwo.svg";
-      animateCircles(currentBackground, targetBackground);
+      animateBackground(currentBackground, targetBackground);
     });
   });
 
@@ -49,10 +49,44 @@ document.addEventListener('DOMContentLoaded', function() {
   more.addEventListener('click', function(i) {
     i.preventDefault();
     const targetBackground = "backgroundFive.svg";
-    animateCircles(currentBackground, targetBackground);
+    animateBackground(currentBackground, targetBackground);
   });
 
-  function animateCircles(currentBackground, targetBackground) {
-    console.log("Animate Background");
- }
+  function animateBackground(currentBackground, targetBackground) {
+    // Fetch the Snap.svg instances of both SVGs
+    var currentSnap = Snap("#" + currentBackground);
+    var targetSnap = Snap("#" + targetBackground);
+
+    // Fetch all circles and positions from the current SVG
+    var currentCircles = currentSnap.selectAll("circle");
+    var currentPositions = currentCircles.map(function (circle) {
+      return {
+        cx: parseFloat(circle.attr("cx")),
+        cy: parseFloat(circle.attr("cy"))
+      };
+    });
+
+    // Fetch all circles and positions from the target SVG
+    var targetCircles = targetSnap.selectAll("circle");
+    var targetPositions = targetCircles.map(function (circle) {
+      return {
+        cx: parseFloat(circle.attr("cx")),
+        cy: parseFloat(circle.attr("cy"))
+      };
+    });
+
+    // Set the current background to black with current SVG elements on top
+    currentSnap.attr({ fill: "black" });
+
+    // Animate circle positions from current to target positions with a 3-second duration
+    currentCircles.forEach(function (circle, index) {
+      circle.animate({ cx: targetPositions[index].cx, cy: targetPositions[index].cy }, 3000);
+    });
+
+    // Set current background to target SVG after the animation
+    setTimeout(function () {
+      currentSnap.attr({ fill: "none" });
+      targetSnap.attr({ fill: "black" });
+    }, 3000); // Wait for the animation to complete (duration 3000ms)
+  }
 });
