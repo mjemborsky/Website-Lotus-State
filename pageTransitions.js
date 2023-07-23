@@ -15,8 +15,8 @@ function setSVGBackground() {
       contentElement.style.backgroundImage = 'url(' + svgDataUri + ')';
       console.log("Background Applied");
     }
+    return svgDoc;
   }
-  return svgObject;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -26,23 +26,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const projects = document.querySelectorAll('.link-left');
   const more = document.querySelector('.link-right');
 
-  // Initializing SVG's
-  // svgOne - for index.html
-  const svgOne = document.getElementById('backgroundOne');
-  // svgTwo - for any project pages
-  const svgTwo = document.getElementById('backgroundTwo');
-  // svgFive - for extra.html
-  const svgFive = document.getElementById('backgroundFive');
-
-  // NEED TO INITIALIZE CONTAINERS?
-
   const currentBackground = setSVGBackground();
 
   // Event Listeners
   // Background: index
   index.addEventListener('click', function(i) {
     i.preventDefault();
-    const targetBackground = document.getElementById('backgroundOne');
+    const targetBackground = "backgroundOne.svg";
     animateCircles(currentBackground, targetBackground);
   });
 
@@ -50,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
   projects.forEach(function(link) {
     link.addEventListener('click', function(i) {
       i.preventDefault();
-      const targetBackground = document.getElementById('backgroundTwo');
+      const targetBackground = "backgroundTwo.svg";
       animateCircles(currentBackground, targetBackground);
     });
   });
@@ -58,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Background: more
   more.addEventListener('click', function(i) {
     i.preventDefault();
-    const targetBackground = document.getElementById('backgroundFive');
+    const targetBackground = "backgroundFive.svg";
     animateCircles(currentBackground, targetBackground);
   });
 
