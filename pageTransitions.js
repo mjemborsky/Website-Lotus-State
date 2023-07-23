@@ -54,8 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function animateBackground(currentBackground, targetBackground) {
     // Fetch the Snap.svg instances of both SVGs
-    var currentSnap = Snap("#" + currentBackground);
-    var targetSnap = Snap("#" + targetBackground);
+    var currentSnap = Snap(currentBackground);
+    var targetSnap = Snap(targetBackground);
 
     // Fetch all circles and positions from the current SVG
     var currentCircles = currentSnap.selectAll("circle");
