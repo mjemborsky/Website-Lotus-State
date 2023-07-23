@@ -11,7 +11,7 @@ function findCurrentSymbolElement() {
   return null; // Return null if no symbol is currently used
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('load', function() {
   // BACKGROUND ANIMATION //
   // Initializing Links
   const index = document.querySelector('.header-text');
@@ -30,25 +30,23 @@ document.addEventListener('DOMContentLoaded', function() {
   let currentBackground;
 
   // Get Current Background SVG
-  window.addEventListener('load', function() {
-    currentBackgroundSymbol = findCurrentSymbolElement();
-    if (currentBackgroundSymbol === 'backgroundOne') {
-      // Code for when backgroundOne is active
-      currentBackground = svgOne;
-      console.log('backgroundOne is currently used.');
-    } else if (currentBackgroundSymbol === 'backgroundTwo') {
-      // Code for when backgroundTwo is active
-      currentBackground = svgTwo;
-      console.log('backgroundTwo is currently used.');
-    } else if (currentBackgroundSymbol === 'backgroundFive') {
-      // Code for when backgroundFive is active
-      currentBackground = svgFive;
-      console.log('backgroundFive is currently used.');
-    } else {
-      // Code for when none of the specified symbols is active
-      console.log('No specified symbol is currently used.');
-    }
-  });
+  currentBackgroundSymbol = findCurrentSymbolElement();
+  if (currentBackgroundSymbol === 'backgroundOne') {
+    // Code for when backgroundOne is active
+    currentBackground = svgOne;
+    console.log('backgroundOne is currently used.');
+  } else if (currentBackgroundSymbol === 'backgroundTwo') {
+    // Code for when backgroundTwo is active
+    currentBackground = svgTwo;
+    console.log('backgroundTwo is currently used.');
+  } else if (currentBackgroundSymbol === 'backgroundFive') {
+    // Code for when backgroundFive is active
+    currentBackground = svgFive;
+    console.log('backgroundFive is currently used.');
+  } else {
+    // Code for when none of the specified symbols is active
+    console.log('No specified symbol is currently used.');
+  }
 
   // Event Listeners
   // Background: index
