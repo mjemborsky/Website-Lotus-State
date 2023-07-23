@@ -326,6 +326,7 @@ p {
   position: absolute;
   text-align: center;
   color: ghostwhite;
+  transition: opacity 1s ease;
 }
 
 /* Background SVG */
@@ -337,15 +338,6 @@ p {
 }
 #container-five {
   background-image: '#backgroundFive';
-}
-
-.background-svg {
-  opacity: 0;
-  transition: opacity 1s ease;
-}
-
-.background-svg.current {
-  opacity: 1;
 }
 
 /* Animations */
