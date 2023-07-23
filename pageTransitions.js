@@ -1,3 +1,15 @@
+function findCurrentSymbolElement() {
+  const useElements = document.getElementsByTagName('use');
+  for (const useElement of useElements) {
+    const href = useElement.getAttribute('xlink:href');
+    const symbolId = href.substring(1); // Remove the leading '#' from the ID
+    // Check if the symbol is currently used (active)
+    if (useElement.instanceRoot === useElement && symbolId !== "") {
+      return symbolId; // Return the ID of the active symbol
+    }
+  }
+  return null; // Return null if no symbol is currently used
+}
 
 document.addEventListener('DOMContentLoaded', function() {
   // BACKGROUND ANIMATION //
@@ -16,18 +28,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Get Current Background SVG
   const currentBackgroundSymbol = findCurrentSymbolElement();
+  const currentBackground;
 
   if (currentBackgroundSymbol === 'backgroundOne') {
     // Code for when backgroundOne is active
-    const currentBackground = svgOne;
+    currentBackground = svgOne;
     console.log('backgroundOne is currently used.');
   } else if (currentBackgroundSymbol === 'backgroundTwo') {
     // Code for when backgroundTwo is active
-    const currentBackground = svgTwo;
+    currentBackground = svgTwo;
     console.log('backgroundTwo is currently used.');
   } else if (currentBackgroundSymbol === 'backgroundFive') {
     // Code for when backgroundFive is active
-    const currentBackground = svgFive;
+    currentBackground = svgFive;
     console.log('backgroundFive is currently used.');
   } else {
     // Code for when none of the specified symbols is active
@@ -72,16 +85,3 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   };
 });
-
-function findCurrentSymbolElement() {
-  const useElements = document.getElementsByTagName('use');
-  for (const useElement of useElements) {
-    const href = useElement.getAttribute('xlink:href');
-    const symbolId = href.substring(1); // Remove the leading '#' from the ID
-    // Check if the symbol is currently used (active)
-    if (useElement.instanceRoot === useElement && symbolId !== "") {
-      return symbolId; // Return the ID of the active symbol
-    }
-  }
-  return null; // Return null if no symbol is currently used
-}
