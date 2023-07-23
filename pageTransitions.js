@@ -1,17 +1,23 @@
-function findCurrentSymbolElement() {
-  const useElements = document.getElementsByTagName('use');
-  for (const useElement of useElements) {
-    const href = useElement.getAttribute('xlink:href');
-    const symbolId = href.substring(1); // Remove the leading '#' from the ID
-    // Check if the symbol is currently used (active)
-    if (useElement.instanceRoot === useElement && symbolId !== "") {
-      return symbolId; // Return the ID of the active symbol
+function setSVGBackground() {
+  // Get current svg object and container (maybe have this specifically on each page)
+  var svgObject = document.getElementById('backgroundOne');
+  var contentElement = document.getElementById('container-one');
+
+  if (svgObject && svgObject.contentDocument && contentElement) {
+    var svgDoc = svgObject.contentDocument;
+    var svgElement = svgDoc.getElementById('backgroundElement');
+    if (svgElement) {
+      // Get the SVG content as XML
+      var svgContent = new XMLSerializer().serializeToString(svgElement);
+      // Create a data URI for the SVG content
+      var svgDataUri = 'data:image/svg+xml;base64,' + btoa(svgContent);
+      // Apply the SVG content as a background image to the content element
+      contentElement.style.backgroundImage = 'url(' + svgDataUri + ')';
     }
   }
-  return null; // Return null if no symbol is currently used
 }
 
-window.addEventListener('load', function() {
+document.addEventListener('DOMContentLoaded', function() {
   // BACKGROUND ANIMATION //
   // Initializing Links
   const index = document.querySelector('.header-text');
@@ -26,10 +32,14 @@ window.addEventListener('load', function() {
   // svgFive - for extra.html
   const svgFive = document.getElementById('backgroundFive');
 
+  // NEED TO INITIALIZE CONTAINERS
+
+
+
+  // Get Current Background SVG and Set
   let currentBackgroundSymbol;
   let currentBackground;
 
-  // Get Current Background SVG
   currentBackgroundSymbol = findCurrentSymbolElement();
   if (currentBackgroundSymbol === 'backgroundOne') {
     // Code for when backgroundOne is active
