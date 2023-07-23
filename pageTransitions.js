@@ -15,7 +15,7 @@ function setSVGBackground() {
       contentElement.style.backgroundImage = 'url(' + svgDataUri + ')';
       console.log("Background Applied");
     }
-    return svgDoc;
+    return svgElement;
   }
 }
 
