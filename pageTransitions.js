@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Get Current Background SVG
   const currentBackgroundSymbol = findCurrentSymbolElement();
-  const currentBackground;
+  let currentBackground;
 
   if (currentBackgroundSymbol === 'backgroundOne') {
     // Code for when backgroundOne is active
@@ -78,10 +78,10 @@ document.addEventListener('DOMContentLoaded', function() {
       easing: 'easeInOutSine',
       duration: 1000, // Duration of the animation in milliseconds
       complete: function() {
-      // After the animation is complete, switch the backgrounds
-      currentBackground.style.display = 'none';
-      targetBackground.style.display = 'block';
+        // After the animation is complete, switch the backgrounds
+        currentBackground.style.display = 'none';
+        targetBackground.style.display = 'block';
       }
     });
-  };
+ }
 });
