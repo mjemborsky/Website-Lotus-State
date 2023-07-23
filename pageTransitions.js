@@ -45,6 +45,7 @@ window.addEventListener('load', function() {
     console.log('backgroundFive is currently used.');
   } else {
     // Code for when none of the specified symbols is active
+    currentBackground = svgOne;
     console.log('No specified symbol is currently used.');
   }
 
