@@ -27,7 +27,10 @@ document.addEventListener('DOMContentLoaded', function() {
   const svgFive = document.getElementById('backgroundFive');
 
   // Get Current Background SVG
-  const currentBackgroundSymbol = findCurrentSymbolElement();
+  window.addEventListener('load', function() {
+    const currentSymbolElement = findCurrentSymbolElement();
+  });
+
   let currentBackground;
 
   if (currentBackgroundSymbol === 'backgroundOne') {
