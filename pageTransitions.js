@@ -58,21 +58,23 @@ document.addEventListener('DOMContentLoaded', function() {
     var targetSnap = Snap(targetBackground);
 
     // Fetch all circles and positions from the current SVG
-    var currentCircles = Snap.set(currentSnap.selectAll("circle"));
-    var currentPositions = currentCircles.map(function (circle) {
-      return {
+    var currentCircles = currentSnap.selectAll("circle");
+    var currentPositions = [];
+    currentCircles.forEach(function (circle) {
+      currentPositions.push({
         cx: parseFloat(circle.attr("cx")),
         cy: parseFloat(circle.attr("cy"))
-      };
+      });
     });
 
     // Fetch all circles and positions from the target SVG
-    var currentCircles = Snap.set(targetSnap.selectAll("circle"));
-    var targetPositions = targetCircles.map(function (circle) {
-      return {
+    var targetCircles = targetSnap.selectAll("circle");
+    var targetPositions = [];
+    targetCircles.forEach(function (circle) {
+      targetPositions.push({
         cx: parseFloat(circle.attr("cx")),
         cy: parseFloat(circle.attr("cy"))
-      };
+      });
     });
 
     // Set the current background to black with current SVG elements on top
