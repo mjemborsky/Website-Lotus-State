@@ -20,7 +20,7 @@ function setSVGBackground() {
 }
 
 function loadSVGFile(fileName) {
-  fetch(fileName) // Fetch the SVG file using its file name
+  return fetch(fileName) // Fetch the SVG file using its file name
     .then((response) => response.text())
     .then((svgContent) => {
       // Create a new DOM element for the SVG content
@@ -45,24 +45,27 @@ document.addEventListener('DOMContentLoaded', function() {
   // Background: index
   index.addEventListener('click', function(i) {
     i.preventDefault();
-    const targetBackground = loadSVGFile('backgroundOne');
-    animateBackground(currentBackground, targetBackground);
+    loadSVGFile('backgroundOne').then(function(targetBackground) {
+      animateBackground(currentBackground, targetBackground);
+    });
   });
 
   // Background: projects
   projects.forEach(function(link) {
     link.addEventListener('click', function(i) {
       i.preventDefault();
-      const targetBackground = loadSVGFile('backgroundTwo');
-      animateBackground(currentBackground, targetBackground);
+      loadSVGFile('backgroundTwo').then(function(targetBackground) {
+        animateBackground(currentBackground, targetBackground);
+      });
     });
   });
 
   // Background: more
   more.addEventListener('click', function(i) {
     i.preventDefault();
-    const targetBackground = loadSVGFile('backgroundFive');
-    animateBackground(currentBackground, targetBackground);
+    loadSVGFile('backgroundFive').then(function(targetBackground) {
+      animateBackground(currentBackground, targetBackground);
+    });
   });
 
   function animateBackground(currentBackground, targetBackground) {
