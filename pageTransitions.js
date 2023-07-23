@@ -26,12 +26,13 @@ document.addEventListener('DOMContentLoaded', function() {
   // svgFive - for extra.html
   const svgFive = document.getElementById('backgroundFive');
 
+  let currentBackgroundSymbol;
+  let currentBackground;
+
   // Get Current Background SVG
   window.addEventListener('load', function() {
     const currentSymbolElement = findCurrentSymbolElement();
   });
-
-  let currentBackground;
 
   if (currentBackgroundSymbol === 'backgroundOne') {
     // Code for when backgroundOne is active
