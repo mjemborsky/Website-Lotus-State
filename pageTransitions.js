@@ -107,4 +107,5 @@ document.addEventListener('DOMContentLoaded', function() {
       targetSnap.attr({ fill: "black" });
     }, 3000); // Wait for the animation to complete (duration 3000ms)
   }
+  console.log("animated!");
 });
