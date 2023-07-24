@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fetch the Snap.svg instances of both SVGs
     var currentSnap = Snap(currentBackground);
     var targetSnap = Snap(targetBackground);
+    var contentElement = document.querySelector('.container');
 
     // Fetch all circles and positions from the current SVG
     var currentCircles = currentSnap.selectAll("circle");
@@ -97,7 +98,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Animate circle positions from current to target positions with a 3-second duration
     currentCircles.forEach(function (circle, index) {
-      circle.animate({ cx: targetPositions[index].cx, cy: targetPositions[index].cy }, 3000);
+      circle.animate(
+        { cx: targetPositions[index].cx, cy: targetPositions[index].cy },
+        3000, // 3 seconds duration
+        function() {
+          console.log("Circle " + index + " animation completed.");
+        }
+      );
     });
 
     // Set current background to target SVG after the animation
