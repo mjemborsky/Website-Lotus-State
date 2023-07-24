@@ -1,23 +1,3 @@
-function setSVGBackground() {
-  var container = document.querySelector('.container');
-  if (!container) {
-    console.error('Container element not found.');
-    return;
-  }
-  var svgElement = document.querySelector('.background-svg');
-
-  if (svgElement) {
-    var svgContent = new XMLSerializer().serializeToString(svgElement);
-    var svgDataUri = 'data:image/svg+xml;base64,' + btoa(svgContent);
-    container.style.backgroundImage = 'url(' + svgDataUri + ')';
-    console.log('Background Applied');
-    return svgElement;
-  } else {
-    console.error('SVG element with class "background-svg" not found in the container.');
-    return null;
-  }
-}
-
 function loadSVGFile(fileName) {
   return fetch(fileName) // Fetch the SVG file using its file name
     .then((response) => response.text())
@@ -38,7 +18,12 @@ document.addEventListener('DOMContentLoaded', function() {
   const projects = document.querySelectorAll('.link-left');
   const more = document.querySelector('.link-right');
 
-  const currentBackground = setSVGBackground();
+  var container = document.querySelector('.container');
+  var firstUse = document.querySelector('use');
+  var currentBackground = firstUse.instanceRoot;
+  container.style.backgroundImage = 'url(' + currentBackground + ')';
+  console.log('Page Background Applied');
+
 
   // Event Listeners
   // Background: index
