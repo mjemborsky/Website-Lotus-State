@@ -29,27 +29,24 @@ document.addEventListener('DOMContentLoaded', function() {
   // Background: index
   index.addEventListener('click', function(i) {
     i.preventDefault();
-    loadSVGFile('backgroundOne.svg').then(function(targetBackground) {
-      animateBackground(currentBackground, targetBackground);
-    });
+    var targetBackground = document.getElementById('backgroundOne');
+    animateBackground(currentBackground, targetBackground);
   });
 
   // Background: projects
   projects.forEach(function(link) {
     link.addEventListener('click', function(i) {
       i.preventDefault();
-      loadSVGFile('backgroundTwo.svg').then(function(targetBackground) {
-        animateBackground(currentBackground, targetBackground);
-      });
+      var targetBackground = document.getElementById('backgroundTwo');
+      animateBackground(currentBackground, targetBackground);
     });
   });
 
   // Background: more
   more.addEventListener('click', function(i) {
     i.preventDefault();
-    loadSVGFile('backgroundFive.svg').then(function(targetBackground) {
-      animateBackground(currentBackground, targetBackground);
-    });
+    var targetBackground = document.getElementById('backgroundTwo');
+    animateBackground(currentBackground, targetBackground);
   });
 
   function animateBackground(currentBackground, targetBackground) {
