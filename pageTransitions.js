@@ -93,9 +93,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
 
-    // Set the current background to black with current SVG elements on top
-    currentSnap.attr({ fill: "black" });
-
     // Animate circle positions from current to target positions with a 3-second duration
     currentCircles.forEach(function (circle, index) {
       circle.animate(
@@ -112,6 +109,8 @@ document.addEventListener('DOMContentLoaded', function() {
       currentSnap.attr({ fill: "none" });
       targetSnap.attr({ fill: "black" });
     }, 3000); // Wait for the animation to complete (duration 3000ms)
+
+    contentElement.style.backgroundImage = "url(data:image/svg+xml;utf8," + targetBackground + ")";
   }
   console.log("animated!");
 });
