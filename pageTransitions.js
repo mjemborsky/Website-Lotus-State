@@ -1,16 +1,3 @@
-function loadSVGFile(fileName) {
-  return fetch(fileName) // Fetch the SVG file using its file name
-    .then((response) => response.text())
-    .then((svgContent) => {
-      // Create a new DOM element for the SVG content
-      const svgElement = new DOMParser().parseFromString(svgContent, 'image/svg+xml').documentElement;
-      return svgElement;
-    })
-    .catch((error) => {
-      console.error('Error loading SVG file:', error);
-    });
-}
-
 document.addEventListener('DOMContentLoaded', function() {
   // BACKGROUND ANIMATION //
   // Initializing Links
@@ -21,11 +8,16 @@ document.addEventListener('DOMContentLoaded', function() {
   // Get combined background file
   var backgrounds = document.getElementById('backgrounds');
 
-  // Get current svg and container in use
+  // Get current container in use
   var container = document.querySelector('.container');
+  // Get the first used <use> in the SVG on the page
   var firstUse = document.querySelector('use');
-  var currentBackground = firstUse.instanceRoot;
-  container.style.backgroundImage = 'url(' + currentBackground + ')';
+  // Get the id of the firstUse <use> element (which is the filename)
+  var currentBackgroundId = firstUse.getAttribute('id');
+  // Construct the URL for the background image using the filename
+  var backgroundImageUrl = currentBackgroundId + '.svg';
+  // Set the container background image
+  container.style.backgroundImage = 'url(' + backgroundImageUrl + ')';
   console.log('Page Background Applied');
 
   // Event Listeners
