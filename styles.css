@@ -343,6 +343,10 @@ p {
   }
 }
 
+.animate-circle {
+  transition: all 3s ease; /* Replace 3s with your desired animation duration */
+}
+
 /* Media Querys */ 
 @media screen and (max-width: 675px) {
   .center-link, .header-text {

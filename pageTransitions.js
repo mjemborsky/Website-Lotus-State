@@ -90,16 +90,21 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
 
-    // Animate circle positions from current to target positions with a 3-second duration
     currentCircles.forEach(function (circle, index) {
-      circle.animate(
-        { cx: targetPositions[index].cx, cy: targetPositions[index].cy },
-        3000, // 3 seconds duration
-        function() {
-          console.log("Circle " + index + " animation completed.");
-        }
-      );
+      circle.addClass('animate-circle'); // Add a class for animation
     });
+
+
+    // // Animate circle positions from current to target positions with a 3-second duration
+    // currentCircles.forEach(function (circle, index) {
+    //   circle.animate(
+    //     { cx: targetPositions[index].cx, cy: targetPositions[index].cy },
+    //     3000, // 3 seconds duration
+    //     function() {
+    //       console.log("Circle " + index + " animation completed.");
+    //     }
+    //   );
+    // });
 
     // Set current background to target SVG after the animation
     setTimeout(function () {
