@@ -1,20 +1,20 @@
 function setSVGBackground() {
-  // Get current svg object and container (maybe have this specifically on each page)
-  var svgObject = document.querySelector('.background-svg');
-  var contentElement = document.querySelector('.container');
-  if (svgObject && svgObject.contentDocument && contentElement) {
-    var svgDoc = svgObject.contentDocument;
-    var svgElement = svgDoc.querySelector('.background-svg');;
-    if (svgElement) {
-      // Get the SVG content as XML
-      var svgContent = new XMLSerializer().serializeToString(svgElement);
-      // Create a data URI for the SVG content
-      var svgDataUri = 'data:image/svg+xml;base64,' + btoa(svgContent);
-      // Apply the SVG content as a background image to the content element
-      contentElement.style.backgroundImage = 'url(' + svgDataUri + ')';
-      console.log("Background Applied");
-    }
+  var container = document.querySelector('.container');
+  if (!container) {
+    console.error('Container element not found.');
+    return;
+  }
+  var svgElement = container.querySelector('.background-svg');
+
+  if (svgElement) {
+    var svgContent = new XMLSerializer().serializeToString(svgElement);
+    var svgDataUri = 'data:image/svg+xml;base64,' + btoa(svgContent);
+    container.style.backgroundImage = 'url(' + svgDataUri + ')';
+    console.log('Background Applied');
     return svgElement;
+  } else {
+    console.error('SVG element with class "background-svg" not found in the container.');
+    return null;
   }
 }
 
