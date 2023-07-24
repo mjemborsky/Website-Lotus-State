@@ -43,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // Event Listeners
   // Background: index
   index.addEventListener('click', function(i) {
-    i.preventDefault();
     loadSVGFile('backgroundOne.svg').then(function(targetBackground) {
       animateBackground(currentBackground, targetBackground);
     });
@@ -52,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // Background: projects
   projects.forEach(function(link) {
     link.addEventListener('click', function(i) {
-      i.preventDefault();
       loadSVGFile('backgroundTwo.svg').then(function(targetBackground) {
         animateBackground(currentBackground, targetBackground);
       });
@@ -61,7 +59,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Background: more
   more.addEventListener('click', function(i) {
-    i.preventDefault();
     loadSVGFile('backgroundFive.svg').then(function(targetBackground) {
       animateBackground(currentBackground, targetBackground);
     });
