@@ -329,6 +329,10 @@ p {
   transition: opacity 1s ease;
 }
 
+.container .background-svg use:not(:first-child) {
+  display: none;
+}
+
 /* Animations */
 @keyframes upcoming-animation {
   from {
