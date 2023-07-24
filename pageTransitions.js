@@ -4,7 +4,7 @@ function setSVGBackground() {
     console.error('Container element not found.');
     return;
   }
-  var svgElement = document.querySelector('.background-svg').documentElement;
+  var svgElement = document.querySelector('.background-svg');
 
   if (svgElement) {
     var svgContent = new XMLSerializer().serializeToString(svgElement);
