@@ -51,8 +51,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function animateBackground(currentBackground, targetBackground) {
     // Fetch the Snap.svg instances of both SVGs
-    var currentSnap = Snap(currentBackground);
-    var targetSnap = Snap(targetBackground);
+    var currentSnap = Snap.select(currentBackground);
+    var targetSnap = Snap.select(targetBackground);
     var contentElement = document.querySelector('.container');
 
     // Fetch all circles and positions from the current SVG
@@ -79,25 +79,16 @@ document.addEventListener('DOMContentLoaded', function() {
       circle.addClass('animate-circle'); // Add a class for animation
     });
 
-
-    // // Animate circle positions from current to target positions with a 3-second duration
-    // currentCircles.forEach(function (circle, index) {
-    //   circle.animate(
-    //     { cx: targetPositions[index].cx, cy: targetPositions[index].cy },
-    //     3000, // 3 seconds duration
-    //     function() {
-    //       console.log("Circle " + index + " animation completed.");
-    //     }
-    //   );
-    // });
-
-    // Set current background to target SVG after the animation
-    setTimeout(function () {
+    // Animate circle positions from current to target positions with a 3-second duration
+    Snap.animate(currentPositions, targetPositions, function (value) {
+      currentCircles.forEach(function (circle, index) {
+        circle.attr({ cx: value[index].cx, cy: value[index].cy });
+      });
+    }, 3000, mina.easeout, function() {
+      // Animation completed
       currentSnap.attr({ fill: "none" });
       targetSnap.attr({ fill: "black" });
-    }, 3000); // Wait for the animation to complete (duration 3000ms)
-
-    contentElement.style.backgroundImage = "url(data:image/svg+xml;utf8," + targetBackground + ")";
+      contentElement.style.backgroundImage = "url('path/to/your/svg/file.svg')"; // Replace 'path/to/your/svg/file.svg' with the actual path to your target SVG
+    });
   }
-  console.log("animated!");
 });
