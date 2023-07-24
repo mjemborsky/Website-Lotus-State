@@ -18,18 +18,21 @@ document.addEventListener('DOMContentLoaded', function() {
   const projects = document.querySelectorAll('.link-left');
   const more = document.querySelector('.link-right');
 
+  // Get combined background file
+  var backgrounds = document.getElementById('backgrounds');
+
+  // Get current svg and container in use
   var container = document.querySelector('.container');
   var firstUse = document.querySelector('use');
   var currentBackground = firstUse.instanceRoot;
   container.style.backgroundImage = 'url(' + currentBackground + ')';
   console.log('Page Background Applied');
 
-
   // Event Listeners
   // Background: index
   index.addEventListener('click', function(i) {
     i.preventDefault();
-    var targetBackground = document.getElementById('backgroundOne');
+    var targetBackground = backgrounds.querySelector('symbol:nth-of-type(1)');
     animateBackground(currentBackground, targetBackground);
   });
 
@@ -37,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
   projects.forEach(function(link) {
     link.addEventListener('click', function(i) {
       i.preventDefault();
-      var targetBackground = document.getElementById('backgroundTwo');
+      var targetBackground = backgrounds.querySelector('symbol:nth-of-type(2)');
       animateBackground(currentBackground, targetBackground);
     });
   });
@@ -45,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Background: more
   more.addEventListener('click', function(i) {
     i.preventDefault();
-    var targetBackground = document.getElementById('backgroundTwo');
+    var targetBackground = backgrounds.querySelector('symbol:nth-of-type(5)');
     animateBackground(currentBackground, targetBackground);
   });
 
