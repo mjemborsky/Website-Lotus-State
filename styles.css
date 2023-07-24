@@ -329,17 +329,6 @@ p {
   transition: opacity 1s ease;
 }
 
-/* Background SVG */
-#container-one {
-  background-image: '#backgroundOne';
-}
-#container-two {
-  background-image: '#backgroundTwo';
-}
-#container-five {
-  background-image: '#backgroundFive';
-}
-
 /* Animations */
 @keyframes upcoming-animation {
   from {

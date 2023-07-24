@@ -2,7 +2,6 @@ function setSVGBackground() {
   // Get current svg object and container (maybe have this specifically on each page)
   var svgObject = document.querySelector('.background-svg');
   var contentElement = document.querySelector('.container');
-
   if (svgObject && svgObject.contentDocument && contentElement) {
     var svgDoc = svgObject.contentDocument;
     var svgElement = svgDoc.querySelector('.background-svg');;
