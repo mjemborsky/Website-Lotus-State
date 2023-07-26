@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Get the referenced SVG element using the xlink:href attribute
   var firstUse = document.querySelector('use');
-  var referencedSvgId = firstUse.getAttributeNS('http://www.w3.org/1999/xlink', 'href').slice(1);
-  var referencedSvg = document.getElementById(referencedSvgId);
+  var referencedSvgId = firstUse.getAttribute('id');
+  var referencedSvg = backgrounds.getElementById(referencedSvgId);
 
   // Set the container background as the referenced SVG element
   var container = document.querySelector('.container');
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
   container.style.backgroundRepeat = "no-repeat";
   container.style.backgroundPosition = "center";
 
-  var currentBackground = backgroundImageSvg;
+  var currentBackground = referencedSvg;
 
   // Event Listeners
   // Background: index
