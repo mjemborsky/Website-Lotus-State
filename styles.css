@@ -313,7 +313,8 @@ p {
 }
 
 /* Background Shapes and Elements */ 
-#container-one, #container-two, #container-five {
+.container {
+  /* Your container styles here */
   width: 100%;
   height: 100vh;
   top: 0px;
@@ -322,29 +323,35 @@ p {
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  background-size: cover;
   position: absolute;
   text-align: center;
   color: ghostwhite;
+  transition: opacity 1s ease;
+}
+/* Target the .container and set the background image using ::before pseudo-element */
+.container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 100% 100%;
+  background-position: center;
+  z-index: -1; /* Push the pseudo-element behind the container's content */
 }
 
-/* Background SVG */
-#container-one {
-  background-image: '#background';
+#container-one::before {
+  background-image: url('backgroundOne.svg');
 }
-#container-two {
-  background-image: '#backgroundTwo';
+#container-two::before {
+  background-image: url('backgroundTwo.svg');
 }
-#container-five {
-  background-image: '#backgroundFive';
+#container-five::before {
+  background-image: url('backgroundFive.svg');
 }
-
 .background-svg {
   display: none;
-}
-
-.background-svg.current {
-  display: block;
 }
 
 /* Animations */
@@ -358,6 +365,24 @@ p {
     width: 310px;
     height: 210px;
     border-radius: 50%;
+  }
+}
+
+/* CSS class for the background animation */
+.animate-background {
+  animation: move-circles 3s ease-out;
+}
+
+@keyframes move-circles {
+  /* Define the keyframes for the animation */
+  /* Replace these with appropriate values for your animation */
+  0% {
+    /* Initial position of the circles */
+    transform: translate(0, 0);
+  }
+  100% {
+    /* Final position of the circles */
+    transform: translate(100px, 100px);
   }
 }
 
