@@ -347,8 +347,22 @@ p {
   }
 }
 
-.animate-circle {
-  transition: all 3s ease; /* Replace 3s with your desired animation duration */
+/* CSS class for the background animation */
+.animate-background {
+  animation: move-circles 3s ease-out;
+}
+
+@keyframes move-circles {
+  /* Define the keyframes for the animation */
+  /* Replace these with appropriate values for your animation */
+  0% {
+    /* Initial position of the circles */
+    transform: translate(0, 0);
+  }
+  100% {
+    /* Final position of the circles */
+    transform: translate(100px, 100px);
+  }
 }
 
 /* Media Querys */ 
