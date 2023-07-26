@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const more = document.querySelector('.link-right');
 
   // Get combined background file
-  var backgrounds = document.querySelector('backgrounds');
+  var backgrounds = document.querySelector('.backgrounds');
 
   // Get current container in use
   var container = document.querySelector('.container');
@@ -14,9 +14,12 @@ document.addEventListener('DOMContentLoaded', function() {
   var firstUse = document.querySelector('use');
   // Get the id of the firstUse <use> element (which is the filename)
   var currentBackgroundId = firstUse.getAttribute('id');
-  // Construct the URL for the background image using the filename
-  var backgroundImageUrl = currentBackgroundId + '.svg';
-  // Set the container background image
+  // Get the referenced SVG element using the xlink:href attribute
+  var referencedSvgId = firstUse.getAttributeNS('http://www.w3.org/1999/xlink', 'href').slice(1);
+  var referencedSvg = document.getElementById(referencedSvgId);
+  // Get the outerHTML of the referenced SVG and set it as the container background
+  var backgroundImageSvg = new XMLSerializer().serializeToString(referencedSvg);
+  var backgroundImageUrl = 'data:image/svg+xml,' + encodeURIComponent(backgroundImageSvg);
   container.style.backgroundImage = 'url(' + backgroundImageUrl + ')';
   console.log('Page Background Applied');
 
@@ -27,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
     var targetBackground = backgrounds.querySelector('symbol:nth-of-type(1)');
     animateBackground(currentBackground, targetBackground);
   });
-
   // Background: projects
   projects.forEach(function(link) {
     link.addEventListener('click', function(i) {
@@ -36,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
       animateBackground(currentBackground, targetBackground);
     });
   });
-
   // Background: more
   more.addEventListener('click', function(i) {
     i.preventDefault();
