@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const more = document.querySelector('.link-right');
 
   // Get combined background file
-  var backgrounds = document.getElementById('backgrounds');
+  var backgrounds = document.querySelector('backgrounds');
 
   // Get current container in use
   var container = document.querySelector('.container');
