@@ -29,21 +29,21 @@ document.addEventListener('DOMContentLoaded', function() {
   // Background: index
   index.addEventListener('click', function(i) {
     i.preventDefault();
-    var targetBackground = backgrounds.querySelector('symbol:nth-of-type(1)');
+    var targetBackground = backgrounds.getElementById('backgroundOne');
     animateBackground(currentBackground, targetBackground);
   });
   // Background: projects
   projects.forEach(function(link) {
     link.addEventListener('click', function(i) {
       i.preventDefault();
-      var targetBackground = backgrounds.querySelector('symbol:nth-of-type(2)');
+      var targetBackground = backgrounds.querySelector('backgroundTwo');
       animateBackground(currentBackground, targetBackground);
     });
   });
   // Background: more
   more.addEventListener('click', function(i) {
     i.preventDefault();
-    var targetBackground = backgrounds.querySelector('symbol:nth-of-type(5)');
+    var targetBackground = backgrounds.querySelector('backgroundFive');
     animateBackground(currentBackground, targetBackground);
   });
 
