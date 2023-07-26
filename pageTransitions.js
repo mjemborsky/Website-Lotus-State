@@ -14,10 +14,10 @@ document.addEventListener('DOMContentLoaded', function() {
     console.error("No 'use' element found on the page.");
     // Add appropriate error handling or return, depending on your use case.
   } else {
-    var referencedSvgId = firstUse.getAttribute('href').substr(1); // Remove the '#' symbol
+    var referencedSvgId = firstUse.getAttribute('id'); // Remove the '#' symbol
     var referencedSvg = backgrounds.getElementById(referencedSvgId);
   }
-  
+
   // Set the container background as the referenced SVG element
   var container = document.querySelector('.container');
   container.appendChild(referencedSvg.cloneNode(true));
