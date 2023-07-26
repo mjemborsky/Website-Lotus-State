@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var backgrounds = document.querySelector('.backgrounds');
 
   // Get the first referenced SVG element using the xlink:href attribute
-  var firstUse = document.querySelector('use:first-child');
+  var firstUse = document.querySelector('.background-svg:first-child');
   var referencedSvgId = firstUse.getAttribute('id'); // Remove the '#' symbol
   var referencedSvg = document.getElementById(referencedSvgId);
 
