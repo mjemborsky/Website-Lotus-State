@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
   container.style.backgroundImage = 'url(' + backgroundImageUrl + ')';
   console.log('Page Background Applied');
 
+  var currentBackground = backgroundImageSvg;
+
   // Event Listeners
   // Background: index
   index.addEventListener('click', function(i) {
