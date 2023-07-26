@@ -329,8 +329,14 @@ p {
   transition: opacity 1s ease;
 }
 
-.container .background-svg use:not(:first-child) {
-  display: none;
+#container-one {
+  background-image: url('backgroundOne.svg');
+}
+#container-two {
+  background-image: url('backgroundTwo.svg');
+}
+#container-five {
+  background-image: url('backgroundFive.svg');
 }
 
 /* Animations */

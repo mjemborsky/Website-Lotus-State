@@ -5,44 +5,25 @@ document.addEventListener('DOMContentLoaded', function() {
   const projects = document.querySelectorAll('.link-left');
   const more = document.querySelector('.link-right');
 
-  // Get combined background file
-  var backgrounds = document.querySelector('.backgrounds');
-
-  // Get the first referenced SVG element using the xlink:href attribute
-  var firstUse = document.querySelector('.background-svg:first-child');
-  var referencedSvgId = firstUse.getAttribute('id'); // Remove the '#' symbol
-  console.log(referencedSvgId);
-  var referencedSvg = document.getElementById(referencedSvgId);
-  console.log(referencedSvg);
-
-  // Set the container background as the referenced SVG element
-  var container = document.querySelector('.container');
-  container.appendChild(referencedSvg.cloneNode(true));
-  console.log('Page Background Applied');
-
-  // Add CSS to make the SVG fill the container
-  container.style.backgroundSize = "100% 100%";
-  container.style.backgroundRepeat = "no-repeat";
-  container.style.backgroundPosition = "center";
-
-  var currentBackground = referencedSvg;
+  // NEED TO MAKE FUNCTION FOR SVG RETRIEVAL HERE
+  // CALL WITH CURRENTBACKGROUND
 
   // Event Listeners
   // Background: index
   index.addEventListener('click', function(i) {
-    var targetBackground = backgrounds.getElementById('#backgroundOne');
+    var targetBackground = 'backgroundOne.svg';
     animateBackground(currentBackground, targetBackground);
   });
   // Background: projects
   projects.forEach(function(link) {
     link.addEventListener('click', function(i) {
-      var targetBackground = backgrounds.querySelector('#backgroundTwo');
+      var targetBackground = 'backgroundTwo.svg';
       animateBackground(currentBackground, targetBackground);
     });
   });
   // Background: more
   more.addEventListener('click', function(i) {
-    var targetBackground = backgrounds.querySelector('#backgroundFive');
+    var targetBackground = 'backgroundFive.svg';
     animateBackground(currentBackground, targetBackground);
   });
 
