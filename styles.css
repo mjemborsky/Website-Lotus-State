@@ -322,7 +322,7 @@ p {
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  background-size: cover;
+  background-size: 100% 100%;
   background-position: center;
   position: absolute;
   text-align: center;
