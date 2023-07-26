@@ -1,3 +1,14 @@
+function extractCirclePositions(svgRoot) {
+  const circles = svgRoot.querySelectorAll('circle'); // Select all circle elements
+  const circlePositions = [];
+  for (const circle of circles) {
+    const cx = parseFloat(circle.getAttribute('cx'));
+    const cy = parseFloat(circle.getAttribute('cy'));
+    circlePositions.push({ cx, cy });
+  }
+  return circlePositions;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   // BACKGROUND ANIMATION //
   // Initializing Links
@@ -7,6 +18,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // NEED TO MAKE FUNCTION FOR SVG RETRIEVAL HERE
   // CALL WITH CURRENTBACKGROUND
+
+
+  // SVG Extractor Function
+  function getSVGContent(svgUrl, callback) {
+    fetch(svgUrl)
+      .then((response) => response.text())
+      .then((svgContent) => {
+        const parser = new DOMParser();
+        const svgDoc = parser.parseFromString(svgContent, 'image/svg+xml');
+        const svgRoot = svgDoc.documentElement;
+        callback(svgRoot);
+      });
+  }
+  // Event Listeners
+  let currentBackground; // Define this variable to store the current background SVG root
+  const container = document.querySelector('.container');
 
   // Event Listeners
   // Background: index
@@ -28,18 +55,62 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   function animateBackground(currentBackground, targetBackground) {
-    // Add class for animation
-    currentBackground.classList.add('animate-background');
+    const container = document.querySelector('.container');
 
-    // Wait for the animation to finish
-    setTimeout(function () {
-      // Remove animation class
-      currentBackground.classList.remove('animate-background');
-      // Set target background to black
-      targetBackground.style.fill = "black";
-      // Set container background image
-      var contentElement = document.querySelector('.container');
-      contentElement.style.backgroundImage = "url('path/to/your/svg/file.svg')"; // Replace 'path/to/your/svg/file.svg' with the actual path to your target SVG
-    }, 3000); // 3000ms is the animation duration, adjust as needed
+    // Add 'animating' class to disable pointer events during animation
+    container.classList.add('animating');
+
+    // Add 'fade-out' class to start the fading effect
+    container.classList.add('fade-out');
+
+    const currentCircles = extractCirclePositions(currentBackground);
+
+    // Animate the circles' positions
+    getSVGContent(targetBackground, function (targetSvgRoot) {
+      // Assuming each circle has the class 'circle' in your SVGs
+      const targetCircles = extractCirclePositions(targetSvgRoot);
+      // Ensure the number of circles is the same in both SVGs
+      if (currentCircles.length !== targetCircles.length) {
+        console.error('The number of circles in the SVGs is different!');
+        return;
+      }
+
+      const duration = 3000; // 3 seconds
+      const startTime = performance.now();
+
+      function updatePositions(timestamp) {
+        const progress = (timestamp - startTime) / duration;
+
+        // Inside the updatePositions function:
+        if (progress >= 1) {
+          // Animation is complete
+          currentBackground = targetSvgRoot;
+
+          // Remove the 'animating' class after animation is complete
+          container.classList.remove('animating');
+          // Remove the 'fade-out' class after animation is complete
+          container.classList.remove('fade-out');
+        }
+
+        currentCircles.forEach((currentCircle, index) => {
+          const targetCircle = targetCircles[index];
+          const currentX = Number(currentCircle.getAttribute('cx'));
+          const currentY = Number(currentCircle.getAttribute('cy'));
+          const targetX = Number(targetCircle.getAttribute('cx'));
+          const targetY = Number(targetCircle.getAttribute('cy'));
+
+          const interpolatedX = currentX + (targetX - currentX) * progress;
+          const interpolatedY = currentY + (targetY - currentY) * progress;
+
+          currentCircle.setAttribute('cx', interpolatedX);
+          currentCircle.setAttribute('cy', interpolatedY);
+        });
+
+        if (progress < 1) {
+          requestAnimationFrame(updatePositions);
+        }
+      }
+      requestAnimationFrame(updatePositions);
+    });
   }
 });

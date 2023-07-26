@@ -354,6 +354,20 @@ p {
   display: none;
 }
 
+/* Fade out and hide the content inside .container */
+.container {
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+.container.fade-out {
+  opacity: 0;
+}
+/* Disable pointer events during animation to prevent interactions */
+.container.animating {
+  pointer-events: none;
+}
+
+
 /* Animations */
 @keyframes upcoming-animation {
   from {
