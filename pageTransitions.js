@@ -10,13 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Get the first referenced SVG element using the xlink:href attribute
   var firstUse = document.querySelector('use:first-child');
-  if (!firstUse) {
-    console.error("No 'use' element found on the page.");
-    // Add appropriate error handling or return, depending on your use case.
-  } else {
-    var referencedSvgId = firstUse.getAttribute('id'); // Remove the '#' symbol
-    var referencedSvg = backgrounds.getElementById(referencedSvgId);
-  }
+  var referencedSvgId = firstUse.getAttribute('id'); // Remove the '#' symbol
+  var referencedSvg = document.getElementById(referencedSvgId);
 
   // Set the container background as the referenced SVG element
   var container = document.querySelector('.container');
