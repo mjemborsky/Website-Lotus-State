@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Get the first referenced SVG element using the xlink:href attribute
   var firstUse = document.querySelector('.background-svg:first-child');
   var referencedSvgId = firstUse.getAttribute('id'); // Remove the '#' symbol
+  console.log(referencedSvgId);
   var referencedSvg = document.getElementById(referencedSvgId);
 
   // Set the container background as the referenced SVG element
@@ -29,21 +30,21 @@ document.addEventListener('DOMContentLoaded', function() {
   // Background: index
   index.addEventListener('click', function(i) {
     i.preventDefault();
-    var targetBackground = backgrounds.getElementById('backgroundOne');
+    var targetBackground = backgrounds.getElementById('#backgroundOne');
     animateBackground(currentBackground, targetBackground);
   });
   // Background: projects
   projects.forEach(function(link) {
     link.addEventListener('click', function(i) {
       i.preventDefault();
-      var targetBackground = backgrounds.querySelector('backgroundTwo');
+      var targetBackground = backgrounds.querySelector('#backgroundTwo');
       animateBackground(currentBackground, targetBackground);
     });
   });
   // Background: more
   more.addEventListener('click', function(i) {
     i.preventDefault();
-    var targetBackground = backgrounds.querySelector('backgroundFive');
+    var targetBackground = backgrounds.querySelector('#backgroundFive');
     animateBackground(currentBackground, targetBackground);
   });
 
