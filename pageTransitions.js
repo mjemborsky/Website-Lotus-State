@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var referencedSvgId = firstUse.getAttribute('id'); // Remove the '#' symbol
   console.log(referencedSvgId);
   var referencedSvg = document.getElementById(referencedSvgId);
+  console.log(referencedSvg);
 
   // Set the container background as the referenced SVG element
   var container = document.querySelector('.container');
