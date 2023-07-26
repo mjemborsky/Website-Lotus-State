@@ -8,11 +8,16 @@ document.addEventListener('DOMContentLoaded', function() {
   // Get combined background file
   var backgrounds = document.querySelector('.backgrounds');
 
-  // Get the referenced SVG element using the xlink:href attribute
-  var firstUse = document.querySelector('use');
-  var referencedSvgId = firstUse.getAttribute('id');
-  var referencedSvg = backgrounds.getElementById(referencedSvgId);
-
+  // Get the first referenced SVG element using the xlink:href attribute
+  var firstUse = document.querySelector('use:first-child');
+  if (!firstUse) {
+    console.error("No 'use' element found on the page.");
+    // Add appropriate error handling or return, depending on your use case.
+  } else {
+    var referencedSvgId = firstUse.getAttribute('href').substr(1); // Remove the '#' symbol
+    var referencedSvg = backgrounds.getElementById(referencedSvgId);
+  }
+  
   // Set the container background as the referenced SVG element
   var container = document.querySelector('.container');
   container.appendChild(referencedSvg.cloneNode(true));
