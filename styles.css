@@ -350,6 +350,9 @@ p {
 #container-five::before {
   background-image: url('backgroundFive.svg');
 }
+.background-svg {
+  display: none;
+}
 
 /* Animations */
 @keyframes upcoming-animation {
