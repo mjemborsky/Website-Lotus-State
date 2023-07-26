@@ -8,20 +8,20 @@ document.addEventListener('DOMContentLoaded', function() {
   // Get combined background file
   var backgrounds = document.querySelector('.backgrounds');
 
-  // Get current container in use
-  var container = document.querySelector('.container');
-  // Get the first used <use> in the SVG on the page
-  var firstUse = document.querySelector('use');
-  // Get the id of the firstUse <use> element (which is the filename)
-  var currentBackgroundId = firstUse.getAttribute('id');
   // Get the referenced SVG element using the xlink:href attribute
+  var firstUse = document.querySelector('use');
   var referencedSvgId = firstUse.getAttributeNS('http://www.w3.org/1999/xlink', 'href').slice(1);
   var referencedSvg = document.getElementById(referencedSvgId);
-  // Get the outerHTML of the referenced SVG and set it as the container background
-  var backgroundImageSvg = new XMLSerializer().serializeToString(referencedSvg);
-  var backgroundImageUrl = 'data:image/svg+xml,' + encodeURIComponent(backgroundImageSvg);
-  container.style.backgroundImage = 'url(' + backgroundImageUrl + ')';
+
+  // Set the container background as the referenced SVG element
+  var container = document.querySelector('.container');
+  container.appendChild(referencedSvg.cloneNode(true));
   console.log('Page Background Applied');
+
+  // Add CSS to make the SVG fill the container
+  container.style.backgroundSize = "100% 100%";
+  container.style.backgroundRepeat = "no-repeat";
+  container.style.backgroundPosition = "center";
 
   var currentBackground = backgroundImageSvg;
 
