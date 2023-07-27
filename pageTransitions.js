@@ -1,9 +1,11 @@
 function getSVGContent(svgUrl, callback) {
   const cachedSVG = sessionStorage.getItem(svgUrl);
   if (cachedSVG) {
+    console.log(cachedSVG);
     const parser = new DOMParser();
     const svgDoc = parser.parseFromString(cachedSVG, 'image/svg+xml');
     const svgRoot = svgDoc.documentElement;
+    console.log(svgRoot);
     callback(svgRoot);
   } else {
     fetch(svgUrl)
@@ -25,6 +27,7 @@ function getStoredSVG(index) {
   const svgString = sessionStorage.getItem(`svg_${index}`);
   const parser = new DOMParser();
   const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
+  console.log(svgDog.documentElement);
   return svgDoc.documentElement;
 }
 
@@ -43,7 +46,7 @@ function extractCirclePositions(svgRoot) {
 document.addEventListener('DOMContentLoaded', function () {
   // BACKGROUND ANIMATION //
   // Initializing Links
-  const index = document.querySelector('.header-text');
+  const home = document.querySelector('.header-text');
   const projects = document.querySelectorAll('.link-left');
   const more = document.querySelector('.link-right');
   const container = document.querySelector('.container');
@@ -72,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const url = urls[urls.length - remaining];
         getSVGContent(url, function (svgRoot) {
           preloadedSVGs.push(svgRoot);
+          console.log(svgRoot);
           remaining--;
           // Call the next preload iteration
           preloadNext();
@@ -90,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Event Listeners
   // Background: index
-  index.addEventListener('click', function(i) {
+  home.addEventListener('click', function(i) {
     var targetBackground = preloadedSVGs[0];
     animateBackground(currentBackground, targetBackground);
   });
