@@ -25,7 +25,7 @@ function getStoredSVG(index) {
   const svgString = sessionStorage.getItem(`svg_${index}`);
   const parser = new DOMParser();
   const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
-  console.log(svgDog.documentElement);
+  console.log(svgDoc.documentElement);
   return svgDoc.documentElement;
 }
 
