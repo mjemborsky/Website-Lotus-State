@@ -1,25 +1,23 @@
-function getSVGContent(svgUrl, callback) {
+async function getAllSVG(svgUrl) {
   const cachedSVG = sessionStorage.getItem(svgUrl);
   if (cachedSVG) {
-    console.log(cachedSVG);
     const parser = new DOMParser();
     const svgDoc = parser.parseFromString(cachedSVG, 'image/svg+xml');
     const svgRoot = svgDoc.documentElement;
-    console.log(svgRoot);
-    callback(svgRoot);
+    return svgRoot;
   } else {
-    fetch(svgUrl)
-      .then((response) => response.text())
-      .then((svgContent) => {
-        sessionStorage.setItem(svgUrl, svgContent); // Cache the SVG content in SessionStorage
-        const parser = new DOMParser();
-        const svgDoc = parser.parseFromString(svgContent, 'image/svg+xml');
-        const svgRoot = svgDoc.documentElement;
-        callback(svgRoot);
-      })
-      .catch((error) => {
-        console.error('Error fetching SVG:', error);
-      });
+    try {
+      const response = await fetch(svgUrl);
+      const svgContent = await response.text();
+      sessionStorage.setItem(svgUrl, svgContent); // Cache the SVG content in SessionStorage
+      const parser = new DOMParser();
+      const svgDoc = parser.parseFromString(svgContent, 'image/svg+xml');
+      const svgRoot = svgDoc.documentElement;
+      return svgRoot;
+    } catch (error) {
+      console.error('Error fetching SVG:', error);
+      return null;
+    }
   }
 }
 
@@ -42,7 +40,6 @@ function extractCirclePositions(svgRoot) {
   return circlePositions;
 }
 
-
 document.addEventListener('DOMContentLoaded', function () {
   // BACKGROUND ANIMATION //
   // Initializing Links
@@ -57,127 +54,136 @@ document.addEventListener('DOMContentLoaded', function () {
     'backgroundThree.svg',
     'backgroundFour.svg'
   ];
+
   let preloadedSVGs = JSON.parse(sessionStorage.getItem('preloadedSVGs'));
   
-  if (!preloadedSVGs) {
-    preloadedSVGs = [];
+  async function preloadSVGs(urls) {
+    let remaining = urls.length;
 
-    function preloadSVGs(urls) {
-      let remaining = urls.length;
-
-      function preloadNext() {
-        if (remaining === 0) {
-          // All SVGs have been preloaded
-          sessionStorage.setItem('preloadedSVGs', JSON.stringify(preloadedSVGs));
-          console.log(JSON.stringify(preloadedSVGs));
-          console.log('All SVGs preloaded:', preloadedSVGs);
-          return;
-        }
-        const url = urls[urls.length - remaining];
-        getSVGContent(url, function (svgRoot) {
+    function preloadNext() {
+      if (remaining === 0) {
+        // All SVGs have been preloaded
+        sessionStorage.setItem('preloadedSVGs', JSON.stringify(preloadedSVGs));
+        console.log('All SVGs preloaded:', preloadedSVGs);
+        return;
+      }
+      const url = urls[urls.length - remaining];
+      getAllSVG(url)
+        .then((svgRoot) => {
           preloadedSVGs.push(svgRoot);
           console.log(svgRoot);
           remaining--;
           // Call the next preload iteration
           preloadNext();
+        })
+        .catch((error) => {
+          console.error('Error preloading SVG:', error);
+          remaining--;
+          // Call the next preload iteration
+          preloadNext();
         });
-      }
-      preloadNext();
     }
+    preloadNext();
+  }
+
+  if (!preloadedSVGs) {
+    preloadedSVGs = [];
     preloadSVGs(svgUrls);
   } else {
     console.log('SVGs already preloaded:', preloadedSVGs);
   }
 
   var currentObject = document.querySelector('.background-svg');
-  var currentIndex = currentObject.getAttribute('index')
+  var currentIndex = currentObject.getAttribute('index');
   var currentBackground = preloadedSVGs[currentIndex];
   console.log(currentBackground);
 });
-  // Event Listeners
-  // Background: index
-  home.addEventListener('click', function(i) {
-    var targetBackground = preloadedSVGs[0];
-    animateBackground(currentBackground, targetBackground);
-  });
-  // Background: projects
-  projects.forEach(function(link) {
-    link.addEventListener('click', function(i) {
-      var targetBackground = preloadedSVGs[1];
-      animateBackground(currentBackground, targetBackground);
-    });
-  });
-  // Background: more
-  more.addEventListener('click', function(i) {
-    var targetBackground = preloadedSVGs[2];
-    animateBackground(currentBackground, targetBackground);
-  });
 
-  // Add a flag to indicate if an animation is currently in progress
-  let animationInProgress = false;
-  const animationQueue = []; // Store the queued animations
 
-  function animateBackground(currentBackground, targetBackground) {
-    // If an animation is already in progress, queue the new animation
-    if (animationInProgress) {
-      animationQueue.push(targetBackground);
-      return;
-    }
-    // Mark animation as in progress
-    animationInProgress = true;
+//   // Event Listeners
+//   // Background: index
+//   home.addEventListener('click', function(i) {
+//     var targetBackground = preloadedSVGs[0];
+//     animateBackground(currentBackground, targetBackground);
+//   });
+//   // Background: projects
+//   projects.forEach(function(link) {
+//     link.addEventListener('click', function(i) {
+//       var targetBackground = preloadedSVGs[1];
+//       animateBackground(currentBackground, targetBackground);
+//     });
+//   });
+//   // Background: more
+//   more.addEventListener('click', function(i) {
+//     var targetBackground = preloadedSVGs[2];
+//     animateBackground(currentBackground, targetBackground);
+//   });
 
-    // Store the current background locally within the animation closure
-    let currentBackgroundCopy = currentBackground;
+//   // Add a flag to indicate if an animation is currently in progress
+//   let animationInProgress = false;
+//   const animationQueue = []; // Store the queued animations
 
-    const currentCircles = extractCirclePositions(currentBackgroundCopy);
+//   function animateBackground(currentBackground, targetBackground) {
+//     // If an animation is already in progress, queue the new animation
+//     if (animationInProgress) {
+//       animationQueue.push(targetBackground);
+//       return;
+//     }
+//     // Mark animation as in progress
+//     animationInProgress = true;
 
-    // Animate the circles' positions
-    getSVGContent(targetBackground, function (targetSvgRoot) {
-      // Assuming each circle has the class 'circle' in your SVGs
-      const targetCircles = extractCirclePositions(targetSvgRoot);
-      // Ensure the number of circles is the same in both SVGs
-      if (currentCircles.length !== targetCircles.length) {
-        console.error('The number of circles in the SVGs is different!');
-        return;
-      }
-      const duration = 3000; // 3 seconds
-      const startTime = performance.now();
+//     // Store the current background locally within the animation closure
+//     let currentBackgroundCopy = currentBackground;
 
-      let animationFrameId;
+//     const currentCircles = extractCirclePositions(currentBackgroundCopy);
 
-      function updatePositions(timestamp) {
-        const progress = (timestamp - startTime) / duration;
-        currentCircles.forEach((currentCircle, index) => {
-          const targetCircle = targetCircles[index];
-          const currentX = Number(currentCircle.getAttribute('cx'));
-          const currentY = Number(currentCircle.getAttribute('cy'));
-          const targetX = Number(targetCircle.getAttribute('cx'));
-          const targetY = Number(targetCircle.getAttribute('cy'));
+//     // Animate the circles' positions
+//     getSVGContent(targetBackground, function (targetSvgRoot) {
+//       // Assuming each circle has the class 'circle' in your SVGs
+//       const targetCircles = extractCirclePositions(targetSvgRoot);
+//       // Ensure the number of circles is the same in both SVGs
+//       if (currentCircles.length !== targetCircles.length) {
+//         console.error('The number of circles in the SVGs is different!');
+//         return;
+//       }
+//       const duration = 3000; // 3 seconds
+//       const startTime = performance.now();
 
-          const interpolatedX = currentX + (targetX - currentX) * progress;
-          const interpolatedY = currentY + (targetY - currentY) * progress;
+//       let animationFrameId;
 
-          currentCircle.setAttribute('cx', interpolatedX);
-          currentCircle.setAttribute('cy', interpolatedY);
-        });
+//       function updatePositions(timestamp) {
+//         const progress = (timestamp - startTime) / duration;
+//         currentCircles.forEach((currentCircle, index) => {
+//           const targetCircle = targetCircles[index];
+//           const currentX = Number(currentCircle.getAttribute('cx'));
+//           const currentY = Number(currentCircle.getAttribute('cy'));
+//           const targetX = Number(targetCircle.getAttribute('cx'));
+//           const targetY = Number(targetCircle.getAttribute('cy'));
 
-        if (progress < 1) {
-          animationFrameId = requestAnimationFrame(updatePositions);
-        } else {
-          // Animation is complete
-          currentBackgroundCopy = targetBackground;
-          // Mark animation as complete
-          animationInProgress = false;
+//           const interpolatedX = currentX + (targetX - currentX) * progress;
+//           const interpolatedY = currentY + (targetY - currentY) * progress;
 
-          // If there are queued animations, start the next one
-          if (animationQueue.length > 0) {
-            const nextBackground = animationQueue.shift();
-            animateBackground(currentBackgroundCopy, nextBackground);
-          }
-        }
-      }
-      // Start the animation loop and store the animation frame ID
-      animationFrameId = requestAnimationFrame(updatePositions);
-    });
-  }
-});
+//           currentCircle.setAttribute('cx', interpolatedX);
+//           currentCircle.setAttribute('cy', interpolatedY);
+//         });
+
+//         if (progress < 1) {
+//           animationFrameId = requestAnimationFrame(updatePositions);
+//         } else {
+//           // Animation is complete
+//           currentBackgroundCopy = targetBackground;
+//           // Mark animation as complete
+//           animationInProgress = false;
+
+//           // If there are queued animations, start the next one
+//           if (animationQueue.length > 0) {
+//             const nextBackground = animationQueue.shift();
+//             animateBackground(currentBackgroundCopy, nextBackground);
+//           }
+//         }
+//       }
+//       // Start the animation loop and store the animation frame ID
+//       animationFrameId = requestAnimationFrame(updatePositions);
+//     });
+//   }
+// });
