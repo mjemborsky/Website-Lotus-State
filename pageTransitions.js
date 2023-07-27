@@ -55,6 +55,14 @@ document.addEventListener('DOMContentLoaded', function () {
   ];
   let preloadedSVGs = JSON.parse(sessionStorage.getItem('preloadedSVGs'));
   
+
+  container.classList.add('fade-in');
+  // Reset the opacity to 1 after the fade-in effect is complete
+  setTimeout(function () {
+    container.classList.remove('fade-in');
+  }, 2000); // Wait for 2 seconds (the same duration as fade-out) before removing 'fade-in' class
+
+
   if (!preloadedSVGs) {
     preloadedSVGs = [];
 
@@ -137,7 +145,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (progress >= 1) {
           // Animation is complete
           currentBackground = targetSvgRoot;
-
           // Remove the 'animating' class after animation is complete
           container.classList.remove('animating');
           // Remove the 'fade-out' class after animation is complete
