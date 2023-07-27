@@ -154,6 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
         currentCircles.forEach((currentCircle, index) => {
           const targetCircle = targetCircles[index];
           const currentX = Number(currentCircle.getAttribute('cx'));
+          console.log('currentX')
           const currentY = Number(currentCircle.getAttribute('cy'));
           const targetX = Number(targetCircle.getAttribute('cx'));
           const targetY = Number(targetCircle.getAttribute('cy'));
