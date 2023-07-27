@@ -83,26 +83,26 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('SVGs already preloaded:', preloadedSVGs);
   }
 
-  var currentObject = document.querySelector('background-svg');
+  var currentObject = document.querySelector('.background-svg');
   var currentIndex = currentObject.getAttribute('index')
-  var currentBackground = getStoredSVG(currentIndex);
+  var currentBackground = preloadedSVGs[currentIndex];
 
   // Event Listeners
   // Background: index
   index.addEventListener('click', function(i) {
-    var targetBackground = getStoredSVG(0);
+    var targetBackground = preloadedSVGs[0];
     animateBackground(currentBackground, targetBackground);
   });
   // Background: projects
   projects.forEach(function(link) {
     link.addEventListener('click', function(i) {
-      var targetBackground = getStoredSVG(1);
+      var targetBackground = preloadedSVGs[1];
       animateBackground(currentBackground, targetBackground);
     });
   });
   // Background: more
   more.addEventListener('click', function(i) {
-    var targetBackground = getStoredSVG(2);
+    var targetBackground = preloadedSVGs[2];
     animateBackground(currentBackground, targetBackground);
   });
 
