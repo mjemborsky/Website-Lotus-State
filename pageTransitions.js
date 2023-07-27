@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (remaining === 0) {
           // All SVGs have been preloaded
           sessionStorage.setItem('preloadedSVGs', JSON.stringify(preloadedSVGs));
+          console.log(JSON.stringify(preloadedSVGs));
           console.log('All SVGs preloaded:', preloadedSVGs);
           return;
         }
@@ -91,7 +92,8 @@ document.addEventListener('DOMContentLoaded', function () {
   var currentObject = document.querySelector('.background-svg');
   var currentIndex = currentObject.getAttribute('index')
   var currentBackground = preloadedSVGs[currentIndex];
-
+  console.log(currentBackground);
+});
   // Event Listeners
   // Background: index
   home.addEventListener('click', function(i) {
