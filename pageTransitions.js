@@ -39,6 +39,7 @@ function extractCirclePositions(svgRoot) {
   return circlePositions;
 }
 
+
 document.addEventListener('DOMContentLoaded', function () {
   // BACKGROUND ANIMATION //
   // Initializing Links
@@ -119,7 +120,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Mark animation as in progress
     animationInProgress = true;
 
-    const currentCircles = extractCirclePositions(currentBackground);
+    // Store the current background locally within the animation closure
+    let currentBackgroundCopy = currentBackground;
+
+    const currentCircles = extractCirclePositions(currentBackgroundCopy);
 
     // Animate the circles' positions
     getSVGContent(targetBackground, function (targetSvgRoot) {
@@ -131,28 +135,15 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
       const duration = 3000; // 3 seconds
-      const startTime = performance.now();  
+      const startTime = performance.now();
+
+      let animationFrameId;
 
       function updatePositions(timestamp) {
         const progress = (timestamp - startTime) / duration;
-        if (progress < 1) {
-          animationFrameId = requestAnimationFrame(updatePositions);
-        } else {
-          // Animation is complete
-          currentBackground = targetBackground;
-          // Mark animation as complete
-          animationInProgress = false;
-
-          // If there are queued animations, start the next one
-          if (animationQueue.length > 0) {
-            const nextBackground = animationQueue.shift();
-            animateBackground(currentBackground, nextBackground);
-          }
-        }
         currentCircles.forEach((currentCircle, index) => {
           const targetCircle = targetCircles[index];
           const currentX = Number(currentCircle.getAttribute('cx'));
-          console.log('currentX')
           const currentY = Number(currentCircle.getAttribute('cy'));
           const targetX = Number(targetCircle.getAttribute('cx'));
           const targetY = Number(targetCircle.getAttribute('cy'));
@@ -163,13 +154,24 @@ document.addEventListener('DOMContentLoaded', function () {
           currentCircle.setAttribute('cx', interpolatedX);
           currentCircle.setAttribute('cy', interpolatedY);
         });
+
         if (progress < 1) {
-          requestAnimationFrame(updatePositions);
+          animationFrameId = requestAnimationFrame(updatePositions);
+        } else {
+          // Animation is complete
+          currentBackgroundCopy = targetBackground;
+          // Mark animation as complete
+          animationInProgress = false;
+
+          // If there are queued animations, start the next one
+          if (animationQueue.length > 0) {
+            const nextBackground = animationQueue.shift();
+            animateBackground(currentBackgroundCopy, nextBackground);
+          }
         }
-      animationFrameId = requestAnimationFrame(updatePositions);
       }
-    // Start the animation loop and store the animation frame ID
-    animationFrameId = requestAnimationFrame(updatePositions);
+      // Start the animation loop and store the animation frame ID
+      animationFrameId = requestAnimationFrame(updatePositions);
     });
   }
 });
