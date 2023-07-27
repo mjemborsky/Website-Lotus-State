@@ -326,7 +326,8 @@ p {
   position: absolute;
   text-align: center;
   color: ghostwhite;
-  transition: opacity 1s ease;
+  transition: opacity 2s ease;
+  opacity: 1;
 }
 /* Target the .container and set the background image using ::before pseudo-element */
 .container::before {
@@ -355,10 +356,6 @@ p {
 }
 
 /* Fade out and hide the content inside .container */
-.container {
-  opacity: 1;
-  transition: opacity 1s ease;
-}
 .container.fade-out {
   opacity: 0;
 }
@@ -366,7 +363,6 @@ p {
 .container.animating {
   pointer-events: none;
 }
-
 
 /* Animations */
 @keyframes upcoming-animation {
@@ -384,7 +380,7 @@ p {
 
 /* CSS class for the background animation */
 .animate-background {
-  animation: move-circles 3s ease-out;
+  animation: move-circles 4s ease-out;
 }
 
 @keyframes move-circles {
