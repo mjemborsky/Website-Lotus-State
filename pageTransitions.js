@@ -120,9 +120,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Add 'animating' class to disable pointer events during animation
     container.classList.add('animating');
 
-    // Add 'fade-out' class to start the fading effect
-    container.classList.add('fade-out');
-
     const currentCircles = extractCirclePositions(currentBackground);
 
     // Animate the circles' positions
@@ -147,8 +144,6 @@ document.addEventListener('DOMContentLoaded', function () {
           currentBackground = targetSvgRoot;
           // Remove the 'animating' class after animation is complete
           container.classList.remove('animating');
-          // Remove the 'fade-out' class after animation is complete
-          container.classList.remove('fade-out');
         }
 
         currentCircles.forEach((currentCircle, index) => {
