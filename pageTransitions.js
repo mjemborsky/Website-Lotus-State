@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Preload SVGs for Background
   // Checks for 
-  let preloadedSVGs = JSON.parse(sessionStorage.getItem('backgroundOne.svg'));
+  let preloadedSVGs = sessionStorage.getItem('backgroundOne.svg');
 
   if (!preloadedSVGs) {
     preloadedSVGs = [];
