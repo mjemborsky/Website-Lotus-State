@@ -4,6 +4,7 @@ async function getAllSVG(svgUrl) {
     const parser = new DOMParser();
     const svgDoc = parser.parseFromString(cachedSVG, 'image/svg+xml');
     const svgRoot = svgDoc.documentElement;
+    console.log('Cached SVG:', svgRoot);
     return svgRoot;
   } else {
     try {
@@ -13,6 +14,7 @@ async function getAllSVG(svgUrl) {
       const parser = new DOMParser();
       const svgDoc = parser.parseFromString(svgContent, 'image/svg+xml');
       const svgRoot = svgDoc.documentElement;
+      console.log('Fetched SVG:', svgRoot);
       return svgRoot;
     } catch (error) {
       console.error('Error fetching SVG:', error);
