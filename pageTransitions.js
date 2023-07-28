@@ -75,8 +75,9 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   var currentObject = document.querySelector('.background-svg');
   var currentIndex = currentObject.getAttribute('index');
-  var currentBackground = preloadedSVGs[currentIndex];
+  var currentBackground = getStoredSVG[currentIndex];
   console.log(currentBackground);
+
 
   // Replace the object element with the preloaded SVG
   if (currentBackground) {
