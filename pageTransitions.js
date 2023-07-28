@@ -1,3 +1,18 @@
+
+// FUNCTION 1 - CHECK AND SET SVG
+
+// FUNCTION 2 - PRELOAD SVG
+
+// FUNCTION 3 - RETRIEVE SVG
+
+
+
+
+// DOCUMENT LISTENER
+
+
+
+
 async function getAllSVG(svgUrl) {
   const cachedSVG = sessionStorage.getItem(svgUrl);
   if (cachedSVG) {
@@ -14,7 +29,7 @@ async function getAllSVG(svgUrl) {
       const parser = new DOMParser();
       const svgDoc = parser.parseFromString(svgContent, 'image/svg+xml');
       const svgRoot = svgDoc.documentElement;
-      console.log('Fetched SVG:', svgRoot);
+      console.log('Set SVG:', svgRoot);
       return svgRoot;
     } catch (error) {
       console.error('Error fetching SVG:', error);
@@ -25,18 +40,16 @@ async function getAllSVG(svgUrl) {
 
 async function preloadSVGs(urls) {
   let remaining = urls.length;
-    
+
   function preloadNext() {
     if (remaining === 0) {
       // All SVGs have been preloaded
-      sessionStorage.setItem('preloadedSVGs', JSON.stringify(preloadedSVGs));
-      console.log('All SVGs preloaded:', preloadedSVGs);
+      console.log('All SVGs have been loaded');
       return;
     }
     const url = urls[urls.length - remaining];
     getAllSVG(url)
       .then((svgRoot) => {
-        preloadedSVGs.push(svgRoot);
         console.log(svgRoot);
         remaining--;
         // Call the next preload iteration
@@ -48,12 +61,12 @@ async function preloadSVGs(urls) {
         // Call the next preload iteration
         preloadNext();
       });
-    }
-  preloadNext();
   }
+  preloadNext();
+}
 
-function getStoredSVG(index) {
-  const svgString = sessionStorage.getItem(`svg_${index}`);
+function getStoredSVG(url) {
+  const svgString = sessionStorage.getItem(url);
   const parser = new DOMParser();
   const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
   console.log(svgDoc.documentElement);
@@ -97,14 +110,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var currentObject = document.querySelector('.background-svg');
   var currentIndex = currentObject.getAttribute('index');
-  var currentBackground = getStoredSVG(currentIndex);
+  var currentBackground;
+  if (currentIndex == 0) {
+    currentBackground = getStoredSVG('backgroundOne.svg');
+  } else if (currentIndex == 1) {
+    currentBackground = getStoredSVG('backgroundTwo.svg');
+  } else {
+    currentBackground = getStoredSVG('backgroundFive.svg');
+  }
   console.log(currentBackground);
 
-
-  // Replace the object element with the preloaded SVG
-  if (currentBackground) {
-    currentObject.parentNode.replaceChild(currentBackground, currentObject);
-  }
 });
 
 
