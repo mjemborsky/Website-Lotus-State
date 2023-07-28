@@ -23,6 +23,35 @@ async function getAllSVG(svgUrl) {
   }
 }
 
+async function preloadSVGs(urls) {
+  let remaining = urls.length;
+    
+  function preloadNext() {
+    if (remaining === 0) {
+      // All SVGs have been preloaded
+      sessionStorage.setItem('preloadedSVGs', JSON.stringify(preloadedSVGs));
+      console.log('All SVGs preloaded:', preloadedSVGs);
+      return;
+    }
+    const url = urls[urls.length - remaining];
+    getAllSVG(url)
+      .then((svgRoot) => {
+        preloadedSVGs.push(svgRoot);
+        console.log(svgRoot);
+        remaining--;
+        // Call the next preload iteration
+        preloadNext();
+      })
+      .catch((error) => {
+        console.error('Error preloading SVG:', error);
+        remaining--;
+        // Call the next preload iteration
+        preloadNext();
+      });
+    }
+  preloadNext();
+  }
+
 function getStoredSVG(index) {
   const svgString = sessionStorage.getItem(`svg_${index}`);
   const parser = new DOMParser();
@@ -58,35 +87,6 @@ document.addEventListener('DOMContentLoaded', function () {
   ];
 
   let preloadedSVGs = JSON.parse(sessionStorage.getItem('preloadedSVGs'));
-  
-  async function preloadSVGs(urls) {
-    let remaining = urls.length;
-
-    function preloadNext() {
-      if (remaining === 0) {
-        // All SVGs have been preloaded
-        sessionStorage.setItem('preloadedSVGs', JSON.stringify(preloadedSVGs));
-        console.log('All SVGs preloaded:', preloadedSVGs);
-        return;
-      }
-      const url = urls[urls.length - remaining];
-      getAllSVG(url)
-        .then((svgRoot) => {
-          preloadedSVGs.push(svgRoot);
-          console.log(svgRoot);
-          remaining--;
-          // Call the next preload iteration
-          preloadNext();
-        })
-        .catch((error) => {
-          console.error('Error preloading SVG:', error);
-          remaining--;
-          // Call the next preload iteration
-          preloadNext();
-        });
-    }
-    preloadNext();
-  }
 
   if (!preloadedSVGs) {
     preloadedSVGs = [];
