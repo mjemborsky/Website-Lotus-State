@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var currentObject = document.querySelector('.background-svg');
   var currentIndex = currentObject.getAttribute('index');
-  var currentBackground = getStoredSVG[currentIndex];
+  var currentBackground = getStoredSVG(currentIndex);
   console.log(currentBackground);
 
 
