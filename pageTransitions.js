@@ -1,26 +1,34 @@
-async function getAllSVG(svgUrl) {
-  const cachedSVG = sessionStorage.getItem(svgUrl);
-  if (cachedSVG) {
-    const parser = new DOMParser();
-    const svgDoc = parser.parseFromString(cachedSVG, 'image/svg+xml');
-    const svgRoot = svgDoc.documentElement;
-    console.log('Cached SVG:', svgRoot);
-    return svgRoot;
-  } else {
-    try {
-      const response = await fetch(svgUrl);
-      const svgContent = await response.text();
-      sessionStorage.setItem(svgUrl, svgContent); // Cache the SVG content in SessionStorage
-      const parser = new DOMParser();
-      const svgDoc = parser.parseFromString(svgContent, 'image/svg+xml');
-      const svgRoot = svgDoc.documentElement;
-      console.log('Fetched SVG:', svgRoot);
-      return svgRoot;
-    } catch (error) {
-      console.error('Error fetching SVG:', error);
-      return null;
+async function preloadSVGs(urls) {
+  return new Promise((resolve, reject) => {
+    let remaining = urls.length;
+    const preloadedSVGs = [];
+
+    function preloadNext() {
+      if (remaining === 0) {
+        // All SVGs have been preloaded
+        sessionStorage.setItem('preloadedSVGs', JSON.stringify(preloadedSVGs));
+        console.log('All SVGs preloaded:', preloadedSVGs);
+        resolve(preloadedSVGs); // Resolve the promise
+        return;
+      }
+      const url = urls[urls.length - remaining];
+      getAllSVG(url)
+        .then((svgRoot) => {
+          preloadedSVGs.push(svgRoot);
+          console.log(svgRoot);
+          remaining--;
+          // Call the next preload iteration
+          preloadNext();
+        })
+        .catch((error) => {
+          console.error('Error preloading SVG:', error);
+          remaining--;
+          // Call the next preload iteration
+          preloadNext();
+        });
     }
-  }
+    preloadNext();
+  });
 }
 
 function getStoredSVG(index) {
@@ -42,7 +50,7 @@ function extractCirclePositions(svgRoot) {
   return circlePositions;
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
   // BACKGROUND ANIMATION //
   // Initializing Links
   const home = document.querySelector('.header-text');
@@ -58,39 +66,9 @@ document.addEventListener('DOMContentLoaded', function () {
   ];
 
   let preloadedSVGs = JSON.parse(sessionStorage.getItem('preloadedSVGs'));
-  
-  async function preloadSVGs(urls) {
-    let remaining = urls.length;
-
-    function preloadNext() {
-      if (remaining === 0) {
-        // All SVGs have been preloaded
-        sessionStorage.setItem('preloadedSVGs', JSON.stringify(preloadedSVGs));
-        console.log('All SVGs preloaded:', preloadedSVGs);
-        return;
-      }
-      const url = urls[urls.length - remaining];
-      getAllSVG(url)
-        .then((svgRoot) => {
-          preloadedSVGs.push(svgRoot);
-          console.log(svgRoot);
-          remaining--;
-          // Call the next preload iteration
-          preloadNext();
-        })
-        .catch((error) => {
-          console.error('Error preloading SVG:', error);
-          remaining--;
-          // Call the next preload iteration
-          preloadNext();
-        });
-    }
-    preloadNext();
-  }
 
   if (!preloadedSVGs) {
-    preloadedSVGs = [];
-    preloadSVGs(svgUrls);
+    preloadedSVGs = await preloadSVGs(svgUrls);
   } else {
     console.log('SVGs already preloaded:', preloadedSVGs);
   }
@@ -99,6 +77,11 @@ document.addEventListener('DOMContentLoaded', function () {
   var currentIndex = currentObject.getAttribute('index');
   var currentBackground = preloadedSVGs[currentIndex];
   console.log(currentBackground);
+
+  // Replace the object element with the preloaded SVG
+  if (currentBackground) {
+    currentObject.parentNode.replaceChild(currentBackground, currentObject);
+  }
 });
 
 
