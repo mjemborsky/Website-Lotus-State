@@ -341,6 +341,10 @@ p {
   background-position: center;
   z-index: -1; /* Push the pseudo-element behind the container's content */
 }
+.container.animating, .container.animating::before {
+  opacity: 0;
+  pointer-events: none;
+}
 
 #container-one::before {
   background-image: url('backgroundOne.svg');
@@ -353,15 +357,6 @@ p {
 }
 .background-svg {
   display: none;
-}
-
-/* Fade out and hide the content inside .container */
-.container.fade-out {
-  opacity: 0;
-}
-/* Disable pointer events during animation to prevent interactions */
-.container.animating {
-  pointer-events: none;
 }
 
 /* Animations */

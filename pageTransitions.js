@@ -66,6 +66,7 @@ function animateBackground(currentBackground, targetBackground) {
   targetBackground.style.top = '0';
   targetBackground.style.left = '0';
   // Remove 'image' background and append SVG
+  container.classList.add('animating');
   container.style.background = 'none';
   container.appendChild(currentBackground);
 
@@ -96,6 +97,8 @@ function animateBackground(currentBackground, targetBackground) {
         currentCircles[index].cx.baseVal.value += deltaX;
         currentCircles[index].cy.baseVal.value += deltaY;
       });
+      currentBackground = targetBackground;
+      container.classList.remove('animating');
       return;
     }
 
