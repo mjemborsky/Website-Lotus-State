@@ -58,17 +58,17 @@ function animateBackground(currentBackground, targetBackground) {
   currentBackground.setAttribute('height', container.clientHeight);
   targetBackground.setAttribute('width', container.clientWidth);
   targetBackground.setAttribute('height', container.clientHeight);
-  // Position both SVGs at the top left corner of the container
-  currentBackground.style.position = 'absolute';
-  currentBackground.style.top = '0';
-  currentBackground.style.left = '0';
-  targetBackground.style.position = 'absolute';
-  targetBackground.style.top = '0';
-  targetBackground.style.left = '0';
   // Remove 'image' background and append SVG
   container.classList.add('animating');
   container.style.background = 'none';
   container.appendChild(currentBackground);
+  // Position both SVGs at the top left corner of the container
+  currentBackground.style.position = 'absolute';
+  currentBackground.style.top = '0';
+  currentBackground.style.left = '0';
+  // targetBackground.style.position = 'absolute';
+  // targetBackground.style.top = '0';
+  // targetBackground.style.left = '0';
 
   // Get all the circle elements in the current and target SVGs
   const currentCircles = currentBackground.querySelectorAll('circle');
