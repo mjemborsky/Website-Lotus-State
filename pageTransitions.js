@@ -73,6 +73,7 @@ function animateBackground(currentBackground, targetBackground) {
   const currentCircles = currentBackground.querySelectorAll('circle');
   console.log(currentCircles);
   const targetCircles = targetBackground.querySelectorAll('circle');
+  console.log(targetCircles);
 
   // Calculate the animation step for each circle
   const animationSteps = [];
@@ -150,6 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Event Listeners
   // Background: index
   home.addEventListener('click', function(i) {
+    i.preventDefault();
     var targetBackground = getStoredSVG('backgroundOne.svg');
     console.log(targetBackground);
     animateBackground(currentBackground, targetBackground);
@@ -157,6 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Background: projects
   projects.forEach(function(link) {
     link.addEventListener('click', function(i) {
+      i.preventDefault();
       var targetBackground = getStoredSVG('backgroundTwo.svg');
       console.log(targetBackground);
       animateBackground(currentBackground, targetBackground);
@@ -164,6 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   // Background: more
   more.addEventListener('click', function(i) {
+    i.preventDefault();
     var targetBackground = getStoredSVG('backgroundFive.svg');
     console.log(targetBackground);
     animateBackground(currentBackground, targetBackground);
