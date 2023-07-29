@@ -51,14 +51,27 @@ function getStoredSVG(url) {
 }
 
 function animateBackground(currentBackground, targetBackground) {
-  // Remove the current background SVG from the container
+  // Get current container
   const container = document.querySelector('.container');
+  // Set both SVG dimensions to match the container's dimensions
+  currentBackground.setAttribute('width', container.clientWidth);
+  currentBackground.setAttribute('height', container.clientHeight);
+  targetBackground.setAttribute('width', container.clientWidth);
+  targetBackground.setAttribute('height', container.clientHeight);
+  // Position both SVGs at the top left corner of the container
+  currentBackground.style.position = 'absolute';
+  currentBackground.style.top = '0';
+  currentBackground.style.left = '0';
+  targetBackground.style.position = 'absolute';
+  targetBackground.style.top = '0';
+  targetBackground.style.left = '0';
+  // Remove 'image' background and append SVG
   container.style.background = 'none';
-  // Append the target background SVG to the container
   container.appendChild(currentBackground);
 
   // Get all the circle elements in the current and target SVGs
   const currentCircles = currentBackground.querySelectorAll('circle');
+  console.log(currentCircles);
   const targetCircles = targetBackground.querySelectorAll('circle');
 
   // Calculate the animation step for each circle
