@@ -71,7 +71,7 @@ function animateBackground(currentBackground, targetBackground) {
   });
 
   // Animate the circles
-  const animationDuration = 1000; // 1 second animation
+  const animationDuration = 3000; // 1 second animation
   const startTime = performance.now();
   function step(timestamp) {
     const progress = (timestamp - startTime) / animationDuration;
