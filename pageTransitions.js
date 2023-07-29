@@ -140,11 +140,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   var currentObject = document.querySelector('.background-svg');
-  var currentIndex = currentObject.getAttribute('index');
+  var currentId = currentObject.getAttribute('id');
   var currentBackground;
-  if (currentIndex == 0) {
+  if (currentId == 'backgroundOne') {
     currentBackground = getStoredSVG('backgroundOne.svg');
-  } else if (currentIndex == 1) {
+  } else if (currentId == 'backgroundTwo') {
     currentBackground = getStoredSVG('backgroundTwo.svg');
   } else {
     currentBackground = getStoredSVG('backgroundFive.svg');
