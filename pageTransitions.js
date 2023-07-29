@@ -50,6 +50,53 @@ function getStoredSVG(url) {
   return svgDoc.documentElement;
 }
 
+function animateBackground(currentBackground, targetBackground) {
+  // Remove the current background SVG from the container
+  const container = document.querySelector('.container');
+  container.style.background = 'none';
+  // Append the target background SVG to the container
+  container.appendChild(currentBackground);
+
+  // Get all the circle elements in the current and target SVGs
+  const currentCircles = currentBackground.querySelectorAll('circle');
+  const targetCircles = targetBackground.querySelectorAll('circle');
+
+  // Calculate the animation step for each circle
+  const animationSteps = [];
+  currentCircles.forEach((circle, index) => {
+    const targetCircle = targetCircles[index];
+    const deltaX = targetCircle.cx.baseVal.value - circle.cx.baseVal.value;
+    const deltaY = targetCircle.cy.baseVal.value - circle.cy.baseVal.value;
+    animationSteps.push({ deltaX, deltaY });
+  });
+
+  // Animate the circles
+  const animationDuration = 1000; // 1 second animation
+  const startTime = performance.now();
+  function step(timestamp) {
+    const progress = (timestamp - startTime) / animationDuration;
+    if (progress >= 1) {
+      // Animation is complete
+      targetCircles.forEach((targetCircle, index) => {
+        const { deltaX, deltaY } = animationSteps[index];
+        currentCircles[index].cx.baseVal.value += deltaX;
+        currentCircles[index].cy.baseVal.value += deltaY;
+      });
+      return;
+    }
+
+    targetCircles.forEach((targetCircle, index) => {
+      const { deltaX, deltaY } = animationSteps[index];
+      currentCircles[index].cx.baseVal.value += progress * deltaX;
+      currentCircles[index].cy.baseVal.value += progress * deltaY;
+    });
+    // Request the next animation frame
+    requestAnimationFrame(step);
+  }
+  // Start the animation
+  requestAnimationFrame(step);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   // Initializing Links
   const home = document.querySelector('.header-text');
@@ -67,13 +114,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Preload SVGs for Background
   // Checks for 
-  let preloadedSVGs = sessionStorage.getItem('backgroundOne.svg');
-
+  let preloadedSVGs = sessionStorage.getItem('backgroundFive.svg');
   if (!preloadedSVGs) {
     preloadedSVGs = [];
     preloadSVGs(svgUrls);
   } else {
-    console.log('SVGs already preloaded:', preloadedSVGs);
+    console.log('SVGs already preloaded');
   }
 
   var currentObject = document.querySelector('.background-svg');
@@ -93,18 +139,21 @@ document.addEventListener('DOMContentLoaded', function () {
   home.addEventListener('click', function(i) {
     var targetBackground = getStoredSVG('backgroundOne.svg');
     console.log(targetBackground);
+    animateBackground(currentBackground, targetBackground);
   });
   // Background: projects
   projects.forEach(function(link) {
     link.addEventListener('click', function(i) {
       var targetBackground = getStoredSVG('backgroundTwo.svg');
       console.log(targetBackground);
+      animateBackground(currentBackground, targetBackground);
     });
   });
   // Background: more
   more.addEventListener('click', function(i) {
     var targetBackground = getStoredSVG('backgroundFive.svg');
     console.log(targetBackground);
+    animateBackground(currentBackground, targetBackground);
   });
 });
 
