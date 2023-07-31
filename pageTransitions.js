@@ -20,7 +20,6 @@ async function getAllSVG(svgUrl) {
   }
 }
 
-
 async function preloadSVGs(urls) {
   let remaining = urls.length;
   function preloadNext() {
@@ -51,14 +50,16 @@ function getStoredSVG(url) {
   return svgDoc.documentElement;
 }
 
-// Function to animate circle positions using CSS transitions
 function animateBackground(currentBackground, targetBackground) {
   // Parse circle elements from the currentBackground SVG
   const currentCircles = currentBackground.querySelectorAll('circle');
   // Parse circle elements from the targetBackground SVG
   const targetCircles = targetBackground.querySelectorAll('circle');
 
-  // Animate the positions of the circles using CSS transitions
+  // Apply the transition class to the container to enable smooth animations
+  document.querySelector('.container').classList.add('animate-transition');
+
+  // Animate the positions of the circles
   for (let i = 0; i < currentCircles.length; i++) {
     const currentCircle = currentCircles[i];
     const targetCircle = targetCircles[i];
@@ -71,20 +72,20 @@ function animateBackground(currentBackground, targetBackground) {
     const targetX = targetCircle.getAttribute('cx');
     const targetY = targetCircle.getAttribute('cy');
 
-    // Apply CSS transition to animate the circle position over 3 seconds
-    currentCircle.style.transition = 'all 3s ease-out';
+    // Update the circle's position using CSS transitions
+    currentCircle.style.transition = 'cx 3s ease-out, cy 3s ease-out';
     currentCircle.style.cx = targetX;
     currentCircle.style.cy = targetY;
-
-    // Remove the transition after the animation is complete
-    setTimeout(() => {
-      currentCircle.style.transition = '';
-    }, 3000);
   }
 
-  // After the animation, remove the currentBackground and targetBackground SVGs
-  currentBackground.remove();
-  targetBackground.remove();
+  // After the animation duration, remove the transition class to disable animations
+  setTimeout(() => {
+    document.querySelector('.container').classList.remove('animate-transition');
+
+    // After the animation, remove the currentBackground and targetBackground SVGs
+    currentBackground.remove();
+    targetBackground.remove();
+  }, 3000);
 }
 
 document.addEventListener('DOMContentLoaded', function () {
