@@ -1,20 +1,3 @@
-async function getAllSnapSVG(svgUrl) {
-  const cachedSVG = sessionStorage.getItem(svgUrl);
-  if (cachedSVG) {
-    return Snap.parse(cachedSVG);
-  } else {
-    try {
-      const response = await fetch(svgUrl);
-      const svgContent = await response.text();
-      sessionStorage.setItem(svgUrl, svgContent); // Cache the SVG content in SessionStorage
-      return Snap.parse(svgContent);
-    } catch (error) {
-      return null;
-    }
-  }
-}
-
-
 async function getAllSVG(svgUrl) {
   const cachedSVG = sessionStorage.getItem(svgUrl);
   if (cachedSVG) {
@@ -143,28 +126,22 @@ document.addEventListener('DOMContentLoaded', function () {
   // Event Listeners
   // Background: index
   home.addEventListener('click', function(i) {
-    getAllSnapSVG('backgroundOne.svg').then((targetBackground) => {
-      animateBackground(currentBackground, targetBackground);
-      currentBackground = targetBackground;
-    });
+    var targetBackground = getStoredSVG('backgroundOne.svg');
+    animateBackground(currentBackground, targetBackground);
   });
 
   // Background: projects
   projects.forEach(function(link) {
     link.addEventListener('click', function(i) {
-      getAllSnapSVG('backgroundTwo.svg').then((targetBackground) => {
-        animateBackground(currentBackground, targetBackground);
-        currentBackground = targetBackground;
-      });
+      var targetBackground = getStoredSVG('backgroundOne.svg');
+      animateBackground(currentBackground, targetBackground);
     });
   });
 
   // Background: more
   more.addEventListener('click', function(i) {
-    getAllSnapSVG('backgroundFive.svg').then((targetBackground) => {
-      animateBackground(currentBackground, targetBackground);
-      currentBackground = targetBackground;
-    });
+    var targetBackground = getStoredSVG('backgroundOne.svg');
+    animateBackground(currentBackground, targetBackground);
   });
 });
 
