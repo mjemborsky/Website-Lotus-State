@@ -51,67 +51,35 @@ function getStoredSVG(url) {
 }
 
 function animateBackground(currentBackground, targetBackground) {
-  // Get current container
   const container = document.querySelector('.container');
-  // Set both SVG dimensions to match the container's dimensions
-  currentBackground.setAttribute('width', container.clientWidth);
-  currentBackground.setAttribute('height', container.clientHeight);
-  targetBackground.setAttribute('width', container.clientWidth);
-  targetBackground.setAttribute('height', container.clientHeight);
-  // Remove 'image' background and append SVG
   container.classList.add('animating');
   container.style.background = 'none';
   container.appendChild(currentBackground);
-  // Position both SVGs at the top left corner of the container
   currentBackground.style.position = 'absolute';
   currentBackground.style.top = '0';
   currentBackground.style.left = '0';
-  // targetBackground.style.position = 'absolute';
-  // targetBackground.style.top = '0';
-  // targetBackground.style.left = '0';
 
   // Get all the circle elements in the current and target SVGs
-  const currentCircles = currentBackground.querySelectorAll('circle');
-  console.log(currentCircles);
-  const targetCircles = targetBackground.querySelectorAll('circle');
-  console.log(targetCircles);
+  const currentCircles = Snap(currentBackground).selectAll('circle');
+  const targetCircles = Snap(targetBackground).selectAll('circle');
 
-  // Calculate the animation step for each circle
-  const animationSteps = [];
+  // Animate the circles using Snap.svg animation function
   currentCircles.forEach((circle, index) => {
     const targetCircle = targetCircles[index];
-    const deltaX = targetCircle.cx.baseVal.value - circle.cx.baseVal.value;
-    const deltaY = targetCircle.cy.baseVal.value - circle.cy.baseVal.value;
-    animationSteps.push({ deltaX, deltaY });
+    const targetTransform = Snap.matrix(targetCircle);
+    circle.animate(
+      { transform: targetTransform },
+      3000,
+      mina.easeinout, // Use any easing function you prefer
+      () => {
+        if (index === currentCircles.length - 1) {
+          // Animation is complete
+          currentBackground = targetBackground;
+          container.classList.remove('animating');
+        }
+      }
+    );
   });
-
-  // Animate the circles
-  const animationDuration = 3000; // 1 second animation
-  const startTime = performance.now();
-  function step(timestamp) {
-    const progress = (timestamp - startTime) / animationDuration;
-    if (progress >= 1) {
-      // Animation is complete
-      targetCircles.forEach((targetCircle, index) => {
-        const { deltaX, deltaY } = animationSteps[index];
-        currentCircles[index].cx.baseVal.value += deltaX;
-        currentCircles[index].cy.baseVal.value += deltaY;
-      });
-      currentBackground = targetBackground;
-      container.classList.remove('animating');
-      return;
-    }
-
-    targetCircles.forEach((targetCircle, index) => {
-      const { deltaX, deltaY } = animationSteps[index];
-      currentCircles[index].cx.baseVal.value += progress * deltaX;
-      currentCircles[index].cy.baseVal.value += progress * deltaY;
-    });
-    // Request the next animation frame
-    requestAnimationFrame(step);
-  }
-  // Start the animation
-  requestAnimationFrame(step);
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -149,27 +117,23 @@ document.addEventListener('DOMContentLoaded', function () {
   } else {
     currentBackground = getStoredSVG('backgroundFive.svg');
   }
-  console.log(currentBackground);
 
   // Event Listeners
   // Background: index
   home.addEventListener('click', function(i) {
     var targetBackground = getStoredSVG('backgroundOne.svg');
-    console.log(targetBackground);
     animateBackground(currentBackground, targetBackground);
   });
   // Background: projects
   projects.forEach(function(link) {
     link.addEventListener('click', function(i) {
       var targetBackground = getStoredSVG('backgroundTwo.svg');
-      console.log(targetBackground);
       animateBackground(currentBackground, targetBackground);
     });
   });
   // Background: more
   more.addEventListener('click', function(i) {
     var targetBackground = getStoredSVG('backgroundFive.svg');
-    console.log(targetBackground);
     animateBackground(currentBackground, targetBackground);
   });
 });
