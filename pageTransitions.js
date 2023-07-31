@@ -44,7 +44,7 @@ function getStoredSVG(url) {
 
 function animateBackground(currentBackground, targetBackground) {
   const container = document.querySelector('.container');
-  container.classList.add('animating');
+  container.classList.add('animating', 'animate-background');
 
   const currentContainer = Snap(container);
   const currentCircles = currentBackground.selectAll("circle");
