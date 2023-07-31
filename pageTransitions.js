@@ -72,7 +72,6 @@ function animateBackground(currentBackground, targetBackground) {
     );
   });
 
-  currentContainer.append(targetBackground);
   container.classList.remove('animating');
 }
 
