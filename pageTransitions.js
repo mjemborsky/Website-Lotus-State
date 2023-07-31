@@ -42,47 +42,54 @@ function getStoredSVG(url) {
   return Snap.parse(svgString);
 }
 
+// Function to animate circle positions
 function animateBackground(currentBackground, targetBackground) {
-  const container = document.querySelector('.container');
-  container.classList.add('animating');
+  // Parse circle elements from the currentBackground SVG
+  const currentCircles = currentBackground.querySelectorAll('circle');
+  // Parse circle elements from the targetBackground SVG
+  const targetCircles = targetBackground.querySelectorAll('circle');
+  
+  // Animate the positions of the circles
+  for (let i = 0; i < currentCircles.length; i++) {
+    const currentCircle = currentCircles[i];
+    const targetCircle = targetCircles[i];
 
-  const currentCircles = currentBackground.selectAll("circle");
-  const targetCircles = targetBackground.selectAll("circle");
+    // Get the initial position of the circle
+    const initialX = currentCircle.getAttribute('cx');
+    const initialY = currentCircle.getAttribute('cy');
 
-  if (currentCircles.length !== targetCircles.length) {
-    console.error("The number of circles in the SVGs should be the same.");
-    return;
-  }
+    // Get the target position of the circle
+    const targetX = targetCircle.getAttribute('cx');
+    const targetY = targetCircle.getAttribute('cy');
 
-  const animationDuration = 3000; // 3 seconds
+    // Create a new circle element for the animation
+    const animatedCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    animatedCircle.setAttribute('r', currentCircle.getAttribute('r'));
+    animatedCircle.setAttribute('cx', initialX);
+    animatedCircle.setAttribute('cy', initialY);
+    animatedCircle.setAttribute('fill', currentCircle.getAttribute('fill'));
+    animatedCircle.setAttribute('stroke', currentCircle.getAttribute('stroke'));
+    animatedCircle.setAttribute('stroke-width', currentCircle.getAttribute('stroke-width'));
 
-  // Store a variable to track the number of completed animations
-  let animationsCompleted = 0;
+    // Append the animated circle to the existing container
+    document.querySelector('.container').appendChild(animatedCircle);
 
-  currentCircles.forEach(function (currentCircle, index) {
-    const targetCircle = targetCircles[index];
-    const targetRadius = targetCircle.attr("r");
-    const targetFill = targetCircle.attr("fill");
-
-    currentCircle.animate(
+    // Animate the circle position over 3 seconds
+    animatedCircle.animate(
+      [
+        { cx: initialX, cy: initialY },
+        { cx: targetX, cy: targetY }
+      ],
       {
-        r: targetRadius,
-        fill: targetFill,
-      },
-      animationDuration,
-      mina.easeinout,
-      function () {
-        animationsCompleted++;
-
-        // Check if all animations are completed
-        if (animationsCompleted === currentCircles.length) {
-          container.classList.remove('animating');
-          currentBackground.remove(); // Remove the currentBackground after the animation is completed
-          container.appendChild(targetBackground); // Append the targetBackground to the container
-        }
+        duration: 3000,
+        easing: 'ease-out'
       }
     );
-  });
+  }
+
+  // After the animation, remove the currentBackground and targetBackground SVGs
+  currentBackground.remove();
+  targetBackground.remove();
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -120,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
   } else {
     currentBackground = getStoredSVG('backgroundFive.svg');
   }
-
+  console.log(currentBackground);
   // Event Listeners
   // Background: index
   home.addEventListener('click', function(i) {
