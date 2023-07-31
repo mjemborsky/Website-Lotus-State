@@ -50,6 +50,7 @@ function getStoredSVG(url) {
   return svgDoc.documentElement;
 }
 
+
 function animateBackground(currentBackground, targetBackground) {
   const container = document.querySelector('.container');
   container.classList.add('animating');
@@ -59,27 +60,38 @@ function animateBackground(currentBackground, targetBackground) {
   currentBackground.style.top = '0';
   currentBackground.style.left = '0';
 
-  // Get all the circle elements in the current and target SVGs
-  const currentCircles = Snap(currentBackground).selectAll('circle');
-  const targetCircles = Snap(targetBackground).selectAll('circle');
 
-  // Animate the circles using Snap.svg animation function
-  currentCircles.forEach((circle, index) => {
-    const targetCircle = targetCircles[index];
-    const targetTransform = Snap.matrix(targetCircle);
-    circle.animate(
-      { transform: targetTransform },
-      3000,
-      mina.easeinout, // Use any easing function you prefer
-      () => {
-        if (index === currentCircles.length - 1) {
-          // Animation is complete
-          currentBackground = targetBackground;
-          container.classList.remove('animating');
-        }
-      }
+  var currentSvg = Snap(currentBackground);
+  var targetSvg = Snap(targetBackground);
+
+  var currentCircles = currentSvg.selectAll("circle");
+  console.log(currentCircles);
+  var targetCircles = targetSvg.selectAll("circle");
+  console.log(targetCircles);
+
+  if (currentCircles.length !== targetCircles.length) {
+    console.error("The number of circles in the SVGs should be the same.");
+    return;
+  }
+
+  var animationDuration = 3000; // 3 seconds
+
+  currentCircles.forEach(function (currentCircle, index) {
+    var targetCircle = targetCircles[index];
+    var targetRadius = targetCircle.attr("r");
+    var targetFill = targetCircle.attr("fill");
+
+    currentCircle.animate(
+      {
+        r: targetRadius,
+        fill: targetFill,
+      },
+      animationDuration,
+      mina.easeinout
     );
   });
+  currentBackground = targetBackground;
+  container.classList.remove('animating');
 }
 
 document.addEventListener('DOMContentLoaded', function () {
