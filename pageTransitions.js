@@ -14,23 +14,24 @@ async function getAllSnapSVG(svgUrl) {
   }
 }
 
-function preloadNext(urls) {
-  if (remaining === 0) {
-    return;
-  }
-  const url = urls[urls.length - remaining];
-  getAllSnapSVG(url)
-    .then((svgRoot) => {
-      remaining--;
-      // Call the next preload iteration
-      preloadNext();
-    })
-    .catch((error) => {
+
+async function preloadSVGs(urls) {
+  let remaining = urls.length;
+  async function preloadNext() { // Add 'async' here
+    if (remaining === 0) {
+      return;
+    }
+    const url = urls[urls.length - remaining];
+    try { // Add try-catch block for better error handling
+      await getAllSnapSVG(url);
+    } catch (error) {
       console.error('Error preloading SVG:', error);
-      remaining--;
-      // Call the next preload iteration
-      preloadNext();
-    });
+    }
+    remaining--;
+    // Call the next preload iteration
+    preloadNext();
+  }
+  preloadNext();
 }
 
 function getStoredSVG(url) {
