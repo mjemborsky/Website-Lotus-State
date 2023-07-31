@@ -44,9 +44,8 @@ function getStoredSVG(url) {
 
 function animateBackground(currentBackground, targetBackground) {
   const container = document.querySelector('.container');
-  container.classList.add('animating', 'animate-background');
+  container.classList.add('animating');
 
-  const currentContainer = Snap(container);
   const currentCircles = currentBackground.selectAll("circle");
   const targetCircles = targetBackground.selectAll("circle");
 
@@ -56,6 +55,9 @@ function animateBackground(currentBackground, targetBackground) {
   }
 
   const animationDuration = 3000; // 3 seconds
+
+  // Store a variable to track the number of completed animations
+  let animationsCompleted = 0;
 
   currentCircles.forEach(function (currentCircle, index) {
     const targetCircle = targetCircles[index];
@@ -68,11 +70,19 @@ function animateBackground(currentBackground, targetBackground) {
         fill: targetFill,
       },
       animationDuration,
-      mina.easeinout
+      mina.easeinout,
+      function () {
+        animationsCompleted++;
+
+        // Check if all animations are completed
+        if (animationsCompleted === currentCircles.length) {
+          container.classList.remove('animating');
+          currentBackground.remove(); // Remove the currentBackground after the animation is completed
+          container.appendChild(targetBackground); // Append the targetBackground to the container
+        }
+      }
     );
   });
-
-  container.classList.remove('animating');
 }
 
 document.addEventListener('DOMContentLoaded', function () {
