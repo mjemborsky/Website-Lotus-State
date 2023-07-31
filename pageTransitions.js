@@ -51,32 +51,56 @@ function getStoredSVG(url) {
 }
 
 function animateBackground(currentBackground, targetBackground) {
-  // Parse circle elements from the currentBackground SVG
   const currentCircles = currentBackground.querySelectorAll('circle');
-  // Parse circle elements from the targetBackground SVG
   const targetCircles = targetBackground.querySelectorAll('circle');
-
-  // Apply the transition class to the container to enable smooth animations
-  document.querySelector('.container').classList.add('animate-transition');
+  const container = document.querySelector('.container');
 
   // Animate the positions of the circles
   for (let i = 0; i < currentCircles.length; i++) {
     const currentCircle = currentCircles[i];
     const targetCircle = targetCircles[i];
 
-    // Get the initial position of the circle
     const initialX = currentCircle.getAttribute('cx');
     const initialY = currentCircle.getAttribute('cy');
-
-    // Get the target position of the circle
     const targetX = targetCircle.getAttribute('cx');
     const targetY = targetCircle.getAttribute('cy');
 
-    // Update the circle's position using CSS transitions
-    currentCircle.style.transition = 'cx 3s ease-out, cy 3s ease-out';
-    currentCircle.style.cx = targetX;
-    currentCircle.style.cy = targetY;
+    const currentRadius = Number(currentCircle.getAttribute('r'));
+    const targetRadius = Number(targetCircle.getAttribute('r'));
+
+    // Create a new circle element for the animation
+    const animatedCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    animatedCircle.setAttribute('r', currentRadius);
+    animatedCircle.setAttribute('cx', initialX);
+    animatedCircle.setAttribute('cy', initialY);
+    animatedCircle.setAttribute('fill', currentCircle.getAttribute('fill'));
+    animatedCircle.setAttribute('stroke', currentCircle.getAttribute('stroke'));
+    animatedCircle.setAttribute('stroke-width', currentCircle.getAttribute('stroke-width'));
+
+    container.appendChild(animatedCircle);
+
+    // Animate the circle position over 3 seconds
+    animatedCircle.animate(
+      [
+        { cx: initialX, cy: initialY, r: currentRadius },
+        { cx: targetX, cy: targetY, r: targetRadius }
+      ],
+      {
+        duration: 3000,
+        easing: 'ease-out'
+      }
+    );
+
+    // Remove the current circle from the container after animation
+    animatedCircle.addEventListener('finish', function () {
+      animatedCircle.remove();
+    });
   }
+
+  // After the animation, remove the currentBackground and targetBackground SVGs
+  currentBackground.remove();
+  targetBackground.remove();
+}
 
   // After the animation duration, remove the transition class to disable animations
   setTimeout(() => {
