@@ -96,21 +96,11 @@ function animateBackground(currentBackground, targetBackground) {
       animatedCircle.remove();
     });
   }
-
   // After the animation, remove the currentBackground and targetBackground SVGs
   currentBackground.remove();
   targetBackground.remove();
 }
 
-  // After the animation duration, remove the transition class to disable animations
-  setTimeout(() => {
-    document.querySelector('.container').classList.remove('animate-transition');
-
-    // After the animation, remove the currentBackground and targetBackground SVGs
-    currentBackground.remove();
-    targetBackground.remove();
-  }, 3000);
-}
 
 document.addEventListener('DOMContentLoaded', function () {
   // Initializing Links
