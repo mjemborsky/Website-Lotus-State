@@ -70,7 +70,7 @@ function animateBackground(currentBackground, targetBackground) {
 
     // Create a new circle element for the animation
     const animatedCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    animatedCircle.setAttribute('r', currentRadius);
+    animatedCircle.setAttribute('r', currentRadius); // Set initial radius
     animatedCircle.setAttribute('cx', initialX);
     animatedCircle.setAttribute('cy', initialY);
     animatedCircle.setAttribute('fill', currentCircle.getAttribute('fill'));
@@ -79,7 +79,7 @@ function animateBackground(currentBackground, targetBackground) {
 
     container.appendChild(animatedCircle);
 
-    // Animate the circle position over 3 seconds
+    // Animate the circle position and radius over 3 seconds
     animatedCircle.animate(
       [
         { cx: initialX, cy: initialY, r: currentRadius },
@@ -96,6 +96,7 @@ function animateBackground(currentBackground, targetBackground) {
       animatedCircle.remove();
     });
   }
+
   // After the animation, remove the currentBackground and targetBackground SVGs
   currentBackground.remove();
   targetBackground.remove();
