@@ -99,15 +99,12 @@ function animateBackground(currentBackground, targetBackground) {
     for (const circle of previousCircles) {
       circle.remove();
     }
-
     // Request the next animation frame
     requestAnimationFrame(animate);
   }
-
   // Start the animation
   animate();
 }
-
 
 document.addEventListener('DOMContentLoaded', function () {
   // Initializing Links
@@ -125,7 +122,6 @@ document.addEventListener('DOMContentLoaded', function () {
   ];
 
   // Preload SVGs for Background
-  // Checks for 
   let preloadedSVGs = sessionStorage.getItem('backgroundFive.svg');
   if (!preloadedSVGs) {
     preloadedSVGs = [];
@@ -145,6 +141,8 @@ document.addEventListener('DOMContentLoaded', function () {
     currentBackground = getStoredSVG('backgroundFive.svg');
   }
   console.log(currentBackground);
+
+
   // Event Listeners
   // Background: index
   home.addEventListener('click', function(i) {
@@ -166,6 +164,3 @@ document.addEventListener('DOMContentLoaded', function () {
     animateBackground(currentBackground, targetBackground);
   });
 });
-
-
-
