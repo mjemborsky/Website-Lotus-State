@@ -341,9 +341,10 @@ p {
   background-position: center;
   z-index: -1; /* Push the pseudo-element behind the container's content */
 }
-.container.animating, .container.animating::before {
+
+.container::before.animating {
   opacity: 0;
-  pointer-events: none;
+  transition: opacity 2s ease;
 }
 
 #container-one::before {

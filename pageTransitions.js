@@ -155,14 +155,14 @@ document.addEventListener('DOMContentLoaded', function () {
   // Background: projects
   projects.forEach(function(link) {
     link.addEventListener('click', function(i) {
-      var targetBackground = getStoredSVG('backgroundOne.svg');
+      var targetBackground = getStoredSVG('backgroundTwo.svg');
       animateBackground(currentBackground, targetBackground);
     });
   });
 
   // Background: more
   more.addEventListener('click', function(i) {
-    var targetBackground = getStoredSVG('backgroundOne.svg');
+    var targetBackground = getStoredSVG('backgroundFive.svg');
     animateBackground(currentBackground, targetBackground);
   });
 });
