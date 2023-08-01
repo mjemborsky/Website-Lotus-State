@@ -78,10 +78,9 @@ function animateBackground(currentBackground, targetBackground) {
       const currentCircle = currentCircles[i];
       const targetCircle = targetCircles[i];
       const currentRadius = Number(currentCircle.getAttribute('r'));
-      console.log(currentRadius);
       const targetRadius = Number(targetCircle.getAttribute('r'));
-      console.log(targetRadius);
       const newRadius = currentRadius + (targetRadius - currentRadius) * progress;
+      console.log(newRadius);
 
       // Create a new circle element for the animation
       const animatedCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
