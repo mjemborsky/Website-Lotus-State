@@ -66,6 +66,7 @@ function animateBackground(currentBackground, targetBackground) {
       for (let i = 0; i < targetCircles.length; i++) {
         const targetCircle = targetCircles[i].cloneNode();
         container.appendChild(targetCircle);
+        console.log('ANIMATED');
       }
       // Remove the currentBackground and targetBackground SVGs
       currentBackground.remove();
@@ -77,7 +78,9 @@ function animateBackground(currentBackground, targetBackground) {
       const currentCircle = currentCircles[i];
       const targetCircle = targetCircles[i];
       const currentRadius = Number(currentCircle.getAttribute('r'));
+      console.log(currentRadius);
       const targetRadius = Number(targetCircle.getAttribute('r'));
+      console.log(targetRadius);
       const newRadius = currentRadius + (targetRadius - currentRadius) * progress;
 
       // Create a new circle element for the animation
