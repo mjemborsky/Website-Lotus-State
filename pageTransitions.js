@@ -51,60 +51,20 @@ function getStoredSVG(url) {
 }
 
 function animateBackground(currentBackground, targetBackground) {
-  const currentCircles = currentBackground.querySelectorAll('circle');
-  console.log(currentCircles);
+  // Gets current container
+  const container = document.querySelector('.container');
+  // NEEDS to access svg element with class .background-svg to change circles
+  // NEEDS to pull current circle positions
+  // Gets target circle positions (what the circle should shift too)
   const targetCircles = targetBackground.querySelectorAll('circle');
   console.log(targetCircles);
-  const container = document.querySelector('.container');
 
-  const duration = 3000; // Duration of the animation in milliseconds
-  const startTime = performance.now();
-
-  function animate() {
-    const currentTime = performance.now();
-    const progress = (currentTime - startTime) / duration;
-    if (progress >= 1) {
-      // Animation completed
-      for (let i = 0; i < targetCircles.length; i++) {
-        const targetCircle = targetCircles[i].cloneNode();
-        container.appendChild(targetCircle);
-        console.log('ANIMATED');
-      }
-      // Remove the currentBackground and targetBackground SVGs
-      currentBackground.remove();
-      targetBackground.remove();
-      return;
-    }
-
-    for (let i = 0; i < currentCircles.length; i++) {
-      const currentCircle = currentCircles[i];
-      const targetCircle = targetCircles[i];
-      const currentRadius = Number(currentCircle.getAttribute('r'));
-      const targetRadius = Number(targetCircle.getAttribute('r'));
-      const newRadius = currentRadius + (targetRadius - currentRadius) * progress;
-
-      // Create a new circle element for the animation
-      const animatedCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      animatedCircle.setAttribute('r', newRadius);
-      animatedCircle.setAttribute('cx', currentCircle.getAttribute('cx'));
-      animatedCircle.setAttribute('cy', currentCircle.getAttribute('cy'));
-      animatedCircle.setAttribute('fill', currentCircle.getAttribute('fill'));
-      animatedCircle.setAttribute('stroke', currentCircle.getAttribute('stroke'));
-      animatedCircle.setAttribute('stroke-width', currentCircle.getAttribute('stroke-width'));
-
-      container.appendChild(animatedCircle);
-    }
-
-    // Remove the previous frame's circles from the container
-    const previousCircles = container.querySelectorAll('circle:not([fill])');
-    for (const circle of previousCircles) {
-      circle.remove();
-    }
-    // Request the next animation frame
-    requestAnimationFrame(animate);
-  }
-  // Start the animation
-  animate();
+  // NEEDS to animate current svg circles to target position
+    // In function...
+    // It should, for each circle, at the same time,
+      // Take all attributes from each circle of current (including r, cx and cy attributes)
+      // Take all attributes from each circle of target (including r, cx and cy attributes)
+      // Animate current svg circles to new attributes over 4 seconds
 }
 
 document.addEventListener('DOMContentLoaded', function () {
