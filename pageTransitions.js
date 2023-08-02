@@ -50,21 +50,31 @@ function getStoredSVG(url) {
   return svgDoc.documentElement;
 }
 
-function animateBackground(currentBackground, targetBackground) {
-  // Gets current container
-  const container = document.querySelector('.container');
-  // NEEDS to access svg element with class .background-svg to change circles
-  // NEEDS to pull current circle positions
-  // Gets target circle positions (what the circle should shift too)
-  const targetCircles = targetBackground.querySelectorAll('circle');
-  console.log(targetCircles);
 
-  // NEEDS to animate current svg circles to target position
-    // In function...
-    // It should, for each circle, at the same time,
-      // Take all attributes from each circle of current (including r, cx and cy attributes)
-      // Take all attributes from each circle of target (including r, cx and cy attributes)
-      // Animate current svg circles to new attributes over 4 seconds
+function animateBackground(currentBackground, targetBackground) {
+  console.log(currentBackground);
+  console.log(targetBackground);
+  // Gets current SVG circles
+  const currentCircles = currentBackground.querySelectorAll('circle');
+  // Gets target SVG circles
+  const targetCircles = targetBackground.querySelectorAll('circle');
+
+  // Loop through the circles and animate each one
+  for (let i = 0; i < currentCircles.length; i++) {
+    const currentCircle = currentCircles[i];
+    const targetCircle = targetCircles[i];
+
+    // Get the target attributes for the current circle
+    const targetR = targetCircle.getAttribute('r');
+    const targetCX = targetCircle.getAttribute('cx');
+    const targetCY = targetCircle.getAttribute('cy');
+
+    // Animate the current circle to the target attributes using CSS transitions
+    currentCircle.style.transition = 'all 4s ease';
+    currentCircle.style.r = targetR;
+    currentCircle.style.cx = targetCX;
+    currentCircle.style.cy = targetCY;
+  }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
