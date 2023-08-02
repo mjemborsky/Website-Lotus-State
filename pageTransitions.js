@@ -52,7 +52,9 @@ function getStoredSVG(url) {
 
 function animateBackground(currentBackground, targetBackground) {
   const currentCircles = currentBackground.querySelectorAll('circle');
+  console.log(currentCircles);
   const targetCircles = targetBackground.querySelectorAll('circle');
+  console.log(targetCircles);
   const container = document.querySelector('.container');
 
   const duration = 3000; // Duration of the animation in milliseconds
