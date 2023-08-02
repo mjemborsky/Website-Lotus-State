@@ -80,7 +80,6 @@ function animateBackground(currentBackground, targetBackground) {
       const currentRadius = Number(currentCircle.getAttribute('r'));
       const targetRadius = Number(targetCircle.getAttribute('r'));
       const newRadius = currentRadius + (targetRadius - currentRadius) * progress;
-      console.log(newRadius);
 
       // Create a new circle element for the animation
       const animatedCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
@@ -113,6 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const more = document.querySelector('.link-right');
   // Initializing Background Elements
   const container = document.querySelector('.container');
+  const currentBackground = document.querySelector('.background-svg')
   const svgUrls = [
     'backgroundOne.svg',
     'backgroundTwo.svg',
@@ -120,28 +120,14 @@ document.addEventListener('DOMContentLoaded', function () {
     'backgroundThree.svg',
     'backgroundFour.svg'
   ];
-
   // Preload SVGs for Background
-  let preloadedSVGs = sessionStorage.getItem('backgroundFive.svg');
+  let preloadedSVGs = sessionStorage.getItem('backgroundFour.svg');
   if (!preloadedSVGs) {
     preloadedSVGs = [];
     preloadSVGs(svgUrls);
   } else {
     console.log('SVGs already preloaded');
   }
-
-  var currentObject = document.querySelector('.background-svg');
-  var currentId = currentObject.getAttribute('id');
-  var currentBackground;
-  if (currentId == 'backgroundOne') {
-    currentBackground = getStoredSVG('backgroundOne.svg');
-  } else if (currentId == 'backgroundTwo') {
-    currentBackground = getStoredSVG('backgroundTwo.svg');
-  } else {
-    currentBackground = getStoredSVG('backgroundFive.svg');
-  }
-  console.log(currentBackground);
-
 
   // Event Listeners
   // Background: index
