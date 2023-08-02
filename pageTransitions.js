@@ -86,6 +86,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const container = document.querySelector('.container');
   const currentBackground = document.querySelector('.background-svg');
   console.log(currentBackground);
+  const currentCircles = currentBackground.querySelectorAll('circle');
+  console.log(currentCircles);
   const svgUrls = [
     'backgroundOne.svg',
     'backgroundTwo.svg',
