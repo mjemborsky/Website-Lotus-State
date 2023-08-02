@@ -114,7 +114,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const more = document.querySelector('.link-right');
   // Initializing Background Elements
   const container = document.querySelector('.container');
-  const currentBackground = document.querySelector('.background-svg')
+  const currentBackground = document.querySelector('.background-svg');
+  console.log(currentBackground);
   const svgUrls = [
     'backgroundOne.svg',
     'backgroundTwo.svg',
