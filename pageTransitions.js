@@ -52,8 +52,7 @@ function getStoredSVG(url) {
 
 
 function animateBackground(currentBackground, targetBackground) {
-  console.log(currentBackground);
-  console.log(targetBackground);
+  console.log('target background:', targetBackground);
   // Gets current SVG circles
   const currentCircles = currentBackground.querySelectorAll('circle');
   // Gets target SVG circles
@@ -85,9 +84,9 @@ document.addEventListener('DOMContentLoaded', function () {
   // Initializing Background Elements
   const container = document.querySelector('.container');
   const currentBackground = document.querySelector('.background-svg');
-  console.log(currentBackground);
+  console.log('current background:',currentBackground);
   const currentCircles = currentBackground.querySelectorAll('circle');
-  console.log(currentCircles);
+  console.log('current circles: ',currentCircles);
   const svgUrls = [
     'backgroundOne.svg',
     'backgroundTwo.svg',
