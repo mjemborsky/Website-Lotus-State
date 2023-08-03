@@ -362,9 +362,10 @@ p {
 .current {
     opacity: 1;
 }
-.circle {
+circle {
     transition: cx 4s ease-out, cy 4s ease-out, r 4s ease-out;
 }
+
 
 /* Media Querys */ 
 @media screen and (max-width: 675px) {
