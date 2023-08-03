@@ -353,6 +353,10 @@ p {
   }
 }
 
+.animate-circle {
+  transition: all 4s ease;
+}
+
 /* Media Querys */ 
 @media screen and (max-width: 675px) {
   .center-link, .header-text {
