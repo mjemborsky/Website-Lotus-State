@@ -28,7 +28,7 @@ function animateBackground(currentBackground, targetBackground) {
     const currentCircle = currentCircles[i];
     const targetCircle = targetCircles[i];
 
-    currentCircle.style.transition = 'cx 4s ease-out, cy 4s ease-out, r 4s ease-out, fill 4s ease-out';
+    currentCircle.style.transition = 'cx 4s ease-out, cy 4s ease-out, r 4s ease-out';
 
     // Set the target attributes for each specific SVG element
     currentCircle.setAttribute('cx', targetCircle.getAttribute('cx'));
@@ -45,9 +45,6 @@ document.addEventListener('DOMContentLoaded', function () {
   // Initializing Background Elements
   const container = document.querySelector('.container');
   const currentBackground = document.querySelector('.background-svg');
-  console.log('current background:',currentBackground);
-  const currentCircles = currentBackground.querySelectorAll('circle');
-  console.log('current circles: ',currentCircles);
   const svgUrls = [
     'backgroundOne.svg',
     'backgroundTwo.svg',
