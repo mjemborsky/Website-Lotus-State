@@ -19,29 +19,22 @@ function getStoredSVG(url) {
   return svgDoc.documentElement;
 }
 
-
-
 function animateBackground(currentBackground, targetBackground) {
-  // Remove existing animation classes from the current circles
-  currentBackground.querySelectorAll('circle').forEach((currentCircle) => {
-    currentCircle.classList.remove('animate-circle');
-  });
+  const currentCircles = currentBackground.querySelectorAll('circle');
+  const targetCircles = targetBackground.querySelectorAll('circle');
 
-  // Add animation classes to the target circles
-  targetBackground.querySelectorAll('circle').forEach((targetCircle, index) => {
-    const currentCircle = currentBackground.querySelectorAll('circle')[index];
-    const targetR = targetCircle.getAttribute('r');
-    const targetCX = targetCircle.getAttribute('cx');
-    const targetCY = targetCircle.getAttribute('cy');
+  // Apply the CSS transitions for each specific SVG element
+  for (let i = 0; i < currentCircles.length; i++) {
+    const currentCircle = currentCircles[i];
+    const targetCircle = targetCircles[i];
 
-    // Wait a bit to apply the animation class to trigger the transition
-    setTimeout(() => {
-      currentCircle.classList.add('animate-circle');
-      currentCircle.setAttribute('r', targetR);
-      currentCircle.setAttribute('cx', targetCX);
-      currentCircle.setAttribute('cy', targetCY);
-    }, 10); // Adjust the delay as needed
-  });
+    currentCircle.style.transition = 'cx 4s ease-out, cy 4s ease-out, r 4s ease-out, fill 4s ease-out';
+
+    // Set the target attributes for each specific SVG element
+    currentCircle.setAttribute('cx', targetCircle.getAttribute('cx'));
+    currentCircle.setAttribute('cy', targetCircle.getAttribute('cy'));
+    currentCircle.setAttribute('r', targetCircle.getAttribute('r'));
+  }
 }
 
 document.addEventListener('DOMContentLoaded', function () {

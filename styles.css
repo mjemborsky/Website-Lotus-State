@@ -313,7 +313,7 @@ p {
 /* Background Shapes and Elements */ 
 .container {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   top: 0px;
   display: flex;
   flex-direction: column;
@@ -323,6 +323,7 @@ p {
   text-align: center;
   color: ghostwhite;
   transition: opacity 2s ease;
+  overflow: hidden;
   opacity: 1;
   position: relative; /* Important! Add this to allow absolute positioning for the object */
   z-index: 1; /* Add this to make sure the container appears above the body background */
@@ -339,6 +340,11 @@ p {
   pointer-events: none;
   z-index: -1;
 }
+.background-svg {
+  opacity: 0;
+  transition: opacity 1s ease-out;
+}
+
 /* Animations */
 @keyframes upcoming-animation {
   from {
@@ -353,8 +359,13 @@ p {
   }
 }
 
-.animate-circle {
-  transition: all 4s ease;
+.current {
+    opacity: 1;
+}
+
+/* Example CSS transitions for specific SVG elements */
+.circle {
+    transition: cx 4s ease-out, cy 4s ease-out, r 4s ease-out;
 }
 
 /* Media Querys */ 
