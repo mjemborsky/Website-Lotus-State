@@ -313,7 +313,7 @@ p {
 /* Background Shapes and Elements */ 
 .container {
   width: 100%;
-  height: 100%;
+  height: 100vw;
   top: 0px;
   display: flex;
   flex-direction: column;
@@ -362,8 +362,6 @@ p {
 .current {
     opacity: 1;
 }
-
-/* Example CSS transitions for specific SVG elements */
 .circle {
     transition: cx 4s ease-out, cy 4s ease-out, r 4s ease-out;
 }
