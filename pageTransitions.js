@@ -23,6 +23,7 @@ function getStoredSVG(url) {
 function animateBackground(currentBackground, targetBackground) {
   const currentCircles = currentBackground.querySelectorAll('circle');
   const targetCircles = targetBackground.querySelectorAll('circle');
+  const animationDuration = 2000; // Set your desired duration in milliseconds
 
   // Apply the CSS transitions for each specific SVG element
   for (let i = 0; i < currentCircles.length; i++) {
@@ -34,22 +35,16 @@ function animateBackground(currentBackground, targetBackground) {
     console.log('distance: ', dR);
     const startTime = performance.now();
     function updateCircleAttributes(timestamp) {
-      const progress = Math.min((timestamp - startTime) / 8000, 1); // 8000 ms (8 seconds) duration with cubic easing
-      // Calculate the eased progress
+      const progress = Math.min((timestamp - startTime) / animationDuration, 1);
       const easedProgress = progress ** 3;
-      // Calculate the new 'r' value
       const newR = parseFloat(currentCircle.getAttribute('r')) + dR * easedProgress;
-      // Limit the progress to 1
-      const finalProgress = Math.min(progress, 1);
-      // Update the 'r' attribute based on the eased progress
       currentCircle.setAttribute('r', newR);
 
-      if (finalProgress < 1) {
-        // Keep animating if the progress is not 100%
+      if (progress < 1) {
         requestAnimationFrame(updateCircleAttributes);
       } else {
-        // Reset CSS transitions when animation is done
-        currentCircle.style.transition = 'r 4s ease-out';
+        // Remove CSS transitions when animation is done
+        currentCircle.style.transition = 'none';
       }
     }
     // Start the animation
