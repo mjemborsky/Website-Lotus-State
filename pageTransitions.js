@@ -24,6 +24,16 @@ function animateBackground(currentBackground, targetBackground) {
   const currentCircles = currentBackground.querySelectorAll('circle');
   const targetCircles = targetBackground.querySelectorAll('circle');
 
+  // Remove the event listeners from previous links
+  home.removeEventListener('click', handleHomeClick);
+  projects.forEach(link => link.removeEventListener('click', handleProjectClick));
+  more.removeEventListener('click', handleMoreClick);
+
+  // Add the event listeners with the updated functions
+  home.addEventListener('click', handleHomeClick);
+  projects.forEach(link => link.addEventListener('click', handleProjectClick));
+  more.addEventListener('click', handleMoreClick);
+
   // Apply the CSS transitions for each specific SVG element
   for (let i = 0; i < currentCircles.length; i++) {
     const currentCircle = currentCircles[i];
@@ -35,12 +45,16 @@ function animateBackground(currentBackground, targetBackground) {
     const startTime = performance.now();
     function updateCircleAttributes(timestamp) {
       const progress = Math.min((timestamp - startTime) / 8000, 1); // 8000 ms (8 seconds) duration with cubic easing
-      // Apply cubic easing for smoother animation
+      // Calculate the eased progress
       const easedProgress = progress ** 3;
+      // Calculate the new 'r' value
+      const newR = parseFloat(currentCircle.getAttribute('r')) + dR * easedProgress;
+      // Limit the progress to 1
+      const finalProgress = Math.min(progress, 1);
       // Update the 'r' attribute based on the eased progress
-      currentCircle.setAttribute('r', parseFloat(currentCircle.getAttribute('r')) + dR * easedProgress);
-      console.log(progress);
-      if (progress < 1) {
+      currentCircle.setAttribute('r', newR);
+
+      if (finalProgress < 1) {
         // Keep animating if the progress is not 100%
         requestAnimationFrame(updateCircleAttributes);
       } else {
@@ -51,6 +65,22 @@ function animateBackground(currentBackground, targetBackground) {
     // Start the animation
     requestAnimationFrame(updateCircleAttributes);
   }
+}
+
+// Create separate functions to handle each link click
+function handleHomeClick(event) {
+  const targetBackground = getStoredSVG('backgroundOne.svg');
+  animateBackground(currentBackground, targetBackground);
+}
+
+function handleProjectClick(event) {
+  const targetBackground = getStoredSVG('backgroundTwo.svg');
+  animateBackground(currentBackground, targetBackground);
+}
+
+function handleMoreClick(event) {
+  const targetBackground = getStoredSVG('backgroundFive.svg');
+  animateBackground(currentBackground, targetBackground);
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -77,27 +107,8 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('SVGs already preloaded');
   }
 
-  // Event Listeners
-  // Background: index
-  home.addEventListener('click', function(i) {
-    i.preventDefault();
-    const targetBackground = getStoredSVG('backgroundOne.svg');
-    animateBackground(currentBackground, targetBackground);
-
-  });
-
-  // Background: projects
-  projects.forEach(function(link) {
-    link.addEventListener('click', function(i) {
-      const targetBackground = getStoredSVG('backgroundTwo.svg');
-      animateBackground(currentBackground, targetBackground);
-    });
-  });
-
-  // Background: more
-  more.addEventListener('click', function(i) {
-    i.preventDefault();
-    const targetBackground = getStoredSVG('backgroundFive.svg');
-    animateBackground(currentBackground, targetBackground);
-  });
+  // Add these event listeners after DOMContentLoaded
+  home.addEventListener('click', handleHomeClick);
+  projects.forEach(link => link.addEventListener('click', handleProjectClick));
+  more.addEventListener('click', handleMoreClick);
 });
