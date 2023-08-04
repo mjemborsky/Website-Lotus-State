@@ -29,7 +29,9 @@ function animateBackground(currentBackground, targetBackground) {
     const currentCircle = currentCircles[i];
     const targetCircle = targetCircles[i];
     const targetR = parseFloat(targetCircle.getAttribute('r'));
+    console.log('target r: ', targetR);
     const dR = targetR - parseFloat(currentCircle.getAttribute('r'));
+    console.log('distance: ', dR);
     const startTime = performance.now();
     function updateCircleAttributes(timestamp) {
       const progress = Math.min((timestamp - startTime) / 8000, 1); // 8000 ms (8 seconds) duration with cubic easing
@@ -37,6 +39,7 @@ function animateBackground(currentBackground, targetBackground) {
       const easedProgress = progress ** 3;
       // Update the 'r' attribute based on the eased progress
       currentCircle.setAttribute('r', parseFloat(currentCircle.getAttribute('r')) + dR * easedProgress);
+      console.log(progress);
       if (progress < 1) {
         // Keep animating if the progress is not 100%
         requestAnimationFrame(updateCircleAttributes);
@@ -77,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Event Listeners
   // Background: index
   home.addEventListener('click', function(i) {
+    i.preventDefault();
     const targetBackground = getStoredSVG('backgroundOne.svg');
     animateBackground(currentBackground, targetBackground);
 
@@ -92,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Background: more
   more.addEventListener('click', function(i) {
+    i.preventDefault();
     const targetBackground = getStoredSVG('backgroundFive.svg');
     animateBackground(currentBackground, targetBackground);
   });
