@@ -24,16 +24,6 @@ function animateBackground(currentBackground, targetBackground) {
   const currentCircles = currentBackground.querySelectorAll('circle');
   const targetCircles = targetBackground.querySelectorAll('circle');
 
-  // Remove the event listeners from previous links
-  home.removeEventListener('click', handleHomeClick);
-  projects.forEach(link => link.removeEventListener('click', handleProjectClick));
-  more.removeEventListener('click', handleMoreClick);
-
-  // Add the event listeners with the updated functions
-  home.addEventListener('click', handleHomeClick);
-  projects.forEach(link => link.addEventListener('click', handleProjectClick));
-  more.addEventListener('click', handleMoreClick);
-
   // Apply the CSS transitions for each specific SVG element
   for (let i = 0; i < currentCircles.length; i++) {
     const currentCircle = currentCircles[i];
@@ -67,22 +57,6 @@ function animateBackground(currentBackground, targetBackground) {
   }
 }
 
-// Create separate functions to handle each link click
-function handleHomeClick(event) {
-  const targetBackground = getStoredSVG('backgroundOne.svg');
-  animateBackground(currentBackground, targetBackground);
-}
-
-function handleProjectClick(event) {
-  const targetBackground = getStoredSVG('backgroundTwo.svg');
-  animateBackground(currentBackground, targetBackground);
-}
-
-function handleMoreClick(event) {
-  const targetBackground = getStoredSVG('backgroundFive.svg');
-  animateBackground(currentBackground, targetBackground);
-}
-
 document.addEventListener('DOMContentLoaded', function () {
   // Initializing Links
   const home = document.querySelector('.header-text');
@@ -110,8 +84,20 @@ document.addEventListener('DOMContentLoaded', function () {
   console.log(currentBackground);
   console.log(currentBackground.querySelectorAll('circle'));
 
-  // Add these event listeners after DOMContentLoaded
-  home.addEventListener('click', handleHomeClick);
-  projects.forEach(link => link.addEventListener('click', handleProjectClick));
-  more.addEventListener('click', handleMoreClick);
+  home.addEventListener('click', function() {
+    const targetBackground = getStoredSVG('backgroundOne.svg');
+    animateBackground(currentBackground, targetBackground); // Pass true to start the animation
+  });
+
+  projects.forEach(link => {
+    link.addEventListener('click', function() {
+      const targetBackground = getStoredSVG('backgroundTwo.svg');
+      animateBackground(currentBackground, targetBackground); // Pass true to start the animation
+    });
+  });
+
+  more.addEventListener('click', function() {
+    const targetBackground = getStoredSVG('backgroundFive.svg');
+    animateBackground(currentBackground, targetBackground); // Pass true to start the animation
+  });
 });
