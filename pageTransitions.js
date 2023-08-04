@@ -53,7 +53,6 @@ function animateBackground(currentBackground, targetBackground) {
         currentCircle.style.transition = 'cx 4s ease-out, cy 4s ease-out, r 4s ease-out';
       }
     }
-
     // Start the animation
     requestAnimationFrame(updateCircleAttributes);
   }
