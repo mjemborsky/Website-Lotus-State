@@ -107,6 +107,9 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('SVGs already preloaded');
   }
 
+  console.log(currentBackground);
+  console.log(currentBackground.querySelectorAll('circle'));
+
   // Add these event listeners after DOMContentLoaded
   home.addEventListener('click', handleHomeClick);
   projects.forEach(link => link.addEventListener('click', handleProjectClick));
