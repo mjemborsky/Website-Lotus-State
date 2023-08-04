@@ -19,6 +19,7 @@ function getStoredSVG(url) {
   return svgDoc.documentElement;
 }
 
+
 function animateBackground(currentBackground, targetBackground) {
   const currentCircles = currentBackground.querySelectorAll('circle');
   const targetCircles = targetBackground.querySelectorAll('circle');
@@ -30,19 +31,15 @@ function animateBackground(currentBackground, targetBackground) {
 
     currentCircle.style.transition = 'none'; // Disable CSS transitions temporarily
 
-    // Calculate the attribute differences between the current and target circles
-    const dX = parseFloat(targetCircle.getAttribute('cx')) - parseFloat(currentCircle.getAttribute('cx'));
-    const dY = parseFloat(targetCircle.getAttribute('cy')) - parseFloat(currentCircle.getAttribute('cy'));
-    const dR = parseFloat(targetCircle.getAttribute('r')) - parseFloat(currentCircle.getAttribute('r'));
+    const targetR = parseFloat(targetCircle.getAttribute('r'));
+    const dR = targetR - parseFloat(currentCircle.getAttribute('r'));
 
     const startTime = performance.now();
 
     function updateCircleAttributes(timestamp) {
       const progress = Math.min((timestamp - startTime) / 4000, 1); // 4000 ms (4 seconds) duration
 
-      // Update the attributes based on the progress
-      currentCircle.setAttribute('cx', parseFloat(currentCircle.getAttribute('cx')) + dX * progress);
-      currentCircle.setAttribute('cy', parseFloat(currentCircle.getAttribute('cy')) + dY * progress);
+      // Update the 'r' attribute based on the progress
       currentCircle.setAttribute('r', parseFloat(currentCircle.getAttribute('r')) + dR * progress);
 
       if (progress < 1) {
@@ -50,9 +47,10 @@ function animateBackground(currentBackground, targetBackground) {
         requestAnimationFrame(updateCircleAttributes);
       } else {
         // Reset CSS transitions when animation is done
-        currentCircle.style.transition = 'cx 4s ease-out, cy 4s ease-out, r 4s ease-out';
+        currentCircle.style.transition = 'r 4s ease-out';
       }
     }
+
     // Start the animation
     requestAnimationFrame(updateCircleAttributes);
   }
