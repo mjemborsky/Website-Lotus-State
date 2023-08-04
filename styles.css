@@ -283,6 +283,11 @@ body {
   margin-bottom: 10px;
 }
 
+#extra {
+  position: absolute;
+  top: 100px;
+}
+
 .about-me {
   position: relative;
   width: 750px;
