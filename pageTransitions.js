@@ -30,12 +30,17 @@ function animateBackground(currentBackground, targetBackground) {
 
     currentCircle.style.transition = 'cx 4s ease-out, cy 4s ease-out, r 4s ease-out';
 
-    // Set the target attributes for each specific SVG element
-    currentCircle.setAttribute('cx', targetCircle.getAttribute('cx'));
-    currentCircle.setAttribute('cy', targetCircle.getAttribute('cy'));
-    currentCircle.setAttribute('r', targetCircle.getAttribute('r'));
+    // Set the target attributes for each specific SVG element after a delay of 4 seconds
+    setTimeout(() => {
+      currentCircle.setAttribute('cx', targetCircle.getAttribute('cx'));
+      currentCircle.setAttribute('cy', targetCircle.getAttribute('cy'));
+      currentCircle.setAttribute('r', targetCircle.getAttribute('r'));
+    }, 4000); // 4 seconds delay
   }
 }
+
+With this change, the entire transition should now take place over 4 seconds. The setTimeout function with a delay of 4000 milliseconds (4 seconds) ensures that the attributes are updated after the CSS transitions have had time to run. This will result in a smooth 4-second animation for the circles between the current and target backgrounds.
+
 
 document.addEventListener('DOMContentLoaded', function () {
   // Initializing Links
