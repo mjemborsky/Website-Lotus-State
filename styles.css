@@ -217,6 +217,8 @@ body {
 
 #links {
   top: 100px;
+  padding-bottom: 25px;
+  position: relative;
 }
 .projects, #links {
   display: flex;
@@ -231,13 +233,6 @@ body {
   border-radius: 30%;
   padding-right: 10px;
   padding-left: 10px;
-}
-
-#links {
-  padding-bottom: 25px;
-  position: relative;
-  top: 100px;
-  padding-right: 25px;
 }
 
 #upcoming {
