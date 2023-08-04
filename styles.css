@@ -363,7 +363,7 @@ p {
 }
 
 circle {
-    transition: cx 4s ease-out, cy 4s ease-out, r 4s ease-out;
+    transition: r 4s ease-out;
 }
 
 /* Media Querys */ 
