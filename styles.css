@@ -194,7 +194,8 @@ body {
   justify-content: center;
   margin: 0 auto;
   padding-top: 50px;
-  top:100px;
+  top: 100px;
+  position: absolute;
 }
 
 /*projects.html*/
@@ -218,7 +219,7 @@ body {
   top: 100px;
 }
 .projects, #links {
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: center;
   margin: 0 auto;
@@ -234,6 +235,8 @@ body {
 
 #links {
   padding-bottom: 25px;
+  position: relative;
+  top: 100px;
   padding-right: 25px;
 }
 
