@@ -37,10 +37,13 @@ function animateBackground(currentBackground, targetBackground) {
     const startTime = performance.now();
 
     function updateCircleAttributes(timestamp) {
-      const progress = Math.min((timestamp - startTime) / 4000, 1); // 4000 ms (4 seconds) duration
+      const progress = Math.min((timestamp - startTime) / 8000, 1); // 8000 ms (8 seconds) duration with cubic easing
 
-      // Update the 'r' attribute based on the progress
-      currentCircle.setAttribute('r', parseFloat(currentCircle.getAttribute('r')) + dR * progress);
+      // Apply cubic easing for smoother animation
+      const easedProgress = progress ** 3;
+
+      // Update the 'r' attribute based on the eased progress
+      currentCircle.setAttribute('r', parseFloat(currentCircle.getAttribute('r')) + dR * easedProgress);
 
       if (progress < 1) {
         // Keep animating if the progress is not 100%
