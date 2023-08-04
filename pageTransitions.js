@@ -28,23 +28,15 @@ function animateBackground(currentBackground, targetBackground) {
   for (let i = 0; i < currentCircles.length; i++) {
     const currentCircle = currentCircles[i];
     const targetCircle = targetCircles[i];
-
-    currentCircle.style.transition = 'none'; // Disable CSS transitions temporarily
-
     const targetR = parseFloat(targetCircle.getAttribute('r'));
     const dR = targetR - parseFloat(currentCircle.getAttribute('r'));
-
     const startTime = performance.now();
-
     function updateCircleAttributes(timestamp) {
       const progress = Math.min((timestamp - startTime) / 8000, 1); // 8000 ms (8 seconds) duration with cubic easing
-
       // Apply cubic easing for smoother animation
       const easedProgress = progress ** 3;
-
       // Update the 'r' attribute based on the eased progress
       currentCircle.setAttribute('r', parseFloat(currentCircle.getAttribute('r')) + dR * easedProgress);
-
       if (progress < 1) {
         // Keep animating if the progress is not 100%
         requestAnimationFrame(updateCircleAttributes);
@@ -53,7 +45,6 @@ function animateBackground(currentBackground, targetBackground) {
         currentCircle.style.transition = 'r 4s ease-out';
       }
     }
-
     // Start the animation
     requestAnimationFrame(updateCircleAttributes);
   }
