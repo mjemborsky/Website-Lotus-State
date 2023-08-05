@@ -30,14 +30,14 @@ function animateBackground(currentBackground, targetBackground) {
     const currentCircle = currentCircles[i];
     const targetCircle = targetCircles[i];
     const targetR = parseFloat(targetCircle.getAttribute('r'));
-    console.log('target r: ', targetR);
     const dR = targetR - parseFloat(currentCircle.getAttribute('r'));
-    console.log('distance: ', dR);
+    console.log('distance: ', dR, 'targetR: ', targetR);
     const startTime = performance.now();
     function updateCircleAttributes(timestamp) {
       const progress = Math.min((timestamp - startTime) / animationDuration, 1);
       const easedProgress = progress ** 3;
       const newR = parseFloat(currentCircle.getAttribute('r')) + dR * easedProgress;
+      console.log('updated r: ', newR);
       currentCircle.setAttribute('r', newR);
 
       if (progress < 1) {
