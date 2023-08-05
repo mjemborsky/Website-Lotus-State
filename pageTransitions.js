@@ -44,6 +44,7 @@ function animateBackground(currentBackground, targetBackground) {
         requestAnimationFrame(updateCircleAttributes);
       } else {
         // Remove CSS transitions when animation is done
+        console.log('animationComplete');
         currentCircle.style.transition = 'none';
       }
     }
