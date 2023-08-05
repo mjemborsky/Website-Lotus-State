@@ -352,12 +352,12 @@ p {
 /* Animations */
 @keyframes upcoming-animation {
   from {
-    width: 300px;
+    width: 200px;
     height: 200px;
-    border-radius: 15%;
+    border-radius: 35%;
   }
   to {
-    width: 310px;
+    width: 210px;
     height: 210px;
     border-radius: 50%;
   }
