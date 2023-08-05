@@ -23,7 +23,7 @@ function getStoredSVG(url) {
 function animateBackground(currentBackground, targetBackground) {
   const currentCircles = currentBackground.querySelectorAll('circle');
   const targetCircles = targetBackground.querySelectorAll('circle');
-  const animationDuration = 2000; // Set your desired duration in milliseconds
+  const animationDuration = 8000; // Set your desired duration in milliseconds
 
   // Apply the CSS transitions for each specific SVG element
   for (let i = 0; i < currentCircles.length; i++) {

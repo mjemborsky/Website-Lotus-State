@@ -331,6 +331,7 @@ p {
   opacity: 1;
   position: relative; /* Important! Add this to allow absolute positioning for the object */
   z-index: 1; /* Add this to make sure the container appears above the body background */
+  transition: none;
 }
 .container .background-svg {
   position: relative;
