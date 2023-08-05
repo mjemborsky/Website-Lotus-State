@@ -215,11 +215,6 @@ body {
   padding: 25px;
 }
 
-#links {
-  top: 100px;
-  padding-bottom: 25px;
-  position: relative;
-}
 .projects, #links {
   display: flex;
   flex-direction: row;
@@ -292,17 +287,16 @@ body {
 
 .about-me {
   position: relative;
-  width: 750px;
+  width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
   background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #969ae5, #919ae9, #8c9aed, #988ded, #aa7ee9, #bd6be0, #d153d1);
-  color: darkgray;
-  opacity: .82;
-  height: 300px;
-  border-radius: 20% 20% 30% 30%;
+  opacity: .9;
+  height: 250px;
+  border-radius: 15% 15% 30% 30%;
 }
 
 p {
