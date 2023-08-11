@@ -25,6 +25,8 @@ function animateBackground(currentBackground, targetBackground) {
   const targetCircles = targetBackground.querySelectorAll('circle');
   const animationDuration = 8000; // Set your desired duration in milliseconds
 
+  console.log(currentCircles);
+  console.log(targetCircles);
   // Apply the CSS transitions for each specific SVG element
   for (let i = 0; i < currentCircles.length; i++) {
     const currentCircle = currentCircles[i];
@@ -45,7 +47,7 @@ function animateBackground(currentBackground, targetBackground) {
       } else {
         // Remove CSS transitions when animation is done
         console.log('animationComplete');
-        currentCircle.style.transition = 'none';
+        currentCircle.style.transition = '';
       }
     }
     // Start the animation

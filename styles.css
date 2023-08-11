@@ -359,10 +359,6 @@ p {
   }
 }
 
-circle {
-    transition: r 4s ease-out;
-}
-
 /* Media Querys */ 
 @media screen and (max-width: 675px) {
   .center-link, .header-text {
