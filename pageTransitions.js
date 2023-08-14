@@ -38,20 +38,22 @@ function animateBackground(currentBackground, targetBackground) {
     function updateCircleAttributes(timestamp) {
       const progress = Math.min((timestamp - startTime) / animationDuration, 1);
       const easedProgress = progress ** 3;
-      const newR = parseFloat(currentCircle.getAttribute('r')) + dR * easedProgress;
-      console.log('updated r: ', newR);
+      const newR = originalR + dR * easedProgress;
+
       currentCircle.setAttribute('r', newR);
 
       if (progress < 1) {
         requestAnimationFrame(updateCircleAttributes);
       } else {
-        // Remove CSS transitions when animation is done
-        console.log('animationComplete');
+        // Reset transition and remove animation class
         currentCircle.style.transition = '';
+        currentCircle.classList.remove('animate');
+
+        console.log('animationComplete');
       }
     }
-    // Start the animation
-    requestAnimationFrame(updateCircleAttributes);
+  currentCircle.classList.add('animate');
+  requestAnimationFrame(updateCircleAttributes);
   }
 }
 
