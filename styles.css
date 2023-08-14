@@ -322,12 +322,10 @@ p {
   margin: 0 auto;
   text-align: center;
   color: ghostwhite;
-  transition: opacity 2s ease;
   overflow: hidden;
   opacity: 1;
-  position: relative; /* Important! Add this to allow absolute positioning for the object */
-  z-index: 1; /* Add this to make sure the container appears above the body background */
-  transition: none;
+  position: relative;
+  z-index: 1;
 }
 .container .background-svg {
   position: relative;
@@ -340,9 +338,6 @@ p {
   height: 100%;
   pointer-events: none;
   z-index: -1;
-}
-.background-svg {
-  transition: opacity 2s ease-out;
 }
 
 /* Animations */
