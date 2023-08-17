@@ -21,8 +21,7 @@ function getStoredSVG(url) {
 
 
 function animateBackground(targetSVG) {
-  const container = document.querySelector('.container');
-  const currentBackground = document.querySelector('.background-svg');
+  const currentBackground = document.querySelector('.container .background-svg');
   const currentCircles = currentBackground.querySelectorAll('circle');
   const targetCircles = targetSVG.querySelectorAll('circle');
 
@@ -46,7 +45,7 @@ function animateBackground(targetSVG) {
   tl.play();
 
   function showNextPage() {
-    currentSVG.style.opacity = 0;
+    currentBackground.style.opacity = 0;
     // Show the next page's content (you need to implement this part)
     // For example, you can update the DOM to display the next content
     // and set its SVG to be visible.
