@@ -20,7 +20,7 @@ function getStoredSVG(url) {
 }
 
 
-function animatePageTransition(currentSVG, targetSVG) {
+function animateBackground(currentSVG, targetSVG) {
   const currentCircles = currentSVG.querySelectorAll('circle');
   const targetCircles = targetSVG.querySelectorAll('circle');
 
