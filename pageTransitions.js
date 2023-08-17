@@ -21,8 +21,11 @@ function getStoredSVG(url) {
 
 
 function animateBackground(targetSVG) {
+  console.log('selecting background...');
   const currentBackground = document.querySelector('.container .background-svg');
+  console.log('selecting background circles...');
   const currentCircles = currentBackground.querySelectorAll('circle');
+  console.log('selecting target circles...');
   const targetCircles = targetSVG.querySelectorAll('circle');
 
   console.log('current: ', currentCircles);
