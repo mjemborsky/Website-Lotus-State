@@ -57,6 +57,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const home = document.querySelector('.header-text');
   const projects = document.querySelectorAll('.link-left');
   const more = document.querySelector('.link-right');
+  const currentBackground = document.querySelector('.container .background-svg');
+  console.log(currentBackground);
   // Initializing Background Elements
   const svgUrls = [
     'backgroundOne.svg',
