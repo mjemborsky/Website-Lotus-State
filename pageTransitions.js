@@ -20,40 +20,31 @@ function getStoredSVG(url) {
 }
 
 
-function animateBackground(currentBackground, targetBackground) {
-  const currentCircles = currentBackground.querySelectorAll('circle');
-  const targetCircles = targetBackground.querySelectorAll('circle');
-  const animationDuration = 8000; // Set your desired duration in milliseconds
+function animatePageTransition(currentSVG, targetSVG) {
+  const currentCircles = currentSVG.querySelectorAll('circle');
+  const targetCircles = targetSVG.querySelectorAll('circle');
 
-  console.log(currentCircles);
-  console.log(targetCircles);
-  // Apply the CSS transitions for each specific SVG element
-  for (let i = 0; i < currentCircles.length; i++) {
-    const currentCircle = currentCircles[i];
-    const targetCircle = targetCircles[i];
-    const targetR = parseFloat(targetCircle.getAttribute('r'));
-    const dR = targetR - parseFloat(currentCircle.getAttribute('r'));
-    console.log('distance: ', dR, 'targetR: ', targetR);
-    const startTime = performance.now();
-    function updateCircleAttributes(timestamp) {
-      const progress = Math.min((timestamp - startTime) / animationDuration, 1);
-      const easedProgress = progress ** 3;
-      const newR = originalR + dR * easedProgress;
+  const tl = gsap.timeline({ duration: 5, onComplete: showNextPage });
 
-      currentCircle.setAttribute('r', newR);
+  currentCircles.forEach((currentCircle, index) => {
+    const targetCircle = targetCircles[index];
+    const initialRadius = parseFloat(currentCircle.getAttribute('r'));
+    const targetRadius = parseFloat(targetCircle.getAttribute('r'));
 
-      if (progress < 1) {
-        requestAnimationFrame(updateCircleAttributes);
-      } else {
-        // Reset transition and remove animation class
-        currentCircle.style.transition = '';
-        currentCircle.classList.remove('animate');
+    tl.to(currentCircle, {
+      duration: 5,
+      attr: { r: targetRadius },
+      ease: 'power2.inOut',
+    });
+  });
 
-        console.log('animationComplete');
-      }
-    }
-  currentCircle.classList.add('animate');
-  requestAnimationFrame(updateCircleAttributes);
+  tl.play();
+
+  function showNextPage() {
+    currentSVG.style.opacity = 0;
+    // Show the next page's content (you need to implement this part)
+    // For example, you can update the DOM to display the next content
+    // and set its SVG to be visible.
   }
 }
 
@@ -81,23 +72,20 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('SVGs already preloaded');
   }
 
-  console.log(currentBackground);
-  console.log(currentBackground.querySelectorAll('circle'));
-
   home.addEventListener('click', function() {
     const targetBackground = getStoredSVG('backgroundOne.svg');
-    animateBackground(currentBackground, targetBackground); // Pass true to start the animation
+    animateBackground(currentBackground, targetBackground);
   });
 
   projects.forEach(link => {
     link.addEventListener('click', function() {
       const targetBackground = getStoredSVG('backgroundTwo.svg');
-      animateBackground(currentBackground, targetBackground); // Pass true to start the animation
+      animateBackground(currentBackground, targetBackground);
     });
   });
 
   more.addEventListener('click', function() {
     const targetBackground = getStoredSVG('backgroundFive.svg');
-    animateBackground(currentBackground, targetBackground); // Pass true to start the animation
+    animateBackground(currentBackground, targetBackground);
   });
 });
