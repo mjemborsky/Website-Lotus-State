@@ -23,7 +23,8 @@ function getStoredSVG(url) {
 function animateBackground(currentSVG, targetSVG) {
   const currentCircles = currentSVG.querySelectorAll('circle');
   const targetCircles = targetSVG.querySelectorAll('circle');
-
+  console.log('current: ', currentCircles);
+  console.log('target: ', targetCircles);
   const tl = gsap.timeline({ duration: 5, onComplete: showNextPage });
 
   currentCircles.forEach((currentCircle, index) => {
