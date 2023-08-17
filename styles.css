@@ -323,7 +323,8 @@ p {
   text-align: center;
   color: ghostwhite;
   overflow: hidden;
-  opacity: 1;
+  opacity: 0;
+  transition: opacity 2s ease;
   position: relative;
   z-index: 1;
 }

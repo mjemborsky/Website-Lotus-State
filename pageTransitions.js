@@ -19,19 +19,24 @@ function getStoredSVG(url) {
   return svgDoc.documentElement;
 }
 
+function showNextContent() {
+  // Hide the current content
+  const currentContainer = document.querySelector('.container');
+  currentContainer.style.opacity = 0;
+
+  // Update the content here, e.g., change the SVG or other elements
+
+  // Show the next content with fade-in
+  const nextContainer = document.getElementById('container-two'); // Change to the ID of your next container
+  nextContainer.style.opacity = 1;
+}
 
 function animateBackground(targetSVG) {
-  console.log('selecting background...');
   const currentBackground = document.querySelector('.container .background-svg');
-  console.log('selecting background circles...');
   const currentCircles = currentBackground.querySelectorAll('circle');
-  console.log('selecting target circles...');
   const targetCircles = targetSVG.querySelectorAll('circle');
 
-  console.log('current: ', currentCircles);
-  console.log('target: ', targetCircles);
-
-  const tl = gsap.timeline({ duration: 5, onComplete: showNextPage });
+  const tl = gsap.timeline({ duration: 5, onComplete: showNextContent });
 
   currentCircles.forEach((currentCircle, index) => {
     const targetCircle = targetCircles[index];
@@ -45,15 +50,12 @@ function animateBackground(targetSVG) {
     });
   });
 
-  tl.play();
+  // Use the tl.call to trigger showNextContent after the circles animation starts
+  tl.call(showNextContent, null, null, 0); // Adjust timing as needed
 
-  function showNextPage() {
-    currentBackground.style.opacity = 0;
-    // Show the next page's content (you need to implement this part)
-    // For example, you can update the DOM to display the next content
-    // and set its SVG to be visible.
-  }
+  tl.play();
 }
+
 
 document.addEventListener('DOMContentLoaded', function () {
   // Initializing Links
