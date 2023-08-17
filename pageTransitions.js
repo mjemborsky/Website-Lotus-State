@@ -20,11 +20,15 @@ function getStoredSVG(url) {
 }
 
 
-function animateBackground(currentSVG, targetSVG) {
-  const currentCircles = currentSVG.querySelectorAll('circle');
+function animateBackground(targetSVG) {
+  const container = document.querySelector('.container');
+  const currentBackground = document.querySelector('.background-svg');
+  const currentCircles = currentBackground.querySelectorAll('circle');
   const targetCircles = targetSVG.querySelectorAll('circle');
+
   console.log('current: ', currentCircles);
   console.log('target: ', targetCircles);
+
   const tl = gsap.timeline({ duration: 5, onComplete: showNextPage });
 
   currentCircles.forEach((currentCircle, index) => {
@@ -55,8 +59,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const projects = document.querySelectorAll('.link-left');
   const more = document.querySelector('.link-right');
   // Initializing Background Elements
-  const container = document.querySelector('.container');
-  const currentBackground = document.querySelector('.background-svg');
   const svgUrls = [
     'backgroundOne.svg',
     'backgroundTwo.svg',
@@ -75,18 +77,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
   home.addEventListener('click', function() {
     const targetBackground = getStoredSVG('backgroundOne.svg');
-    animateBackground(currentBackground, targetBackground);
+    animateBackground(targetBackground);
   });
 
   projects.forEach(link => {
     link.addEventListener('click', function() {
       const targetBackground = getStoredSVG('backgroundTwo.svg');
-      animateBackground(currentBackground, targetBackground);
+      animateBackground(targetBackground);
     });
   });
 
   more.addEventListener('click', function() {
     const targetBackground = getStoredSVG('backgroundFive.svg');
-    animateBackground(currentBackground, targetBackground);
+    animateBackground(targetBackground);
   });
 });
