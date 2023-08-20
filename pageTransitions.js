@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   more.addEventListener('click', function(i) {
     i.preventDefault();
-    containerElement.classList.add('fade-out');
+    container.classList.add('fade-out');
     const targetBackground = getStoredSVG('backgroundFive.svg');
 
     // After a delay (to allow the fade-out animation to finish), navigate to the clicked link
