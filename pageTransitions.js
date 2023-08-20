@@ -47,16 +47,9 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('SVGs already preloaded');
   }
 
-  // Remove the fade-out class and add fade-in class after navigating to a new page
-  container.addEventListener("transitionend", function() {
-    container.classList.remove("fade-out");
-    container.classList.add("fade-in");
-  });
-
   home.addEventListener('click', function(i) {
     i.preventDefault();
     const targetBackground = getStoredSVG('backgroundOne.svg');
-    container.classList.add("fade-out");
     
     // After a delay (to allow the fade-out animation to finish), navigate to the clicked link
     setTimeout(() => {
@@ -69,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function () {
     link.addEventListener('click', function(i) {
       i.preventDefault();
       const targetBackground = getStoredSVG('backgroundTwo.svg');
-      container.classList.add("fade-out");
 
       // After a delay (to allow the fade-out animation to finish), navigate to the clicked link
       setTimeout(() => {
@@ -82,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
   more.addEventListener('click', function(i) {
     i.preventDefault();
     const targetBackground = getStoredSVG('backgroundFive.svg');
-    container.classList.add("fade-out");
 
     // After a delay (to allow the fade-out animation to finish), navigate to the clicked link
     setTimeout(() => {
