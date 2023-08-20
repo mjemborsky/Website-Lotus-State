@@ -340,6 +340,17 @@ p {
   z-index: -1;
 }
 
+.container.fade-out {
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+.container.fade-in {
+  opacity: 1;
+  transition: opacity 2s ease;
+}
+
+
 /* Animations */
 @keyframes upcoming-animation {
   from {

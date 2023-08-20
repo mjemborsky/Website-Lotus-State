@@ -22,12 +22,12 @@ function getStoredSVG(url) {
 function animateBackground(currentBackground, targetBackground) {
 }
 
-
 document.addEventListener('DOMContentLoaded', function () {
   // Initializing Links
   const home = document.querySelector('.header-text');
   const projects = document.querySelectorAll('.link-left');
   const more = document.querySelector('.link-right');
+  const container = document.querySelector('.container');
   const currentBackground = document.querySelector('.container .background-svg');
   console.log(currentBackground);
   // Initializing Background Elements
@@ -49,6 +49,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   home.addEventListener('click', function() {
     const targetBackground = getStoredSVG('backgroundOne.svg');
+    container.classList.add("fade-out");
+    
+    // After a delay (to allow the fade-out animation to finish), navigate to the clicked link
+    setTimeout(() => {
+      window.location.href = link.getAttribute("href");
+    }, 2000); // Delay in milliseconds, matching the fade-out transition duration
     animateBackground(currentBackground, targetBackground);
   });
 
@@ -62,5 +68,11 @@ document.addEventListener('DOMContentLoaded', function () {
   more.addEventListener('click', function() {
     const targetBackground = getStoredSVG('backgroundFive.svg');
     animateBackground(currentBackground, targetBackground);
+  });
+
+    // Remove the fade-out class and add fade-in class after navigating to a new page
+  container.addEventListener("transitionend", function() {
+    container.classList.remove("fade-out");
+    container.classList.add("fade-in");
   });
 });
