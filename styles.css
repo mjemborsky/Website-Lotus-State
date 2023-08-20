@@ -354,19 +354,18 @@ p {
 }
 
 /* Exclude the SVG element from animations */
-.container *:not(svg) {
+.container > *:not(svg) {
   opacity: 0;
   transition: opacity 2s ease; /* Apply the transition to all elements except SVG */
 }
 
-.container.fade-in *:not(svg) {
+.container.fade-in > *:not(svg) {
   opacity: 1;
 }
 
-.container.fade-out *:not(svg) {
+.container.fade-out > *:not(svg) {
   opacity: 0;
 }
-
 
 /* Animations */
 @keyframes upcoming-animation {
