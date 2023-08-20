@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const projects = document.querySelectorAll('.link-left');
   const more = document.querySelector('.link-right');
   const container = document.querySelector('.container');
-  container.classList.add("fade-in");
   const currentBackground = document.querySelector('.container .background-svg');
   console.log(currentBackground);
   // Initializing Background Elements
@@ -63,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(() => {
       window.location.href = home.getAttribute("href");
     }, 2000); // Delay in milliseconds, matching the fade-out transition duration
-    animateBackground(currentBackground, targetBackground);
+    // animateBackground(currentBackground, targetBackground);
   });
 
   projects.forEach(link => {
@@ -76,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
       setTimeout(() => {
         window.location.href = link.getAttribute("href");
       }, 2000); // Delay in milliseconds, matching the fade-out transition duration
-      animateBackground(currentBackground, targetBackground);
+      // animateBackground(currentBackground, targetBackground);
     });
   });
 
@@ -89,6 +88,6 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(() => {
       window.location.href = more.getAttribute("href");
     }, 2000); // Delay in milliseconds, matching the fade-out transition duration    
-    animateBackground(currentBackground, targetBackground);
+    // animateBackground(currentBackground, targetBackground);
   });
 });
