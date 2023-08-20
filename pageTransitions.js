@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
   home.addEventListener('click', function(i) {
     i.preventDefault();
     const targetBackground = getStoredSVG('backgroundOne.svg');
-    
+    container.classList.add('fade-out');
     // After a delay (to allow the fade-out animation to finish), navigate to the clicked link
     setTimeout(() => {
       window.location.href = home.getAttribute("href");
@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
   projects.forEach(link => {
     link.addEventListener('click', function(i) {
       i.preventDefault();
+      container.classList.add('fade-out');
       const targetBackground = getStoredSVG('backgroundTwo.svg');
 
       // After a delay (to allow the fade-out animation to finish), navigate to the clicked link
@@ -73,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   more.addEventListener('click', function(i) {
     i.preventDefault();
+    containerElement.classList.add('fade-out');
     const targetBackground = getStoredSVG('backgroundFive.svg');
 
     // After a delay (to allow the fade-out animation to finish), navigate to the clicked link
