@@ -61,12 +61,24 @@ document.addEventListener('DOMContentLoaded', function () {
   projects.forEach(link => {
     link.addEventListener('click', function() {
       const targetBackground = getStoredSVG('backgroundTwo.svg');
+      container.classList.add("fade-out");
+
+      // After a delay (to allow the fade-out animation to finish), navigate to the clicked link
+      setTimeout(() => {
+        window.location.href = link.getAttribute("href");
+      }, 2000); // Delay in milliseconds, matching the fade-out transition duration
       animateBackground(currentBackground, targetBackground);
     });
   });
 
   more.addEventListener('click', function() {
     const targetBackground = getStoredSVG('backgroundFive.svg');
+    container.classList.add("fade-out");
+
+    // After a delay (to allow the fade-out animation to finish), navigate to the clicked link
+    setTimeout(() => {
+      window.location.href = link.getAttribute("href");
+    }, 2000); // Delay in milliseconds, matching the fade-out transition duration    
     animateBackground(currentBackground, targetBackground);
   });
 
