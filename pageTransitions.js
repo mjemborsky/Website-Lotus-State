@@ -53,7 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
     container.classList.add("fade-in");
   });
 
-  home.addEventListener('click', function() {
+  home.addEventListener('click', function(i) {
+    i.preventDefault();
     const targetBackground = getStoredSVG('backgroundOne.svg');
     container.classList.add("fade-out");
     
@@ -65,7 +66,8 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   projects.forEach(link => {
-    link.addEventListener('click', function() {
+    link.addEventListener('click', function(i) {
+      i.preventDefault();
       const targetBackground = getStoredSVG('backgroundTwo.svg');
       container.classList.add("fade-out");
 
@@ -77,7 +79,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  more.addEventListener('click', function() {
+  more.addEventListener('click', function(i) {
+    i.preventDefault();
     const targetBackground = getStoredSVG('backgroundFive.svg');
     container.classList.add("fade-out");
 
