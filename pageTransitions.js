@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const projects = document.querySelectorAll('.link-left');
   const more = document.querySelector('.link-right');
   const container = document.querySelector('.container');
+  container.classList.add("fade-in");
   const currentBackground = document.querySelector('.container .background-svg');
   console.log(currentBackground);
   // Initializing Background Elements
