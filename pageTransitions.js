@@ -1,4 +1,4 @@
-async function preloadSVGs(urls) {
+function preloadSVGs(urls) {
   try {
     for (const url of urls) {
       const cachedSVG = sessionStorage.getItem(url);
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let preloadedSVGs = sessionStorage.getItem('backgroundFour.svg');
   if (!preloadedSVGs) {
     preloadedSVGs = [];
-    await preloadSVGs(svgUrls);
+    preloadSVGs(svgUrls);
   } else {
     console.log('SVGs already preloaded');
   }
