@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let preloadedSVGs = sessionStorage.getItem('backgroundFour.svg');
   if (!preloadedSVGs) {
     preloadedSVGs = [];
-    preloadSVGs(svgUrls);
+    await preloadSVGs(svgUrls);
   } else {
     console.log('SVGs already preloaded');
   }
@@ -52,10 +52,6 @@ document.addEventListener('DOMContentLoaded', function () {
     i.preventDefault();
     const targetBackground = getStoredSVG('backgroundOne.svg');
     container.classList.add('fade-out');
-    // After a delay (to allow the fade-out animation to finish), navigate to the clicked link
-    setTimeout(() => {
-      window.location.href = home.getAttribute("href");
-    }, 2000); // Delay in milliseconds, matching the fade-out transition duration
     // animateBackground(currentBackground, targetBackground);
   });
 
@@ -64,11 +60,6 @@ document.addEventListener('DOMContentLoaded', function () {
       i.preventDefault();
       container.classList.add('fade-out');
       const targetBackground = getStoredSVG('backgroundTwo.svg');
-
-      // After a delay (to allow the fade-out animation to finish), navigate to the clicked link
-      setTimeout(() => {
-        window.location.href = link.getAttribute("href");
-      }, 2000); // Delay in milliseconds, matching the fade-out transition duration
       // animateBackground(currentBackground, targetBackground);
     });
   });
@@ -77,11 +68,6 @@ document.addEventListener('DOMContentLoaded', function () {
     i.preventDefault();
     container.classList.add('fade-out');
     const targetBackground = getStoredSVG('backgroundFive.svg');
-
-    // After a delay (to allow the fade-out animation to finish), navigate to the clicked link
-    setTimeout(() => {
-      window.location.href = more.getAttribute("href");
-    }, 2000); // Delay in milliseconds, matching the fade-out transition duration    
     // animateBackground(currentBackground, targetBackground);
   });
 });
