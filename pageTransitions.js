@@ -1,3 +1,6 @@
+const container = document.querySelector('.container');
+container.classList.add('fade-in');
+
 function preloadSVGs(urls) {
   try {
     for (const url of urls) {
@@ -27,9 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const home = document.querySelector('.header-text');
   const projects = document.querySelectorAll('.link-left');
   const more = document.querySelector('.link-right');
-  const container = document.querySelector('.container');
   const currentBackground = document.querySelector('.container .background-svg');
-  container.classList.add('fade-in');
   console.log(currentBackground);
   // Initializing Background Elements
   const svgUrls = [
