@@ -342,6 +342,7 @@ p {
 /* Add these CSS rules for fade-in and fade-out animations */
 /* Exclude the SVG element from animations */
 .container > *:not(svg) {
+  opacity: 0;
   transition: opacity 2s ease; /* Apply the transition to all elements except SVG */
 }
 .container.fade-in > *:not(svg) {
