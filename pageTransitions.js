@@ -89,12 +89,14 @@ function handleLinkClick(targetBackgroundUrl) {
   const container = document.querySelector('.container');
   const currentBackground = document.querySelector('.container .background-svg')
   console.log(currentBackground);
-  container.classList.remove('fade-in');
-  container.classList.add('fade-out');
 
   // Get the preloaded SVG
   const targetBackground = getStoredSVG(targetBackgroundUrl);
 
+  setTimeout(() => {
+    // Add the fade-in class to smoothly fade in the content
+    container.classList.remove('fade-in');
+    container.classList.add('fade-out');
+  }, 2000);
   // animateCirclesToTarget(currentBackground, targetBackground);
-
 }
