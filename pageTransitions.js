@@ -50,29 +50,41 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('SVGs already preloaded');
   }
 
-  home.addEventListener('click', function(i) {
-    i.preventDefault();
+    home.addEventListener('click', function (event) {
+    event.preventDefault();
     const targetBackground = getStoredSVG('backgroundOne.svg');
     container.classList.remove('fade-in');
     container.classList.add('fade-out');
-    // animateBackground(currentBackground, targetBackground);
+    setTimeout(() => {
+      currentBackground.innerHTML = targetBackground.innerHTML;
+      container.classList.remove('fade-out');
+      container.classList.add('fade-in');
+    }, 2000);
   });
 
   projects.forEach(link => {
-    link.addEventListener('click', function(i) {
-      i.preventDefault();
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+      const targetBackground = getStoredSVG('backgroundTwo.svg');
       container.classList.remove('fade-in');
       container.classList.add('fade-out');
-      const targetBackground = getStoredSVG('backgroundTwo.svg');
-      // animateBackground(currentBackground, targetBackground);
+      setTimeout(() => {
+        currentBackground.innerHTML = targetBackground.innerHTML;
+        container.classList.remove('fade-out');
+        container.classList.add('fade-in');
+      }, 2000);
     });
   });
 
-  more.addEventListener('click', function(i) {
-    i.preventDefault();
+  more.addEventListener('click', function (event) {
+    event.preventDefault();
+    const targetBackground = getStoredSVG('backgroundFive.svg');
     container.classList.remove('fade-in');
     container.classList.add('fade-out');
-    const targetBackground = getStoredSVG('backgroundFive.svg');
-    // animateBackground(currentBackground, targetBackground);
+    setTimeout(() => {
+      currentBackground.innerHTML = targetBackground.innerHTML;
+      container.classList.remove('fade-out');
+      container.classList.add('fade-in');
+    }, 2000);
   });
 });
