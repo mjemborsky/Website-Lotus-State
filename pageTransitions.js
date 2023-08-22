@@ -63,21 +63,18 @@ preloadSVGs(svgUrls).then(() => {
 
     // Event listener and animation for Home link
     home.addEventListener('click', function (event) {
-      event.preventDefault();
       handleLinkClick('backgroundOne.svg');
     });
 
     // Event listeners and animations for Projects links
     projects.forEach(link => {
       link.addEventListener('click', function (event) {
-        event.preventDefault();
         handleLinkClick('backgroundTwo.svg');
       });
     });
 
     // Event listener and animation for More link
     more.addEventListener('click', function (event) {
-      event.preventDefault();
       handleLinkClick('backgroundFive.svg');
     });
   });
