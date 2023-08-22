@@ -1,7 +1,7 @@
 const container = document.querySelector('.container');
 container.classList.add('fade-in');
 
-function preloadSVGs(urls) {
+async function preloadSVGs(urls) {
   try {
     for (const url of urls) {
       const cachedSVG = sessionStorage.getItem(url);
