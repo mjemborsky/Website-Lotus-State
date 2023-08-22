@@ -1,4 +1,5 @@
 const container = document.querySelector('.container');
+container.classList.remove('fade-out');
 container.classList.add('fade-in');
 
 async function preloadSVGs(urls) {
@@ -52,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
   home.addEventListener('click', function(i) {
     i.preventDefault();
     const targetBackground = getStoredSVG('backgroundOne.svg');
+    container.classList.remove('fade-in');
     container.classList.add('fade-out');
     // animateBackground(currentBackground, targetBackground);
   });
@@ -59,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
   projects.forEach(link => {
     link.addEventListener('click', function(i) {
       i.preventDefault();
+      container.classList.remove('fade-in');
       container.classList.add('fade-out');
       const targetBackground = getStoredSVG('backgroundTwo.svg');
       // animateBackground(currentBackground, targetBackground);
@@ -67,6 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   more.addEventListener('click', function(i) {
     i.preventDefault();
+    container.classList.remove('fade-in');
     container.classList.add('fade-out');
     const targetBackground = getStoredSVG('backgroundFive.svg');
     // animateBackground(currentBackground, targetBackground);
