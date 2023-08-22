@@ -352,18 +352,18 @@ p {
   opacity: 0;
 }
 
-.animate-circles circle {
+/*.animate-circles circle {
   animation: animateRadius var(--animation-duration) linear;
-}
+}*/
 
-@keyframes animateRadius {
+/*@keyframes animateRadius {
   from {
     r: var(--target-radius);
   }
   to {
     r: var(--target-radius);
   }
-}
+}*/
 
 /* Animations */
 @keyframes upcoming-animation {

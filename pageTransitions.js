@@ -1,3 +1,7 @@
+const container = document.querySelector('.container');
+container.classList.remove('fade-out');
+container.classList.add('fade-in');
+
 // Preload SVGs
 async function preloadSVGs(urls) {
   try {
@@ -93,9 +97,4 @@ function handleLinkClick(targetBackgroundUrl) {
 
   // animateCirclesToTarget(currentBackground, targetBackground);
 
-  // After any additional manipulations, trigger the fade-in animation
-  setTimeout(() => {
-    container.classList.remove('fade-out');
-    container.classList.add('fade-in');
-  }, 2000); // Wait for the fade-out animation to complete before fading in
 }
