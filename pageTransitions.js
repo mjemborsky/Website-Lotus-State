@@ -31,6 +31,27 @@ const svgUrls = [
   'backgroundFour.svg'
 ];
 
+function animateCirclesToTarget(currentBackground, targetBackground) {
+  const currentCircles = currentBackground.querySelectorAll('circle');
+  const targetCircles = targetBackground.querySelectorAll('circle');
+
+  // Calculate the target radii for each circle
+  const targetRadii = [];
+  for (let i = 0; i < currentCircles.length; i++) {
+    const targetRadius = parseFloat(targetCircles[i].getAttribute('r'));
+    targetRadii.push(targetRadius);
+  }
+
+  // Apply CSS animation variables
+  container.style.setProperty('--animation-duration', '4s');
+  for (let i = 0; i < currentCircles.length; i++) {
+    currentCircles[i].style.setProperty('--target-radius', targetRadii[i]);
+  }
+
+  // Add class to trigger animation
+  container.classList.add('animate-circles');
+}
+
 // Preload SVGs before setting up event listeners and animations
 preloadSVGs(svgUrls).then(() => {
   // Setup event listeners after preloading
@@ -65,14 +86,14 @@ preloadSVGs(svgUrls).then(() => {
 // Function to handle link clicks and animations
 function handleLinkClick(targetBackgroundUrl) {
   const container = document.querySelector('.container');
+  const currentBackground = document.querySelector('.container .background-svg')
   container.classList.remove('fade-in');
   container.classList.add('fade-out');
 
   // Get the preloaded SVG
   const targetBackground = getStoredSVG(targetBackgroundUrl);
 
-  // Perform any additional manipulations or animations here
-  // For example, you can change attributes of the SVG, animate elements, etc.
+  animateCirclesToTarget(currentBackground, targetBackground);
 
   // After any additional manipulations, trigger the fade-in animation
   setTimeout(() => {
