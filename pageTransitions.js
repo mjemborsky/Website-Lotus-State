@@ -1,7 +1,4 @@
-const container = document.querySelector('.container');
-container.classList.remove('fade-out');
-container.classList.add('fade-in');
-
+// Preload SVGs
 async function preloadSVGs(urls) {
   try {
     for (const url of urls) {
@@ -16,6 +13,8 @@ async function preloadSVGs(urls) {
     console.error('Error preloading SVG:', error);
   }
 }
+
+// Get stored SVG from SessionStorage
 function getStoredSVG(url) {
   const svgString = sessionStorage.getItem(url);
   const parser = new DOMParser();
@@ -23,68 +22,61 @@ function getStoredSVG(url) {
   return svgDoc.documentElement;
 }
 
-function animateBackground(currentBackground, targetBackground) {
-}
+// Preload SVGs for Background
+const svgUrls = [
+  'backgroundOne.svg',
+  'backgroundTwo.svg',
+  'backgroundFive.svg',
+  'backgroundThree.svg',
+  'backgroundFour.svg'
+];
 
-document.addEventListener('DOMContentLoaded', function () {
-  // Initializing Links
-  const home = document.querySelector('.header-text');
-  const projects = document.querySelectorAll('.link-left');
-  const more = document.querySelector('.link-right');
-  const currentBackground = document.querySelector('.container .background-svg');
-  console.log(currentBackground);
-  // Initializing Background Elements
-  const svgUrls = [
-    'backgroundOne.svg',
-    'backgroundTwo.svg',
-    'backgroundFive.svg',
-    'backgroundThree.svg',
-    'backgroundFour.svg'
-  ];
-  // Preload SVGs for Background
-  let preloadedSVGs = sessionStorage.getItem('backgroundFour.svg');
-  if (!preloadedSVGs) {
-    preloadedSVGs = [];
-    preloadSVGs(svgUrls);
-  } else {
-    console.log('SVGs already preloaded');
-  }
+// Preload SVGs before setting up event listeners and animations
+preloadSVGs(svgUrls).then(() => {
+  // Setup event listeners after preloading
+  document.addEventListener('DOMContentLoaded', function () {
+    const container = document.querySelector('.container');
+    const home = document.querySelector('.header-text');
+    const projects = document.querySelectorAll('.link-left');
+    const more = document.querySelector('.link-right');
 
+    // Event listener and animation for Home link
     home.addEventListener('click', function (event) {
-    event.preventDefault();
-    const targetBackground = getStoredSVG('backgroundOne.svg');
-    container.classList.remove('fade-in');
-    container.classList.add('fade-out');
-    setTimeout(() => {
-      currentBackground.innerHTML = targetBackground.innerHTML;
-      container.classList.remove('fade-out');
-      container.classList.add('fade-in');
-    }, 2000);
-  });
-
-  projects.forEach(link => {
-    link.addEventListener('click', function (event) {
       event.preventDefault();
-      const targetBackground = getStoredSVG('backgroundTwo.svg');
-      container.classList.remove('fade-in');
-      container.classList.add('fade-out');
-      setTimeout(() => {
-        currentBackground.innerHTML = targetBackground.innerHTML;
-        container.classList.remove('fade-out');
-        container.classList.add('fade-in');
-      }, 2000);
+      handleLinkClick('backgroundOne.svg');
+    });
+
+    // Event listeners and animations for Projects links
+    projects.forEach(link => {
+      link.addEventListener('click', function (event) {
+        event.preventDefault();
+        handleLinkClick('backgroundTwo.svg');
+      });
+    });
+
+    // Event listener and animation for More link
+    more.addEventListener('click', function (event) {
+      event.preventDefault();
+      handleLinkClick('backgroundFive.svg');
     });
   });
-
-  more.addEventListener('click', function (event) {
-    event.preventDefault();
-    const targetBackground = getStoredSVG('backgroundFive.svg');
-    container.classList.remove('fade-in');
-    container.classList.add('fade-out');
-    setTimeout(() => {
-      currentBackground.innerHTML = targetBackground.innerHTML;
-      container.classList.remove('fade-out');
-      container.classList.add('fade-in');
-    }, 2000);
-  });
 });
+
+// Function to handle link clicks and animations
+function handleLinkClick(targetBackgroundUrl) {
+  const container = document.querySelector('.container');
+  container.classList.remove('fade-in');
+  container.classList.add('fade-out');
+
+  // Get the preloaded SVG
+  const targetBackground = getStoredSVG(targetBackgroundUrl);
+
+  // Perform any additional manipulations or animations here
+  // For example, you can change attributes of the SVG, animate elements, etc.
+
+  // After any additional manipulations, trigger the fade-in animation
+  setTimeout(() => {
+    container.classList.remove('fade-out');
+    container.classList.add('fade-in');
+  }, 2000); // Wait for the fade-out animation to complete before fading in
+}
