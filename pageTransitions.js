@@ -87,16 +87,24 @@ preloadSVGs(svgUrls).then(() => {
 // Function to handle link clicks and animations
 function handleLinkClick(targetBackgroundUrl) {
   const container = document.querySelector('.container');
-  const currentBackground = document.querySelector('.container .background-svg')
+  const currentBackground = document.querySelector('.container .background-svg');
   console.log(currentBackground);
 
   // Get the preloaded SVG
   const targetBackground = getStoredSVG(targetBackgroundUrl);
 
-  setTimeout(() => {
-    // Add the fade-in class to smoothly fade in the content
-    container.classList.remove('fade-in');
-    container.classList.add('fade-out');
-  }, 2000);
+  // Add the fade-out class to trigger the fade-out animation
+  container.classList.add('fade-out');
+
+  // Listen for the 'transitionend' event on the container element
+  container.addEventListener('transitionend', function handleTransitionEnd() {
+    // Remove the 'fade-out' class and add the 'fade-in' class
+    container.classList.remove('fade-out');
+    container.classList.add('fade-in');
+
+    // Clean up the event listener to avoid multiple firings
+    container.removeEventListener('transitionend', handleTransitionEnd);
+  });
+
   // animateCirclesToTarget(currentBackground, targetBackground);
 }
