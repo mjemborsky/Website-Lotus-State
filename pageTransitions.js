@@ -84,13 +84,14 @@ preloadSVGs(svgUrls).then(() => {
 function handleLinkClick(targetBackgroundUrl) {
   const container = document.querySelector('.container');
   const currentBackground = document.querySelector('.container .background-svg')
+  console.log(currentBackground);
   container.classList.remove('fade-in');
   container.classList.add('fade-out');
 
   // Get the preloaded SVG
   const targetBackground = getStoredSVG(targetBackgroundUrl);
 
-  animateCirclesToTarget(currentBackground, targetBackground);
+  // animateCirclesToTarget(currentBackground, targetBackground);
 
   // After any additional manipulations, trigger the fade-in animation
   setTimeout(() => {
