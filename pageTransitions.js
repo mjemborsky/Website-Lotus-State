@@ -85,14 +85,18 @@ preloadSVGs(svgUrls).then(() => {
 });
 
 function handleLinkClick(targetBackgroundUrl) {
-  const container = document.querySelector('.container');
-  const currentBackground = document.querySelector('.container .background-svg');
-
-  // Get the preloaded SVG
+  // Get the target SVG and circles
   const targetBackground = getStoredSVG(targetBackgroundUrl);
+  const targetCircles = targetBackground.querySelectorAll('circle');
 
-  // Add the fade-out class to trigger the fade-out animation
+  // Add the fade-out class to trigger the fade-out animation (duration 2 seconds)
   container.classList.add('fade-out');
+
+  // START CIRCLE ANIMATION WITH DURATION OF 4 SECONDS
+  // Current circles in current svg should transform to target positions over 4 seconds
+  // page should direct to next page after 2 seconds animation but should keep the circles animating while the rest of the content is loading
+  // In other words, the enitre page transition animation should be 4 seconds, with the circles transistioning over the entire 4 seconds and the 
+  // fade out will take up 2 seconds and the fade in for the next page should be 2 seconds
 
   // Listen for the 'transitionend' event on the container element
   container.addEventListener('transitionend', function handleTransitionEnd() {
