@@ -344,6 +344,7 @@ p {
 .container > *:not(svg) {
   opacity: 0;
   transition: opacity 2s ease; /* Apply the transition to all elements except SVG */
+  will-change: opacity;
 }
 .container.fade-in > *:not(svg) {
   opacity: 1;
