@@ -35,26 +35,26 @@ const svgUrls = [
   'backgroundFour.svg'
 ];
 
-function animateCirclesToTarget(currentBackground, targetBackground) {
-  const currentCircles = currentBackground.querySelectorAll('circle');
-  const targetCircles = targetBackground.querySelectorAll('circle');
+// function animateCirclesToTarget(currentBackground, targetBackground) {
+//   const currentCircles = currentBackground.querySelectorAll('circle');
+//   const targetCircles = targetBackground.querySelectorAll('circle');
 
-  // Calculate the target radii for each circle
-  const targetRadii = [];
-  for (let i = 0; i < currentCircles.length; i++) {
-    const targetRadius = parseFloat(targetCircles[i].getAttribute('r'));
-    targetRadii.push(targetRadius);
-  }
+//   // Calculate the target radii for each circle
+//   const targetRadii = [];
+//   for (let i = 0; i < currentCircles.length; i++) {
+//     const targetRadius = parseFloat(targetCircles[i].getAttribute('r'));
+//     targetRadii.push(targetRadius);
+//   }
 
-  // Apply CSS animation variables
-  container.style.setProperty('--animation-duration', '4s');
-  for (let i = 0; i < currentCircles.length; i++) {
-    currentCircles[i].style.setProperty('--target-radius', targetRadii[i]);
-  }
+//   // Apply CSS animation variables
+//   container.style.setProperty('--animation-duration', '4s');
+//   for (let i = 0; i < currentCircles.length; i++) {
+//     currentCircles[i].style.setProperty('--target-radius', targetRadii[i]);
+//   }
 
-  // Add class to trigger animation
-  container.classList.add('animate-circles');
-}
+//   // Add class to trigger animation
+//   container.classList.add('animate-circles');
+// }
 
 // Preload SVGs before setting up event listeners and animations
 preloadSVGs(svgUrls).then(() => {
@@ -84,11 +84,9 @@ preloadSVGs(svgUrls).then(() => {
   });
 });
 
-// Function to handle link clicks and animations
 function handleLinkClick(targetBackgroundUrl) {
   const container = document.querySelector('.container');
   const currentBackground = document.querySelector('.container .background-svg');
-  console.log(currentBackground);
 
   // Get the preloaded SVG
   const targetBackground = getStoredSVG(targetBackgroundUrl);
@@ -98,13 +96,17 @@ function handleLinkClick(targetBackgroundUrl) {
 
   // Listen for the 'transitionend' event on the container element
   container.addEventListener('transitionend', function handleTransitionEnd() {
-    // Remove the 'fade-out' class and add the 'fade-in' class
-    container.classList.remove('fade-out');
-    container.classList.add('fade-in');
-
     // Clean up the event listener to avoid multiple firings
     container.removeEventListener('transitionend', handleTransitionEnd);
-  });
 
-  // animateCirclesToTarget(currentBackground, targetBackground);
+    // Use setTimeout to delay the addition of the 'fade-in' class
+    setTimeout(function () {
+      // Remove the 'fade-out' class and add the 'fade-in' class
+      container.classList.remove('fade-out');
+      container.classList.add('fade-in');
+    }, 2000); // Adjust the delay time as needed
+
+    // After the fade-out has completed, you can trigger other animations if needed
+    // animateCirclesToTarget(currentBackground, targetBackground);
+  });
 }
