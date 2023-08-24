@@ -222,6 +222,10 @@ body {
   margin: 0 auto;
 }
 
+#links {
+  padding-bottom: 20px;
+}
+
 .link, .extra-links {
   width: 75px;
   height: 75px;
@@ -282,7 +286,7 @@ body {
   position: absolute;
   display: flex;
   flex-direction: column;
-  top: 100px;
+  top: 250px;
 }
 
 .about-me {
