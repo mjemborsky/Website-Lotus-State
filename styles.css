@@ -342,29 +342,27 @@ p {
 /* Add these CSS rules for fade-in and fade-out animations */
 /* Exclude the SVG element from animations */
 .container > *:not(svg) {
-  opacity: 0;
-  transition: opacity 2s ease; /* Apply the transition to all elements except SVG */
+  opacity: 0; /* Apply the transition to all elements except SVG */
   will-change: opacity;
 }
 .container.fade-in > *:not(svg) {
   opacity: 1;
+  animation: fade-in 2s forwards;
 }
 .container.fade-out > *:not(svg) {
   opacity: 0;
+  animation: fade-out 2s forwards;
 }
 
-/*.animate-circles circle {
-  animation: animateRadius var(--animation-duration) linear;
-}*/
-
-/*@keyframes animateRadius {
-  from {
-    r: var(--target-radius);
-  }
-  to {
-    r: var(--target-radius);
-  }
-}*/
+/* Define the animations */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
 
 /* Animations */
 @keyframes upcoming-animation {

@@ -1,6 +1,3 @@
-const container = document.querySelector('.container');
-container.classList.remove('fade-out');
-container.classList.add('fade-in');
 
 // Preload SVGs
 async function preloadSVGs(urls) {
@@ -65,6 +62,32 @@ preloadSVGs(svgUrls).then(() => {
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
 
+    // Event listener and animation for links
+    function handleLinkClick(targetBackgroundUrl) {
+      // Get the target SVG and circles
+      const targetBackground = getStoredSVG(targetBackgroundUrl);
+      const targetCircles = targetBackground.querySelectorAll('circle');
+
+      // Add the fade-out class to trigger the fade-out animation (duration 2 seconds)
+      container.classList.add('fade-out');
+
+      // Animate the circles over 4 seconds
+      animateCirclesToTarget(targetCircles);
+
+      // Listen for the 'transitionend' event on the container element
+      container.addEventListener('transitionend', function handleTransitionEnd() {
+        // Clean up the event listener to avoid multiple firings
+        container.removeEventListener('transitionend', handleTransitionEnd);
+
+        // Use setTimeout to delay the addition of the 'fade-in' class
+        setTimeout(function () {
+          // Remove the 'fade-out' class and add the 'fade-in' class
+          container.classList.remove('fade-out');
+          container.classList.add('fade-in');
+        }, 2000); // Adjust the delay time as needed
+      });
+    }
+
     // Event listener and animation for Home link
     home.addEventListener('click', function (event) {
       handleLinkClick('backgroundOne.svg');
@@ -83,34 +106,3 @@ preloadSVGs(svgUrls).then(() => {
     });
   });
 });
-
-function handleLinkClick(targetBackgroundUrl) {
-  // Get the target SVG and circles
-  const targetBackground = getStoredSVG(targetBackgroundUrl);
-  const targetCircles = targetBackground.querySelectorAll('circle');
-
-  // Add the fade-out class to trigger the fade-out animation (duration 2 seconds)
-  container.classList.add('fade-out');
-
-  // Calculate the target radii for each circle
-  const targetRadii = Array.from(targetCircles).map(circle => parseFloat(circle.getAttribute('r')));
-
-  // Animate the circles over 4 seconds
-  for (let i = 0; i < targetCircles.length; i++) {
-    targetCircles[i].style.transition = 'transform 4s';
-    targetCircles[i].style.transform = `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px) scale(0.5)`;
-  }
-
-  // Listen for the 'transitionend' event on the container element
-  container.addEventListener('transitionend', function handleTransitionEnd() {
-    // Clean up the event listener to avoid multiple firings
-    container.removeEventListener('transitionend', handleTransitionEnd);
-
-    // Use setTimeout to delay the addition of the 'fade-in' class
-    setTimeout(function () {
-      // Remove the 'fade-out' class and add the 'fade-in' class
-      container.classList.remove('fade-out');
-      container.classList.add('fade-in');
-    }, 2000); // Adjust the delay time as needed
-  });
-}
