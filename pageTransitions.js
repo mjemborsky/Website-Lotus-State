@@ -71,8 +71,8 @@ preloadSVGs(svgUrls).then(() => {
       // Add the fade-out class to trigger the fade-out animation (duration 2 seconds)
       container.classList.add('fade-out');
 
-      // Animate the circles over 4 seconds
-      animateCirclesToTarget(targetCircles);
+      // // Animate the circles over 4 seconds
+      // animateCirclesToTarget(targetCircles);
 
       // Listen for the 'transitionend' event on the container element
       container.addEventListener('transitionend', function handleTransitionEnd() {
