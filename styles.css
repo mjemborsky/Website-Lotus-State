@@ -352,7 +352,6 @@ p {
   transition: opacity 2s; 
   will-change: opacity;
 }
-
 .container.fade > *:not(svg) {
   opacity:1;
 }
