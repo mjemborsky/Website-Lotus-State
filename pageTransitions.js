@@ -79,10 +79,11 @@ preloadSVGs(svgUrls).then(() => {
 
       // Listen for the 'transitionend' event on the container element
       container.addEventListener('transitionend', function handleTransitionEnd() {
-        // Clean up the event listener to avoid multiple firings
-        console.log('Transition ended');
-        container.removeEventListener('transitionend', handleTransitionEnd);
-        container.classList.add('fade');
+        setTimeout(function() {
+          container.classList.add('fade');
+          // Remove the transitionend event listener
+          container.removeEventListener('transitionend', handleTransitionEnd);
+        }, 2000); // Delay in milliseconds, matching the duration of your fade-out animation
       });
     }
 
