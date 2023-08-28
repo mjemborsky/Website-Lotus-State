@@ -57,7 +57,7 @@ const svgUrls = [
 preloadSVGs(svgUrls).then(() => {
   // Setup event listeners after preloading
   document.addEventListener('DOMContentLoaded', function () {
-    const container = document.querySelector('.container');
+    var container = document.querySelector('.container');
     const home = document.querySelector('.header-text');
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
@@ -80,7 +80,9 @@ preloadSVGs(svgUrls).then(() => {
       // Listen for the 'transitionend' event on the container element
       container.addEventListener('transitionend', function handleTransitionEnd() {
         setTimeout(function() {
+          container = document.querySelector('.container');
           container.classList.add('fade');
+
           // Remove the transitionend event listener
           container.removeEventListener('transitionend', handleTransitionEnd);
         }, 2000); // Delay in milliseconds, matching the duration of your fade-out animation
