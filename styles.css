@@ -347,9 +347,9 @@ p {
 /* Exclude the SVG element from animations */
 .container > *:not(svg) {
   opacity:0;
-  -webkit-transition: opacity 3s;
-  -moz-transition: opacity 3s;     
-  transition: opacity 3s; 
+  -webkit-transition: opacity 2s;
+  -moz-transition: opacity 2s;     
+  transition: opacity 2s; 
   will-change: opacity;
 }
 
