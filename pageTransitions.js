@@ -81,6 +81,7 @@ preloadSVGs(svgUrls).then(() => {
       container.addEventListener('transitionend', function handleTransitionEnd() {
         // Clean up the event listener to avoid multiple firings
         container.removeEventListener('transitionend', handleTransitionEnd);
+        container.classList.add('fade');
       });
     }
 
