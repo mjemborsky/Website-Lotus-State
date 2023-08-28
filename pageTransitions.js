@@ -58,6 +58,7 @@ preloadSVGs(svgUrls).then(() => {
   // Setup event listeners after preloading
   document.addEventListener('DOMContentLoaded', function () {
     const container = document.querySelector('.container');
+    container.classList.add('fade');
     const home = document.querySelector('.header-text');
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
@@ -69,7 +70,7 @@ preloadSVGs(svgUrls).then(() => {
       const targetCircles = targetBackground.querySelectorAll('circle');
 
       // Add the fade-out class to trigger the fade-out animation (duration 2 seconds)
-      container.classList.add('fade-out');
+      container.classList.remove('fade');
 
       // // Animate the circles over 4 seconds
       // animateCirclesToTarget(targetCircles);
@@ -78,13 +79,6 @@ preloadSVGs(svgUrls).then(() => {
       container.addEventListener('transitionend', function handleTransitionEnd() {
         // Clean up the event listener to avoid multiple firings
         container.removeEventListener('transitionend', handleTransitionEnd);
-
-        // Use setTimeout to delay the addition of the 'fade-in' class
-        setTimeout(function () {
-          // Remove the 'fade-out' class and add the 'fade-in' class
-          container.classList.remove('fade-out');
-          container.classList.add('fade-in');
-        }, 2000); // Adjust the delay time as needed
       });
     }
 
