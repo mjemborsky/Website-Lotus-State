@@ -62,6 +62,8 @@ preloadSVGs(svgUrls).then(() => {
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
 
+    container.classList.add('fade');
+
     // Event listener and animation for links
     function handleLinkClick(targetBackgroundUrl) {
       // Get the target SVG and circles
@@ -78,7 +80,6 @@ preloadSVGs(svgUrls).then(() => {
       container.addEventListener('transitionend', function handleTransitionEnd() {
         // Clean up the event listener to avoid multiple firings
         container.removeEventListener('transitionend', handleTransitionEnd);
-        container.classList.add('fade');
       });
     }
 
