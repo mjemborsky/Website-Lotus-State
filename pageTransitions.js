@@ -71,6 +71,7 @@ preloadSVGs(svgUrls).then(() => {
       const targetCircles = targetBackground.querySelectorAll('circle');
 
       // Add the fade-out class to trigger the fade-out animation (duration 2 seconds)
+      console.log(container);
       container.classList.remove('fade');
 
       // // Animate the circles over 4 seconds
