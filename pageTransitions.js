@@ -56,9 +56,6 @@ function handlePageTransition(targetPage) {
   });
 }
 
-Remember that effective implementation might require additional adjustments based on your specific HTML structure and JavaScript logic.
-
-
 
 // Preload SVGs before setting up event listeners and animations
 preloadSVGs(svgUrls).then(() => {
