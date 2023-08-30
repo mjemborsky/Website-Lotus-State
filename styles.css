@@ -329,6 +329,7 @@ p {
   overflow: hidden;
   position: relative;
   z-index: 1;
+  opacity: 1;
 }
 .container .background-svg {
   position: relative;
@@ -346,37 +347,14 @@ p {
 /* Add these CSS rules for fade-in and fade-out animations */
 /* Exclude the SVG element from animations */
 .container > *:not(svg) {
+  opacity: 0;
   -webkit-transition: opacity 2s;
   -moz-transition: opacity 2s;     
   transition: opacity 2s; 
   will-change: opacity;
 }
 
-.fade-out {
-  animation: fadeOutAnimation 2s forwards;
-}
 
-.fade-in {
-  animation: fadeInAnimation 2s forwards;
-}
-
-@keyframes fadeOutAnimation {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes fadeInAnimation {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 
 /* Animations */
 @keyframes upcoming-animation {
