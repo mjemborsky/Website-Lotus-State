@@ -32,26 +32,32 @@ const svgUrls = [
   'backgroundFour.svg'
 ];
 
-// Handle page transition animations
-function handlePageTransition(targetBackgroundUrl) {
-  // Get the target SVG and circles
-  const targetBackground = getStoredSVG(targetBackgroundUrl);
-  const targetCircles = targetBackground.querySelectorAll('circle');
+// Assuming you have a function to handle page transitions
+function handlePageTransition(targetPage) {
+  // Apply fade-out animation to the current container
+  const currentContainer = document.querySelector('.container');
+  currentContainer.classList.add('fade-out');
+  
+  // Listen for the animationend event to trigger page navigation
+  currentContainer.addEventListener('animationend', function() {
+    // Remove the animation class
+    currentContainer.classList.remove('fade-out');
 
-  // Remove the fade class to trigger the fade-out animation (duration 2 seconds)
-  container.classList.remove('fade');
+    // Navigate to the target page after a delay
+    setTimeout(function() {
+      window.location.href = targetPage;
 
-  // Listen for the 'transitionend' event on the container element
-  container.addEventListener('transitionend', function handleTransitionEnd() {
-    // Once the fade-out animation is complete, set the new background and circles
-    container.innerHTML = ''; // Clear the container
-    container.appendChild(targetBackground.cloneNode(true)); // Add the new background
-    container.classList.add('fade'); // Add the fade class to trigger the fade-in animation
-
-    // Remove the transitionend event listener
-    container.removeEventListener('transitionend', handleTransitionEnd);
+      // Apply fade-in animation to the next container after another delay
+      setTimeout(function() {
+        const futureContainer = document.querySelector('.next-container');
+        futureContainer.classList.add('fade-in');
+      }, 2000); // 2 seconds delay
+    }, 2000); // 2 seconds delay
   });
 }
+
+Remember that effective implementation might require additional adjustments based on your specific HTML structure and JavaScript logic.
+
 
 
 // Preload SVGs before setting up event listeners and animations
@@ -63,28 +69,26 @@ preloadSVGs(svgUrls).then(() => {
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
 
-    container.classList.add('fade');
-
     // Event listener and animation for links
-    function handleLinkClick(targetBackgroundUrl) {
-      handlePageTransition(targetBackgroundUrl);
+    function handleLinkClick(targetBackgroundUrl, nextContainer) {
+      handlePageTransition(targetBackgroundUrl, nextContainer);
     }
 
     // Event listener and animation for Home link
     home.addEventListener('click', function (event) {
-      handleLinkClick('backgroundOne.svg');
+      handleLinkClick('backgroundOne.svg', "container-one");
     });
 
     // Event listeners and animations for Projects links
     projects.forEach(link => {
       link.addEventListener('click', function (event) {
-        handleLinkClick('backgroundTwo.svg');
+        handleLinkClick('backgroundTwo.svg', "container-two");
       });
     });
 
     // Event listener and animation for More link
     more.addEventListener('click', function (event) {
-      handleLinkClick('backgroundFive.svg');
+      handleLinkClick('backgroundFive.svg', "container-five");
     });
   });
 });
