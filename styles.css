@@ -350,11 +350,16 @@ p {
   opacity: 0;
   -webkit-transition: opacity 2s;
   -moz-transition: opacity 2s;     
-  transition: opacity 2s; 
+  transition: opacity 2s ease-in-out; 
   will-change: opacity;
 }
 
-
+.fade-in {
+  opacity: 1;
+}
+.fade-out {
+  opacity: 0;
+}
 
 /* Animations */
 @keyframes upcoming-animation {
