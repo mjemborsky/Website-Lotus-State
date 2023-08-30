@@ -32,26 +32,27 @@ const svgUrls = [
   'backgroundFour.svg'
 ];
 
-// function animateCirclesToTarget(currentBackground, targetBackground) {
-//   const currentCircles = currentBackground.querySelectorAll('circle');
-//   const targetCircles = targetBackground.querySelectorAll('circle');
+// Handle page transition animations
+function handlePageTransition(targetBackgroundUrl) {
+  // Get the target SVG and circles
+  const targetBackground = getStoredSVG(targetBackgroundUrl);
+  const targetCircles = targetBackground.querySelectorAll('circle');
 
-//   // Calculate the target radii for each circle
-//   const targetRadii = [];
-//   for (let i = 0; i < currentCircles.length; i++) {
-//     const targetRadius = parseFloat(targetCircles[i].getAttribute('r'));
-//     targetRadii.push(targetRadius);
-//   }
+  // Remove the fade class to trigger the fade-out animation (duration 2 seconds)
+  container.classList.remove('fade');
 
-//   // Apply CSS animation variables
-//   container.style.setProperty('--animation-duration', '4s');
-//   for (let i = 0; i < currentCircles.length; i++) {
-//     currentCircles[i].style.setProperty('--target-radius', targetRadii[i]);
-//   }
+  // Listen for the 'transitionend' event on the container element
+  container.addEventListener('transitionend', function handleTransitionEnd() {
+    // Once the fade-out animation is complete, set the new background and circles
+    container.innerHTML = ''; // Clear the container
+    container.appendChild(targetBackground.cloneNode(true)); // Add the new background
+    container.classList.add('fade'); // Add the fade class to trigger the fade-in animation
 
-//   // Add class to trigger animation
-//   container.classList.add('animate-circles');
-// }
+    // Remove the transitionend event listener
+    container.removeEventListener('transitionend', handleTransitionEnd);
+  });
+}
+
 
 // Preload SVGs before setting up event listeners and animations
 preloadSVGs(svgUrls).then(() => {
@@ -66,27 +67,7 @@ preloadSVGs(svgUrls).then(() => {
 
     // Event listener and animation for links
     function handleLinkClick(targetBackgroundUrl) {
-      // Get the target SVG and circles
-      const targetBackground = getStoredSVG(targetBackgroundUrl);
-      const targetCircles = targetBackground.querySelectorAll('circle');
-
-      // Add the fade-out class to trigger the fade-out animation (duration 2 seconds)
-      console.log(container);
-      container.classList.remove('fade');
-
-      // // Animate the circles over 4 seconds
-      // animateCirclesToTarget(targetCircles);
-
-      // Listen for the 'transitionend' event on the container element
-      container.addEventListener('transitionend', function handleTransitionEnd() {
-        setTimeout(function() {
-          container = document.querySelector('.container');
-          container.classList.add('fade');
-
-          // Remove the transitionend event listener
-          container.removeEventListener('transitionend', handleTransitionEnd);
-        }, 2000); // Delay in milliseconds, matching the duration of your fade-out animation
-      });
+      handlePageTransition(targetBackgroundUrl);
     }
 
     // Event listener and animation for Home link
