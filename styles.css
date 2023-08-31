@@ -148,12 +148,16 @@
 .link-left {
   position: fixed;
   width: 100px;
-  height: 50px;
-  transform: skew(20deg);
-  background: #555;
-  border-radius: 50%;
+  height: 40px;
+  transform: skew(-28deg);
+  background: black;
+  border-radius: 25% 5% 25% 5%;
   color: ghostwhite;
   text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
 }
 .center-link, .header-text {
   height: 125px;
