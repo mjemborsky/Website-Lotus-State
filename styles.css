@@ -155,13 +155,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 14px;
+  text-decoration: none;
 }
 h2 {
   transform: skew(28deg);
   font-size: 14px;
   color: ghostwhite;
-  text-decoration: none;
 }
 .center-link, .header-text {
   height: 125px;
