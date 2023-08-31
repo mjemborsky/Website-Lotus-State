@@ -43,22 +43,12 @@ function getStoredSVG(url) {
 // }
 
 function handlePageTransition() {
-  // Items to be applied fade in/out
-  const container = document.querySelectorAll('.container > *');
-
-  // Fade in the container
-  container.classList.add('fade-in');
-
-  // After 2 seconds, fade out the container
+  const container = document.querySelector('.container');
+  container.classList.remove('fade-in');
+  container.classList.add('fade-out');    // Apply fade-out animation
   setTimeout(function() {
-    container.classList.remove('fade-in');
-    container.classList.add('fade-out');
-  }, 2000);
-
-  // After 4 seconds, remove the fade out class
-  setTimeout(function() {
-    container.classList.remove('fade-out');
-  }, 4000);
+    container.classList.remove('fade-out'); // Remove fade-out class after animation
+  }, 2000); // 2 seconds
 }
 
 // MAIN FUNCTION

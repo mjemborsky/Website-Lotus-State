@@ -100,7 +100,6 @@
   border-radius: 0% 0% 0% 150%;
   right: 0;
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 .left-links a,
@@ -316,7 +315,6 @@ p {
   overflow: hidden;
   position: relative;
   z-index: 1;
-  opacity: 1;
 }
 .container .background-svg {
   position: relative;
@@ -330,18 +328,37 @@ p {
   pointer-events: none;
   z-index: -1;
 }
-.container > *:not(svg) {
+.container.fade-in > *:not(svg) {
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
   -webkit-transition: opacity 2s;
-  -moz-transition: opacity 2s;     
-  transition: opacity 2s ease-in-out; 
+  -moz-transition: opacity 2s; 
   will-change: opacity;
 }
 .container.fade-in > *:not(svg) {
-  opacity: 1;
+  animation: fadeInAnimation 2s ease-in-out forwards;
 }
 .container.fade-out > *:not(svg) {
-  opacity: 0;
+  animation: fadeOutAnimation 2s ease-in-out forwards;
 }
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOutAnimation {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+
 
 /* Animations */
 @keyframes upcoming-animation {
