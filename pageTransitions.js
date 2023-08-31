@@ -43,10 +43,12 @@ function getStoredSVG(url) {
 // }
 
 function handlePageTransition() {
-  const container = document.querySelector('.container');
-  container.classList.remove('fade-in');
-  container.classList.add('fade-out');    // Apply fade-out animation
+  const contents = document.querySelectorAll('.container > *:not(svg)');
+  container.classList.add('fade');  
   setTimeout(function() {
+    contents.forEach(content => {
+      content.style.opacity = '0';
+    });
     container.classList.remove('fade-out'); // Remove fade-out class after animation
   }, 2000); // 2 seconds
 }
@@ -56,14 +58,15 @@ function handlePageTransition() {
 preloadSVGs(svgUrls).then(() => {
   // Setup event listeners after preloading
   document.addEventListener('DOMContentLoaded', function () {
-    const container = document.querySelector('.container > *:not(svg)');
-    console.log(container);
     const contents = document.querySelectorAll('.container > *:not(svg)');
     const home = document.querySelector('.header-text');
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
 
-    container.classList.add('fade-in');
+    container.classList.remove('fade');
+    contents.forEach(content => {
+      content.style.opacity = '1';
+    });
 
     // Event listener and animation for links
     function handleLinkClick() {
