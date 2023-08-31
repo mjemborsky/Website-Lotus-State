@@ -354,10 +354,10 @@ p {
   will-change: opacity;
 }
 
-.fade-in {
+.container.fade-in > *:not(svg) {
   opacity: 1;
 }
-.fade-out {
+.container.fade-out > *:not(svg) {
   opacity: 0;
 }
 

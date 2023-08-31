@@ -33,16 +33,12 @@ function getStoredSVG(url) {
 
 function handlePageTransition() {
   // Items to be applied fade in/out
-  const contents = document.querySelectorAll('.container > *:not(svg)');
+  const container = document.querySelectorAll('.container > *:not(svg)');
   // Apply fade-out animation to the current container (needs a timeout/delay to ensure 2 second transition here)
-  contents.forEach(item => {
-    item.classList.add('fade-out')
-  });
+  container.classList.add('fade-out');
   // Needs to then remove the fade out effect after 2 seconds
   setTimeout(function() {
-    contents.forEach(item => {
-      item.classList.remove('fade-out')
-    });
+    container.classList.remove('fade-out');
   }, 2000);
 }
 
@@ -51,15 +47,14 @@ function handlePageTransition() {
 preloadSVGs(svgUrls).then(() => {
   // Setup event listeners after preloading
   document.addEventListener('DOMContentLoaded', function () {
-    const container = document.querySelector('.container');
+    const container = document.querySelector('.container > *:not(svg)');
+    console.log(container);
     const contents = document.querySelectorAll('.container > *:not(svg)');
     const home = document.querySelector('.header-text');
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
 
-    contents.forEach(item => {
-      item.classList.add('fade-in')
-    });
+    container.classList.add('fade-in');
 
     // Event listener and animation for links
     function handleLinkClick() {
