@@ -147,8 +147,10 @@
 }
 .link-left {
   position: fixed;
+  width: 100px;
   height: 50px;
-  width: 75px;
+  transform: skew(20deg);
+  background: #555;
   border-radius: 50%;
   color: ghostwhite;
   text-decoration: none;
