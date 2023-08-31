@@ -113,7 +113,7 @@
 .right-links a {
   background-color: black;
 }
-.left-links a:hover,
+.left-links h2:hover,
 .center-link a:hover,
 .right-links a:hover {
   background-color: ghostwhite;
