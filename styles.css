@@ -86,7 +86,6 @@
   position: fixed;
   top: 0;
   height: 50px;
-  width: 100px;
   background-color: black;
   text-decoration: none;
   color: ghostwhite;
@@ -95,11 +94,13 @@
 .left-links, .left-link {
   border-radius: 0% 0% 150% 0%;
   left: 0;
+  width: 100px;
 }
 .right-links, .link-right {
   border-radius: 0% 0% 0% 150%;
   right: 0;
   display: flex;
+  width: 75px;
   justify-content: center;
 }
 .left-links a,
