@@ -194,38 +194,27 @@ body {
   justify-content: center;
   margin: 0 auto;
   padding-top: 50px;
-  top: 100px;
+  top: 225px;
   position: absolute;
 }
 
-/*projects.html*/
-
-
-/*extra.html*/
-#new-projects {
-  top: 150px;
+/*  CSS For Project Pages */
+#projects, #lotusmane, #new-projects  {
   position: absolute;
-}
-#projects {
-  position: absolute;
-  top: 150px;
 }
 .project-tile {
   min-width: 225px;
   padding: 25px;
 }
-
 .projects, #links {
   display: flex;
   flex-direction: row;
   justify-content: center;
   margin: 0 auto;
 }
-
 #links {
   padding-bottom: 20px;
 }
-
 .link, .extra-links {
   width: 75px;
   height: 75px;
@@ -233,7 +222,6 @@ body {
   padding-right: 10px;
   padding-left: 10px;
 }
-
 #upcoming {
   border-style: solid 1px;
   border-radius: 15%;
@@ -247,23 +235,17 @@ body {
   background: black;
   animation: upcoming-animation 4s linear 0s infinite alternate-reverse;
 }
-
 .upcoming-projects {
   display: flex;
   flex-direction: column;
   padding-top: 25px;
 }
-
 .all-upcoming {
   display: flex;
   flex-direction: row;
   width: 100%;
   margin: 0 auto;
   justify-content: center;
-}
-#lotusmane {
-  position: absolute;
-  top: 150px;
 }
 .lotusmane-coverart {
   top: 10px;
@@ -273,7 +255,6 @@ body {
   border-radius: 100%;
   object-fit: cover;
 }
-
 #beatpack {
   border: 1px dotted;
   border-radius: 4%;
@@ -282,13 +263,12 @@ body {
   margin-bottom: 10px;
 }
 
+/*  CSS for Extra Page  */
 #extra {
   position: absolute;
   display: flex;
   flex-direction: column;
-  top: 250px;
 }
-
 .about-me {
   position: relative;
   width: 500px;
@@ -302,12 +282,10 @@ body {
   height: 250px;
   border-radius: 15% 15% 30% 30%;
 }
-
 p {
   width: 50%;
   font-family: georgia;
 }
-
 .beat {
   width: 100%;
   padding-top: 5px;
@@ -343,17 +321,12 @@ p {
   pointer-events: none;
   z-index: -1;
 }
-
-/* Add these CSS rules for fade-in and fade-out animations */
-/* Exclude the SVG element from animations */
 .container > *:not(svg) {
-  opacity: 0;
   -webkit-transition: opacity 2s;
   -moz-transition: opacity 2s;     
   transition: opacity 2s ease-in-out; 
   will-change: opacity;
 }
-
 .container.fade-in > *:not(svg) {
   opacity: 1;
 }
