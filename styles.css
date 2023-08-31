@@ -108,6 +108,7 @@
   background-color: black;
 }
 .left-links a:hover,
+.link-left a:hover,
 .left-links h2:hover,
 .center-link a:hover,
 .right-links a:hover {
