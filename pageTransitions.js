@@ -31,15 +31,34 @@ function getStoredSVG(url) {
   return svgDoc.documentElement;
 }
 
+// function handlePageTransition() {
+//   // Items to be applied fade in/out
+//   const container = document.querySelectorAll('.container > *:not(svg)');
+//   // Apply fade-out animation to the current container (needs a timeout/delay to ensure 2 second transition here)
+//   container.classList.add('fade-out');
+//   // Needs to then remove the fade out effect after 2 seconds
+//   setTimeout(function() {
+//     container.classList.remove('fade-out');
+//   }, 2000);
+// }
+
 function handlePageTransition() {
   // Items to be applied fade in/out
-  const container = document.querySelectorAll('.container > *:not(svg)');
-  // Apply fade-out animation to the current container (needs a timeout/delay to ensure 2 second transition here)
-  container.classList.add('fade-out');
-  // Needs to then remove the fade out effect after 2 seconds
+  const container = document.querySelectorAll('.container > *');
+
+  // Fade in the container
+  container.classList.add('fade-in');
+
+  // After 2 seconds, fade out the container
+  setTimeout(function() {
+    container.classList.remove('fade-in');
+    container.classList.add('fade-out');
+  }, 2000);
+
+  // After 4 seconds, remove the fade out class
   setTimeout(function() {
     container.classList.remove('fade-out');
-  }, 2000);
+  }, 4000);
 }
 
 // MAIN FUNCTION
