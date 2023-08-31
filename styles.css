@@ -152,12 +152,16 @@
   transform: skew(-28deg);
   background: black;
   border-radius: 25% 5% 25% 5%;
-  color: ghostwhite;
-  text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 14px;
+}
+h2 {
+  transform: skew(28deg);
+  font-size: 14px;
+  color: ghostwhite;
+  text-decoration: none;
 }
 .center-link, .header-text {
   height: 125px;
