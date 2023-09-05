@@ -43,13 +43,28 @@ function getStoredSVG(url) {
 // }
 
 function handlePageTransition() {
-  const contents = document.querySelectorAll('.container > *:not(svg)');
-  container.classList.add('fade');  
-  setTimeout(function() {
-    contents.forEach(content => {
-      content.style.opacity = '0';
-    });
-    container.classList.remove('fade-out'); // Remove fade-out class after animation
+  const container = document.querySelector('.container');
+  const contents = container.querySelectorAll('*:not(svg)');
+
+  container.classList.remove('fade-out'); // Remove fade-out class if it's applied
+  container.classList.add('fade-out'); // Add fade-out class to trigger fade-out animation
+
+  setTimeout(function () {
+    // Remove fade-out class after animation duration
+    container.classList.remove('fade-out');
+
+    // Add fade-in class to trigger fade-in animation on all contents
+    container.classList.add('fade-in');
+
+    // Remove fade-in class after animation duration
+    setTimeout(function () {
+      container.classList.remove('fade-in');
+
+      // Set opacity back to 1 for all contents
+      contents.forEach(content => {
+        content.style.opacity = '1';
+      });
+    }, 2000); // 2 seconds
   }, 2000); // 2 seconds
 }
 
@@ -58,38 +73,41 @@ function handlePageTransition() {
 preloadSVGs(svgUrls).then(() => {
   // Setup event listeners after preloading
   document.addEventListener('DOMContentLoaded', function () {
-    const contents = document.querySelectorAll('.container > *:not(svg)');
     const home = document.querySelector('.header-text');
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
 
-    contents.classList.remove('fade');
-    console.log('remove 2');
+    const container = document.querySelector('.container');
+    const contents = container.querySelectorAll('*:not(svg)');
 
-    contents.forEach(content => {
-      content.style.opacity = '1';
-    });
+    // Add fade-in class to trigger fade-in animation
+    container.classList.add('fade-in');
 
-    // Event listener and animation for links
-    function handleLinkClick() {
-      handlePageTransition();
-    }
+    // Remove fade-in class after animation duration
+    setTimeout(function () {
+      container.classList.remove('fade-in');
+
+      // Set opacity back to 1 for all contents
+      contents.forEach(content => {
+        content.style.opacity = '1';
+      });
+    }, 2000); // 2 seconds
 
     // Event listener and animation for Home link
     home.addEventListener('click', function (event) {
-      handleLinkClick();
+      handlePageTransition();
     });
 
     // Event listeners and animations for Projects links
     projects.forEach(link => {
       link.addEventListener('click', function (event) {
-        handleLinkClick();
+        handlePageTransition();
       });
     });
 
     // Event listener and animation for More link
     more.addEventListener('click', function (event) {
-      handleLinkClick();
+      handlePageTransition();
     });
   });
 });
