@@ -42,7 +42,7 @@ function getStoredSVG(url) {
 //   }, 2000);
 // }
 
-function handlePageTransition() {
+function handlePageTransition(destinationURL) {
   const container = document.querySelector('.container');
   const contents = container.querySelectorAll('*:not(svg)');
 
@@ -52,19 +52,8 @@ function handlePageTransition() {
   setTimeout(function () {
     // Remove fade-out class after animation duration
     container.classList.remove('fade-out');
-
-    // Add fade-in class to trigger fade-in animation on all contents
-    container.classList.add('fade-in');
-
-    // Remove fade-in class after animation duration
-    setTimeout(function () {
-      container.classList.remove('fade-in');
-
-      // Set opacity back to 1 for all contents
-      contents.forEach(content => {
-        content.style.opacity = '1';
-      });
-    }, 2000); // 2 seconds
+    // Move to next page
+    window.location.href = destinationURL;
   }, 2000); // 2 seconds
 }
 
@@ -95,19 +84,25 @@ preloadSVGs(svgUrls).then(() => {
 
     // Event listener and animation for Home link
     home.addEventListener('click', function (event) {
-      handlePageTransition();
+      event.preventDefault();
+      const destinationURL = home.getAttribute('href');
+      handlePageTransition(destinationURL);
     });
 
     // Event listeners and animations for Projects links
     projects.forEach(link => {
       link.addEventListener('click', function (event) {
-        handlePageTransition();
+        event.preventDefault();
+        const destinationURL = link.getAttribute('href');
+        handlePageTransition(destinationURL);
       });
     });
 
     // Event listener and animation for More link
     more.addEventListener('click', function (event) {
-      handlePageTransition();
+      event.preventDefault();
+      const destinationURL = more.getAttribute('href');
+      handlePageTransition(destinationURL);
     });
   });
 });
