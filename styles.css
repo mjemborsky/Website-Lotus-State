@@ -125,6 +125,7 @@
   border-radius: 50%;
   padding: 10px;
   z-index: 3;
+  font-family: 'montserratthin';
 }
 .expanded-links.show,  {
   display: flex;
@@ -132,6 +133,7 @@
   flex-direction: column;
   left: 20px;
   top: 20px;
+  font-family: 'montserratthin';
 }
 #project-expanded-one {
   top: 7px;
