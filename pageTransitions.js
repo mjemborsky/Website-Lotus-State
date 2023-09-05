@@ -58,6 +58,7 @@ function handlePageTransition() {
 preloadSVGs(svgUrls).then(() => {
   // Setup event listeners after preloading
   document.addEventListener('DOMContentLoaded', function () {
+    const container = document.querySelectorAll('.container ');
     const contents = document.querySelectorAll('.container > *:not(svg)');
     const home = document.querySelector('.header-text');
     const projects = document.querySelectorAll('.link-left');
