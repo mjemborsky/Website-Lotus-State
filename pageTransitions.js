@@ -30,7 +30,7 @@ function getStoredSVG(url) {
 }
 // Handle page transition including fade and call to translate circles
 function handlePageTransition(destinationURL) {
-  const content = container.querySelector('.fade-target');
+  const content = document.querySelector('.fade-target');
   content.classList.add('fade-out'); // Add fade-out class to trigger fade-out animation
   // Fetch the new page content using AJAX
   fetch(destinationURL)
