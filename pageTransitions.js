@@ -68,7 +68,6 @@ preloadSVGs(svgUrls).then(() => {
     const home = document.querySelector('.header-text');
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
-
     const content = document.querySelector('.fade-target');
 
     // Add fade-in class to trigger fade-in animation
@@ -79,14 +78,13 @@ preloadSVGs(svgUrls).then(() => {
       content.style.opacity = '1';
     }, 2000); // 2 seconds
 
-    // Event listener and animation for Home link
+    // Event listener for Home link
     home.addEventListener('click', function (event) {
       event.preventDefault();
       const destinationURL = home.getAttribute('href');
       handlePageTransition(destinationURL);
     });
-
-    // Event listeners and animations for Projects links
+    // Event listeners for Projects links
     projects.forEach(link => {
       link.addEventListener('click', function (event) {
         event.preventDefault();
@@ -94,8 +92,7 @@ preloadSVGs(svgUrls).then(() => {
         handlePageTransition(destinationURL);
       });
     });
-
-    // Event listener and animation for More link
+    // Event listener for More link
     more.addEventListener('click', function (event) {
       event.preventDefault();
       const destinationURL = more.getAttribute('href');
