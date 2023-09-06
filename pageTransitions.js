@@ -28,22 +28,42 @@ function getStoredSVG(url) {
   const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
   return svgDoc.documentElement;
 }
-// Handle page transition including fade and call to translate circles
+// Handle page transition including fade and AJAX loading
 function handlePageTransition(destinationURL) {
   const container = document.querySelector('.container');
   const contents = container.querySelectorAll('*:not(svg)');
-
   container.classList.add('fade-out'); // Add fade-out class to trigger fade-out animation
 
-  setTimeout(function () {
-    // Remove fade-out class after animation duration
-    container.classList.remove('fade-out');
-    contents.forEach(content => {
-      content.style.opacity = '0';
+  // Fetch the new page content using AJAX
+  fetch(destinationURL)
+    .then(response => response.text())
+    .then(content => {
+      setTimeout(function () {
+        // Remove fade-out class after animation duration
+        container.classList.remove('fade-out');
+        contents.forEach(content => {
+          content.style.opacity = '0';
+        });
+
+        // Replace the container content with the new page content
+        container.innerHTML = content;
+
+        // Apply fade-in animation to the new content
+        container.classList.add('fade-in');
+        setTimeout(function () {
+          container.classList.remove('fade-in');
+
+          // Set opacity back to 1 for all contents
+          const newContents = container.querySelectorAll('*:not(svg)');
+          newContents.forEach(content => {
+            content.style.opacity = '1';
+          });
+        }, 2000); // 2 seconds for fade-in
+      }, 2000); // 2 seconds for fade-out
+    })
+    .catch(error => {
+      console.error('Error loading page:', error);
     });
-    // Move to next page
-    window.location.href = destinationURL;
-  }, 2000); // 2 seconds
 }
 // MAIN PAGE LISTENER
 // Preload SVGs before setting up link event listeners
