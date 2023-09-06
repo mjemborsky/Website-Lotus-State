@@ -332,6 +332,9 @@ p {
   z-index: -1;
 
 }
+
+/* Animations */
+/* For Container Contents Fade */
 .container.fade-in > *:not(svg) {
   animation: fade-in 2s ease-in-out;
   animation-fill-mode: both;
@@ -342,14 +345,10 @@ p {
 .container.fade-out > *:not(svg) {
   animation: fade-out 2s ease-in-out;
   animation-fill-mode: both;
-  animation-delay: 2s; /* Delay the fade-out animation to start after fade-in */
   -webkit-transition: opacity 2s;
   -moz-transition: opacity 2s; 
   will-change: opacity;
 }
-
-/* Animations */
-/* For Container Contents Fade */
 @keyframes fade-in {
   from {
     opacity: 0;
