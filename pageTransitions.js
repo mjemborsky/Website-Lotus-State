@@ -28,9 +28,8 @@ function getStoredSVG(url) {
   const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
   return svgDoc.documentElement;
 }
-// Handle page transition including fade and AJAX loading
+// Handle page transition including fade and call to translate circles
 function handlePageTransition(destinationURL) {
-  const container = document.querySelector('.container');
   const content = container.querySelector('.fade-target');
   content.classList.add('fade-out'); // Add fade-out class to trigger fade-out animation
   // Fetch the new page content using AJAX
@@ -43,19 +42,21 @@ function handlePageTransition(destinationURL) {
         content.style.opacity = '0';
         // Replace the container content with the new page content
         container.innerHTML = nextPage;
-        const content = container.querySelector('.fade-target');
+        const newContent = container.querySelector('.fade-target');
         // Apply fade-in animation to the new content
-        newContents.classList.add('fade-in');
+        newContent.classList.add('fade-in');
         setTimeout(function () {
           // Set opacity back to 1 for all contents
-          newContents.style.opacity = '1';
-          newContents.classList.remove('fade-in');
+          newContent.classList.remove('fade-in');
+          newContent.style.opacity = '1';
         }, 2000); // 2 seconds for fade-in
       }, 2000); // 2 seconds for fade-out
     })
     .catch(error => {
       console.error('Error loading page:', error);
-    });
+    // Move to next page
+    window.location.href = destinationURL;
+  }, 2000); // 2 seconds
 }
 // MAIN PAGE LISTENER
 // Preload SVGs before setting up link event listeners
@@ -66,16 +67,13 @@ preloadSVGs(svgUrls).then(() => {
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
 
-    const container = document.querySelector('.container');
-    const contents = container.querySelectorAll('*:not(svg)');
+    const content = document.querySelector('.fade-target');
 
     // Add fade-in class to trigger fade-in animation
-    container.classList.add('fade-in');
-
+    content.classList.add('fade-in');
     // Remove fade-in class after animation duration
     setTimeout(function () {
       container.classList.remove('fade-in');
-
       // Set opacity back to 1 for all contents
       contents.forEach(content => {
         content.style.opacity = '1';
