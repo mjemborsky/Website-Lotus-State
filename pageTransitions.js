@@ -75,11 +75,8 @@ preloadSVGs(svgUrls).then(() => {
     content.classList.add('fade-in');
     // Remove fade-in class after animation duration
     setTimeout(function () {
-      container.classList.remove('fade-in');
-      // Set opacity back to 1 for all contents
-      contents.forEach(content => {
-        content.style.opacity = '1';
-      });
+      content.classList.remove('fade-in');
+      content.style.opacity = '1';
     }, 2000); // 2 seconds
 
     // Event listener and animation for Home link
