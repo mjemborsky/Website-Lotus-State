@@ -335,14 +335,14 @@ p {
 
 /* Animations */
 /* For Container Contents Fade */
-.container.fade-in > *:not(svg) {
+.container.fade-in .fade-target {
   animation: fade-in 2s ease-in-out;
   animation-fill-mode: both;
   -webkit-transition: opacity 2s;
   -moz-transition: opacity 2s; 
   will-change: opacity;
 }
-.container.fade-out > *:not(svg) {
+.container.fade-out .fade-target {
   animation: fade-out 2s ease-in-out;
   animation-fill-mode: both;
   -webkit-transition: opacity 2s;
