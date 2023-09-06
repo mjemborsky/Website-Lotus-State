@@ -46,12 +46,14 @@ function handlePageTransition(destinationURL) {
   const container = document.querySelector('.container');
   const contents = container.querySelectorAll('*:not(svg)');
 
-  container.classList.remove('fade-out'); // Remove fade-out class if it's applied
   container.classList.add('fade-out'); // Add fade-out class to trigger fade-out animation
 
   setTimeout(function () {
     // Remove fade-out class after animation duration
     container.classList.remove('fade-out');
+    contents.forEach(content => {
+      content.style.opacity = '0';
+    });
     // Move to next page
     window.location.href = destinationURL;
   }, 2000); // 2 seconds
