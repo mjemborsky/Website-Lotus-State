@@ -54,9 +54,11 @@ function handlePageTransition(destinationURL) {
     })
     .catch(error => {
       console.error('Error loading page:', error);
-    // Move to next page
-    window.location.href = destinationURL;
-  }, 2000); // 2 seconds
+    })
+    .finally(() => {
+      // Move to next page
+      window.location.href = destinationURL;
+    });
 }
 // MAIN PAGE LISTENER
 // Preload SVGs before setting up link event listeners
