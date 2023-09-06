@@ -6,7 +6,6 @@ const svgUrls = [
   'backgroundThree.svg',
   'backgroundFour.svg'
 ];
-
 // Preload SVGs
 async function preloadSVGs(urls) {
   try {
@@ -22,7 +21,6 @@ async function preloadSVGs(urls) {
     console.error('Error preloading SVG:', error);
   }
 }
-
 // Get stored SVG from SessionStorage
 function getStoredSVG(url) {
   const svgString = sessionStorage.getItem(url);
@@ -30,18 +28,7 @@ function getStoredSVG(url) {
   const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
   return svgDoc.documentElement;
 }
-
-// function handlePageTransition() {
-//   // Items to be applied fade in/out
-//   const container = document.querySelectorAll('.container > *:not(svg)');
-//   // Apply fade-out animation to the current container (needs a timeout/delay to ensure 2 second transition here)
-//   container.classList.add('fade-out');
-//   // Needs to then remove the fade out effect after 2 seconds
-//   setTimeout(function() {
-//     container.classList.remove('fade-out');
-//   }, 2000);
-// }
-
+// Handle page transition including fade and call to translate circles
 function handlePageTransition(destinationURL) {
   const container = document.querySelector('.container');
   const contents = container.querySelectorAll('*:not(svg)');
@@ -58,11 +45,10 @@ function handlePageTransition(destinationURL) {
     window.location.href = destinationURL;
   }, 2000); // 2 seconds
 }
-
-// MAIN FUNCTION
-// Preload SVGs before setting up event listeners and animations
+// MAIN PAGE LISTENER
+// Preload SVGs before setting up link event listeners
 preloadSVGs(svgUrls).then(() => {
-  // Setup event listeners after preloading
+  // Setup event listeners after preloading background SVG's
   document.addEventListener('DOMContentLoaded', function () {
     const home = document.querySelector('.header-text');
     const projects = document.querySelectorAll('.link-left');

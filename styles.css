@@ -347,6 +347,9 @@ p {
   -moz-transition: opacity 2s; 
   will-change: opacity;
 }
+
+/* Animations */
+/* For Container Contents Fade */
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -363,9 +366,7 @@ p {
     opacity: 0;
   }
 }
-
-
-/* Animations */
+/* For Upcoming Projects */
 @keyframes upcoming-animation {
   from {
     width: 200px;
