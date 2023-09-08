@@ -30,26 +30,34 @@ function getStoredSVG(url) {
 }
 // Handle page transition including fade and AJAX loading
 function handlePageTransition(destinationURL) {
-  const content = document.querySelector('.fade-target');
-  content.classList.add('fade-out'); // Add fade-out class to trigger fade-out animation
-  // SHOULD CALL CIRCLE TRANSITION HERE I THINK
+  const container = document.querySelector('.container');
+  const contents = container.querySelectorAll('*:not(svg)');
+  container.classList.add('fade-out'); // Add fade-out class to trigger fade-out animation
+
   // Fetch the new page content using AJAX
   fetch(destinationURL)
     .then(response => response.text())
-    .then(nextPage => {
+    .then(content => {
       setTimeout(function () {
         // Remove fade-out class after animation duration
-        content.classList.remove('fade-out');
-        content.style.opacity = '0';
+        container.classList.remove('fade-out');
+        contents.forEach(content => {
+          content.style.opacity = '0';
+        });
+
         // Replace the container content with the new page content
-        container.innerHTML = nextPage;
-        const newContents = container.querySelector('.fade-target');
+        container.innerHTML = content;
+
         // Apply fade-in animation to the new content
-        newContents.classList.add('fade-in');
+        container.classList.add('fade-in');
         setTimeout(function () {
-          newContents.classList.remove('fade-in');
+          container.classList.remove('fade-in');
+
           // Set opacity back to 1 for all contents
-          newContents.style.opacity = '1';
+          const newContents = container.querySelectorAll('*:not(svg)');
+          newContents.forEach(content => {
+            content.style.opacity = '1';
+          });
         }, 2000); // 2 seconds for fade-in
       }, 2000); // 2 seconds for fade-out
     })
