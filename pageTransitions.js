@@ -30,6 +30,7 @@ function getStoredSVG(url) {
 }
 // Handle page transition including fade and AJAX loading
 function handlePageTransition(destinationURL) {
+  const container = document.querySelector('.container')
   const content = document.querySelector('.fade-target');
   content.classList.add('fade-out'); // Add fade-out class to trigger fade-out animation
   // Fetch the new page content using AJAX
@@ -41,9 +42,9 @@ function handlePageTransition(destinationURL) {
         content.classList.remove('fade-out');
         content.style.opacity = '0';
         // Replace the container content with the new page content
-        newPageHTML.innerHTML = newPage;
+        container.innerHTML = newPage;
         // Apply fade-in animation to the new content
-        const newContent = newPageHTML.querySelector('.fade-target');
+        const newContent = container.querySelector('.fade-target');
         newContent.classList.add('fade-in');
         setTimeout(function () {
           newContent.classList.remove('fade-in');
