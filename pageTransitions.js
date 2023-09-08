@@ -42,7 +42,7 @@ function animateCircles(targetSVG) {
     const radiusDifference = targetRadius - currentRadius;
 
     // Apply CSS transition to animate the 'r' attribute
-    currentCircle.style.transition = 'r 4s ease';
+    currentCircle.style.transition = 'r 4s ease-in-out';
     currentCircle.setAttribute('r', targetRadius);
   });
 }
@@ -60,7 +60,7 @@ async function handlePageTransition(destinationURL, targetBackground) {
     // Start the circle animation during fade-out
     const animationPromise = new Promise((resolve) => {
       animateCircles(targetBackground);
-      setTimeout(resolve, 2000); // Resolve the promise after 2 seconds (adjust as needed)
+      setTimeout(resolve, 4000); // Resolve the promise after 2 seconds (adjust as needed)
     });
 
     // Wait for the circle animation to complete before continuing
