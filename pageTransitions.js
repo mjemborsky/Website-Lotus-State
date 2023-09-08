@@ -29,7 +29,7 @@ function getStoredSVG(url) {
   return svgDoc.documentElement;
 }
 // Circle Animation
-function animateSVG(targetSVG) {
+function animateCircles(targetSVG) {
   // Get the current SVG and target SVG circles
   const currentSVG = document.querySelector('.background-svg');
   const currentCircles = currentSVG.querySelectorAll('circle');
