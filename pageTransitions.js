@@ -29,45 +29,54 @@ function getStoredSVG(url) {
   return svgDoc.documentElement;
 }
 // Circle Animation
-function animateCircles(targetBackground) {
+function animateSVG(targetSVG) {
   // Get the current SVG and target SVG circles
   const currentSVG = document.querySelector('.background-svg');
   const currentCircles = currentSVG.querySelectorAll('circle');
-  const targetCircles = targetBackground.querySelectorAll('circle');
+  const targetCircles = targetSVG.querySelectorAll('circle');
+
   // Calculate and apply the animation for each circle
   currentCircles.forEach((currentCircle, index) => {
     const targetRadius = parseFloat(targetCircles[index].getAttribute('r'));
     const currentRadius = parseFloat(currentCircle.getAttribute('r'));
     const radiusDifference = targetRadius - currentRadius;
+
     // Apply CSS transition to animate the 'r' attribute
     currentCircle.style.transition = 'r 4s ease';
     currentCircle.setAttribute('r', targetRadius);
   });
 }
-
 // Handle page transition including fade and AJAX loading
 async function handlePageTransition(destinationURL, targetBackground) {
   const container = document.querySelector('.container');
   const content = document.querySelector('.fade-target');
   content.classList.add('fade-out'); // Add fade-out class to trigger fade-out animation
+
   try {
     // Fetch the new page content using AJAX
     const response = await fetch(destinationURL);
     const newPage = await response.text();
+
     // Start the circle animation during fade-out
     const animationPromise = new Promise((resolve) => {
       animateCircles(targetBackground);
       setTimeout(resolve, 2000); // Resolve the promise after 2 seconds (adjust as needed)
     });
+
+    // Wait for the circle animation to complete before continuing
+    await animationPromise;
+
     // Remove fade-out class after animation duration
     content.classList.remove('fade-out');
     content.style.opacity = '0';
+
     // Replace the container content with the new page content
     container.innerHTML = newPage;
+
     // Apply fade-in animation to the new content
     const newContent = container.querySelector('.fade-target');
     newContent.classList.add('fade-in');
-    await animationPromise;
+    
     // Set opacity back to 1 for all contents after fade-in
     setTimeout(() => {
       newContent.classList.remove('fade-in');

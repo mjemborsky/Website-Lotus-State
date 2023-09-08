@@ -351,9 +351,8 @@ p {
 }
 
 circle {
-  transition: r 4s ease; /* Use the same duration as in the JavaScript function */
+  transition: r 4s ease;
 }
-
 
 @keyframes fade-in {
   from {
