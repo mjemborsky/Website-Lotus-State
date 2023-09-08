@@ -75,6 +75,7 @@ preloadSVGs(svgUrls).then(() => {
       content.style.opacity = '1';
     }, 2000); // 2 seconds
 
+
     // Event listener for Home link
     home.addEventListener('click', function (event) {
       event.preventDefault();
