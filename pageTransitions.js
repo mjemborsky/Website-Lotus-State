@@ -58,10 +58,10 @@ async function handlePageTransition(destinationURL, targetBackground) {
     const animationPromise = new Promise((resolve) => {
       animateCircles(targetBackground);
       setTimeout(resolve, 2000); // Resolve the promise after 2 seconds (adjust as needed)
-      // Remove fade-out class after animation duration
-      content.classList.remove('fade-out');
-      content.style.opacity = '0';
     });
+    // Remove fade-out class after animation duration
+    content.classList.remove('fade-out');
+    content.style.opacity = '0';
     // Replace the container content with the new page content
     container.innerHTML = newPage;
     // Apply fade-in animation to the new content
