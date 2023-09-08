@@ -57,22 +57,17 @@ async function handlePageTransition(destinationURL, targetBackground) {
     // Start the circle animation during fade-out
     const animationPromise = new Promise((resolve) => {
       animateCircles(targetBackground);
-      setTimeout(resolve, 4000); // Resolve the promise after 2 seconds (adjust as needed)
+      setTimeout(resolve, 2000); // Resolve the promise after 2 seconds (adjust as needed)
+      // Remove fade-out class after animation duration
+      content.classList.remove('fade-out');
+      content.style.opacity = '0';
     });
-    // Wait for the circle animation to complete before continuing
-    await animationPromise;
-
-    // Remove fade-out class after animation duration
-    content.classList.remove('fade-out');
-    content.style.opacity = '0';
-
     // Replace the container content with the new page content
     container.innerHTML = newPage;
-
     // Apply fade-in animation to the new content
     const newContent = container.querySelector('.fade-target');
     newContent.classList.add('fade-in');
-    
+    await animationPromise;
     // Set opacity back to 1 for all contents after fade-in
     setTimeout(() => {
       newContent.classList.remove('fade-in');
@@ -82,9 +77,6 @@ async function handlePageTransition(destinationURL, targetBackground) {
     console.error('Error loading page:', error);
   }
 }
-
-
-
 // // Handle page transition including fade and AJAX loading
 // function handlePageTransition(destinationURL, targetBackground) {
 //   const container = document.querySelector('.container')
