@@ -28,8 +28,24 @@ function getStoredSVG(url) {
   const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
   return svgDoc.documentElement;
 }
+// Circle Animation
+function animateCircles(targetBackground) {
+  // Get the current SVG and target SVG circles
+  const currentSVG = document.querySelector('.background-svg');
+  const currentCircles = currentSVG.querySelectorAll('circle');
+  const targetCircles = targetSVG.querySelectorAll('circle');
+  // Calculate and apply the animation for each circle
+  currentCircles.forEach((currentCircle, index) => {
+    const targetRadius = parseFloat(targetCircles[index].getAttribute('r'));
+    const currentRadius = parseFloat(currentCircle.getAttribute('r'));
+    const radiusDifference = targetRadius - currentRadius;
+    // Apply CSS transition to animate the 'r' attribute
+    currentCircle.style.transition = 'r 4s ease';
+    currentCircle.setAttribute('r', targetRadius);
+  });
+}
 // Handle page transition including fade and AJAX loading
-function handlePageTransition(destinationURL) {
+function handlePageTransition(destinationURL, targetBackground) {
   const container = document.querySelector('.container')
   const content = document.querySelector('.fade-target');
   content.classList.add('fade-out'); // Add fade-out class to trigger fade-out animation
@@ -37,6 +53,7 @@ function handlePageTransition(destinationURL) {
   fetch(destinationURL)
     .then(response => response.text())
     .then(newPage => {
+      animateCircles(targetBackground);
       setTimeout(function () {
         // Remove fade-out class after animation duration
         content.classList.remove('fade-out');
@@ -80,21 +97,24 @@ preloadSVGs(svgUrls).then(() => {
     home.addEventListener('click', function (event) {
       event.preventDefault();
       const destinationURL = home.getAttribute('href');
-      handlePageTransition(destinationURL);
+      const targetBackground = getStoredSVG('backgroundOne.svg');
+      handlePageTransition(destinationURL, targetBackground);
     });
     // Event listeners for Projects links
     projects.forEach(link => {
       link.addEventListener('click', function (event) {
         event.preventDefault();
         const destinationURL = link.getAttribute('href');
-        handlePageTransition(destinationURL);
+        const targetBackground = getStoredSVG('backgroundTwo.svg');
+        handlePageTransition(destinationURL, targetBackground);
       });
     });
     // Event listener for More link
     more.addEventListener('click', function (event) {
       event.preventDefault();
       const destinationURL = more.getAttribute('href');
-      handlePageTransition(destinationURL);
+      const targetBackground = getStoredSVG('backgroundFive.svg');
+      handlePageTransition(destinationURL, targetBackground);
     });
   });
 });
