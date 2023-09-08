@@ -1,45 +1,100 @@
-document.addEventListener('DOMContentLoaded', function() {
-  // BACKGROUND ANIMATION //
-  // Initializing Links
-  const index = document.querySelector('.header-text');
-  const projects = document.querySelectorAll('.link-left');
-  const more = document.querySelector('.link-right');
+// Preload SVGs for Background
+const svgUrls = [
+  'backgroundOne.svg',
+  'backgroundTwo.svg',
+  'backgroundFive.svg',
+  'backgroundThree.svg',
+  'backgroundFour.svg'
+];
+// Preload SVGs
+async function preloadSVGs(urls) {
+  try {
+    for (const url of urls) {
+      const cachedSVG = sessionStorage.getItem(url);
+      if (!cachedSVG) {
+        const response = await fetch(url);
+        const svgContent = await response.text();
+        sessionStorage.setItem(url, svgContent); // Cache the SVG content in SessionStorage
+      }
+    }
+  } catch (error) {
+    console.error('Error preloading SVG:', error);
+  }
+}
+// Get stored SVG from SessionStorage
+function getStoredSVG(url) {
+  const svgString = sessionStorage.getItem(url);
+  const parser = new DOMParser();
+  const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
+  return svgDoc.documentElement;
+}
+// Handle page transition including fade and AJAX loading
+function handlePageTransition(destinationURL) {
+  const container = document.querySelector('.container')
+  const content = document.querySelector('.fade-target');
+  content.classList.add('fade-out'); // Add fade-out class to trigger fade-out animation
+  // Fetch the new page content using AJAX
+  fetch(destinationURL)
+    .then(response => response.text())
+    .then(newPage => {
+      setTimeout(function () {
+        // Remove fade-out class after animation duration
+        content.classList.remove('fade-out');
+        content.style.opacity = '0';
+        // Replace the container content with the new page content
+        container.innerHTML = newPage;
+        // Apply fade-in animation to the new content
+        const newContent = container.querySelector('.fade-target');
+        newContent.classList.add('fade-in');
+        setTimeout(function () {
+          newContent.classList.remove('fade-in');
+          // Set opacity back to 1 for all contents
+          newContent.style.opacity = '1';
+        }, 2000); // 2 seconds for fade-in
+      }, 2000); // 2 seconds for fade-out
+    })
+    .catch(error => {
+      console.error('Error loading page:', error);
+    });
+}
+// MAIN PAGE LISTENER
+// Preload SVGs before setting up link event listeners
+preloadSVGs(svgUrls).then(() => {
+  // Setup event listeners after preloading background SVG's
+  document.addEventListener('DOMContentLoaded', function () {
+    const home = document.querySelector('.header-text');
+    const projects = document.querySelectorAll('.link-left');
+    const more = document.querySelector('.link-right');
+    const content = document.querySelector('.fade-target');
 
-  // NEED TO MAKE FUNCTION FOR SVG RETRIEVAL HERE
-  // CALL WITH CURRENTBACKGROUND
+    // Add fade-in class to trigger fade-in animation
+    content.classList.add('fade-in');
+    // Remove fade-in class after animation duration
+    setTimeout(function () {
+      content.classList.remove('fade-in');
+      content.style.opacity = '1';
+    }, 2000); // 2 seconds
 
-  // Event Listeners
-  // Background: index
-  index.addEventListener('click', function(i) {
-    var targetBackground = 'backgroundOne.svg';
-    animateBackground(currentBackground, targetBackground);
-  });
-  // Background: projects
-  projects.forEach(function(link) {
-    link.addEventListener('click', function(i) {
-      var targetBackground = 'backgroundTwo.svg';
-      animateBackground(currentBackground, targetBackground);
+
+    // Event listener for Home link
+    home.addEventListener('click', function (event) {
+      event.preventDefault();
+      const destinationURL = home.getAttribute('href');
+      handlePageTransition(destinationURL);
+    });
+    // Event listeners for Projects links
+    projects.forEach(link => {
+      link.addEventListener('click', function (event) {
+        event.preventDefault();
+        const destinationURL = link.getAttribute('href');
+        handlePageTransition(destinationURL);
+      });
+    });
+    // Event listener for More link
+    more.addEventListener('click', function (event) {
+      event.preventDefault();
+      const destinationURL = more.getAttribute('href');
+      handlePageTransition(destinationURL);
     });
   });
-  // Background: more
-  more.addEventListener('click', function(i) {
-    var targetBackground = 'backgroundFive.svg';
-    animateBackground(currentBackground, targetBackground);
-  });
-
-  function animateBackground(currentBackground, targetBackground) {
-    // Add class for animation
-    currentBackground.classList.add('animate-background');
-
-    // Wait for the animation to finish
-    setTimeout(function () {
-      // Remove animation class
-      currentBackground.classList.remove('animate-background');
-      // Set target background to black
-      targetBackground.style.fill = "black";
-      // Set container background image
-      var contentElement = document.querySelector('.container');
-      contentElement.style.backgroundImage = "url('path/to/your/svg/file.svg')"; // Replace 'path/to/your/svg/file.svg' with the actual path to your target SVG
-    }, 3000); // 3000ms is the animation duration, adjust as needed
-  }
 });

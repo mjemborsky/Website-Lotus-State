@@ -86,7 +86,6 @@
   position: fixed;
   top: 0;
   height: 50px;
-  width: 100px;
   background-color: black;
   text-decoration: none;
   color: ghostwhite;
@@ -95,15 +94,14 @@
 .left-links, .left-link {
   border-radius: 0% 0% 150% 0%;
   left: 0;
+  width: 100px;
 }
 .right-links, .link-right {
   border-radius: 0% 0% 0% 150%;
   right: 0;
-}
-.left-links,
-.center-link,
-.right-links {
-  background-color: black;
+  display: flex;
+  width: 75px;
+  justify-content: center;
 }
 .left-links a,
 .center-link a,
@@ -111,6 +109,8 @@
   background-color: black;
 }
 .left-links a:hover,
+.link-left a:hover,
+.left-links h2:hover,
 .center-link a:hover,
 .right-links a:hover {
   background-color: ghostwhite;
@@ -134,24 +134,33 @@
   top: 20px;
 }
 #project-expanded-one {
-  top: 20px;
-  left: 100px;
+  top: 7px;
+  left: 106px;
 }
 #project-expanded-two {
-  top: 100px;
-  left: 60px;
+  top: 53px;
+  left: 58px;
 }
 #project-expanded-three {
-  top: 150px;
-  left: 20px;
+  top: 97px;
+  left: 10px;
 }
 .link-left {
   position: fixed;
-  height: 50px;
-  width: 75px;
-  border-radius: 50%;
-  color: ghostwhite;
+  width: 100px;
+  height: 40px;
+  transform: skew(-28deg);
+  background: black;
+  border-radius: 25% 5% 25% 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-decoration: none;
+}
+h2 {
+  transform: skew(28deg);
+  font-size: 14px;
+  color: ghostwhite;
 }
 .center-link, .header-text {
   height: 125px;
@@ -168,6 +177,7 @@
   left: 0;
   right: 0;
   top: 0;
+  background-color: black;
 }
 .header-text {
   display: flex;
@@ -181,8 +191,8 @@ body {
   margin: 0 auto;
   width: 100%; 
   display: block;
+  position: relative;
   background-color: #000000;
-  background-size: 20px 20px;
   font-family: 'ralewaythin';
 }
 
@@ -193,39 +203,28 @@ body {
   flex-direction: column;
   justify-content: center;
   margin: 0 auto;
-  padding-top: 50px;
-  top:100px;
-}
-
-/*projects.html*/
-
-
-/*extra.html*/
-#new-projects {
-  top: 150px;
+  padding-top: 100px;
   position: absolute;
 }
-#projects {
+
+/*  CSS For Project Pages */
+#projects, #lotusmane, #new-projects  {
   position: absolute;
-  top: 150px;
+  padding-top: 100px;
 }
 .project-tile {
   min-width: 225px;
   padding: 25px;
 }
-/*background*/
-
-
-#links {
-  top: 100px;
-}
 .projects, #links {
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: center;
   margin: 0 auto;
 }
-
+#links {
+  padding-bottom: 20px;
+}
 .link, .extra-links {
   width: 75px;
   height: 75px;
@@ -233,12 +232,6 @@ body {
   padding-right: 10px;
   padding-left: 10px;
 }
-
-#links {
-  padding-bottom: 25px;
-  padding-right: 25px;
-}
-
 #upcoming {
   border-style: solid 1px;
   border-radius: 15%;
@@ -252,23 +245,17 @@ body {
   background: black;
   animation: upcoming-animation 4s linear 0s infinite alternate-reverse;
 }
-
 .upcoming-projects {
   display: flex;
   flex-direction: column;
   padding-top: 25px;
 }
-
 .all-upcoming {
   display: flex;
   flex-direction: row;
   width: 100%;
   margin: 0 auto;
   justify-content: center;
-}
-#lotusmane {
-  position: absolute;
-  top: 150px;
 }
 .lotusmane-coverart {
   top: 10px;
@@ -278,7 +265,6 @@ body {
   border-radius: 100%;
   object-fit: cover;
 }
-
 #beatpack {
   border: 1px dotted;
   border-radius: 4%;
@@ -287,25 +273,29 @@ body {
   margin-bottom: 10px;
 }
 
+/*  CSS for Extra Page  */
+#extra {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+}
 .about-me {
-  width: 750px;
+  position: relative;
+  width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  background-color: bisque;
-  color: darkgray;
-  opacity: .8;
-  height: 300px;
-  border-radius: 20% 20% 30% 30%;
+  background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #969ae5, #919ae9, #8c9aed, #988ded, #aa7ee9, #bd6be0, #d153d1);
+  opacity: .9;
+  height: 250px;
+  border-radius: 15% 15% 30% 30%;
 }
-
 p {
   width: 50%;
   font-family: georgia;
 }
-
 .beat {
   width: 100%;
   padding-top: 5px;
@@ -314,7 +304,6 @@ p {
 
 /* Background Shapes and Elements */ 
 .container {
-  /* Your container styles here */
   width: 100%;
   height: 100vh;
   top: 0px;
@@ -323,66 +312,70 @@ p {
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  position: absolute;
   text-align: center;
   color: ghostwhite;
-  transition: opacity 1s ease;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
-/* Target the .container and set the background image using ::before pseudo-element */
-.container::before {
-  content: "";
-  position: absolute;
+.container .background-svg {
+  position: relative;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
   width: 100%;
   height: 100%;
-  background-size: 100% 100%;
-  background-position: center;
-  z-index: -1; /* Push the pseudo-element behind the container's content */
-}
+  object-fit: cover;
+  pointer-events: none;
+  z-index: -1;
 
-#container-one::before {
-  background-image: url('backgroundOne.svg');
-}
-#container-two::before {
-  background-image: url('backgroundTwo.svg');
-}
-#container-five::before {
-  background-image: url('backgroundFive.svg');
-}
-.background-svg {
-  display: none;
 }
 
 /* Animations */
-@keyframes upcoming-animation {
+/* For Container Contents Fade */
+.fade-target.fade-in {
+  animation: fade-in 2s ease-in-out;
+  animation-fill-mode: both;
+  -webkit-transition: opacity 2s;
+  -moz-transition: opacity 2s; 
+  will-change: opacity;
+}
+.fade-target.fade-out {
+  animation: fade-out 2s ease-in-out;
+  animation-fill-mode: both;
+  -webkit-transition: opacity 2s;
+  -moz-transition: opacity 2s; 
+  will-change: opacity;
+}
+@keyframes fade-in {
   from {
-    width: 300px;
-    height: 200px;
-    border-radius: 15%;
+    opacity: 0;
   }
   to {
-    width: 310px;
+    opacity: 1;
+  }
+}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+/* For Upcoming Projects */
+@keyframes upcoming-animation {
+  from {
+    width: 200px;
+    height: 200px;
+    border-radius: 35%;
+  }
+  to {
+    width: 210px;
     height: 210px;
     border-radius: 50%;
-  }
-}
-
-/* CSS class for the background animation */
-.animate-background {
-  animation: move-circles 3s ease-out;
-}
-
-@keyframes move-circles {
-  /* Define the keyframes for the animation */
-  /* Replace these with appropriate values for your animation */
-  0% {
-    /* Initial position of the circles */
-    transform: translate(0, 0);
-  }
-  100% {
-    /* Final position of the circles */
-    transform: translate(100px, 100px);
   }
 }
 

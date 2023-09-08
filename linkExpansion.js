@@ -1,4 +1,4 @@
-// animations.js
+// linkExpansion.js
 // Created by: Michael Emborsky
 // Purpose: Main source of animations for Lotus State website, including 
 // the expansion of the project sub-links in the header and the background page 
