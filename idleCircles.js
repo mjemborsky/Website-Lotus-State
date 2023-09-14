@@ -1,7 +1,6 @@
 // WHEN ON PROJECT PAGES OR EXTRA.HTML
-// When on projects...
-// Animate background circles back and forth
-// between backgroundTwo.svg and backgroundThree.svg
-// When on extra...
-// Animate background circles back and forth
-// between backgroundFive.svg and backgroundFour.svg
+// Needs to wait for page to load
+// Then it identifies the active svg and current points,
+// then identifies the target svg based off the current (projects or extra)
+// then WHILE the page is opened and not navigating,
+// it should call a function, idleCircles that accepts one 
