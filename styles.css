@@ -126,7 +126,7 @@
   padding: 10px;
   z-index: 3;
 }
-.expanded-links.show,  {
+.expanded-links.show  {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -233,7 +233,6 @@ body {
   padding-left: 10px;
 }
 #upcoming {
-  border-style: solid 1px;
   border-radius: 15%;
   width: 300px;
   height: 200px;
