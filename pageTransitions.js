@@ -46,76 +46,76 @@ function animateCircles(targetSVG) {
     currentCircle.setAttribute('r', targetRadius);
   });
 }
-// Handle page transition including fade and AJAX loading
-async function handlePageTransition(destinationURL, targetBackground) {
-  const container = document.querySelector('.container');
-  const content = document.querySelector('.fade-target');
-  content.classList.add('fade-out'); // Add fade-out class to trigger fade-out animation
-
-  try {
-    // Fetch the new page content using AJAX
-    const response = await fetch(destinationURL);
-    const newPage = await response.text();
-
-    // Start the circle animation during fade-out
-    const animationPromise = new Promise((resolve) => {
-      animateCircles(targetBackground);
-      setTimeout(resolve, 4000); // Resolve the promise after 2 seconds (adjust as needed)
-    });
-
-    // Wait for the circle animation to complete before continuing
-    await animationPromise;
-
-    // Remove fade-out class after animation duration
-    content.classList.remove('fade-out');
-    content.style.opacity = '0';
-
-    // Replace the container content with the new page content
-    container.innerHTML = newPage;
-
-    // Apply fade-in animation to the new content
-    const newContent = container.querySelector('.fade-target');
-    newContent.classList.add('fade-in');
-    
-    // Set opacity back to 1 for all contents after fade-in
-    setTimeout(() => {
-      newContent.classList.remove('fade-in');
-      newContent.style.opacity = '1';
-    }, 2000); // 2 seconds for fade-in
-  } catch (error) {
-    console.error('Error loading page:', error);
-  }
-}
 // // Handle page transition including fade and AJAX loading
-// function handlePageTransition(destinationURL, targetBackground) {
-//   const container = document.querySelector('.container')
+// async function handlePageTransition(destinationURL, targetBackground) {
+//   const container = document.querySelector('.container');
 //   const content = document.querySelector('.fade-target');
 //   content.classList.add('fade-out'); // Add fade-out class to trigger fade-out animation
-//   // Fetch the new page content using AJAX
-//   fetch(destinationURL)
-//     .then(response => response.text())
-//     .then(newPage => {
+
+//   try {
+//     // Fetch the new page content using AJAX
+//     const response = await fetch(destinationURL);
+//     const newPage = await response.text();
+
+//     // Start the circle animation during fade-out
+//     const animationPromise = new Promise((resolve) => {
 //       animateCircles(targetBackground);
-//       setTimeout(function () {
-//         // Remove fade-out class after animation duration
-//         content.classList.remove('fade-out');
-//         content.style.opacity = '0';
-//         // Replace the container content with the new page content
-//         container.innerHTML = newPage;
-//         // Apply fade-in animation to the new content
-//         const newContent = container.querySelector('.fade-target');
-//         newContent.classList.add('fade-in');
-//         setTimeout(function () {
-//           newContent.classList.remove('fade-in');
-//           // Set opacity back to 1 for all contents
-//           newContent.style.opacity = '1';
-//         }, 2000); // 2 seconds for fade-in
-//       }, 2000); // 2 seconds for fade-out
-//     })
-//     .catch(error => {
-//       console.error('Error loading page:', error);
+//       setTimeout(resolve, 4000); // Resolve the promise after 2 seconds (adjust as needed)
 //     });
+
+//     // Wait for the circle animation to complete before continuing
+//     await animationPromise;
+
+//     // Remove fade-out class after animation duration
+//     content.classList.remove('fade-out');
+//     content.style.opacity = '0';
+
+//     // Replace the container content with the new page content
+//     container.innerHTML = newPage;
+
+//     // Apply fade-in animation to the new content
+//     const newContent = container.querySelector('.fade-target');
+//     newContent.classList.add('fade-in');
+    
+//     // Set opacity back to 1 for all contents after fade-in
+//     setTimeout(() => {
+//       newContent.classList.remove('fade-in');
+//       newContent.style.opacity = '1';
+//     }, 2000); // 2 seconds for fade-in
+//   } catch (error) {
+//     console.error('Error loading page:', error);
+//   }
 // }
+// Handle page transition including fade and AJAX loading
+function handlePageTransition(destinationURL, targetBackground) {
+  const container = document.querySelector('.container')
+  const content = document.querySelector('.fade-target');
+  content.classList.add('fade-out'); // Add fade-out class to trigger fade-out animation
+  // Fetch the new page content using AJAX
+  fetch(destinationURL)
+    .then(response => response.text())
+    .then(newPage => {
+      animateCircles(targetBackground);
+      setTimeout(function () {
+        // Remove fade-out class after animation duration
+        content.classList.remove('fade-out');
+        content.style.opacity = '0';
+        // Replace the container content with the new page content
+        container.innerHTML = newPage;
+        // Apply fade-in animation to the new content
+        const newContent = container.querySelector('.fade-target');
+        newContent.classList.add('fade-in');
+        setTimeout(function () {
+          newContent.classList.remove('fade-in');
+          // Set opacity back to 1 for all contents
+          newContent.style.opacity = '1';
+        }, 2000); // 2 seconds for fade-in
+      }, 2000); // 2 seconds for fade-out
+    })
+    .catch(error => {
+      console.error('Error loading page:', error);
+    });
+}
 // MAIN PAGE LISTENER
 // Preload SVGs before setting up link event listeners
 preloadSVGs(svgUrls).then(() => {
