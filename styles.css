@@ -405,3 +405,17 @@ circle {
     width: 560px;
   }
 }
+
+/* NEED TO DO */
+/*
+FOR SVG ANIMATIONS/FADE
+Make media queries to adjust for a users connection speed
+Make media queries to adjust for users display
+For example, if a user is on an iphone or has a bad connection, the svg 
+transition will not look good. Therefore, the javascript should test for 
+internet speed and display, if it is a phone or bad connection, maybe do not do
+the full animation, just a full fade? I would like to still have it work 
+on a phone but I dont know if css will look good, try to get this to work
+
+
+*/
