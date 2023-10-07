@@ -1,3 +1,9 @@
+// WHEN ON INDEX.HTML (Homepage)
+// Implement unique idle animation, I am thinking like
+// some sparkly, iridescent fluttery lights/patterns that will
+// appear randomly overlayed on the background, kind of like
+// embers from a fire or a similar effect
+
 // WHEN ON PROJECT PAGES OR EXTRA.HTML
 // Needs to wait for page to load
 // Then it identifies the active svg and current points,
@@ -7,3 +13,10 @@
 // It should animate the r values of the current svg to this new svg positions over 4 seconds, with no ease in or out (linear velocity)
 // Then the code should call the function in reverse, so that it animates the circle positions back to the current svg over 4 seconds, same ease
 
+
+// IDEA: Maybe when index.html first loads, FOR THE FIRST TIME, loads from black and all elements fade in
+
+
+
+// NEED Function - SVG
+// Handle page transition including fade and AJAX loading

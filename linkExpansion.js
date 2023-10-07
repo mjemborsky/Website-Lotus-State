@@ -4,10 +4,6 @@
 // the expansion of the project sub-links in the header and the background page 
 // transition animation and idle animation.
 
-
-// IDEA: Maybe when index.html first loads, FOR THE FIRST TIME, loads from black and all elements fade in
-
-
 document.addEventListener('DOMContentLoaded', function() {
   // PROJECT LINK EXPANSION //
   // Initializing Properties
