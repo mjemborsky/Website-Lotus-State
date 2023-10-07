@@ -63,8 +63,6 @@ async function handlePageTransition(destinationURL, targetBackground) {
       new Promise((resolve) => {
         // Start the circle animation during fade-out
         animateCircles(targetBackground);
-        // Resolve the circle animation promise after 2 seconds (adjust as needed)
-        setTimeout(resolve, 4000);
       }),
 
       new Promise((resolve) => {
