@@ -94,10 +94,15 @@
   background-color: black;
 }
 .left-links a:hover,
+.left-links a:focus,
 .link-left a:hover,
-.left-links h2:hover,
+.link-left a:focus,
+.link-left h2:hover,
+.link-left h2:focus,
 .center-link a:hover,
-.right-links a:hover {
+.center-link a:focus,
+.right-links a:hover,
+.right-links a:focus {
   background-color: ghostwhite;
   color: black;
 }
