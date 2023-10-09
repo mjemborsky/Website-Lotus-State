@@ -1,5 +1,4 @@
 /*! FONTS */
-
 @font-face {
     font-family: 'gilroy-ultralightuploadedfile';
     src: url('fonts/gilroy-ultralight-webfont.woff2') format('woff2'),
@@ -49,8 +48,8 @@
     font-weight: normal;
     font-style: normal;}
 
-/*! HEADER/LINKS */
 
+/*! HEADER/LINKS */
 #header {
   position: fixed;
   width: 100%;
@@ -185,8 +184,8 @@ h2 {
   justify-content: center; /* Center the content vertically */
 }
 
-/*! MAIN BODY */
 
+/*! MAIN BODY */
 body {
   margin: 0 auto;
   width: 100%; 
@@ -195,9 +194,7 @@ body {
   background-color: #000000;
   font-family: 'ralewaythin';
 }
-
-
-/*index.html*/
+/* Home Page*/
 #welcome-section {
   display: flex;
   flex-direction: column;
@@ -206,8 +203,7 @@ body {
   padding-top: 100px;
   position: absolute;
 }
-
-/*  CSS For Project Pages */
+/* Project Pages */
 #projects, #lotusmane, #new-projects  {
   position: absolute;
   padding-top: 100px;
@@ -271,8 +267,7 @@ body {
   width: 120px;
   margin-bottom: 10px;
 }
-
-/*  CSS for Extra Page  */
+/*  Extra Page  */
 #extra {
   position: absolute;
   display: flex;
@@ -300,7 +295,6 @@ p {
   padding-top: 5px;
   margin: 0;
 }
-
 /* Background Shapes and Elements */ 
 .container {
   width: 100%;
@@ -331,7 +325,6 @@ p {
   z-index: -1;
 
 }
-
 /* Animations */
 /* For Container Contents Fade */
 .fade-target.fade-in {
@@ -348,11 +341,9 @@ p {
   -moz-transition: opacity 2s; 
   will-change: opacity;
 }
-
 circle {
   transition: r 4s ease-in-out;
 }
-
 @keyframes fade-in {
   from {
     opacity: 0;
