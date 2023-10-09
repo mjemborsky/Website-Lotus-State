@@ -111,6 +111,7 @@ function idleAnimation() {
     animateCircles(currentSVG);
   } else if (isCurrentSVG("backgroundFive.svg")) {
     const targetSVG = getStoredSVG("backgroundFour.svg");
+    console.log('here');
     animateCircles(targetSVG);
     animateCircles(currentSVG);
   } else {
