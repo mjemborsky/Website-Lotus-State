@@ -1,4 +1,4 @@
-let isAnimating = false;
+let isIdle = false;
 // Preload SVGs for Background
 const svgUrls = [
   'backgroundOne.svg',
@@ -28,6 +28,11 @@ function getStoredSVG(url) {
   const parser = new DOMParser();
   const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
   return svgDoc.documentElement;
+}
+// Function to check if the currentSVG matches a specific SVG filename
+function isCurrentSVG(filename) {
+  const currentSVG = document.querySelector('.background-svg');
+  return currentSVG.src.includes(filename);
 }
 // Circle Animation
 function animateCircles(targetSVG) {
@@ -97,33 +102,27 @@ async function handlePageTransition(destinationURL, targetBackground) {
     console.error('Error loading page:', error);
   }
 }
-
-// Function to start the idle animation
-function startIdleAnimation() {
-  isAnimating = true;
-  // Create an interval that alternates between target SVGs
-  const svgTargets = ['backgroundFour.svg', 'backgroundOne.svg']; // Add more SVGs as needed
-  let currentIndex = 0;
-
-  const interval = setInterval(() => {
-    if (!isAnimating) {
-      clearInterval(interval); // Stop the animation if isAnimating becomes false
-      return;
-    }
-    const targetSVG = getStoredSVG(svgTargets[currentIndex]);
+function idleAnimation() {
+  isIdle = true;
+  // Check if the currentSVG matches a specific SVG filename
+  if (isCurrentSVG("backgroundTwo.svg")) {
+    const targetSVG = getStoredSVG("backgroundThree.svg");
     animateCircles(targetSVG);
-    currentIndex = (currentIndex + 1) % svgTargets.length;
-  }, 5000); // Change the interval time as needed (e.g., every 5 seconds)
-}
-// Function to stop the idle animation
-function stopIdleAnimation() {
-  isAnimating = false;
+    animateCircles(currentSVG);
+  } else if (isCurrentSVG("backgroundFive.svg")) {
+    const targetSVG = getStoredSVG("backgroundFour.svg");
+    animateCircles(targetSVG);
+    animateCircles(currentSVG);
+  } else {
+    // Call sparkle/speckle effect
+  }
 }
 // MAIN PAGE LISTENER
 // Preload SVGs before setting up link event listeners
 preloadSVGs(svgUrls).then(() => {
   // Setup event listeners after preloading background SVG's
   document.addEventListener('DOMContentLoaded', function () {
+    const currentSVG = document.querySelector('background-svg');
     const home = document.querySelector('.header-text');
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
@@ -149,7 +148,7 @@ preloadSVGs(svgUrls).then(() => {
     projects.forEach(link => {
       link.addEventListener('click', function (event) {
         event.preventDefault();
-        stopIdleAnimation();
+        isIdle = false;
         const destinationURL = link.getAttribute('href');
         const targetBackground = getStoredSVG('backgroundTwo.svg');
         handlePageTransition(destinationURL, targetBackground);
@@ -166,7 +165,9 @@ preloadSVGs(svgUrls).then(() => {
 
     // CALL IDLE ANIMATION HERE? (maybe after like a second delay?)
     setTimeout(() => {
-      startIdleAnimation();
+      while (isIdle) {
+        idleAnimation();
+      }
     }, 1000);
   });
 });
