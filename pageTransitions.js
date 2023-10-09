@@ -1,5 +1,4 @@
-// Set Boolean Variable for Idle Animation
-let isPageIdle = true;
+let isAnimating = false;
 // Preload SVGs for Background
 const svgUrls = [
   'backgroundOne.svg',
@@ -98,22 +97,27 @@ async function handlePageTransition(destinationURL, targetBackground) {
     console.error('Error loading page:', error);
   }
 }
-// Handle Idle Animation
-function idleAnimation() {
-  // Get current svg and determine target svg/current idle behavior
-  const currentSVG = document.querySelector('.background-svg');
-  console.log('currentSVG');
-  if (currentSVG === "backgroundTwo.svg") {
-    targetSVG = getStoredSVG("backgroundThree.svg");
+
+// Function to start the idle animation
+function startIdleAnimation() {
+  isAnimating = true;
+  // Create an interval that alternates between target SVGs
+  const svgTargets = ['backgroundFour.svg', 'backgroundOne.svg']; // Add more SVGs as needed
+  let currentIndex = 0;
+
+  const interval = setInterval(() => {
+    if (!isAnimating) {
+      clearInterval(interval); // Stop the animation if isAnimating becomes false
+      return;
+    }
+    const targetSVG = getStoredSVG(svgTargets[currentIndex]);
     animateCircles(targetSVG);
-    animateCircles(currentSVG);
-  } else if (currentSVG === "backgroundFive.svg") {
-    targetSVG = getStoredSVG("backgroundFour.svg");
-    animateCircles(targetSVG);
-    animateCircles(currentSVG);
-  } else {
-    // Call sparkle/speckle effect
-  }
+    currentIndex = (currentIndex + 1) % svgTargets.length;
+  }, 5000); // Change the interval time as needed (e.g., every 5 seconds)
+}
+// Function to stop the idle animation
+function stopIdleAnimation() {
+  isAnimating = false;
 }
 // MAIN PAGE LISTENER
 // Preload SVGs before setting up link event listeners
@@ -135,8 +139,8 @@ preloadSVGs(svgUrls).then(() => {
 
     // Event listener for Home link
     home.addEventListener('click', function (event) {
-      isPageIdle = false;
       event.preventDefault();
+      stopIdleAnimation();
       const destinationURL = home.getAttribute('href');
       const targetBackground = getStoredSVG('backgroundOne.svg');
       handlePageTransition(destinationURL, targetBackground);
@@ -144,8 +148,8 @@ preloadSVGs(svgUrls).then(() => {
     // Event listeners for Projects links
     projects.forEach(link => {
       link.addEventListener('click', function (event) {
-        isPageIdle = false;
         event.preventDefault();
+        stopIdleAnimation();
         const destinationURL = link.getAttribute('href');
         const targetBackground = getStoredSVG('backgroundTwo.svg');
         handlePageTransition(destinationURL, targetBackground);
@@ -153,17 +157,16 @@ preloadSVGs(svgUrls).then(() => {
     });
     // Event listener for More link
     more.addEventListener('click', function (event) {
-      isPageIdle = false;
       event.preventDefault();
+      stopIdleAnimation();
       const destinationURL = more.getAttribute('href');
       const targetBackground = getStoredSVG('backgroundFive.svg');
       handlePageTransition(destinationURL, targetBackground);
     });
 
-    // CALL IDLE ANIMATION HERE (maybe after like a second delay?)
-    isPageIdle = true;
-    while (isPageIdle) {
-      idleAnimation();
-    }
+    // CALL IDLE ANIMATION HERE? (maybe after like a second delay?)
+    setTimeout(() => {
+      startIdleAnimation();
+    }, 1000);
   });
 });
