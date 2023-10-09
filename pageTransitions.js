@@ -139,7 +139,7 @@ preloadSVGs(svgUrls).then(() => {
     // Event listener for Home link
     home.addEventListener('click', function (event) {
       event.preventDefault();
-      stopIdleAnimation();
+      isIdle = false;
       const destinationURL = home.getAttribute('href');
       const targetBackground = getStoredSVG('backgroundOne.svg');
       handlePageTransition(destinationURL, targetBackground);
@@ -157,7 +157,7 @@ preloadSVGs(svgUrls).then(() => {
     // Event listener for More link
     more.addEventListener('click', function (event) {
       event.preventDefault();
-      stopIdleAnimation();
+      isIdle = false;
       const destinationURL = more.getAttribute('href');
       const targetBackground = getStoredSVG('backgroundFive.svg');
       handlePageTransition(destinationURL, targetBackground);
