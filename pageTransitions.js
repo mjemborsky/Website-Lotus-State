@@ -100,22 +100,6 @@ async function handlePageTransition(destinationURL, targetBackground) {
     console.error('Error loading page:', error);
   }
 }
-function idleAnimation() {
-  isIdle = true;
-  // Check if the currentSVG matches a specific SVG filename
-  if (isCurrentSVG("backgroundTwo.svg")) {
-    const targetSVG = getStoredSVG("backgroundThree.svg");
-    animateCircles(targetSVG);
-    animateCircles(currentSVG);
-  } else if (isCurrentSVG("backgroundFive.svg")) {
-    const targetSVG = getStoredSVG("backgroundFour.svg");
-    console.log('here');
-    animateCircles(targetSVG);
-    animateCircles(currentSVG);
-  } else {
-    // Call sparkle/speckle effect
-  }
-}
 // MAIN PAGE LISTENER
 // Preload SVGs before setting up link event listeners
 preloadSVGs(svgUrls).then(() => {
@@ -162,11 +146,24 @@ preloadSVGs(svgUrls).then(() => {
       handlePageTransition(destinationURL, targetBackground);
     });
 
-    // CALL IDLE ANIMATION HERE? (maybe after like a second delay?)
-    setTimeout(() => {
-      while (isIdle) {
-        idleAnimation();
-      }
-    }, 1000);
+    isIdle = true;
+    // Check if the currentSVG matches a specific SVG filename
+    if (isCurrentSVG("backgroundTwo.svg")) {
+      var idleSVG = getStoredSVG("backgroundThree.svg");
+    } else if (isCurrentSVG("backgroundFive.svg")) {
+      var idleSVG = getStoredSVG("backgroundFour.svg");
+    } else {
+      var idleSVG = document.getElementById('idle-video');
+    }
+    console.log(idleSVG);
+    // Call Idle Animation
+    while (isIdle) {
+      // Check if idleSVG is sparkle, 
+      // if it is
+      // then load it on top of svg
+      // else
+      animateCircles(targetSVG);
+      animateCircles(currentSVG);
+    }
   });
 });
