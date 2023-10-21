@@ -68,30 +68,28 @@ async function handlePageTransition(destinationURL, targetBackground) {
       new Promise((resolve) => {
         // Start the circle animation during fade-out
         animateCircles(targetBackground);
+        resolve();
         // Resolve the circle animation promise after 2 seconds (adjust as needed)
       }),
 
       new Promise((resolve) => {
-      // Delay the fade-out class removal by 2 seconds
-      setTimeout(() => {
-        // Remove fade-out class after 2 seconds
-        content.classList.remove('fade-out');
-        content.style.opacity = '0';
-
-        // Replace the container content with the new page content
-        container.innerHTML = newPage;
-
-        // Apply fade-in animation to the new content
-        const newContent = container.querySelector('.fade-target');
-        newContent.classList.add('fade-in');
-
-        // Set opacity back to 1 for all contents after fade-in
+        // Delay the fade-out class removal by 2 seconds
         setTimeout(() => {
-          newContent.classList.remove('fade-in');
-          newContent.style.opacity = '1';
-          resolve(); // Resolve the fade-out promise
-        }, 2000); // 2 seconds for fade-in
-      }, 2000); // 2 seconds delay before removing fade-out
+          // Remove fade-out class after 2 seconds
+          content.classList.remove('fade-out');
+          content.style.opacity = '0';
+          // Replace the container content with the new page content
+          container.innerHTML = newPage;
+          // Apply fade-in animation to the new content
+          const newContent = container.querySelector('.fade-target');
+          newContent.classList.add('fade-in');
+          // Set opacity back to 1 for all contents after fade-in
+          setTimeout(() => {
+            newContent.classList.remove('fade-in');
+            newContent.style.opacity = '1';
+            resolve(); // Resolve the fade-out promise
+          }, 2000); // 2 seconds for fade-in
+        }, 2000); // 2 seconds delay before removing fade-out
       }),
     ]);
 

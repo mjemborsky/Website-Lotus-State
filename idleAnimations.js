@@ -20,3 +20,14 @@
 
 // NEED Function - SVG
 // Handle page transition including fade and AJAX loading
+
+
+
+
+// STILL NEED TO DO
+// - Fade in effect when page FIRSTS loads
+// - Fix circle transitions - Animation length is being cut off AND fade in occuring after animation end
+// - Both Idle animations
+// - All media queries
+// - Clean up
+
