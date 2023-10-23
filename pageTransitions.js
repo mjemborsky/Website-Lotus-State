@@ -1,4 +1,4 @@
-let isIdle = false;
+// let isIdle = false;
 // Preload SVGs for Background
 const svgUrls = [
   'backgroundOne.svg',
@@ -122,7 +122,7 @@ preloadSVGs(svgUrls).then(() => {
     // Event listener for Home link
     home.addEventListener('click', function (event) {
       event.preventDefault();
-      isIdle = false;
+      // isIdle = false;
       const destinationURL = home.getAttribute('href');
       const targetBackground = getStoredSVG('backgroundOne.svg');
       handlePageTransition(destinationURL, targetBackground);
@@ -131,7 +131,7 @@ preloadSVGs(svgUrls).then(() => {
     projects.forEach(link => {
       link.addEventListener('click', function (event) {
         event.preventDefault();
-        isIdle = false;
+        // isIdle = false;
         const destinationURL = link.getAttribute('href');
         const targetBackground = getStoredSVG('backgroundTwo.svg');
         handlePageTransition(destinationURL, targetBackground);
@@ -140,30 +140,30 @@ preloadSVGs(svgUrls).then(() => {
     // Event listener for More link
     more.addEventListener('click', function (event) {
       event.preventDefault();
-      isIdle = false;
+      // isIdle = false;
       const destinationURL = more.getAttribute('href');
       const targetBackground = getStoredSVG('backgroundFive.svg');
       handlePageTransition(destinationURL, targetBackground);
     });
 
-    isIdle = true;
-    // Check if the currentSVG matches a specific SVG filename
-    if (isCurrentSVG("backgroundTwo.svg")) {
-      var idleSVG = getStoredSVG("backgroundThree.svg");
-    } else if (isCurrentSVG("backgroundFive.svg")) {
-      var idleSVG = getStoredSVG("backgroundFour.svg");
-    } else {
-      var idleSVG = document.getElementById('idle-video');
-    }
-    console.log(idleSVG);
-    // Call Idle Animation
-    while (isIdle) {
-      // Check if idleSVG is sparkle, 
-      // if it is
-      // then load it on top of svg
-      // else
-      animateCircles(targetSVG);
-      animateCircles(currentSVG);
-    }
+    // isIdle = true;
+    // // Check if the currentSVG matches a specific SVG filename
+    // if (isCurrentSVG("backgroundTwo.svg")) {
+    //   var idleSVG = getStoredSVG("backgroundThree.svg");
+    // } else if (isCurrentSVG("backgroundFive.svg")) {
+    //   var idleSVG = getStoredSVG("backgroundFour.svg");
+    // } else {
+    //   var idleSVG = document.getElementById('idle-video');
+    // }
+    // console.log(idleSVG);
+    // // Call Idle Animation
+    // while (isIdle) {
+    //   // Check if idleSVG is sparkle, 
+    //   // if it is
+    //   // then load it on top of svg
+    //   // else
+    //   animateCircles(targetSVG);
+    //   animateCircles(currentSVG);
+    // }
   });
 });
