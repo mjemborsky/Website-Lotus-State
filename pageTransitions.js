@@ -63,38 +63,25 @@ async function handlePageTransition(destinationURL, targetBackground) {
     const response = await fetch(destinationURL);
     const newPage = await response.text();
 
-    // Start both the circle animation and fade-out concurrently
-    const animationPromise = Promise.all([
-      new Promise((resolve) => {
-        // Start the circle animation during fade-out
-        animateCircles(targetBackground);
-        resolve();
-        // Resolve the circle animation promise after 2 seconds (adjust as needed)
-      }),
+    // Start the SVG animation during fade-out
+    animateCircles(targetBackground);
 
-      new Promise((resolve) => {
-        // Delay the fade-out class removal by 2 seconds
-        setTimeout(() => {
-          // Remove fade-out class after 2 seconds
-          content.classList.remove('fade-out');
-          content.style.opacity = '0';
-          // Replace the container content with the new page content
-          container.innerHTML = newPage;
-          // Apply fade-in animation to the new content
-          const newContent = container.querySelector('.fade-target');
-          newContent.classList.add('fade-in');
-          // Set opacity back to 1 for all contents after fade-in
-          setTimeout(() => {
-            newContent.classList.remove('fade-in');
-            newContent.style.opacity = '1';
-            resolve(); // Resolve the fade-out promise
-          }, 2000); // 2 seconds for fade-in
-        }, 2000); // 2 seconds delay before removing fade-out
-      }),
-    ]);
-
-    // Wait for both animations to complete before continuing
-    await animationPromise;
+    // Delay the fade-out class removal
+    setTimeout(() => {
+      // Remove fade-out class after 2 seconds
+      content.classList.remove('fade-out');
+      content.style.opacity = '0';
+      // Replace the container content with the new page content
+      container.innerHTML = newPage;
+      // Apply fade-in animation to the new content
+      const newContent = container.querySelector('.fade-target');
+      newContent.classList.add('fade-in');
+      // Set opacity back to 1 for all contents after fade-in
+      setTimeout(() => {
+        newContent.classList.remove('fade-in');
+        newContent.style.opacity = '1';
+      }, 2000); // 2 seconds for fade-in
+    }, 0); // No delay for removing fade-out
 
   } catch (error) {
     console.error('Error loading page:', error);
