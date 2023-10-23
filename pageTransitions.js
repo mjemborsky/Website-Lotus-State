@@ -146,25 +146,5 @@ preloadSVGs(svgUrls).then(() => {
       const targetBackground = getStoredSVG('backgroundFive.svg');
       handlePageTransition(destinationURL, targetBackground);
     });
-
-    // isIdle = true;
-    // // Check if the currentSVG matches a specific SVG filename
-    // if (isCurrentSVG("backgroundTwo.svg")) {
-    //   var idleSVG = getStoredSVG("backgroundThree.svg");
-    // } else if (isCurrentSVG("backgroundFive.svg")) {
-    //   var idleSVG = getStoredSVG("backgroundFour.svg");
-    // } else {
-    //   var idleSVG = document.getElementById('idle-video');
-    // }
-    // console.log(idleSVG);
-    // // Call Idle Animation
-    // while (isIdle) {
-    //   // Check if idleSVG is sparkle, 
-    //   // if it is
-    //   // then load it on top of svg
-    //   // else
-    //   animateCircles(targetSVG);
-    //   animateCircles(currentSVG);
-    // }
   });
 });
