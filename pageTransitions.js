@@ -1,3 +1,4 @@
+let isIdle = false;
 // Preload SVGs for Background
 const svgUrls = [
   'backgroundOne.svg',
@@ -28,40 +29,83 @@ function getStoredSVG(url) {
   const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
   return svgDoc.documentElement;
 }
+// Function to check if the currentSVG matches a specific SVG filename
+function isCurrentSVG(filename) {
+  const currentSVG = document.querySelector('.background-svg');
+  return currentSVG.src.includes(filename);
+}
+// Circle Animation
+function animateCircles(targetSVG) {
+  // Get the current SVG and target SVG circles
+  const currentSVG = document.querySelector('.background-svg');
+  const currentCircles = currentSVG.querySelectorAll('circle');
+  const targetCircles = targetSVG.querySelectorAll('circle');
+
+  // Calculate and apply the animation for each circle
+  currentCircles.forEach((currentCircle, index) => {
+    const targetRadius = parseFloat(targetCircles[index].getAttribute('r'));
+    const currentRadius = parseFloat(currentCircle.getAttribute('r'));
+    const radiusDifference = targetRadius - currentRadius;
+
+    // Apply CSS transition to animate the 'r' attribute
+    currentCircle.style.transition = 'r 4s ease-in-out';
+    currentCircle.setAttribute('r', targetRadius);
+  });
+}
 // Handle page transition including fade and AJAX loading
-function handlePageTransition(destinationURL) {
-  const container = document.querySelector('.container')
+async function handlePageTransition(destinationURL, targetBackground) {
+  const container = document.querySelector('.container');
   const content = document.querySelector('.fade-target');
   content.classList.add('fade-out'); // Add fade-out class to trigger fade-out animation
-  // Fetch the new page content using AJAX
-  fetch(destinationURL)
-    .then(response => response.text())
-    .then(newPage => {
-      setTimeout(function () {
-        // Remove fade-out class after animation duration
-        content.classList.remove('fade-out');
-        content.style.opacity = '0';
-        // Replace the container content with the new page content
-        container.innerHTML = newPage;
-        // Apply fade-in animation to the new content
-        const newContent = container.querySelector('.fade-target');
-        newContent.classList.add('fade-in');
-        setTimeout(function () {
-          newContent.classList.remove('fade-in');
-          // Set opacity back to 1 for all contents
-          newContent.style.opacity = '1';
-        }, 2000); // 2 seconds for fade-in
-      }, 2000); // 2 seconds for fade-out
-    })
-    .catch(error => {
-      console.error('Error loading page:', error);
-    });
+
+  try {
+    // Fetch the new page content using AJAX
+    const response = await fetch(destinationURL);
+    const newPage = await response.text();
+
+    // Start both the circle animation and fade-out concurrently
+    const animationPromise = Promise.all([
+      new Promise((resolve) => {
+        // Start the circle animation during fade-out
+        animateCircles(targetBackground);
+        resolve();
+        // Resolve the circle animation promise after 2 seconds (adjust as needed)
+      }),
+
+      new Promise((resolve) => {
+        // Delay the fade-out class removal by 2 seconds
+        setTimeout(() => {
+          // Remove fade-out class after 2 seconds
+          content.classList.remove('fade-out');
+          content.style.opacity = '0';
+          // Replace the container content with the new page content
+          container.innerHTML = newPage;
+          // Apply fade-in animation to the new content
+          const newContent = container.querySelector('.fade-target');
+          newContent.classList.add('fade-in');
+          // Set opacity back to 1 for all contents after fade-in
+          setTimeout(() => {
+            newContent.classList.remove('fade-in');
+            newContent.style.opacity = '1';
+            resolve(); // Resolve the fade-out promise
+          }, 2000); // 2 seconds for fade-in
+        }, 2000); // 2 seconds delay before removing fade-out
+      }),
+    ]);
+
+    // Wait for both animations to complete before continuing
+    await animationPromise;
+
+  } catch (error) {
+    console.error('Error loading page:', error);
+  }
 }
 // MAIN PAGE LISTENER
 // Preload SVGs before setting up link event listeners
 preloadSVGs(svgUrls).then(() => {
   // Setup event listeners after preloading background SVG's
   document.addEventListener('DOMContentLoaded', function () {
+    const currentSVG = document.querySelector('background-svg');
     const home = document.querySelector('.header-text');
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
@@ -75,26 +119,51 @@ preloadSVGs(svgUrls).then(() => {
       content.style.opacity = '1';
     }, 2000); // 2 seconds
 
-
     // Event listener for Home link
     home.addEventListener('click', function (event) {
       event.preventDefault();
+      isIdle = false;
       const destinationURL = home.getAttribute('href');
-      handlePageTransition(destinationURL);
+      const targetBackground = getStoredSVG('backgroundOne.svg');
+      handlePageTransition(destinationURL, targetBackground);
     });
     // Event listeners for Projects links
     projects.forEach(link => {
       link.addEventListener('click', function (event) {
         event.preventDefault();
+        isIdle = false;
         const destinationURL = link.getAttribute('href');
-        handlePageTransition(destinationURL);
+        const targetBackground = getStoredSVG('backgroundTwo.svg');
+        handlePageTransition(destinationURL, targetBackground);
       });
     });
     // Event listener for More link
     more.addEventListener('click', function (event) {
       event.preventDefault();
+      isIdle = false;
       const destinationURL = more.getAttribute('href');
-      handlePageTransition(destinationURL);
+      const targetBackground = getStoredSVG('backgroundFive.svg');
+      handlePageTransition(destinationURL, targetBackground);
     });
+
+    isIdle = true;
+    // Check if the currentSVG matches a specific SVG filename
+    if (isCurrentSVG("backgroundTwo.svg")) {
+      var idleSVG = getStoredSVG("backgroundThree.svg");
+    } else if (isCurrentSVG("backgroundFive.svg")) {
+      var idleSVG = getStoredSVG("backgroundFour.svg");
+    } else {
+      var idleSVG = document.getElementById('idle-video');
+    }
+    console.log(idleSVG);
+    // Call Idle Animation
+    while (isIdle) {
+      // Check if idleSVG is sparkle, 
+      // if it is
+      // then load it on top of svg
+      // else
+      animateCircles(targetSVG);
+      animateCircles(currentSVG);
+    }
   });
 });

@@ -1,5 +1,4 @@
 /*! FONTS */
-
 @font-face {
     font-family: 'gilroy-ultralightuploadedfile';
     src: url('fonts/gilroy-ultralight-webfont.woff2') format('woff2'),
@@ -49,26 +48,13 @@
     font-weight: normal;
     font-style: normal;}
 
-/*! HEADER/LINKS */
 
+/*! HEADER/LINKS */
 #header {
   position: fixed;
-  width: 100%;
-  height: 100px;
-  background-color: transparent;
   z-index: 2;
   opacity: .92;
-  margin: 0 auto;
   font-family: 'montserratthin';
-  text-decoration: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: ghostwhite;
-}
-.left-links, .right-links, .center-link {
-  display: flex;
-  align-items: center;
 }
 .left-link, .link-right {
   display: flex;
@@ -99,7 +85,6 @@
 .right-links, .link-right {
   border-radius: 0% 0% 0% 150%;
   right: 0;
-  display: flex;
   width: 75px;
   justify-content: center;
 }
@@ -109,10 +94,15 @@
   background-color: black;
 }
 .left-links a:hover,
+.left-links a:focus,
 .link-left a:hover,
-.left-links h2:hover,
+.link-left a:focus,
+.link-left h2:hover,
+.link-left h2:focus,
 .center-link a:hover,
-.right-links a:hover {
+.center-link a:focus,
+.right-links a:hover,
+.right-links a:focus {
   background-color: ghostwhite;
   color: black;
 }
@@ -126,12 +116,11 @@
   padding: 10px;
   z-index: 3;
 }
-.expanded-links.show,  {
+.expanded-links.show  {
   display: flex;
   align-items: center;
   flex-direction: column;
-  left: 20px;
-  top: 20px;
+  left: -20px;
 }
 #project-expanded-one {
   top: 7px;
@@ -185,29 +174,24 @@ h2 {
   justify-content: center; /* Center the content vertically */
 }
 
-/*! MAIN BODY */
 
+/*! MAIN BODY */
 body {
   margin: 0 auto;
   width: 100%; 
-  display: block;
-  position: relative;
   background-color: #000000;
-  font-family: 'ralewaythin';
 }
-
-
-/*index.html*/
+/* Home Page Section */
 #welcome-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin: 0 auto;
-  padding-top: 100px;
+  padding-top: 50px;
   position: absolute;
 }
 
-/*  CSS For Project Pages */
+/* Project Pages */
 #projects, #lotusmane, #new-projects  {
   position: absolute;
   padding-top: 100px;
@@ -233,7 +217,6 @@ body {
   padding-left: 10px;
 }
 #upcoming {
-  border-style: solid 1px;
   border-radius: 15%;
   width: 300px;
   height: 200px;
@@ -272,8 +255,7 @@ body {
   width: 120px;
   margin-bottom: 10px;
 }
-
-/*  CSS for Extra Page  */
+/*  Extra Page  */
 #extra {
   position: absolute;
   display: flex;
@@ -301,7 +283,6 @@ p {
   padding-top: 5px;
   margin: 0;
 }
-
 /* Background Shapes and Elements */ 
 .container {
   width: 100%;
@@ -332,7 +313,6 @@ p {
   z-index: -1;
 
 }
-
 /* Animations */
 /* For Container Contents Fade */
 .fade-target.fade-in {
@@ -348,6 +328,9 @@ p {
   -webkit-transition: opacity 2s;
   -moz-transition: opacity 2s; 
   will-change: opacity;
+}
+circle {
+  transition: r 4s ease-in-out;
 }
 @keyframes fade-in {
   from {
@@ -401,3 +384,17 @@ p {
     width: 560px;
   }
 }
+
+/* NEED TO DO */
+/*
+FOR SVG ANIMATIONS/FADE
+Make media queries to adjust for a users connection speed
+Make media queries to adjust for users display
+For example, if a user is on an iphone or has a bad connection, the svg 
+transition will not look good. Therefore, the javascript should test for 
+internet speed and display, if it is a phone or bad connection, maybe do not do
+the full animation, just a full fade? I would like to still have it work 
+on a phone but I dont know if css will look good, try to get this to work
+
+
+*/
