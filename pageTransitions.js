@@ -36,21 +36,30 @@ function isCurrentSVG(filename) {
 }
 // Circle Animation
 function animateCircles(targetSVG) {
-  // Get the current SVG and target SVG circles
   const currentSVG = document.querySelector('.background-svg');
   const currentCircles = currentSVG.querySelectorAll('circle');
   const targetCircles = targetSVG.querySelectorAll('circle');
 
-  // Calculate and apply the animation for each circle
-  currentCircles.forEach((currentCircle, index) => {
-    const targetRadius = parseFloat(targetCircles[index].getAttribute('r'));
-    const currentRadius = parseFloat(currentCircle.getAttribute('r'));
-    const radiusDifference = targetRadius - currentRadius;
+  const start = performance.now();
 
-    // Apply CSS transition to animate the 'r' attribute
-    currentCircle.style.transition = 'r 4s ease-in-out';
-    currentCircle.setAttribute('r', targetRadius);
-  });
+  function animate() {
+    const now = performance.now();
+    const progress = (now - start) / 4000; // Adjust the duration as needed (in milliseconds)
+    if (progress < 1) {
+      currentCircles.forEach((currentCircle, index) => {
+        const targetRadius = parseFloat(targetCircles[index].getAttribute('r'));
+        const currentRadius = parseFloat(currentCircle.getAttribute('r'));
+        const radiusDifference = targetRadius - currentRadius;
+        const newRadius = currentRadius + radiusDifference * progress;
+
+        currentCircle.setAttribute('r', newRadius);
+      });
+
+      requestAnimationFrame(animate);
+    }
+  }
+
+  requestAnimationFrame(animate);
 }
 // Handle page transition including fade and AJAX loading
 async function handlePageTransition(destinationURL, targetBackground) {
