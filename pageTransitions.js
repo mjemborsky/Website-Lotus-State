@@ -105,7 +105,7 @@ async function handlePageTransition(destinationURL, targetBackground) {
 preloadSVGs(svgUrls).then(() => {
   // Setup event listeners after preloading background SVG's
   document.addEventListener('DOMContentLoaded', function () {
-    const currentSVG = document.querySelector('background-svg');
+    const currentSVG = document.querySelector('.background-svg');
     const home = document.querySelector('.header-text');
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
