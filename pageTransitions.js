@@ -112,6 +112,12 @@ preloadSVGs(svgUrls).then(() => {
     const content = document.querySelector('.fade-target');
     console.log(currentSVG);
 
+    if (!localStorage.getItem("fadeEffectApplied")) {
+      // Apply the fade-in effect
+      document.body.classList.add("fade-in");
+      // Set a flag in local storage to indicate the effect has been applied
+      localStorage.setItem("fadeEffectApplied", "true");
+    }
     // Add fade-in class to trigger fade-in animation
     content.classList.add('fade-in');
     // Remove fade-in class after animation duration
