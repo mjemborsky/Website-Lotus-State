@@ -110,6 +110,7 @@ preloadSVGs(svgUrls).then(() => {
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
     const content = document.querySelector('.fade-target');
+    console.log(currentSVG);
 
     // Add fade-in class to trigger fade-in animation
     content.classList.add('fade-in');
