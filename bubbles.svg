@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="938" viewBox="0 0 1920 938">
-    <g transform="translate(960,469) scale(1,1) translate(-960,-234.5)" ><defs >
+    <g transform="translate(960,469) scale(1,1) translate(-960,-469)" ><defs >
         <filter id="blur-zlesuht08db-1" x="-1" y="-1" width="3" height="3" ><feGaussianBlur stdDeviation="6.9" ></feGaussianBlur></filter>
         <filter id="blur-zlesuht08db-2" x="-1" y="-1" width="3" height="3" ><feGaussianBlur stdDeviation="3.45" ></feGaussianBlur></filter>
         <filter id="blur-zlesuht08db-3" x="-1" y="-1" width="3" height="3" ><feGaussianBlur stdDeviation="2.3000000000000003" ></feGaussianBlur></filter></defs>
