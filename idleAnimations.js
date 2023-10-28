@@ -40,43 +40,37 @@
     //   animateCircles(currentSVG);
     // }
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Get all the circle elements within the SVG with class "bubbles"
-    const circles = document.querySelectorAll("svg.bubbles circle");
-
-    // Set the animation parameters
-    const animationDuration = 10000; // Animation duration in milliseconds
-    const initialY = 938; // Initial vertical position
-    const finalY = -50; // Final vertical position
-    const velocity = (finalY - initialY) / animationDuration; // Calculate velocity
-
-    // Define the animation function
-    function animateCircles(timestamp) {
-        if (!animateCircles.startTime) {
-            animateCircles.startTime = timestamp;
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get all the circle elements within the SVG
+        const circles = document.querySelectorAll("svg circle");
+    
+        // Set the animation parameters
+        const animationDuration = 10000; // Animation duration in milliseconds
+        const initialY = 938; // Initial vertical position
+        const finalY = -50; // Final vertical position
+        const velocity = (finalY - initialY) / animationDuration; // Calculate velocity
+    
+        // Define the animation function
+        function animateBubbles(timestamp) {
+            circles.forEach((circle) => {
+                if (!circle.startTime) {
+                    circle.startTime = timestamp;
+                }
+    
+                const elapsed = timestamp - circle.startTime;
+                const newY = initialY + velocity * elapsed;
+    
+                // Reset the circle's position when it reaches the top
+                if (newY < finalY) {
+                    circle.startTime = timestamp; // Reset the start time for the circle
+                } else {
+                    circle.setAttribute("cy", newY);
+                }
+            });
+    
+            requestAnimationFrame(animateBubbles);
         }
-
-        const elapsed = timestamp - animateCircles.startTime;
-
-        // Apply the animation to each circle
-        circles.forEach((circle, index) => {
-            const newY = initialY + velocity * elapsed + index * 10;
-            circle.setAttribute("cy", newY);
-
-            // Reset the circle's position when it reaches the top
-            if (newY < finalY) {
-                circle.setAttribute("cy", initialY);
-            }
-        });
-
-        if (elapsed < animationDuration) {
-            requestAnimationFrame(animateCircles);
-        } else {
-            animateCircles.startTime = null; // Reset the start time for the next animation loop
-            requestAnimationFrame(animateCircles);
-        }
-    }
-
-    // Start the animation loop
-    requestAnimationFrame(animateCircles);
-});
+    
+        // Start the animation loop
+        requestAnimationFrame(animateBubbles);
+    });
