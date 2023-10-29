@@ -43,6 +43,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Get all the circle elements within the SVG
     const bubbleSVG = document.querySelector('svg:nth-child(2)');
+    console.log(bubbleSVG);
     const bubbles = bubbleSVG.querySelectorAll('circle');
     
     // Set the animation parameters
