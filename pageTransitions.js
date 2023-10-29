@@ -35,16 +35,13 @@ function isCurrentSVG(filename) {
   return currentSVG.src.includes(filename);
 }
 // Circle Animation
-function animateCircles(targetSVG) {
+function animateCircles(targetSVG, animationDuration) {
   const currentSVG = document.querySelector('.background-svg');
   const currentCircles = currentSVG.querySelectorAll('circle');
   const targetCircles = targetSVG.querySelectorAll('circle');
 
   // Store the animation start time
   const startTime = performance.now();
-
-  // Define the animation duration in milliseconds
-  const animationDuration = 4000; // 4 seconds
 
   function animate(currentTime) {
     const elapsedTime = currentTime - startTime;
@@ -91,7 +88,9 @@ async function handlePageTransition(destinationURL, targetBackground) {
     const animationPromise = Promise.all([
       new Promise((resolve) => {
         // Start the circle animation during fade-out
-        animateCircles(targetBackground);
+        // Define the animation duration in milliseconds
+        const transitionDuration = 4000; // 4 seconds
+        animateCircles(targetBackground, transitionDuration);
         resolve();
         // Resolve the circle animation promise after 4 seconds (adjust as needed)
         setTimeout(() => {
@@ -132,7 +131,7 @@ async function handlePageTransition(destinationURL, targetBackground) {
 preloadSVGs(svgUrls).then(() => {
   // Setup event listeners after preloading background SVG's
   document.addEventListener('DOMContentLoaded', function () {
-    const currentSVG = document.querySelector('.background-svg');
+    const currentBackground = document.querySelector('.background-svg');
     const home = document.querySelector('.header-text');
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
@@ -177,21 +176,18 @@ preloadSVGs(svgUrls).then(() => {
     // If it is 1 (homepage), invoke bubbles
     // If it is 2 (projects), target svg = 3
     // If it is 5 (extra), target svg = 4
-
-    function runIdleAnimation() {
+    const targetBackground = getStoredSVG('backgroundFive.svg');
+    function runIdleAnimation(currentBackground, targetBackground) {
+      // Define the animation duration in milliseconds
+      const idleDuration = 8000; // 4 seconds 
       // Animate from the current SVG to the target SVG (slower animation)
-      const targetBackground = getStoredSVG(`background${targetSVGIndex}.svg`);
-      animateCircles(targetBackground, 8000); // Adjust the duration as needed
+      animateCircles(targetBackground, idleDuration); // Adjust the duration as needed
 
       // Wait for a while before running the reverse animation
       setTimeout(() => {
         // Animate from the target SVG back to the current SVG (slower animation)
-        const currentBackground = getStoredSVG(`background${currentSVGIndex}.svg`);
-        animateCircles(currentBackground, 8000); // Adjust the duration as needed
-
+        animateCircles(currentBackground, idleDuration); // Adjust the duration as needed
         // Update current and target SVG indexes for the next loop iteration
-        currentSVGIndex = targetSVGIndex;
-        targetSVGIndex = 3; // Adjust this based on your logic
       }, 8000); // Adjust the delay before reverse animation
     }
 
