@@ -326,7 +326,6 @@ p {
   object-fit: cover;
   pointer-events: none;
   z-index: -1;
-
 }
 /* Animations */
 /* For Container Contents Fade */
@@ -344,7 +343,7 @@ p {
   -moz-transition: opacity 2s; 
   will-change: opacity;
 }
-circle {
+.background-svg circle {
   transition: r 4s ease-in-out;
 }
 @keyframes fade-in {
