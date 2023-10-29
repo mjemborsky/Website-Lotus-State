@@ -40,37 +40,38 @@
     //   animateCircles(currentSVG);
     // }
 
-    // document.addEventListener('DOMContentLoaded', function () {
-    //     // Get all the circle elements within the SVG
-    //     const circles = document.querySelectorAll("svg circle");
+document.addEventListener('DOMContentLoaded', function () {
+    // Get all the circle elements within the SVG
+    const bubbleSVG = document.querySelector('svg:nth-child(2)');
+    const bubbles = bubbleSVG.querySelectorAll('circle')
     
-    //     // Set the animation parameters
-    //     const animationDuration = 10000; // Animation duration in milliseconds
-    //     const initialY = 938; // Initial vertical position
-    //     const finalY = -50; // Final vertical position
-    //     const velocity = (finalY - initialY) / animationDuration; // Calculate velocity
+    // Set the animation parameters
+    const animationDuration = 10000; // Animation duration in milliseconds
+    const initialY = 938; // Initial vertical position
+    const finalY = -50; // Final vertical position
+    const velocity = (finalY - initialY) / animationDuration; // Calculate velocity
     
-    //     // Define the animation function
-    //     function animateBubbles(timestamp) {
-    //         circles.forEach((circle) => {
-    //             if (!circle.startTime) {
-    //                 circle.startTime = timestamp;
-    //             }
+    // Define the animation function
+    function animateBubbles(timestamp) {
+        bubbles.forEach((bubble) => {
+            if (!bubble.startTime) {
+                bubble.startTime = timestamp;
+            }
     
-    //             const elapsed = timestamp - circle.startTime;
-    //             const newY = initialY + velocity * elapsed;
+            const elapsed = timestamp - bubble.startTime;
+            const newY = initialY + velocity * elapsed;
     
-    //             // Reset the circle's position when it reaches the top
-    //             if (newY < finalY) {
-    //                 circle.startTime = timestamp; // Reset the start time for the circle
-    //             } else {
-    //                 circle.setAttribute("cy", newY);
-    //             }
-    //         });
+            // Reset the circle's position when it reaches the top
+            if (newY < finalY) {
+                bubble.startTime = timestamp; // Reset the start time for the circle
+            } else {
+                bubble.setAttribute("cy", newY);
+            }
+        });
     
-    //         requestAnimationFrame(animateBubbles);
-    //     }
+        requestAnimationFrame(animateBubbles);
+    }
     
-    //     // Start the animation loop
-    //     requestAnimationFrame(animateBubbles);
-    // });
+    // Start the animation loop
+    requestAnimationFrame(animateBubbles);
+});
