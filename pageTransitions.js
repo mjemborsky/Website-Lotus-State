@@ -1,4 +1,4 @@
-// let isIdle = false;
+
 // Preload SVGs for Background
 const svgUrls = [
   'backgroundOne.svg',
@@ -171,5 +171,34 @@ preloadSVGs(svgUrls).then(() => {
       const targetBackground = getStoredSVG('backgroundFive.svg');
       handlePageTransition(destinationURL, targetBackground);
     });
+
+    // IDLE ANIMATIONS
+    // First a test for the current svg.
+    // If it is 1 (homepage), invoke bubbles
+    // If it is 2 (projects), target svg = 3
+    // If it is 5 (extra), target svg = 4
+
+    function runIdleAnimation() {
+      // Animate from the current SVG to the target SVG (slower animation)
+      const targetBackground = getStoredSVG(`background${targetSVGIndex}.svg`);
+      animateCircles(targetBackground, 8000); // Adjust the duration as needed
+
+      // Wait for a while before running the reverse animation
+      setTimeout(() => {
+        // Animate from the target SVG back to the current SVG (slower animation)
+        const currentBackground = getStoredSVG(`background${currentSVGIndex}.svg`);
+        animateCircles(currentBackground, 8000); // Adjust the duration as needed
+
+        // Update current and target SVG indexes for the next loop iteration
+        currentSVGIndex = targetSVGIndex;
+        targetSVGIndex = 3; // Adjust this based on your logic
+      }, 8000); // Adjust the delay before reverse animation
+    }
+
+    // Initial invocation of the idle animation
+    runIdleAnimation();
+
+    // Continuous loop for idle animations
+    setInterval(runIdleAnimation, 16000); // Adjust the interval as needed
   });
 });
