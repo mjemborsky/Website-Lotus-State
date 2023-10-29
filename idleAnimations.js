@@ -43,7 +43,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Get all the circle elements within the SVG
     const bubbleSVG = document.querySelector('svg:nth-child(2)');
-    const bubbles = bubbleSVG.querySelectorAll('circle')
+    const bubbles = bubbleSVG.querySelectorAll('circle');
     
     // Set the animation parameters
     const animationDuration = 10000; // Animation duration in milliseconds
@@ -66,12 +66,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 bubble.startTime = timestamp; // Reset the start time for the circle
             } else {
                 bubble.setAttribute("cy", newY);
+                console.log('cy');
             }
         });
     
         requestAnimationFrame(animateBubbles);
     }
-    
     // Start the animation loop
     requestAnimationFrame(animateBubbles);
 });

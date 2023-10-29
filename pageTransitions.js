@@ -36,21 +36,45 @@ function isCurrentSVG(filename) {
 }
 // Circle Animation
 function animateCircles(targetSVG) {
-  // Get the current SVG and target SVG circles
   const currentSVG = document.querySelector('.background-svg');
   const currentCircles = currentSVG.querySelectorAll('circle');
   const targetCircles = targetSVG.querySelectorAll('circle');
 
-  // Calculate and apply the animation for each circle
-  currentCircles.forEach((currentCircle, index) => {
-    const targetRadius = parseFloat(targetCircles[index].getAttribute('r'));
-    const currentRadius = parseFloat(currentCircle.getAttribute('r'));
-    const radiusDifference = targetRadius - currentRadius;
+  // Store the animation start time
+  const startTime = performance.now();
 
-    // Apply CSS transition to animate the 'r' attribute
-    currentCircle.style.transition = 'r 4s ease-in-out';
-    currentCircle.setAttribute('r', targetRadius);
-  });
+  // Define the animation duration in milliseconds
+  const animationDuration = 4000; // 4 seconds
+
+  function animate(currentTime) {
+    const elapsedTime = currentTime - startTime;
+
+    // Ensure elapsed time does not exceed the animation duration
+    if (elapsedTime < animationDuration) {
+      currentCircles.forEach((currentCircle, index) => {
+        const targetRadius = parseFloat(targetCircles[index].getAttribute('r'));
+        const currentRadius = parseFloat(currentCircle.getAttribute('r'));
+        const radiusDifference = targetRadius - currentRadius;
+
+        // Calculate the new radius based on elapsed time and animation duration
+        const newRadius = currentRadius + (radiusDifference * (elapsedTime / animationDuration));
+
+        currentCircle.setAttribute('r', newRadius);
+      });
+
+      // Continue the animation
+      requestAnimationFrame(animate);
+    } else {
+      // Ensure the final radius values are set correctly
+      currentCircles.forEach((currentCircle, index) => {
+        const targetRadius = parseFloat(targetCircles[index].getAttribute('r'));
+        currentCircle.setAttribute('r', targetRadius);
+      });
+    }
+  }
+
+  // Start the animation
+  requestAnimationFrame(animate);
 }
 // Handle page transition including fade and AJAX loading
 async function handlePageTransition(destinationURL, targetBackground) {
@@ -69,7 +93,10 @@ async function handlePageTransition(destinationURL, targetBackground) {
         // Start the circle animation during fade-out
         animateCircles(targetBackground);
         resolve();
-        // Resolve the circle animation promise after 2 seconds (adjust as needed)
+        // Resolve the circle animation promise after 4 seconds (adjust as needed)
+        setTimeout(() => {
+          resolve();
+        }, 4000);
       }),
 
       new Promise((resolve) => {
