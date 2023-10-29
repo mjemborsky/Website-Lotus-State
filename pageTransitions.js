@@ -192,9 +192,12 @@ preloadSVGs(svgUrls).then(() => {
     }
 
     // Initial invocation of the idle animation
-    runIdleAnimation();
+    runIdleAnimation(currentBackground, targetBackground);
 
     // Continuous loop for idle animations
-    setInterval(runIdleAnimation, 16000); // Adjust the interval as needed
+    setInterval(() => {
+      runIdleAnimation(currentBackground, targetBackground);
+    }, 16000); // Adjust the interval as needed
+
   });
 });
