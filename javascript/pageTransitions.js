@@ -120,6 +120,38 @@ async function handlePageTransition(destinationURL, targetBackground) {
   }
 }
 // Animate Idle SVG (rain.svg)
+function animateIdle() {
+  const idle = document.querySelector('.idle');
+  const paths = idle.querySelectorAll('path');
+
+  // Set the animation properties
+  const animationDuration = 6000; // 6 seconds
+  const screenHeight = window.innerHeight;
+
+  paths.forEach((path, index) => {
+    // Calculate the animation delay for each path so they appear one after another
+    const delay = (index * animationDuration) / paths.length;
+
+    // Apply CSS animation to the path
+    path.style.animation = `moveUp ${animationDuration}ms linear ${delay}ms infinite`;
+
+    // Define the keyframes for the animation
+    const keyframes = `@keyframes moveUp {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-${screenHeight}px);
+      }
+    }`;
+
+    // Add the keyframes to a style element and append it to the document
+    const styleElement = document.createElement('style');
+    styleElement.appendChild(document.createTextNode(keyframes));
+    document.head.appendChild(styleElement);
+  });
+
+}
 // 1. Implement Idle Bubbles with fade during transition
 // Bubbles.svg should be inside the section element so it fades with it, this SHOULD take care of the fading
 // When page is loaded...
@@ -144,7 +176,6 @@ preloadSVGs(svgUrls).then(() => {
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
     const content = document.querySelector('.fade-target');
-    const idle = document.querySelector()
     // Add fade-in class to trigger fade-in animation
     content.classList.add('fade-in');
     // Remove fade-in class after animation duration
@@ -156,7 +187,6 @@ preloadSVGs(svgUrls).then(() => {
     // Event listener for Home link
     home.addEventListener('click', function (event) {
       event.preventDefault();
-      // isIdle = false;
       const destinationURL = home.getAttribute('href');
       const targetBackground = getStoredSVG('backgroundOne.svg');
       handlePageTransition(destinationURL, targetBackground);
@@ -165,7 +195,6 @@ preloadSVGs(svgUrls).then(() => {
     projects.forEach(link => {
       link.addEventListener('click', function (event) {
         event.preventDefault();
-        // isIdle = false;
         const destinationURL = link.getAttribute('href');
         const targetBackground = getStoredSVG('backgroundTwo.svg');
         handlePageTransition(destinationURL, targetBackground);
@@ -174,12 +203,12 @@ preloadSVGs(svgUrls).then(() => {
     // Event listener for More link
     more.addEventListener('click', function (event) {
       event.preventDefault();
-      // isIdle = false;
       const destinationURL = more.getAttribute('href');
       const targetBackground = getStoredSVG('backgroundFive.svg');
       handlePageTransition(destinationURL, targetBackground);
     });
 
     // APPLY IDLE ANIMATION HERE (CALL FUNCTION TO ANIMATE FLOATING PATHS)
+    animateIdle();
   });
 });
