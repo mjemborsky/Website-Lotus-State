@@ -58,7 +58,6 @@ function animateCircles(targetSVG, animationDuration) {
 
         currentCircle.setAttribute('r', newRadius);
       });
-
       // Continue the animation
       requestAnimationFrame(animate);
     } else {
@@ -69,7 +68,6 @@ function animateCircles(targetSVG, animationDuration) {
       });
     }
   }
-
   // Start the animation
   requestAnimationFrame(animate);
 }
@@ -78,12 +76,10 @@ async function handlePageTransition(destinationURL, targetBackground) {
   const container = document.querySelector('.container');
   const content = document.querySelector('.fade-target');
   content.classList.add('fade-out'); // Add fade-out class to trigger fade-out animation
-
   try {
     // Fetch the new page content using AJAX
     const response = await fetch(destinationURL);
     const newPage = await response.text();
-
     // Start both the circle animation and fade-out concurrently
     const animationPromise = Promise.all([
       new Promise((resolve) => {
@@ -97,7 +93,6 @@ async function handlePageTransition(destinationURL, targetBackground) {
           resolve();
         }, 4000);
       }),
-
       new Promise((resolve) => {
         // Delay the fade-out class removal by 2 seconds
         setTimeout(() => {
@@ -118,10 +113,8 @@ async function handlePageTransition(destinationURL, targetBackground) {
         }, 2000); // 2 seconds delay before removing fade-out
       }),
     ]);
-
     // Wait for both animations to complete before continuing
     await animationPromise;
-
   } catch (error) {
     console.error('Error loading page:', error);
   }
@@ -131,7 +124,6 @@ async function handlePageTransition(destinationURL, targetBackground) {
 preloadSVGs(svgUrls).then(() => {
   // Setup event listeners after preloading background SVG's
   document.addEventListener('DOMContentLoaded', function () {
-    const currentBackground = document.querySelector('.background-svg');
     const home = document.querySelector('.header-text');
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
@@ -170,34 +162,5 @@ preloadSVGs(svgUrls).then(() => {
       const targetBackground = getStoredSVG('backgroundFive.svg');
       handlePageTransition(destinationURL, targetBackground);
     });
-
-    // IDLE ANIMATIONS
-    // First a test for the current svg.
-    // If it is 1 (homepage), invoke bubbles
-    // If it is 2 (projects), target svg = 3
-    // If it is 5 (extra), target svg = 4
-    const targetBackground = getStoredSVG('backgroundFive.svg');
-    function runIdleAnimation(currentBackground, targetBackground) {
-      // Define the animation duration in milliseconds
-      const idleDuration = 8000; // 4 seconds 
-      // Animate from the current SVG to the target SVG (slower animation)
-      animateCircles(targetBackground, idleDuration); // Adjust the duration as needed
-
-      // Wait for a while before running the reverse animation
-      setTimeout(() => {
-        // Animate from the target SVG back to the current SVG (slower animation)
-        animateCircles(currentBackground, idleDuration); // Adjust the duration as needed
-        // Update current and target SVG indexes for the next loop iteration
-      }, 8000); // Adjust the delay before reverse animation
-    }
-
-    // Initial invocation of the idle animation
-    runIdleAnimation(currentBackground, targetBackground);
-
-    // Continuous loop for idle animations
-    setInterval(() => {
-      runIdleAnimation(currentBackground, targetBackground);
-    }, 16000); // Adjust the interval as needed
-
   });
 });
