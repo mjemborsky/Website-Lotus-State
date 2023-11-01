@@ -1,4 +1,3 @@
-
 // WHEN ON INDEX.HTML (Homepage)
 // IDEA: Maybe when index.html first loads, FOR THE FIRST TIME, loads from black and all elements fade in
 // Implement unique idle animation, I am thinking like
@@ -19,26 +18,6 @@
 // It should animate the r values of the current svg to this new svg positions over 4 seconds, with no ease in or out (linear velocity)
 // Then the code should call the function in reverse, so that it animates the circle positions back to the current svg over 4 seconds, same ease
 // Honestly might be better to include in pageTransitions as it could be linked to the links as well as us the animation functions already described.
-
-// isIdle = true;
-    // // Check if the currentSVG matches a specific SVG filename
-    // if (isCurrentSVG("backgroundTwo.svg")) {
-    //   var idleSVG = getStoredSVG("backgroundThree.svg");
-    // } else if (isCurrentSVG("backgroundFive.svg")) {
-    //   var idleSVG = getStoredSVG("backgroundFour.svg");
-    // } else {
-    //   var idleSVG = document.getElementById('idle-video');
-    // }
-    // console.log(idleSVG);
-    // // Call Idle Animation
-    // while (isIdle) {
-    //   // Check if idleSVG is sparkle, 
-    //   // if it is
-    //   // then load it on top of svg
-    //   // else
-    //   animateCircles(targetSVG);
-    //   animateCircles(currentSVG);
-    // }
 
 // document.addEventListener('DOMContentLoaded', function () {
 //     // Get all the circle elements within the SVG
