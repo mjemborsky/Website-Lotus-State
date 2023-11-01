@@ -119,6 +119,22 @@ async function handlePageTransition(destinationURL, targetBackground) {
     console.error('Error loading page:', error);
   }
 }
+// Animate Idle SVG (rain.svg)
+// 1. Implement Idle Bubbles with fade during transition
+// Bubbles.svg should be inside the section element so it fades with it, this SHOULD take care of the fading
+// When page is loaded...
+// Select bubbles svg
+// Call forever...
+    // AnimateBubbles function
+        // Should store all circles in the svg
+        // Circles should probably be selected with different selector than 'circle', maybe so class
+        // Animate them up the screen until they get to a full screen height from the initial position,
+        // Then reset to initial position and run again.
+        // When links are clicked, animation should continue but fade should be applied and opacity set to 0
+
+
+
+
 // MAIN PAGE LISTENER
 // Preload SVGs before setting up link event listeners
 preloadSVGs(svgUrls).then(() => {
@@ -128,6 +144,7 @@ preloadSVGs(svgUrls).then(() => {
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
     const content = document.querySelector('.fade-target');
+    const idle = document.querySelector()
     // Add fade-in class to trigger fade-in animation
     content.classList.add('fade-in');
     // Remove fade-in class after animation duration
@@ -162,5 +179,7 @@ preloadSVGs(svgUrls).then(() => {
       const targetBackground = getStoredSVG('backgroundFive.svg');
       handlePageTransition(destinationURL, targetBackground);
     });
+
+    // APPLY IDLE ANIMATION HERE (CALL FUNCTION TO ANIMATE FLOATING PATHS)
   });
 });
