@@ -120,38 +120,32 @@ async function handlePageTransition(destinationURL, targetBackground) {
   }
 }
 // Animate Idle SVG (rain.svg)
-function animateIdle() {
-  const idle = document.querySelector('.idle');
-  const paths = idle.querySelectorAll('path');
-
-  // Set the animation properties
-  const animationDuration = 6000; // 6 seconds
-  const screenHeight = window.innerHeight;
-
-  paths.forEach((path, index) => {
-    // Calculate the animation delay for each path so they appear one after another
-    const delay = (index * animationDuration) / paths.length;
-
-    // Apply CSS animation to the path
-    path.style.animation = `moveUp ${animationDuration}ms linear ${delay}ms infinite`;
-
-    // Define the keyframes for the animation
-    const keyframes = `@keyframes moveUp {
-      0% {
-        transform: translateY(0);
-      }
-      100% {
-        transform: translateY(-${screenHeight}px);
-      }
-    }`;
-
-    // Add the keyframes to a style element and append it to the document
-    const styleElement = document.createElement('style');
-    styleElement.appendChild(document.createTextNode(keyframes));
-    document.head.appendChild(styleElement);
-  });
-
-}
+// function animateIdle() {
+//   const idle = document.querySelector('.idle');
+//   const paths = idle.querySelectorAll('path');
+//   // Set the animation properties
+//   const animationDuration = 6000; // 6 seconds
+//   const screenHeight = window.innerHeight;
+//   paths.forEach((path, index) => {
+//     // Calculate the animation delay for each path so they appear one after another
+//     const delay = (index * animationDuration) / paths.length;
+//     // Apply CSS animation to the path
+//     path.style.animation = `moveUp ${animationDuration}ms linear ${delay}ms infinite`;
+//     // Define the keyframes for the animation
+//     const keyframes = `@keyframes moveUp {
+//       0% {
+//         transform: translateY(0);
+//       }
+//       100% {
+//         transform: translateY(-${screenHeight}px);
+//       }
+//     }`;
+//     // Add the keyframes to a style element and append it to the document
+//     const styleElement = document.createElement('style');
+//     styleElement.appendChild(document.createTextNode(keyframes));
+//     document.head.appendChild(styleElement);
+//   });
+// }
 // 1. Implement Idle Bubbles with fade during transition
 // Bubbles.svg should be inside the section element so it fades with it, this SHOULD take care of the fading
 // When page is loaded...
@@ -209,6 +203,6 @@ preloadSVGs(svgUrls).then(() => {
     });
 
     // APPLY IDLE ANIMATION HERE (CALL FUNCTION TO ANIMATE FLOATING PATHS)
-    animateIdle();
+    // animateIdle();
   });
 });
