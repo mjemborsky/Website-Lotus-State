@@ -1,4 +1,3 @@
-
 // Preload SVGs for Background
 const svgUrls = [
   'backgroundOne.svg',
@@ -35,27 +34,23 @@ function isCurrentSVG(filename) {
   return currentSVG.src.includes(filename);
 }
 // Circle Animation
-function animateCircles(targetSVG, animationDuration) {
+function animateCircles(targetSVG) {
   const currentSVG = document.querySelector('.background-svg');
   const currentCircles = currentSVG.querySelectorAll('circle');
   const targetCircles = targetSVG.querySelectorAll('circle');
-
   // Store the animation start time
+  const animationDuration = 4000; // 4 seconds
   const startTime = performance.now();
-
   function animate(currentTime) {
     const elapsedTime = currentTime - startTime;
-
     // Ensure elapsed time does not exceed the animation duration
     if (elapsedTime < animationDuration) {
       currentCircles.forEach((currentCircle, index) => {
         const targetRadius = parseFloat(targetCircles[index].getAttribute('r'));
         const currentRadius = parseFloat(currentCircle.getAttribute('r'));
         const radiusDifference = targetRadius - currentRadius;
-
         // Calculate the new radius based on elapsed time and animation duration
         const newRadius = currentRadius + (radiusDifference * (elapsedTime / (animationDuration*4)));
-
         currentCircle.setAttribute('r', newRadius);
       });
       // Continue the animation
@@ -74,8 +69,10 @@ function animateCircles(targetSVG, animationDuration) {
 // Handle page transition including fade and AJAX loading
 async function handlePageTransition(destinationURL, targetBackground) {
   const container = document.querySelector('.container');
-  const content = document.querySelector('.fade-target');
-  content.classList.add('fade-out'); // Add fade-out class to trigger fade-out animation
+  const content = document.querySelectorAll('.fade-target');
+  content.forEach((fadeItem) => {
+    fadeItem.classList.add('fade-out');
+  });
   try {
     // Fetch the new page content using AJAX
     const response = await fetch(destinationURL);
@@ -84,10 +81,7 @@ async function handlePageTransition(destinationURL, targetBackground) {
     const animationPromise = Promise.all([
       new Promise((resolve) => {
         // Start the circle animation during fade-out
-        // Define the animation duration in milliseconds
-        const transitionDuration = 4000; // 4 seconds
-        animateCircles(targetBackground, transitionDuration);
-        resolve();
+        animateCircles(targetBackground);
         // Resolve the circle animation promise after 4 seconds (adjust as needed)
         setTimeout(() => {
           resolve();
@@ -97,20 +91,23 @@ async function handlePageTransition(destinationURL, targetBackground) {
         // Delay the fade-out class removal by 2 seconds
         setTimeout(() => {
           // Remove fade-out class after 2 seconds
-          content.classList.remove('fade-out');
-          content.style.opacity = '0';
+          content.forEach((fadeItem) => {
+            fadeItem.classList.remove('fade-out');
+            fadeItem.style.opacity = '0';
+          });
           // Replace the container content with the new page content
           container.innerHTML = newPage;
           // Apply fade-in animation to the new content
-          const newContent = container.querySelector('.fade-target');
-          newContent.classList.add('fade-in');
-          // Set opacity back to 1 for all contents after fade-in
-          setTimeout(() => {
-            newContent.classList.remove('fade-in');
-            newContent.style.opacity = '1';
-            resolve(); // Resolve the fade-out promise
+          const newContent = container.querySelectorAll('.fade-target');
+          newContent.forEach((newFadeItem) => {
+            newFadeItem.classList.add('fade-in');
+            setTimeout(() => {
+              newFadeItem.classList.remove('fade-in');
+              newFadeItem.style.opacity = '1';
+            });
           }, 2000); // 2 seconds for fade-in
-        }, 2000); // 2 seconds delay before removing fade-out
+          resolve(); // Resolve the fade-out promise
+        }, 2000);
       }),
     ]);
     // Wait for both animations to complete before continuing
