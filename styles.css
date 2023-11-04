@@ -334,7 +334,7 @@ p {
   -moz-transition: opacity 2s; 
   will-change: opacity;
 }
-.background-svg circle {
+svg:nth-child(1) circle {
   transition: r 4s ease-in-out;
 }
 @keyframes fade-in {

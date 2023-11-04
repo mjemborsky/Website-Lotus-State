@@ -60,7 +60,7 @@ function animateCircles(targetSVG) {
         const currentRadius = parseFloat(currentCircle.getAttribute('r'));
         const radiusDifference = targetRadius - currentRadius;
         // Calculate the new radius based on elapsed time and animation duration
-        const newRadius = currentRadius + (radiusDifference * (elapsedTime / (animationDuration*4)));
+        const newRadius = currentRadius + (radiusDifference * (elapsedTime / (animationDuration)));
         currentCircle.setAttribute('r', newRadius);
       });
       // Continue the animation
@@ -157,7 +157,7 @@ function animatePath(path) {
 }
 // Animate Idle SVG (rain.svg)
 function animateIdle() {
-  const idle = document.getElementById('.idle');
+  const idle = document.getElementById('idle');
   const paths = idle.querySelectorAll('path');
   paths.forEach((path) => {
     animatePath(path);
