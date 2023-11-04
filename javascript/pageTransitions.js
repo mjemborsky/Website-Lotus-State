@@ -60,7 +60,7 @@ function animateCircles(targetSVG) {
         const currentRadius = parseFloat(currentCircle.getAttribute('r'));
         const radiusDifference = targetRadius - currentRadius;
         // Calculate the new radius based on elapsed time and animation duration
-        const newRadius = currentRadius + (radiusDifference * (elapsedTime / (animationDuration)));
+        const newRadius = currentRadius + (radiusDifference * (elapsedTime / (animationDuration*2)));
         currentCircle.setAttribute('r', newRadius);
       });
       // Continue the animation
