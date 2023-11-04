@@ -126,14 +126,48 @@ async function handlePageTransition(destinationURL, targetBackground) {
   }
 }
 
+function animatePath(path, initialY, animationDuration) {
+  let startTime;
+  const startY = initialY;
+  const endY = startY - window.height; // One page length underneath
 
+  function step(timestamp) {
+    if (!startTime) startTime = timestamp;
+    const progress = (timestamp - startTime) / animationDuration;
 
+    if (progress >= 1) {
+      // Reset the path to the initial position
+      path.style.transform = `translate(0, ${startY}px)`;
+      startTime = timestamp;
+    } else {
+      // Animate the path vertically
+      const newY = startY - progress * (startY - endY);
+      path.style.transform = `translate(0, ${newY}px)`;
+    }
 
+    // Continue the animation
+    requestAnimationFrame(step);
+  }
+
+  // Start the animation
+  requestAnimationFrame(step);
+}
 
 // Animate Idle SVG (rain.svg)
-// function animateIdle() {
-//   const idle = document.querySelector('.idle');
-//   const paths = idle.querySelectorAll('path');
+function animateIdle() {
+  const idle = document.querySelector('.idle');
+  const paths = idle.querySelectorAll('path');
+  const matrixRegex = /matrix\([^,]+,[^,]+,[^,]+,([^,]+),[^,]+,[^,]+\)/;
+  const idleAnimationDuration = 6000;
+  paths.forEach((path) => {
+    var transform = parseFloat(path.getAttribute('transform'));
+    var match = transformAttribute.match(matrixRegex);
+    var initialY = parseFloat(match[1]);
+    var opacity = parseFloat(path.getAttribute('opacity'));
+    parseFloat(path.getAttribute('opacity'));
+    animatePath(initialY, opacity, idleAnimationDuration);
+  });
+}
 // Animate them up the screen until they get to a full screen height from the initial position,
   // Then reset to initial position and run again.
   // When links are clicked, animation should continue but fade should be applied and opacity set to 0
