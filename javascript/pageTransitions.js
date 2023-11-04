@@ -107,7 +107,7 @@ async function handlePageTransition(destinationURL, targetBackground) {
           // Replace the container content with the new page content
           container.innerHTML = newPage;
           // Apply fade-in animation to the new content
-          const newContent = newPage.querySelectorAll('.fade-target');
+          const newContent = container.querySelectorAll('.fade-target');
           newContent.forEach((newFadeItem) => {
             newFadeItem.classList.add('fade-in');
             setTimeout(() => {
