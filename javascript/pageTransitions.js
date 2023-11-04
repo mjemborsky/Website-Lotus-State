@@ -1,4 +1,14 @@
-// Preload SVGs for Background
+// animations.js
+// Created by: Michael Emborsky
+// Last Modified: 11/4/2023
+
+// PURPOSE - Page Transition and Idle Animations //
+// This javascript file is used to load, manipulate, and 
+// animate 2 svg's, the background circles and the idle 
+// floating 'paths'. 
+
+
+// Preload SVGs for Background - Stores svg's as list of names
 const svgUrls = [
   'backgroundOne.svg',
   'backgroundTwo.svg',
@@ -90,7 +100,6 @@ async function handlePageTransition(destinationURL, targetBackground) {
       new Promise((resolve) => {
         // Delay the fade-out class removal by 2 seconds
         setTimeout(() => {
-          // Remove fade-out class after 2 seconds
           content.forEach((fadeItem) => {
             fadeItem.classList.remove('fade-out');
             fadeItem.style.opacity = '0';
@@ -104,8 +113,8 @@ async function handlePageTransition(destinationURL, targetBackground) {
             setTimeout(() => {
               newFadeItem.classList.remove('fade-in');
               newFadeItem.style.opacity = '1';
-            });
-          }, 2000); // 2 seconds for fade-in
+            }, 2000);
+          }); // 2 seconds for fade-in
         }, 2000);
         resolve(); 
       }),
@@ -116,44 +125,20 @@ async function handlePageTransition(destinationURL, targetBackground) {
     console.error('Error loading page:', error);
   }
 }
+
+
+
+
+
 // Animate Idle SVG (rain.svg)
 // function animateIdle() {
 //   const idle = document.querySelector('.idle');
 //   const paths = idle.querySelectorAll('path');
-//   // Set the animation properties
-//   const animationDuration = 6000; // 6 seconds
-//   const screenHeight = window.innerHeight;
-//   paths.forEach((path, index) => {
-//     // Calculate the animation delay for each path so they appear one after another
-//     const delay = (index * animationDuration) / paths.length;
-//     // Apply CSS animation to the path
-//     path.style.animation = `moveUp ${animationDuration}ms linear ${delay}ms infinite`;
-//     // Define the keyframes for the animation
-//     const keyframes = `@keyframes moveUp {
-//       0% {
-//         transform: translateY(0);
-//       }
-//       100% {
-//         transform: translateY(-${screenHeight}px);
-//       }
-//     }`;
-//     // Add the keyframes to a style element and append it to the document
-//     const styleElement = document.createElement('style');
-//     styleElement.appendChild(document.createTextNode(keyframes));
-//     document.head.appendChild(styleElement);
-//   });
-// }
-// 1. Implement Idle Bubbles with fade during transition
-// Bubbles.svg should be inside the section element so it fades with it, this SHOULD take care of the fading
-// When page is loaded...
-// Select bubbles svg
-// Call forever...
-    // AnimateBubbles function
-        // Should store all circles in the svg
-        // Circles should probably be selected with different selector than 'circle', maybe so class
-        // Animate them up the screen until they get to a full screen height from the initial position,
-        // Then reset to initial position and run again.
-        // When links are clicked, animation should continue but fade should be applied and opacity set to 0
+// Animate them up the screen until they get to a full screen height from the initial position,
+  // Then reset to initial position and run again.
+  // When links are clicked, animation should continue but fade should be applied and opacity set to 0
+
+
 
 
 
@@ -166,15 +151,14 @@ preloadSVGs(svgUrls).then(() => {
     const home = document.querySelector('.header-text');
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
-    const content = document.querySelector('.fade-target');
+    const content = document.querySelectorAll('.fade-target');
     // Add fade-in class to trigger fade-in animation
     content.classList.add('fade-in');
     // Remove fade-in class after animation duration
-    setTimeout(function () {
+    setTimeout(() => {
       content.classList.remove('fade-in');
       content.style.opacity = '1';
-    }, 2000); // 2 seconds
-
+    }, 2000);
     // Event listener for Home link
     home.addEventListener('click', function (event) {
       event.preventDefault();
