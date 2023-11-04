@@ -157,7 +157,7 @@ function animatePath(path) {
 }
 // Animate Idle SVG (rain.svg)
 function animateIdle() {
-  const idle = document.querySelector('.idle');
+  const idle = document.getElementById('.idle');
   const paths = idle.querySelectorAll('path');
   paths.forEach((path) => {
     animatePath(path);
