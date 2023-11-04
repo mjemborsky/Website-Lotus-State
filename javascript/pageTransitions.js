@@ -126,46 +126,41 @@ async function handlePageTransition(destinationURL, targetBackground) {
   }
 }
 
-function animatePath(path, initialY, animationDuration) {
-  let startTime;
+function animatePath(path) {
+  const matrixRegex = /matrix\([^,]+,[^,]+,[^,]+,([^,]+),[^,]+,[^,]+\)/;
+  const idleAnimationDuration = 6000;
+  const opacityAttribute = parseFloat(path.getAttribute('opacity'));
+  const transformAttribute = parseFloat(path.getAttribute('transform'));
+  const match = transformAttribute.match(matrixRegex);
+  const initialY = parseFloat(match[1]);
   const startY = initialY;
-  const endY = startY - window.height; // One page length underneath
-
+  const endY = window.innerHeight + (window.innerHeight / 2);
+  let startTime;
   function step(timestamp) {
     if (!startTime) startTime = timestamp;
-    const progress = (timestamp - startTime) / animationDuration;
-
+    const progress = (timestamp - startTime) / idleAnimationDuration;
     if (progress >= 1) {
       // Reset the path to the initial position
-      path.style.transform = `translate(0, ${startY}px)`;
+      path.style.transform = `translate(0, ${startY - window.innerHeight}px)`;
+      path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${startY - window.innerHeight})`);
       startTime = timestamp;
     } else {
       // Animate the path vertically
       const newY = startY - progress * (startY - endY);
-      path.style.transform = `translate(0, ${newY}px)`;
+      path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${newY})`);
     }
-
     // Continue the animation
     requestAnimationFrame(step);
   }
-
   // Start the animation
   requestAnimationFrame(step);
 }
-
 // Animate Idle SVG (rain.svg)
 function animateIdle() {
   const idle = document.querySelector('.idle');
   const paths = idle.querySelectorAll('path');
-  const matrixRegex = /matrix\([^,]+,[^,]+,[^,]+,([^,]+),[^,]+,[^,]+\)/;
-  const idleAnimationDuration = 6000;
   paths.forEach((path) => {
-    var transform = parseFloat(path.getAttribute('transform'));
-    var match = transformAttribute.match(matrixRegex);
-    var initialY = parseFloat(match[1]);
-    var opacity = parseFloat(path.getAttribute('opacity'));
-    parseFloat(path.getAttribute('opacity'));
-    animatePath(initialY, opacity, idleAnimationDuration);
+    animatePath(path);
   });
 }
 // Animate them up the screen until they get to a full screen height from the initial position,
@@ -218,6 +213,6 @@ preloadSVGs(svgUrls).then(() => {
     });
 
     // APPLY IDLE ANIMATION HERE (CALL FUNCTION TO ANIMATE FLOATING PATHS)
-    // animateIdle();
+    animateIdle();
   });
 });
