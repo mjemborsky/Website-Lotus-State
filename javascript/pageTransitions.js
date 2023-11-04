@@ -182,12 +182,14 @@ preloadSVGs(svgUrls).then(() => {
     const more = document.querySelector('.link-right');
     const content = document.querySelectorAll('.fade-target');
     // Add fade-in class to trigger fade-in animation
-    content.classList.add('fade-in');
-    // Remove fade-in class after animation duration
-    setTimeout(() => {
-      content.classList.remove('fade-in');
-      content.style.opacity = '1';
-    }, 2000);
+    content.forEach((element) => {
+      element.classList.add('fade-in');
+      // Remove fade-in class after animation duration
+      setTimeout(() => {
+        element.classList.remove('fade-in');
+        element.style.opacity = '1';
+      }, 2000);
+    });
     // Event listener for Home link
     home.addEventListener('click', function (event) {
       event.preventDefault();
@@ -211,7 +213,6 @@ preloadSVGs(svgUrls).then(() => {
       const targetBackground = getStoredSVG('backgroundFive.svg');
       handlePageTransition(destinationURL, targetBackground);
     });
-
     // APPLY IDLE ANIMATION HERE (CALL FUNCTION TO ANIMATE FLOATING PATHS)
     animateIdle();
   });
