@@ -98,7 +98,7 @@ async function handlePageTransition(destinationURL, targetBackground) {
           // Replace the container content with the new page content
           container.innerHTML = newPage;
           // Apply fade-in animation to the new content
-          const newContent = container.querySelectorAll('.fade-target');
+          const newContent = newPage.querySelectorAll('.fade-target');
           newContent.forEach((newFadeItem) => {
             newFadeItem.classList.add('fade-in');
             setTimeout(() => {
@@ -106,8 +106,8 @@ async function handlePageTransition(destinationURL, targetBackground) {
               newFadeItem.style.opacity = '1';
             });
           }, 2000); // 2 seconds for fade-in
-          resolve(); // Resolve the fade-out promise
         }, 2000);
+        resolve(); 
       }),
     ]);
     // Wait for both animations to complete before continuing

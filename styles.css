@@ -316,7 +316,6 @@ p {
   z-index: 0;
   position: fixed;
   top: 100%; /* Start at the bottom of the viewport */
-  animation: floatUp 20s linear infinite; /* Adjust the duration for desired speed */
 }
 
 /* Animations */
@@ -335,7 +334,7 @@ p {
   -moz-transition: opacity 2s; 
   will-change: opacity;
 }
-svg:nth-child(1) circle {
+.background-svg circle {
   transition: r 4s ease-in-out;
 }
 @keyframes fade-in {
