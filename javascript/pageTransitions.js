@@ -127,10 +127,10 @@ async function handlePageTransition(destinationURL, targetBackground) {
 }
 
 function animatePath(path) {
-  const matrixRegex = /matrix\([^,]+,[^,]+,[^,]+,([^,]+),[^,]+,[^,]+\)/;
+  const matrixRegex = /matrix\([^,]+, [^,]+, [^,]+, [^,]+, [^,]+, ([^,]+)\)/;
   const idleAnimationDuration = 6000;
   const opacityAttribute = parseFloat(path.getAttribute('opacity'));
-  const transformAttribute = parseFloat(path.getAttribute('transform'));
+  const transformAttribute = path.getAttribute('transform');
   const match = transformAttribute.match(matrixRegex);
   const initialY = parseFloat(match[1]);
   const startY = initialY;
@@ -141,7 +141,6 @@ function animatePath(path) {
     const progress = (timestamp - startTime) / idleAnimationDuration;
     if (progress >= 1) {
       // Reset the path to the initial position
-      path.style.transform = `translate(0, ${startY - window.innerHeight}px)`;
       path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${startY - window.innerHeight})`);
       startTime = timestamp;
     } else {
