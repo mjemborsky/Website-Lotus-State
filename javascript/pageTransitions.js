@@ -129,12 +129,13 @@ async function handlePageTransition(destinationURL, targetBackground) {
 function animatePath(path) {
   const matrixRegex = /matrix\([^,]+, [^,]+, [^,]+, [^,]+, [^,]+, ([^,]+)\)/;
   const idleAnimationDuration = 6000;
-  const opacityAttribute = parseFloat(path.getAttribute('opacity'));
   const transformAttribute = path.getAttribute('transform');
   const match = parseFloat(transformAttribute.match(matrixRegex));
   const initialY = parseFloat(match[1]);
+  console.log(initialY);
   const startY = initialY;
   const endY = window.innerHeight + (window.innerHeight / 2);
+  console.log(window.innerHeight, window.outerHeight);
   let startTime;
   function step(timestamp) {
     if (!startTime) startTime = timestamp;
