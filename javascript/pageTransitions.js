@@ -1,5 +1,14 @@
+// animations.js
+// Created by: Michael Emborsky
+// Last Modified: 11/4/2023
 
-// Preload SVGs for Background
+// PURPOSE - Page Transition and Idle Animations //
+// This javascript file is used to load, manipulate, and 
+// animate 2 svg's, the background circles and the idle 
+// floating 'paths'. 
+
+
+// Preload SVGs for Background - Stores svg's as list of names
 const svgUrls = [
   'backgroundOne.svg',
   'backgroundTwo.svg',
@@ -35,27 +44,23 @@ function isCurrentSVG(filename) {
   return currentSVG.src.includes(filename);
 }
 // Circle Animation
-function animateCircles(targetSVG, animationDuration) {
+function animateCircles(targetSVG) {
   const currentSVG = document.querySelector('.background-svg');
   const currentCircles = currentSVG.querySelectorAll('circle');
   const targetCircles = targetSVG.querySelectorAll('circle');
-
   // Store the animation start time
+  const animationDuration = 4000; // 4 seconds
   const startTime = performance.now();
-
   function animate(currentTime) {
     const elapsedTime = currentTime - startTime;
-
     // Ensure elapsed time does not exceed the animation duration
     if (elapsedTime < animationDuration) {
       currentCircles.forEach((currentCircle, index) => {
         const targetRadius = parseFloat(targetCircles[index].getAttribute('r'));
         const currentRadius = parseFloat(currentCircle.getAttribute('r'));
         const radiusDifference = targetRadius - currentRadius;
-
         // Calculate the new radius based on elapsed time and animation duration
-        const newRadius = currentRadius + (radiusDifference * (elapsedTime / (animationDuration*4)));
-
+        const newRadius = currentRadius + (radiusDifference * (elapsedTime / (animationDuration*2)));
         currentCircle.setAttribute('r', newRadius);
       });
       // Continue the animation
@@ -74,8 +79,10 @@ function animateCircles(targetSVG, animationDuration) {
 // Handle page transition including fade and AJAX loading
 async function handlePageTransition(destinationURL, targetBackground) {
   const container = document.querySelector('.container');
-  const content = document.querySelector('.fade-target');
-  content.classList.add('fade-out'); // Add fade-out class to trigger fade-out animation
+  const content = document.querySelectorAll('.fade-target');
+  content.forEach((fadeItem) => {
+    fadeItem.classList.add('fade-out');
+  });
   try {
     // Fetch the new page content using AJAX
     const response = await fetch(destinationURL);
@@ -84,10 +91,7 @@ async function handlePageTransition(destinationURL, targetBackground) {
     const animationPromise = Promise.all([
       new Promise((resolve) => {
         // Start the circle animation during fade-out
-        // Define the animation duration in milliseconds
-        const transitionDuration = 4000; // 4 seconds
-        animateCircles(targetBackground, transitionDuration);
-        resolve();
+        animateCircles(targetBackground);
         // Resolve the circle animation promise after 4 seconds (adjust as needed)
         setTimeout(() => {
           resolve();
@@ -96,21 +100,23 @@ async function handlePageTransition(destinationURL, targetBackground) {
       new Promise((resolve) => {
         // Delay the fade-out class removal by 2 seconds
         setTimeout(() => {
-          // Remove fade-out class after 2 seconds
-          content.classList.remove('fade-out');
-          content.style.opacity = '0';
+          content.forEach((fadeItem) => {
+            fadeItem.classList.remove('fade-out');
+            fadeItem.style.opacity = '0';
+          });
           // Replace the container content with the new page content
           container.innerHTML = newPage;
           // Apply fade-in animation to the new content
-          const newContent = container.querySelector('.fade-target');
-          newContent.classList.add('fade-in');
-          // Set opacity back to 1 for all contents after fade-in
-          setTimeout(() => {
-            newContent.classList.remove('fade-in');
-            newContent.style.opacity = '1';
-            resolve(); // Resolve the fade-out promise
-          }, 2000); // 2 seconds for fade-in
-        }, 2000); // 2 seconds delay before removing fade-out
+          const newContent = container.querySelectorAll('.fade-target');
+          newContent.forEach((newFadeItem) => {
+            newFadeItem.classList.add('fade-in');
+            setTimeout(() => {
+              newFadeItem.classList.remove('fade-in');
+              newFadeItem.style.opacity = '1';
+            }, 2000);
+          }); // 2 seconds for fade-in
+        }, 2000);
+        resolve(); 
       }),
     ]);
     // Wait for both animations to complete before continuing
@@ -119,44 +125,49 @@ async function handlePageTransition(destinationURL, targetBackground) {
     console.error('Error loading page:', error);
   }
 }
+
+function animatePath(path) {
+  const matrixRegex = /matrix\([^,]+, [^,]+, [^,]+, [^,]+, [^,]+, ([^,]+)\)/;
+  const idleAnimationDuration = 6000;
+  const opacityAttribute = parseFloat(path.getAttribute('opacity'));
+  const transformAttribute = path.getAttribute('transform');
+  const match = transformAttribute.match(matrixRegex);
+  const initialY = parseFloat(match[1]);
+  const startY = initialY;
+  const endY = window.innerHeight + (window.innerHeight / 2);
+  let startTime;
+  function step(timestamp) {
+    if (!startTime) startTime = timestamp;
+    const progress = (timestamp - startTime) / idleAnimationDuration;
+    if (progress >= 1) {
+      // Reset the path to the initial position
+      path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${startY - window.innerHeight})`);
+      startTime = timestamp;
+    } else {
+      // Animate the path vertically
+      const newY = startY - progress * (startY - endY);
+      path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${newY})`);
+    }
+    // Continue the animation
+    requestAnimationFrame(step);
+  }
+  // Start the animation
+  requestAnimationFrame(step);
+}
 // Animate Idle SVG (rain.svg)
-// function animateIdle() {
-//   const idle = document.querySelector('.idle');
-//   const paths = idle.querySelectorAll('path');
-//   // Set the animation properties
-//   const animationDuration = 6000; // 6 seconds
-//   const screenHeight = window.innerHeight;
-//   paths.forEach((path, index) => {
-//     // Calculate the animation delay for each path so they appear one after another
-//     const delay = (index * animationDuration) / paths.length;
-//     // Apply CSS animation to the path
-//     path.style.animation = `moveUp ${animationDuration}ms linear ${delay}ms infinite`;
-//     // Define the keyframes for the animation
-//     const keyframes = `@keyframes moveUp {
-//       0% {
-//         transform: translateY(0);
-//       }
-//       100% {
-//         transform: translateY(-${screenHeight}px);
-//       }
-//     }`;
-//     // Add the keyframes to a style element and append it to the document
-//     const styleElement = document.createElement('style');
-//     styleElement.appendChild(document.createTextNode(keyframes));
-//     document.head.appendChild(styleElement);
-//   });
-// }
-// 1. Implement Idle Bubbles with fade during transition
-// Bubbles.svg should be inside the section element so it fades with it, this SHOULD take care of the fading
-// When page is loaded...
-// Select bubbles svg
-// Call forever...
-    // AnimateBubbles function
-        // Should store all circles in the svg
-        // Circles should probably be selected with different selector than 'circle', maybe so class
-        // Animate them up the screen until they get to a full screen height from the initial position,
-        // Then reset to initial position and run again.
-        // When links are clicked, animation should continue but fade should be applied and opacity set to 0
+function animateIdle() {
+  const idle = document.getElementById("idle");
+  console.log(idle);
+  const paths = idle.querySelectorAll('path');
+  paths.forEach((path) => {
+    animatePath(path);
+  });
+}
+// Animate them up the screen until they get to a full screen height from the initial position,
+  // Then reset to initial position and run again.
+  // When links are clicked, animation should continue but fade should be applied and opacity set to 0
+
+
 
 
 
@@ -169,15 +180,16 @@ preloadSVGs(svgUrls).then(() => {
     const home = document.querySelector('.header-text');
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
-    const content = document.querySelector('.fade-target');
+    const content = document.querySelectorAll('.fade-target');
     // Add fade-in class to trigger fade-in animation
-    content.classList.add('fade-in');
-    // Remove fade-in class after animation duration
-    setTimeout(function () {
-      content.classList.remove('fade-in');
-      content.style.opacity = '1';
-    }, 2000); // 2 seconds
-
+    content.forEach((element) => {
+      element.classList.add('fade-in');
+      // Remove fade-in class after animation duration
+      setTimeout(() => {
+        element.classList.remove('fade-in');
+        element.style.opacity = '1';
+      }, 2000);
+    });
     // Event listener for Home link
     home.addEventListener('click', function (event) {
       event.preventDefault();
@@ -201,8 +213,7 @@ preloadSVGs(svgUrls).then(() => {
       const targetBackground = getStoredSVG('backgroundFive.svg');
       handlePageTransition(destinationURL, targetBackground);
     });
-
     // APPLY IDLE ANIMATION HERE (CALL FUNCTION TO ANIMATE FLOATING PATHS)
-    // animateIdle();
+    animateIdle();
   });
 });

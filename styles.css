@@ -299,7 +299,7 @@ p {
   position: relative;
   z-index: 1;
 }
-.container .background-svg, .container .idle {
+.container .background-svg, .container #idle {
   position: absolute;
   top: 0;
   left: 0;
@@ -312,8 +312,10 @@ p {
   pointer-events: none;
   z-index: -1;
 }
-.idle {
+#idle {
   z-index: 0;
+  position: fixed;
+  top: 100%; /* Start at the bottom of the viewport */
 }
 
 /* Animations */
