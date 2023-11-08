@@ -159,6 +159,7 @@ function animateIdle() {
   const idle = document.getElementById("idle");
   console.log(idle);
   const paths = idle.querySelectorAll('path');
+  console.log(paths);
   paths.forEach((path) => {
     animatePath(path);
   });
