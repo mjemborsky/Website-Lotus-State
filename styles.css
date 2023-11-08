@@ -283,7 +283,7 @@ p {
   padding-top: 5px;
   margin: 0;
 }
-/* Background Shapes and Elements */ 
+/* All inner page content - container */ 
 .container {
   width: 100%;
   height: 100vh;
@@ -299,7 +299,9 @@ p {
   position: relative;
   z-index: 1;
 }
-.container .background-svg, .container #idle {
+/* SVG's */
+/* Background Circles */
+.container .background-svg {
   position: absolute;
   top: 0;
   left: 0;
@@ -312,10 +314,12 @@ p {
   pointer-events: none;
   z-index: -1;
 }
-#idle {
-  z-index: 0;
-  position: fixed;
-  top: 100%; /* Start at the bottom of the viewport */
+/* Floating Paths */
+.container #idle {
+  opacity: 0.75;
+  width: 100%;
+  height: auto;
+  z-index: -1;
 }
 
 /* Animations */
@@ -323,15 +327,11 @@ p {
 .fade-target.fade-in {
   animation: fade-in 2s ease-in-out;
   animation-fill-mode: both;
-  -webkit-transition: opacity 2s;
-  -moz-transition: opacity 2s; 
   will-change: opacity;
 }
 .fade-target.fade-out {
   animation: fade-out 2s ease-in-out;
   animation-fill-mode: both;
-  -webkit-transition: opacity 2s;
-  -moz-transition: opacity 2s; 
   will-change: opacity;
 }
 svg:nth-child(1) circle {
