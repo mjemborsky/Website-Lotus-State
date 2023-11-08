@@ -134,7 +134,7 @@ function animatePath(path) {
   const initialY = parseFloat(match[1]);
   console.log(initialY);
   const startY = initialY;
-  const endY = window.innerHeight + (window.innerHeight / 2);
+  const endY = parseFloat(window.innerHeight + (window.innerHeight / 2));
   console.log(window.innerHeight, window.outerHeight);
   let startTime;
   function step(timestamp) {
@@ -146,7 +146,7 @@ function animatePath(path) {
       startTime = timestamp;
     } else {
       // Animate the path vertically
-      const newY = startY - progress * (startY - endY);
+      const newY = parseFloat(startY - progress * (startY - endY));
       path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${newY})`);
     }
     // Continue the animation
