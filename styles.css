@@ -392,7 +392,30 @@ svg:nth-child(1) circle {
   }
 }
 
-/* Media Query for Slow Speeds OR on a phone to stop svg animation and replace with a full fade in, fade out*/
+
+
+/*  To Do  */
+
+/* FINISHING ANIMATIONS */
+/* need javascript to register when page loads initially */
+/* IDLE */
+/* Set opacity down */
+/* Get it working */
+/* When page transitioning or when fading, it should move at super speed */
+
+
+
+/*  */
+
+
+/* ADAPTING FOR SLOW/DIFFERENT SPEEDS/COMPUTERS */
+/* FOR SLIGHTLY SLOW INTERNET SPEEDS/SUBPAR GRAPHICS */
+/* Implement circle transition with css, or could try no cap on animation duration (just computer speed) */
+/* FOR VERY SLOW INTERNET/PHONE DISPLAY */
+/* Either no circle transition at all, or reduce elements and implement with css */
 /* @media (prefers-reduced-data: reduce) {
-  /* Styles for devices with a preference for reduced data */
-  /* Optimize for slow or metered connections */
+/* const userAgent = navigator.userAgent;
+const numCores = navigator.hardwareConcurrency; */
+
+
+
