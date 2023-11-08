@@ -131,7 +131,7 @@ function animatePath(path) {
   const idleAnimationDuration = 6000;
   const opacityAttribute = parseFloat(path.getAttribute('opacity'));
   const transformAttribute = path.getAttribute('transform');
-  const match = transformAttribute.match(matrixRegex);
+  const match = parseFloat(transformAttribute.match(matrixRegex));
   const initialY = parseFloat(match[1]);
   const startY = initialY;
   const endY = window.innerHeight + (window.innerHeight / 2);
