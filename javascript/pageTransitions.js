@@ -43,6 +43,44 @@ function isCurrentSVG(filename) {
   const currentSVG = document.querySelector('.background-svg');
   return currentSVG.src.includes(filename);
 }
+function animatePath(path) {
+  const idleAnimationDuration = 6000;
+  const transformAttribute = path.getAttribute('transform');
+  const matrix = new DOMMatrix(transformAttribute);
+  const initialY = matrix.m42;
+  console.log(initialY);
+  const startY = initialY;
+  const endY = parseFloat(window.innerHeight + (window.innerHeight / 2));
+  console.log(window.innerHeight, window.outerHeight);
+  let startTime;
+  function step(timestamp) {
+    if (!startTime) startTime = timestamp;
+    const progress = (timestamp - startTime) / idleAnimationDuration;
+    if (progress >= 1) {
+      // Reset the path to the initial position
+      path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${startY - window.innerHeight})`);
+      startTime = timestamp;
+    } else {
+      // Animate the path vertically
+      const newY = parseFloat(startY - progress * (startY - endY));
+      path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${newY})`);
+    }
+    // Continue the animation
+    requestAnimationFrame(step);
+  }
+  // Start the animation
+  requestAnimationFrame(step);
+}
+// Animate Idle SVG (rain.svg)
+function animateIdle() {
+  const idle = document.getElementById("idle");
+  console.log(idle);
+  const paths = idle.querySelectorAll('path');
+  console.log(paths);
+  paths.forEach((path) => {
+    animatePath(path);
+  });
+}
 // Circle Animation
 function animateCircles(targetSVG) {
   const currentSVG = document.querySelector('.background-svg');
@@ -121,58 +159,11 @@ async function handlePageTransition(destinationURL, targetBackground) {
     ]);
     // Wait for both animations to complete before continuing
     await animationPromise;
+    animateIdle();
   } catch (error) {
     console.error('Error loading page:', error);
   }
 }
-
-function animatePath(path) {
-  const idleAnimationDuration = 6000;
-  const transformAttribute = path.getAttribute('transform');
-  const matrix = new DOMMatrix(transformAttribute);
-  const initialY = matrix.m42;
-  console.log(initialY);
-  const startY = initialY;
-  const endY = parseFloat(window.innerHeight + (window.innerHeight / 2));
-  console.log(window.innerHeight, window.outerHeight);
-  let startTime;
-  function step(timestamp) {
-    if (!startTime) startTime = timestamp;
-    const progress = (timestamp - startTime) / idleAnimationDuration;
-    if (progress >= 1) {
-      // Reset the path to the initial position
-      path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${startY - window.innerHeight})`);
-      startTime = timestamp;
-    } else {
-      // Animate the path vertically
-      const newY = parseFloat(startY - progress * (startY - endY));
-      path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${newY})`);
-    }
-    // Continue the animation
-    requestAnimationFrame(step);
-  }
-  // Start the animation
-  requestAnimationFrame(step);
-}
-// Animate Idle SVG (rain.svg)
-function animateIdle() {
-  const idle = document.getElementById("idle");
-  console.log(idle);
-  const paths = idle.querySelectorAll('path');
-  console.log(paths);
-  paths.forEach((path) => {
-    animatePath(path);
-  });
-}
-// Animate them up the screen until they get to a full screen height from the initial position,
-  // Then reset to initial position and run again.
-  // When links are clicked, animation should continue but fade should be applied and opacity set to 0
-
-
-
-
-
-
 // MAIN PAGE LISTENER
 // Preload SVGs before setting up link event listeners
 preloadSVGs(svgUrls).then(() => {
@@ -214,7 +205,5 @@ preloadSVGs(svgUrls).then(() => {
       const targetBackground = getStoredSVG('backgroundFive.svg');
       handlePageTransition(destinationURL, targetBackground);
     });
-    // APPLY IDLE ANIMATION HERE (CALL FUNCTION TO ANIMATE FLOATING PATHS)
-    animateIdle();
   });
 });
