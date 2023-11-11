@@ -127,36 +127,32 @@ async function handlePageTransition(destinationURL, targetBackground) {
 }
 
 function animatePath(path) {
-  const matrixRegex = /matrix\([^,]+, [^,]+, [^,]+, [^,]+, [^,]+, ([^,]+)\)/;
   const idleAnimationDuration = 6000;
   const transformAttribute = path.getAttribute('transform');
-  // Use regex to extract the value, and parse it as a float
-  const match = transformAttribute.match(matrixRegex);
-  if (match) {
-    const initialY = parseFloat(match[1]);
-    console.log(initialY);
-    const startY = initialY;
-    const endY = parseFloat(window.innerHeight + (window.innerHeight / 2));
-    console.log(window.innerHeight, window.outerHeight);
-    let startTime;
-    function step(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const progress = (timestamp - startTime) / idleAnimationDuration;
-      if (progress >= 1) {
-        // Reset the path to the initial position
-        path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${startY - window.innerHeight})`);
-        startTime = timestamp;
-      } else {
-        // Animate the path vertically
-        const newY = parseFloat(startY - progress * (startY - endY));
-        path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${newY})`);
-      }
-      // Continue the animation
-      requestAnimationFrame(step);
+  const matrix = new DOMMatrix(transformAttribute);
+  const initialY = matrix.m42;
+  console.log(initialY);
+  const startY = initialY;
+  const endY = parseFloat(window.innerHeight + (window.innerHeight / 2));
+  console.log(window.innerHeight, window.outerHeight);
+  let startTime;
+  function step(timestamp) {
+    if (!startTime) startTime = timestamp;
+    const progress = (timestamp - startTime) / idleAnimationDuration;
+    if (progress >= 1) {
+      // Reset the path to the initial position
+      path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${startY - window.innerHeight})`);
+      startTime = timestamp;
+    } else {
+      // Animate the path vertically
+      const newY = parseFloat(startY - progress * (startY - endY));
+      path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${newY})`);
     }
-    // Start the animation
+    // Continue the animation
     requestAnimationFrame(step);
   }
+  // Start the animation
+  requestAnimationFrame(step);
 }
 // Animate Idle SVG (rain.svg)
 function animateIdle() {
