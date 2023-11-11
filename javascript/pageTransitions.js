@@ -7,6 +7,7 @@
 // animate 2 svg's, the background circles and the idle 
 // floating 'paths'. 
 
+
 // Preload SVGs for Background - Stores svg's as list of names
 const svgUrls = [
   'backgroundOne.svg',
@@ -45,20 +46,11 @@ function isCurrentSVG(filename) {
 function animatePathWithDelay(paths) {
   const idleAnimationDuration = 12000;
   const delayBetweenPaths = 1000; // 1 second delay between paths
-  // Function to get the initial Y value from a path's transform attribute
-  function getInitialY(path) {
-    const transformAttribute = path.getAttribute('transform');
-    const matrix = new DOMMatrix(transformAttribute);
-    return matrix.m42;
-  }
-  // Sort paths based on their initial Y values in descending order
-  const sortedPaths = [...paths].sort((a, b) => getInitialY(b) - getInitialY(a));
-  // Function to animate a single path with a delay
   function animateSinglePath(path, delay) {
     const transformAttribute = path.getAttribute('transform');
     const matrix = new DOMMatrix(transformAttribute);
     const initialY = matrix.m42;
-    const startY = initialY - (window.innerHeight / 2);
+    const startY = initialY;
     const endY = parseFloat(window.innerHeight + (window.innerHeight / 2));
     let startTime;
     function step(timestamp) {
@@ -80,10 +72,18 @@ function animatePathWithDelay(paths) {
     setTimeout(() => requestAnimationFrame(step), delay);
   }
   // Loop through each path and apply the animation with a delay
-  sortedPaths.forEach((path, index) => {
+  paths.forEach((path, index) => {
     const delay = index * delayBetweenPaths;
     animateSinglePath(path, delay);
   });
+}
+// Animate Idle SVG (rain.svg)
+function animateIdle() {
+  const idle = document.getElementById("idle");
+  console.log(idle);
+  const paths = idle.querySelectorAll('path');
+  console.log(paths);
+  animatePathWithDelay(paths);
 }
 // Circle Animation
 function animateCircles(targetSVG) {
@@ -122,8 +122,6 @@ function animateCircles(targetSVG) {
 async function handlePageTransition(destinationURL, targetBackground) {
   const container = document.querySelector('.container');
   const content = document.querySelectorAll('.fade-target');
-  const idle = document.getElementById("idle");
-  const paths = idle.querySelectorAll('path');
   content.forEach((fadeItem) => {
     fadeItem.classList.add('fade-out');
   });
@@ -165,7 +163,7 @@ async function handlePageTransition(destinationURL, targetBackground) {
     ]);
     // Wait for both animations to complete before continuing
     await animationPromise;
-    animatePathWithDelay(paths);
+    animateIdle();
   } catch (error) {
     console.error('Error loading page:', error);
   }
