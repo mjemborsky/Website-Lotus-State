@@ -43,33 +43,39 @@ function isCurrentSVG(filename) {
   const currentSVG = document.querySelector('.background-svg');
   return currentSVG.src.includes(filename);
 }
-function animatePath(path) {
-  const idleAnimationDuration = 6000;
-  const transformAttribute = path.getAttribute('transform');
-  const matrix = new DOMMatrix(transformAttribute);
-  const initialY = matrix.m42;
-  console.log(initialY);
-  const startY = initialY;
-  const endY = parseFloat(window.innerHeight + (window.innerHeight / 2));
-  console.log(window.innerHeight, window.outerHeight);
-  let startTime;
-  function step(timestamp) {
-    if (!startTime) startTime = timestamp;
-    const progress = (timestamp - startTime) / idleAnimationDuration;
-    if (progress >= 1) {
-      // Reset the path to the initial position
-      path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${startY - window.innerHeight})`);
-      startTime = timestamp;
-    } else {
-      // Animate the path vertically
-      const newY = parseFloat(startY - progress * (startY - endY));
-      path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${newY})`);
+function animatePathWithDelay(paths) {
+  const idleAnimationDuration = 12000;
+  const delayBetweenPaths = 1000; // 1 second delay between paths
+  function animateSinglePath(path, delay) {
+    const transformAttribute = path.getAttribute('transform');
+    const matrix = new DOMMatrix(transformAttribute);
+    const initialY = matrix.m42;
+    const startY = initialY;
+    const endY = parseFloat(window.innerHeight + (window.innerHeight / 2));
+    let startTime;
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const progress = (timestamp - startTime) / idleAnimationDuration;
+      if (progress >= 1) {
+        // Reset the path to the initial position
+        path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${startY - window.innerHeight})`);
+        startTime = timestamp;
+      } else {
+        // Animate the path vertically
+        const newY = parseFloat(startY - progress * (startY - endY));
+        path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${newY})`);
+      }
+      // Continue the animation
+      requestAnimationFrame(step);
     }
-    // Continue the animation
-    requestAnimationFrame(step);
+    // Start the animation with a delay
+    setTimeout(() => requestAnimationFrame(step), delay);
   }
-  // Start the animation
-  requestAnimationFrame(step);
+  // Loop through each path and apply the animation with a delay
+  paths.forEach((path, index) => {
+    const delay = index * delayBetweenPaths;
+    animateSinglePath(path, delay);
+  });
 }
 // Animate Idle SVG (rain.svg)
 function animateIdle() {
@@ -77,9 +83,7 @@ function animateIdle() {
   console.log(idle);
   const paths = idle.querySelectorAll('path');
   console.log(paths);
-  paths.forEach((path) => {
-    animatePath(path);
-  });
+  animatePathWithDelay(paths);
 }
 // Circle Animation
 function animateCircles(targetSVG) {
