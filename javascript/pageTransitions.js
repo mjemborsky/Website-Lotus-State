@@ -57,7 +57,7 @@ function animatePathWithDelay(paths) {
   const sortedPaths = [...paths].sort((a, b) => getInitialY(b) - getInitialY(a));
   
   function animateSinglePath(path, delay) {
-    const startY = getInitialY(path) + window.innerHeight;
+    const startY = getInitialY(path);
     const endY = parseFloat(window.innerHeight + (window.innerHeight / 2));
     let startTime;
     function step(timestamp) {
@@ -65,7 +65,7 @@ function animatePathWithDelay(paths) {
       const progress = (timestamp - startTime) / idleAnimationDuration;
       if (progress >= 1) {
         // Reset the path to the initial position
-        path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${startY})`);
+        path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${startY - (window.innerHeight)})`);
         startTime = timestamp;
       } else {
         // Animate the path vertically
