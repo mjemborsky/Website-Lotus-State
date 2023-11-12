@@ -46,10 +46,17 @@ function isCurrentSVG(filename) {
 function animatePathWithDelay(paths) {
   const idleAnimationDuration = 12000;
   const delayBetweenPaths = 1000; // 1 second delay between paths
-  function animateSinglePath(path, delay) {
+  // Function to get the initial Y value from a path's transform attribute
+  function getInitialY(path) {
     const transformAttribute = path.getAttribute('transform');
     const matrix = new DOMMatrix(transformAttribute);
-    const initialY = matrix.m42;
+    return matrix.m42;
+  }
+
+  // Sort paths based on their initial Y values in descending order
+  const sortedPaths = [...paths].sort((a, b) => getInitialY(b) - getInitialY(a));
+  
+  function animateSinglePath(path, delay) {
     const startY = initialY;
     const endY = parseFloat(window.innerHeight + (window.innerHeight / 2));
     let startTime;
@@ -72,7 +79,7 @@ function animatePathWithDelay(paths) {
     setTimeout(() => requestAnimationFrame(step), delay);
   }
   // Loop through each path and apply the animation with a delay
-  paths.forEach((path, index) => {
+  sortedPaths.forEach((path, index) => {
     const delay = index * delayBetweenPaths;
     animateSinglePath(path, delay);
   });
