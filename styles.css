@@ -283,7 +283,7 @@ p {
   padding-top: 5px;
   margin: 0;
 }
-/* Background Shapes and Elements */ 
+/* All inner page content - container */ 
 .container {
   width: 100%;
   height: 100vh;
@@ -299,8 +299,10 @@ p {
   position: relative;
   z-index: 1;
 }
+/* SVG's */
+/* Background Circles */
 .container .background-svg {
-  position: relative;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -311,25 +313,33 @@ p {
   object-fit: cover;
   pointer-events: none;
   z-index: -1;
-
 }
+/* Floating Paths */
+.container #idle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  z-index: -1;
+}
+
 /* Animations */
 /* For Container Contents Fade */
 .fade-target.fade-in {
   animation: fade-in 2s ease-in-out;
   animation-fill-mode: both;
-  -webkit-transition: opacity 2s;
-  -moz-transition: opacity 2s; 
   will-change: opacity;
 }
 .fade-target.fade-out {
   animation: fade-out 2s ease-in-out;
   animation-fill-mode: both;
-  -webkit-transition: opacity 2s;
-  -moz-transition: opacity 2s; 
   will-change: opacity;
 }
-circle {
+svg:nth-child(1) circle {
   transition: r 4s ease-in-out;
 }
 @keyframes fade-in {
@@ -348,6 +358,8 @@ circle {
     opacity: 0;
   }
 }
+
+
 /* For Upcoming Projects */
 @keyframes upcoming-animation {
   from {
@@ -385,16 +397,31 @@ circle {
   }
 }
 
-/* NEED TO DO */
-/*
-FOR SVG ANIMATIONS/FADE
-Make media queries to adjust for a users connection speed
-Make media queries to adjust for users display
-For example, if a user is on an iphone or has a bad connection, the svg 
-transition will not look good. Therefore, the javascript should test for 
-internet speed and display, if it is a phone or bad connection, maybe do not do
-the full animation, just a full fade? I would like to still have it work 
-on a phone but I dont know if css will look good, try to get this to work
 
 
-*/
+/*  To Do  */
+
+/* FINISHING ANIMATIONS */
+/* need javascript to register when page loads initially */
+/* IDLE */
+/* Manually change opacity in svg down */
+/* Get it working */
+/* When page transitioning or when fading, it should move at super speed */
+
+
+
+/*  */
+
+
+/* ADAPTING FOR SLOW/DIFFERENT SPEEDS/COMPUTERS */
+/* FOR SLIGHTLY SLOW INTERNET SPEEDS/SUBPAR GRAPHICS */
+/* Implement circle transition with css, or could try no cap on animation duration (just computer speed) */
+/* Idle with CSS */
+/* FOR VERY SLOW INTERNET/PHONE DISPLAY */
+/* Either no circle transition at all, or reduce elements and implement with css */
+/* @media (prefers-reduced-data: reduce) {
+/* const userAgent = navigator.userAgent;
+const numCores = navigator.hardwareConcurrency; */
+
+
+
