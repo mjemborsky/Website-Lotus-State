@@ -65,7 +65,7 @@ function animatePathWithDelay(paths) {
       const progress = (timestamp - startTime) / idleAnimationDuration;
       if (progress >= 1) {
         // Reset the path to the initial position
-        path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${startY - window.innerHeight})`);
+        path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${startY - (window.innerHeight*2)})`);
         startTime = timestamp;
       } else {
         // Animate the path vertically
