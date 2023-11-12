@@ -50,7 +50,7 @@ function animatePathWithDelay(paths) {
   function getInitialY(path) {
     const transformAttribute = path.getAttribute('transform');
     const matrix = new DOMMatrix(transformAttribute);
-    return matrix.m42 - window.innerHeight;
+    return matrix.m42;
   }
 
   // Sort paths based on their initial Y values in descending order
