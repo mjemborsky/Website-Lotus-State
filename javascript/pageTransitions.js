@@ -66,6 +66,7 @@ function animatePathWithDelay(paths) {
   function animateSinglePath(path, delay) {
     const startY = getInitialY(path);
     const endY = parseFloat(window.innerHeight + (window.innerHeight / 2));
+    console.log(endY);
     let startTime;
     function step(timestamp) {
       if (!startTime) startTime = timestamp;
