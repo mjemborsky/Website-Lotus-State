@@ -8,6 +8,13 @@
 // floating 'paths'. 
 
 
+// TO START (WHEN INDEX.HTML FIRST LOADS)
+// Need to do animation of background circles with all r=0 to index.html svg
+// Need to TEST this performance with performance.now to determine user's machine capabilities
+// Need to establish categories of performance that determine what animation methods and how
+// much animation will be shown (2g + low cores/low performance, 3g + medium cores/medium performance, 4/5g)
+
+
 // Preload SVGs for Background - Stores svg's as list of names
 const svgUrls = [
   'backgroundOne.svg',
