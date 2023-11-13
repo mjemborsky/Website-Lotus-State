@@ -324,7 +324,6 @@ p {
   object-fit: cover;
   pointer-events: none;
   z-index: -1;
-  transform: translateY(70%);
 }
 
 /* Animations */
