@@ -18,6 +18,10 @@ document.addEventListener('DOMContentLoaded', function() {
       // Collapse the links
       expandedLinks.style.display = 'none';
       isExpanded = false;
+      overlay.style.display = 'none';
+      setTimeout(function() {
+        overlay.style.opacity = 0;
+      }, 10);
     } else {
       // Expand the links
       expandedLinks.style.display = 'flex';
@@ -26,6 +30,10 @@ document.addEventListener('DOMContentLoaded', function() {
       expandedLinks.style.left = '25px';
       expandedLinks.style.top = '75px';
       isExpanded = true;
+      overlay.style.display = 'block';
+      setTimeout(function() {
+        overlay.style.opacity = 1;
+      }, 10);
     }
   });
 });
