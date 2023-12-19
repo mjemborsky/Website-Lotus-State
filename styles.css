@@ -167,6 +167,7 @@ h2 {
   right: 0;
   top: 0;
   background-color: black;
+  z-index: 1;
 }
 .header-text {
   display: flex;
@@ -296,7 +297,7 @@ p {
   color: ghostwhite;
   overflow: hidden;
   position: relative;
-  z-index: 1;
+  z-index: 0;
 }
 /* SVG's */
 /* Background Circles */
@@ -306,6 +307,8 @@ p {
   left: 0;
   right: 0;
   bottom: 0;
+  height: 100%;
+  width: 100%;
   margin: auto;
   object-fit: cover;
   pointer-events: none;
@@ -330,7 +333,7 @@ p {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
   z-index: 2;
   transition: opacity 0.5s ease;
   opacity: 0;
