@@ -34,6 +34,7 @@ async function preloadSVGs(urls) {
         sessionStorage.setItem(url, svgContent); // Cache the SVG content in SessionStorage
       }
     }
+    console.log("SVG's Preloaded");
   } catch (error) {
     console.error('Error preloading SVG:', error);
   }
@@ -50,6 +51,7 @@ function isCurrentSVG(filename) {
   const currentSVG = document.querySelector('.background-svg');
   return currentSVG.src.includes(filename);
 }
+// Function for Idle animation, applies infinite animation to list of paths
 function animatePathWithDelay(paths) {
   const idleAnimationDuration = 12000;
   const delayBetweenPaths = 1000; // 1 second delay between paths
@@ -59,10 +61,8 @@ function animatePathWithDelay(paths) {
     const matrix = new DOMMatrix(transformAttribute);
     return matrix.m42;
   }
-
   // Sort paths based on their initial Y values in descending order
   const sortedPaths = [...paths].sort((a, b) => getInitialY(b) - getInitialY(a));
-  
   function animateSinglePath(path, delay) {
     console.log('window height', window.innerHeight);
     const startY = getInitialY(path);
@@ -140,45 +140,29 @@ async function handlePageTransition(destinationURL, targetBackground) {
   const container = document.querySelector('.container');
   const content = document.querySelectorAll('.fade-target');
   content.forEach((fadeItem) => {
-    fadeItem.classList.add('fade-out');
+    fadeItem.style.opacity = '0';
   });
   try {
-    // Fetch the new page content using AJAX
     const response = await fetch(destinationURL);
     const newPage = await response.text();
-    // Start both the circle animation and fade-out concurrently
     const animationPromise = Promise.all([
       new Promise((resolve) => {
-        // Start the circle animation during fade-out
         animateCircles(targetBackground);
-        // Resolve the circle animation promise after 4 seconds (adjust as needed)
         setTimeout(() => {
           resolve();
         }, 4000);
       }),
       new Promise((resolve) => {
-        // Delay the fade-out class removal by 2 seconds
         setTimeout(() => {
-          content.forEach((fadeItem) => {
-            fadeItem.classList.remove('fade-out');
-            fadeItem.style.opacity = '0';
-          });
-          // Replace the container content with the new page content
           container.innerHTML = newPage;
-          // Apply fade-in animation to the new content
           const newContent = container.querySelectorAll('.fade-target');
           newContent.forEach((newFadeItem) => {
-            newFadeItem.classList.add('fade-in');
-            setTimeout(() => {
-              newFadeItem.classList.remove('fade-in');
-              newFadeItem.style.opacity = '1';
-            }, 2000);
-          }); // 2 seconds for fade-in
+            newFadeItem.style.opacity = '1';
+          });
         }, 2000);
         resolve(); 
       }),
     ]);
-    // Wait for both animations to complete before continuing
     await animationPromise;
     animateIdle();
   } catch (error) {
@@ -193,7 +177,7 @@ preloadSVGs(svgUrls).then(() => {
     const home = document.querySelector('.header-text');
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
-    const content = document.querySelectorAll('.fade-target');
+    var content = document.querySelectorAll('.fade-target');
     // Add fade-in class to trigger fade-in animation
     content.forEach((element) => {
       element.classList.add('fade-in');

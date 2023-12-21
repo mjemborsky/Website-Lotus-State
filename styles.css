@@ -335,42 +335,18 @@ p {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
   z-index: 2;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease-in-out;
   opacity: 0;
 }
 
 /* Animations */
 /* For Container Contents Fade */
-.fade-target.fade-in {
-  animation: fade-in 2s ease-in-out;
-  animation-fill-mode: both;
-  will-change: opacity;
-}
-.fade-target.fade-out {
-  animation: fade-out 2s ease-in-out;
-  animation-fill-mode: both;
-  will-change: opacity;
+.fade-target {
+  transition: opacity 2s ease-in-out
 }
 svg:nth-child(1) circle {
   transition: r 4s ease-in-out;
 }
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes fade-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
 
 /* For Upcoming Projects */
 @keyframes upcoming-animation {
