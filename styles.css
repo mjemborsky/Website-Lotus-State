@@ -342,6 +342,7 @@ p {
 /* Animations */
 /* For Container Contents Fade */
 .fade-target {
+  opacity: 0;
   transition: opacity 2s ease-in-out
 }
 svg:nth-child(1) circle {

@@ -54,41 +54,31 @@ function isCurrentSVG(filename) {
 // Function for Idle animation, applies infinite animation to list of paths
 function animatePathWithDelay(paths) {
   const idleAnimationDuration = 12000;
-  const delayBetweenPaths = 1000; // 1 second delay between paths
-  // Function to get the initial Y value from a path's transform attribute
+  const delayBetweenPaths = 1000;
   function getInitialY(path) {
     const transformAttribute = path.getAttribute('transform');
     const matrix = new DOMMatrix(transformAttribute);
     return matrix.m42;
   }
-  // Sort paths based on their initial Y values in descending order
   const sortedPaths = [...paths].sort((a, b) => getInitialY(b) - getInitialY(a));
   function animateSinglePath(path, delay) {
-    console.log('window height', window.innerHeight);
     const startY = getInitialY(path);
-    console.log(startY);
     const endY = parseFloat(window.innerHeight*4);
-    console.log(endY);
     let startTime;
     function step(timestamp) {
       if (!startTime) startTime = timestamp;
       const progress = (timestamp - startTime) / idleAnimationDuration;
       if (progress >= 1) {
-        // Reset the path to the initial position
         path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${startY - (window.innerHeight*2)})`);
         startTime = timestamp;
       } else {
-        // Animate the path vertically
         const newY = parseFloat(startY - progress * (startY - endY));
         path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${newY})`);
       }
-      // Continue the animation
       requestAnimationFrame(step);
     }
-    // Start the animation with a delay
     setTimeout(() => requestAnimationFrame(step), delay);
   }
-  // Loop through each path and apply the animation with a delay
   sortedPaths.forEach((path, index) => {
     const delay = index * delayBetweenPaths;
     animateSinglePath(path, delay);
@@ -180,12 +170,7 @@ preloadSVGs(svgUrls).then(() => {
     var content = document.querySelectorAll('.fade-target');
     // Add fade-in class to trigger fade-in animation
     content.forEach((element) => {
-      element.classList.add('fade-in');
-      // Remove fade-in class after animation duration
-      setTimeout(() => {
-        element.classList.remove('fade-in');
-        element.style.opacity = '1';
-      }, 2000);
+      element.style.opacity = '1';
     });
     // Event listener for Home link
     home.addEventListener('click', function (event) {
@@ -209,6 +194,7 @@ preloadSVGs(svgUrls).then(() => {
       const destinationURL = more.getAttribute('href');
       const targetBackground = getStoredSVG('backgroundFive.svg');
       handlePageTransition(destinationURL, targetBackground);
+      console.log("call page transition");
     });
   });
 });
