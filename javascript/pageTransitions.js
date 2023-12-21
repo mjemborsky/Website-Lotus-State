@@ -8,6 +8,13 @@
 // floating 'paths'. 
 
 
+// TO START (WHEN INDEX.HTML FIRST LOADS)
+// Need to do animation of background circles with all r=0 to index.html svg
+// Need to TEST this performance with performance.now to determine user's machine capabilities
+// Need to establish categories of performance that determine what animation methods and how
+// much animation will be shown (2g + low cores/low performance, 3g + medium cores/medium performance, 4/5g)
+
+
 // Preload SVGs for Background - Stores svg's as list of names
 const svgUrls = [
   'backgroundOne.svg',
@@ -57,15 +64,18 @@ function animatePathWithDelay(paths) {
   const sortedPaths = [...paths].sort((a, b) => getInitialY(b) - getInitialY(a));
   
   function animateSinglePath(path, delay) {
+    console.log('window height', window.innerHeight);
     const startY = getInitialY(path);
-    const endY = parseFloat(window.innerHeight + (window.innerHeight / 2));
+    console.log(startY);
+    const endY = parseFloat(window.innerHeight*4);
+    console.log(endY);
     let startTime;
     function step(timestamp) {
       if (!startTime) startTime = timestamp;
       const progress = (timestamp - startTime) / idleAnimationDuration;
       if (progress >= 1) {
         // Reset the path to the initial position
-        path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${startY - (window.innerHeight)})`);
+        path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${startY - (window.innerHeight*2)})`);
         startTime = timestamp;
       } else {
         // Animate the path vertically
