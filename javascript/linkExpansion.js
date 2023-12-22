@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Collapse the links
       expandedLinks.style.display = 'none';
       isExpanded = false;
-      overlay.style.display = 'none';
+      overlay.style.opacity = '0';
       setTimeout(function() {
         overlay.style.opacity = 0;
       }, 10);
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
       expandedLinks.style.left = '25px';
       expandedLinks.style.top = '75px';
       isExpanded = true;
-      overlay.style.display = 'block';
+      overlay.style.opacity = '1';
       setTimeout(function() {
         overlay.style.opacity = 1;
       }, 10);

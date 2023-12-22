@@ -158,6 +158,29 @@ async function handlePageTransition(destinationURL, targetBackground) {
     console.error('Error loading page:', error);
   }
 }
+function leftLinkExpansion() {
+  if (isExpanded) {
+    // Collapse the links
+    expandedLinks.style.display = 'none';
+    overlay.style.opacity = '0';
+    setTimeout(function() {
+      overlay.style.opacity = 0;
+    }, 10);
+    isExpanded = false;
+  } else {
+    // Expand the links
+    expandedLinks.style.display = 'flex';
+    expandedLinks.style.alignItems = 'center';
+    expandedLinks.style.flexDirection = 'column';
+    expandedLinks.style.left = '25px';
+    expandedLinks.style.top = '75px';
+    overlay.style.opacity = '1';
+    setTimeout(function() {
+      overlay.style.opacity = 1;
+    }, 10);
+    isExpanded = true;
+  }
+}
 // MAIN PAGE LISTENER
 // Preload SVGs before setting up link event listeners
 preloadSVGs(svgUrls).then(() => {
@@ -171,9 +194,22 @@ preloadSVGs(svgUrls).then(() => {
     content.forEach((element) => {
       element.style.opacity = '1';
     });
+    // PROJECT LINK EXPANSION //
+    // Initializing Properties
+    const leftLink = document.querySelector('.left-link');
+    const expandedLinks = document.querySelector('.expanded-links');
+    expandedLinks.style.display = 'none';
+    var isExpanded = false; // Flag to track the state of expanded links
+    // Expand or Collapse Links
+    leftLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      leftLinkExpansion;
+    });
     // Event listener for Home link
     home.addEventListener('click', function (event) {
       event.preventDefault();
+      overlay.style.opacity = '0';
+      expandedLinks.style.display = 'none';
       const destinationURL = home.getAttribute('href');
       const targetBackground = getStoredSVG('backgroundOne.svg');
       handlePageTransition(destinationURL, targetBackground);
@@ -182,6 +218,8 @@ preloadSVGs(svgUrls).then(() => {
     projects.forEach(link => {
       link.addEventListener('click', function (event) {
         event.preventDefault();
+        expandedLinks.style.display = 'none';
+        overlay.style.opacity = '0';
         const destinationURL = link.getAttribute('href');
         const targetBackground = getStoredSVG('backgroundTwo.svg');
         handlePageTransition(destinationURL, targetBackground);
@@ -190,6 +228,8 @@ preloadSVGs(svgUrls).then(() => {
     // Event listener for More link
     more.addEventListener('click', function (event) {
       event.preventDefault();
+      overlay.style.opacity = '0';
+      expandedLinks.style.display = 'none';
       const destinationURL = more.getAttribute('href');
       const targetBackground = getStoredSVG('backgroundFive.svg');
       handlePageTransition(destinationURL, targetBackground);
