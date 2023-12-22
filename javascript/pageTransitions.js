@@ -128,7 +128,7 @@ function animateCircles(targetSVG) {
 // Handle page transition including fade and AJAX loading
 async function handlePageTransition(destinationURL, targetBackground) {
   const container = document.querySelector('.container');
-  const content = document.querySelectorAll('.fade-target');
+  var content = document.querySelectorAll('.fade-target');
   content.forEach((fadeItem) => {
     fadeItem.style.opacity = '0';
   });
@@ -145,13 +145,13 @@ async function handlePageTransition(destinationURL, targetBackground) {
       new Promise((resolve) => {
         setTimeout(() => {
           container.innerHTML = newPage;
-          const newContent = container.querySelectorAll('.fade-target');
-          newContent.forEach((newFadeItem) => {
+          content = container.querySelectorAll('.fade-target');
+          content.forEach((newFadeItem) => {
             newFadeItem.style.opacity = '1';
           });
         }, 2000);
         resolve(); 
-      }),
+      })
     ]);
     await animationPromise;
     animateIdle();
