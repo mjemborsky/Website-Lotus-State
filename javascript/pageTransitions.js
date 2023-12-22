@@ -136,24 +136,23 @@ async function handlePageTransition(destinationURL, targetBackground) {
     const response = await fetch(destinationURL);
     const newPage = await response.text();
     const animationPromise = Promise.all([
-      new Promise((resolve) => {
+      await new Promise((resolve) => {
         animateCircles(targetBackground);
-        setTimeout(() => {
-          resolve();
-        }, 4000);
+        resolve();
       }),
-      new Promise((resolve) => {
+      await new Promise((resolve) => {
         setTimeout(() => {
           container.innerHTML = newPage;
           content = container.querySelectorAll('.fade-target');
-          content.forEach((newFadeItem) => {
-            newFadeItem.style.opacity = '1';
-          });
+          setTimeout(() => {
+            content.forEach((newFadeItem) => {
+              newFadeItem.style.opacity = '1';
+            });
+          }, 100); // slight delay for browser rendering
+          resolve();
         }, 2000);
-        resolve(); 
       })
     ]);
-    await animationPromise;
     animateIdle();
   } catch (error) {
     console.error('Error loading page:', error);
