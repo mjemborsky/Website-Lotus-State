@@ -158,52 +158,50 @@ async function handlePageTransition(destinationURL, targetBackground) {
     console.error('Error loading page:', error);
   }
 }
-function leftLinkExpansion() {
-  if (isExpanded) {
-    // Collapse the links
-    expandedLinks.style.display = 'none';
-    overlay.style.opacity = '0';
-    setTimeout(function() {
-      overlay.style.opacity = 0;
-    }, 10);
-    isExpanded = false;
-  } else {
-    // Expand the links
-    expandedLinks.style.display = 'flex';
-    expandedLinks.style.alignItems = 'center';
-    expandedLinks.style.flexDirection = 'column';
-    expandedLinks.style.left = '25px';
-    expandedLinks.style.top = '75px';
-    overlay.style.opacity = '1';
-    setTimeout(function() {
-      overlay.style.opacity = 1;
-    }, 10);
-    isExpanded = true;
-  }
-}
 // MAIN PAGE LISTENER
 // Preload SVGs before setting up link event listeners
 preloadSVGs(svgUrls).then(() => {
-  // Setup event listeners after preloading background SVG's
-  document.addEventListener('DOMContentLoaded', function () {
+  window.onload = function() {
     const home = document.querySelector('.header-text');
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
     var content = document.querySelectorAll('.fade-target');
     // Add fade-in class to trigger fade-in animation
-    content.forEach((element) => {
-      element.style.opacity = '1';
-    });
+    setTimeout(() => {
+      content.forEach((element) => {
+        element.style.opacity = '1';
+      });
+    }, 100); // slight delay for browser rendering
     // PROJECT LINK EXPANSION //
     // Initializing Properties
-    const leftLink = document.querySelector('.left-link');
-    const expandedLinks = document.querySelector('.expanded-links');
+    var leftLink = document.querySelector('.left-link');
+    var expandedLinks = document.querySelector('.expanded-links');
     expandedLinks.style.display = 'none';
     var isExpanded = false; // Flag to track the state of expanded links
     // Expand or Collapse Links
     leftLink.addEventListener('click', function(e) {
-      e.preventDefault();
-      leftLinkExpansion;
+        e.preventDefault();
+        if (isExpanded) {
+            // Collapse the links
+            expandedLinks.style.display = 'none';
+            isExpanded = false;
+            overlay.style.opacity = '0';
+            setTimeout(function() {
+                overlay.style.opacity = 0;
+            }, 10);
+        } else {
+            // Expand the links
+            expandedLinks.style.display = 'flex';
+            expandedLinks.style.alignItems = 'center';
+            expandedLinks.style.flexDirection = 'column';
+            expandedLinks.style.left = '25px';
+            expandedLinks.style.top = '75px';
+            isExpanded = true;
+            overlay.style.opacity = '1';
+            setTimeout(function() {
+                overlay.style.opacity = 1;
+            }, 10);
+        }
     });
     // Event listener for Home link
     home.addEventListener('click', function (event) {
@@ -235,5 +233,5 @@ preloadSVGs(svgUrls).then(() => {
       handlePageTransition(destinationURL, targetBackground);
       console.log("call page transition");
     });
-  });
+  };
 });
