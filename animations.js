@@ -59,7 +59,6 @@ function setInitialPathPositions(paths) {
     const matrix = new DOMMatrix(currentTransform);
     const initialY = matrix.m42 - (isMobile() ? parseFloat(window.innerHeight*2) : 0); // Adjust initial Y position
     path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${initialY})`);
-    return initialY;
   });
 }
 // Function for Idle animation, applies infinite animation to list of paths
@@ -73,20 +72,16 @@ function animatePathWithDelay(paths) {
     return matrix.m42;
   }
   const sortedPaths = [...paths].sort((a, b) => getInitialY(b) - getInitialY(a));
-  function animateSinglePath(path, startY, delay) {
+  function animateSinglePath(path, delay) {
     const startY = getInitialY(path) - (isMobile() ? parseFloat(window.innerHeight)*2 : 0);
-    console.log(startY);
     const endY = parseFloat(window.innerHeight * (isMobile() ? 8 : 4));
-    console.log(endY);
     let startTime;
-    // Randomize duration for each path
-    const duration = idleAnimationDuration + Math.random() * 2000 - 1000; // vary by up to 2 seconds
-  
+    const duration = idleAnimationDuration + Math.random() * 2000 - 1000;
     function step(timestamp) {
       if (!startTime) startTime = timestamp;
       const progress = (timestamp - startTime) / duration;
       if (progress >= 1) {
-        path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${startY - (window.innerHeight * 2)})`);
+        path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${startY})`);
         startTime = timestamp;
       } else {
         const newY = parseFloat(startY - progress * (startY - endY));
