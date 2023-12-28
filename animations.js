@@ -182,6 +182,7 @@ preloadSVGs(svgUrls).then(() => {
         element.style.opacity = '1';
       });
     }, 100); // slight delay for browser rendering
+    animateIdle();
     // PROJECT LINK EXPANSION //
     // Initializing Properties
     var leftLink = document.querySelector('.left-link');

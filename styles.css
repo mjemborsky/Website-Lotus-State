@@ -391,6 +391,21 @@ svg:nth-child(1) circle {
   .header-text {
     z-index: 0;
   }
+  #project-expanded-one {
+    top: 62px;
+    left: 10px;
+    z-index: 3;
+  }
+  #project-expanded-two {
+    top: 105px;
+    left: 10px;
+    z-index: 3;
+  }
+  #project-expanded-three {
+    top: 148px;
+    left: 10px;
+    z-index: 3;
+  }
   .container #idle {
     height: 100vh;
   }
