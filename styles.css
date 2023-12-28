@@ -325,7 +325,8 @@ p {
   left: 0;
   right: 0;
   bottom: 0;
-  object-fit: cover;
+  width: 100%;
+  margin: 0;
   pointer-events: none;
   z-index: -1;
 }
@@ -389,6 +390,9 @@ svg:nth-child(1) circle {
   }
   .header-text {
     z-index: 0;
+  }
+  .container #idle {
+    height: 100vh;
   }
 }
 

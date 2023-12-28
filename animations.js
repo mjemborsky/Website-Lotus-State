@@ -14,7 +14,6 @@
 // Need to establish categories of performance that determine what animation methods and how
 // much animation will be shown (2g + low cores/low performance, 3g + medium cores/medium performance, 4/5g)
 
-
 // Preload SVGs for Background - Stores svg's as list of names
 const svgUrls = [
   'backgroundOne.svg',
@@ -51,9 +50,22 @@ function isCurrentSVG(filename) {
   const currentSVG = document.querySelector('.background-svg');
   return currentSVG.src.includes(filename);
 }
+function isMobile() {
+  return window.innerWidth <= 450;
+}
+function setInitialPathPositions(paths) {
+  paths.forEach(path => {
+    const currentTransform = path.getAttribute('transform');
+    const matrix = new DOMMatrix(currentTransform);
+    const initialY = matrix.m42 - (isMobile() ? parseFloat(window.innerHeight*2) : 0); // Adjust initial Y position
+    path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${initialY})`);
+    return initialY;
+  });
+}
 // Function for Idle animation, applies infinite animation to list of paths
 function animatePathWithDelay(paths) {
-  const idleAnimationDuration = 12000;
+  setInitialPathPositions(paths);
+  const idleAnimationDuration = 20000;
   const delayBetweenPaths = 1000;
   function getInitialY(path) {
     const transformAttribute = path.getAttribute('transform');
@@ -61,15 +73,20 @@ function animatePathWithDelay(paths) {
     return matrix.m42;
   }
   const sortedPaths = [...paths].sort((a, b) => getInitialY(b) - getInitialY(a));
-  function animateSinglePath(path, delay) {
-    const startY = getInitialY(path);
-    const endY = parseFloat(window.innerHeight*4);
+  function animateSinglePath(path, startY, delay) {
+    const startY = getInitialY(path) - (isMobile() ? parseFloat(window.innerHeight)*2 : 0);
+    console.log(startY);
+    const endY = parseFloat(window.innerHeight * (isMobile() ? 8 : 4));
+    console.log(endY);
     let startTime;
+    // Randomize duration for each path
+    const duration = idleAnimationDuration + Math.random() * 2000 - 1000; // vary by up to 2 seconds
+  
     function step(timestamp) {
       if (!startTime) startTime = timestamp;
-      const progress = (timestamp - startTime) / idleAnimationDuration;
+      const progress = (timestamp - startTime) / duration;
       if (progress >= 1) {
-        path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${startY - (window.innerHeight*2)})`);
+        path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${startY - (window.innerHeight * 2)})`);
         startTime = timestamp;
       } else {
         const newY = parseFloat(startY - progress * (startY - endY));
@@ -87,9 +104,7 @@ function animatePathWithDelay(paths) {
 // Animate Idle SVG (rain.svg)
 function animateIdle() {
   const idle = document.getElementById("idle");
-  console.log(idle);
   const paths = idle.querySelectorAll('path');
-  console.log(paths);
   animatePathWithDelay(paths);
 }
 // Circle Animation
