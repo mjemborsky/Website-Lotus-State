@@ -192,9 +192,11 @@ body {
   justify-content: center;
   margin: 0 auto;
   padding-top: 50px;
-  position: absolute;
+  position: relative;
 }
-
+.intro-video {
+  width: 1000px;
+}
 /* Project Pages */
 #projects, #lotusmane, #new-projects  {
   position: relative;
@@ -209,6 +211,15 @@ body {
   flex-direction: row;
   justify-content: center;
   margin: 0 auto;
+}
+.nav-button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: none;
 }
 #links {
   padding-bottom: 20px;
@@ -259,21 +270,19 @@ body {
 }
 /*  Extra Page  */
 #extra {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
+  padding-top: 10%;
 }
 .about-me {
   position: relative;
-  width: 500px;
+  width: 1000px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
   background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #969ae5, #919ae9, #8c9aed, #988ded, #aa7ee9, #bd6be0, #d153d1);
-  opacity: .9;
-  height: 250px;
+  opacity: .95;
+  height: 400px;
   border-radius: 15% 15% 30% 30%;
 }
 p {
@@ -356,11 +365,18 @@ svg:nth-child(1) circle {
     height: 315px;
     width: 560px;
   }
+  .about-me {
+    width: 700px;
+  }
 }
 @media screen and (max-width: 900px) {
   .projects {
     flex-direction: column;
     top: 200px;
+  }
+  .about-me {
+    width: 500px;
+    height: 300px;
   }
 }
 @media screen and (max-width: 430px) {
@@ -401,8 +417,8 @@ svg:nth-child(1) circle {
     height: 50px;
   }
   .about-me {
-    width: 300px;
-    height: 400px;
+    width: 340px;
+    height: 270px;
   }
   #projects {
     padding-top: 200px;
@@ -419,6 +435,9 @@ svg:nth-child(1) circle {
   #upcoming {
     height: 150px;
     margin: 2%;
+  }
+  .nav-button {
+    display: inline-block;
   }
 }
 
