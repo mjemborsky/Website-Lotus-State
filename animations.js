@@ -137,7 +137,7 @@ function animateCircles(targetSVG) {
 }
 // Handle page transition including fade and AJAX loading
 async function handlePageTransition(destinationURL, targetBackground) {
-  const container = document.querySelector('.container');
+  var container = document.querySelector('.container');
   var content = document.querySelectorAll('.fade-target');
   content.forEach((fadeItem) => {
     fadeItem.style.opacity = '0';
@@ -152,7 +152,14 @@ async function handlePageTransition(destinationURL, targetBackground) {
       }),
       await new Promise((resolve) => {
         setTimeout(() => {
-          container.innerHTML = newPage;
+          // Replace the container with the new page content
+          const newContainer = document.createElement('div');
+          newContainer.className = 'container';
+          newContainer.innerHTML = newPage;
+          container.parentNode.replaceChild(newContainer, container);
+
+          // Update the reference to the container and content
+          container = newContainer;
           content = container.querySelectorAll('.fade-target');
           setTimeout(() => {
             content.forEach((newFadeItem) => {
@@ -168,7 +175,7 @@ async function handlePageTransition(destinationURL, targetBackground) {
     console.error('Error loading page:', error);
   }
 }
-// MAIN PAGE LISTENER
+// MAIN PAGE LISTENER/WINDOW ONLOAD FUNCTION TO SET UP EVENT LISTENERS
 // Preload SVGs before setting up link event listeners
 preloadSVGs(svgUrls).then(() => {
   window.onload = function() {
@@ -182,11 +189,10 @@ preloadSVGs(svgUrls).then(() => {
         element.style.opacity = '1';
       });
     }, 100); // slight delay for browser rendering
-    animateIdle();
     // PROJECT LINK EXPANSION //
     // Initializing Properties
-    var leftLink = document.querySelector('.left-link');
-    var expandedLinks = document.querySelector('.expanded-links');
+    const leftLink = document.querySelector('.left-link');
+    const expandedLinks = document.querySelector('.expanded-links');
     expandedLinks.style.display = 'none';
     var isExpanded = false; // Flag to track the state of expanded links
     // Expand or Collapse Links
@@ -197,9 +203,6 @@ preloadSVGs(svgUrls).then(() => {
             expandedLinks.style.display = 'none';
             isExpanded = false;
             overlay.style.opacity = '0';
-            setTimeout(function() {
-                overlay.style.opacity = 0;
-            }, 10);
         } else {
             // Expand the links
             expandedLinks.style.display = 'flex';
@@ -209,9 +212,6 @@ preloadSVGs(svgUrls).then(() => {
             expandedLinks.style.top = '75px';
             isExpanded = true;
             overlay.style.opacity = '1';
-            setTimeout(function() {
-                overlay.style.opacity = 1;
-            }, 10);
         }
     });
     // Event listener for Home link
@@ -244,5 +244,6 @@ preloadSVGs(svgUrls).then(() => {
       handlePageTransition(destinationURL, targetBackground);
       console.log("call page transition");
     });
+    animateIdle();
   };
 });
