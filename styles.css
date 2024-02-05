@@ -200,7 +200,7 @@ body {
 /* Project Pages */
 #projects, #lotusmane, #new-projects  {
   position: relative;
-  padding-top: 125px;
+  padding-top: 15%;
   height: 90%;
 }
 .project-tile {
