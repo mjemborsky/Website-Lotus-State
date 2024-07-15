@@ -195,7 +195,7 @@ h2 {
   flex-direction: column;
   justify-content: center;
   margin: 0 auto;
-  padding-top: 50px;
+  padding-top: 10%;
   position: relative;
 }
 .intro-video {
@@ -204,12 +204,8 @@ h2 {
 /* Project Pages */
 #projects, #lotusmane, #new-projects  {
   position: relative;
-  padding-top: 15%;
+  padding-top: 10%;
   height: 90%;
-}
-.project-tile {
-  min-width: 225px;
-  padding: 25px;
 }
 .projects, #links {
   display: flex;
@@ -217,8 +213,40 @@ h2 {
   justify-content: center;
   margin: 0 auto;
 }
-.spotify-mobile-buttons {
+.project-tile {
+  min-width: 35%;
+  padding: 2%;
+}
+.mobile-buttons {
+  width: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  bottom: 0;
+  height: 20%;
+}
+.chevronLeft {
   display: none;
+  --s: 30px; /* control the shape (can be percentage) */
+  height: 90%;
+  left: 5%;
+  position: relative;
+  aspect-ratio: 2.5/5;
+  clip-path: polygon(100% 0,calc(100% - var(--s)) 0,0 50%,calc(100% - var(--s)) 100%,100% 100%,var(--s) 50%);
+  background: ghostwhite;
+  opacity: .8;
+}
+.chevronRight {
+  display: none;
+  --s: 30px; /* control the shape (can be percentage) */
+  position: relative;
+  height: 90%;
+  right: 5%;
+  aspect-ratio: 2.5/5;
+  clip-path: polygon(0 0,var(--s) 0,100% 50%,var(--s) 100%,0 100%,calc(100% - var(--s)) 50%);
+  background: ghostwhite;
+  opacity: .8;
 }
 #links {
   padding-bottom: 20px;
@@ -253,7 +281,6 @@ h2 {
   justify-content: center;
 }
 .lotusmane-coverart {
-  top: 10px;
   height: 400px;
   position: relative;
   width: 500px;
@@ -281,9 +308,6 @@ h2 {
   z-index: 0;
 }
 /*  Extra Page  */
-#extra {
-  padding-top: 10%;
-}
 .about-me {
   position: relative;
   width: 1000px;
@@ -433,9 +457,9 @@ svg:nth-child(1) circle {
     height: 270px;
   }
   #projects {
-    padding-top: 100px;
+    padding-top: 20%;
     width: 100%;
-    height: 100%;
+    height: 90%;
   }
   .lotusmane-coverart {
     width: 310px;

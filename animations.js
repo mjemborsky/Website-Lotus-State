@@ -51,7 +51,7 @@ function isCurrentSVG(filename) {
   return currentSVG.src.includes(filename);
 }
 function isMobile() {
-  return window.innerWidth <= 450;
+  return window.innerWidth <= 430;
 }
 function setInitialPathPositions(paths) {
   paths.forEach(path => {
