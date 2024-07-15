@@ -48,6 +48,16 @@
     font-weight: normal;
     font-style: normal;}
 
+/*! MAIN BODY */
+html {
+  overflow: hidden;
+  max-width: 100%;
+  max-height: 100%;
+}
+body {
+  margin: 0 auto;
+  background-color: #000000;
+}
 
 /*! HEADER/LINKS */
 #header {
@@ -179,12 +189,6 @@ h2 {
   justify-content: center; /* Center the content vertically */
 }
 
-
-/*! MAIN BODY */
-body {
-  margin: 0 auto;
-  background-color: #000000;
-}
 /* Home Page Section */
 #welcome-section {
   display: flex;
