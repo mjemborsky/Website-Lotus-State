@@ -249,47 +249,59 @@ FUTURE CONTENT: windmills (single) (UPDATE JANUARY 2024), new album (JULY 2024) 
       </div>
     <script src="animations.js" defer></script>
     <script>
-      var chevronLeft = document.querySelector(".chevronLeft");
-      var chevronRight = document.querySelector(".chevronRight");
-      var projectTiles = Array.from(document.querySelectorAll(".project-tile"));
-      var currentIndex = 0;
+      document.addEventListener("DOMContentLoaded", function() {
+        var chevronLeft = document.querySelector(".chevronLeft");
+        var chevronRight = document.querySelector(".chevronRight");
+        var projectTiles = Array.from(document.querySelectorAll(".project-tile"));
+        var currentIndex = 0;
 
-      function isMobile() {
-        return window.innerWidth <= 900;
-      }
-
-      function showCurrentTile() {
-        projectTiles.forEach((tile, index) => {
-          tile.classList.toggle('active', index === currentIndex);
-        });
-      }
-
-      function showChevrons() {
-        if (isMobile()) {
-          chevronLeft.style.display = 'block';
-          chevronLeft.display.opacity = '.04';
-          chevronRight.style.display = 'block';
-        } else {
-          chevronLeft.style.display = 'none';
-          chevronRight.style.display = 'none';
+        function isMobile() {
+            return window.innerWidth <= 900;
         }
-      }
 
-      chevronLeft.addEventListener('click', () => {
+        function showCurrentTile() {
+            if (isMobile()) {
+                projectTiles.forEach((tile, index) => {
+                    tile.style.display = index === currentIndex ? 'block' : 'none';
+                });
+            } else {
+                projectTiles.forEach(tile => {
+                    tile.style.display = 'block';
+                });
+            }
+        }
+
+        function showChevrons() {
+            if (isMobile()) {
+                chevronLeft.style.display = 'flex';
+                chevronRight.style.display = 'flex';
+            } else {
+                chevronLeft.style.display = 'none';
+                chevronRight.style.display = 'none';
+            }
+        }
+
+        chevronLeft.addEventListener('click', () => {
+        console.log('Left chevron clicked');
         currentIndex = (currentIndex - 1 + projectTiles.length) % projectTiles.length;
         showCurrentTile();
-      });
+        });
 
-      chevronRight.addEventListener('click', () => {
+        chevronRight.addEventListener('click', () => {
+        console.log('Right chevron clicked');
         currentIndex = (currentIndex + 1) % projectTiles.length;
         showCurrentTile();
+        });
+
+        window.addEventListener('resize', () => {
+            showChevrons();
+            showCurrentTile();
+        });
+
+        // Initial setup
+        showChevrons();
+        showCurrentTile();
       });
-
-      window.addEventListener('resize', showChevrons);
-
-      // Initial setup
-      showChevrons();
-      showCurrentTile();
     </script>
   </body>
 </html>

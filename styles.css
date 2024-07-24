@@ -216,37 +216,49 @@ h2 {
 .project-tile {
   min-width: 35%;
   padding: 2%;
+  overflow: auto;
+  z-index: 10;
+}
+.project-tile.active {
+  display: block; /* Show only the active tile */
+}
+.spotify-iframe {
+  pointer-events: auto;
 }
 .mobile-buttons {
   width: 100%;
   position: absolute;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content:space-around;
   bottom: 0;
   height: 20%;
 }
-.chevronLeft {
+
+.chevronLeft, .chevronRight {
   display: none;
   --s: 30px; /* control the shape (can be percentage) */
-  height: 90%;
-  left: 5%;
-  position: relative;
+  height: 70%;
   aspect-ratio: 2.5/5;
-  clip-path: polygon(100% 0,calc(100% - var(--s)) 0,0 50%,calc(100% - var(--s)) 100%,100% 100%,var(--s) 50%);
   background: ghostwhite;
   opacity: .8;
+  align-items: center;
+  justify-content: center;
+  font-size: 2em; /* Make sure chevrons are visible */
+  cursor: pointer; /* Pointer cursor for better UX */
 }
+.chevronLeft, .chevronRight {
+  z-index: 10; /* Ensure they are on top */
+  cursor: pointer; /* Ensure the pointer cursor appears */
+}
+.chevronLeft {
+  left: 5%;
+  clip-path: polygon(100% 0, calc(100% - var(--s)) 0, 0 50%, calc(100% - var(--s)) 100%, 100% 100%, var(--s) 50%);
+}
+
 .chevronRight {
-  display: none;
-  --s: 30px; /* control the shape (can be percentage) */
-  position: relative;
-  height: 90%;
   right: 5%;
-  aspect-ratio: 2.5/5;
-  clip-path: polygon(0 0,var(--s) 0,100% 50%,var(--s) 100%,0 100%,calc(100% - var(--s)) 50%);
-  background: ghostwhite;
-  opacity: .8;
+  clip-path: polygon(0 0, var(--s) 0, 100% 50%, var(--s) 100%, 0 100%, calc(100% - var(--s)) 50%);
 }
 #links {
   position: absolute;
@@ -428,15 +440,45 @@ svg:nth-child(1) circle {
   .about-me {
     width: 700px;
   }
+  #projects {
+    top: 150;
+  }
 }
 @media screen and (max-width: 900px) {
+  #projects {
+    top: 8%;
+  }
+  .project-tile {
+    display: none; /* Hide all tiles by default */
+  }
+
+  .project-tile.active {
+      display: block; /* Show only the active tile */
+  } 
   .projects {
     flex-direction: column;
-    top: 200px;
   }
   .about-me {
     width: 500px;
     height: 300px;
+  }
+  .chevronLeft, .chevronRight {
+    display: flex;
+  }
+  #projects h1 {
+    display: none;
+  }
+}
+@media screen and (max-width: 600px) {
+  .center-link, .header-text {
+    font-size: 100%;
+    height: 100px;
+    width: 250px;
+    padding-right: 0;
+    padding-left: 0;
+  }
+  #projects {
+    top: 5%;
   }
 }
 @media screen and (max-width: 430px) {
@@ -465,6 +507,9 @@ svg:nth-child(1) circle {
     left: 10px;
     z-index: 3;
   }
+  #projects h1 {
+    display: none;
+  }
   .container #idle {
     height: 100vh;
   }
@@ -476,6 +521,9 @@ svg:nth-child(1) circle {
     width: 50px;
     height: 50px;
   }
+  #links {
+    top: 25%;
+  }
   .about-me {
     width: 340px;
     height: 270px;
@@ -486,8 +534,9 @@ svg:nth-child(1) circle {
     height: 90%;
   }
   .lotusmane-coverart {
-    width: 310px;
-    height: 264px;
+    height: 150%;
+    width: fit-content;
+    top: -6%;
   }
   .spotify-mobile-buttons {
     display: flex;
@@ -506,7 +555,9 @@ svg:nth-child(1) circle {
   }
   .project-tile {
     display: none;
-  
+  }
+  .spotify-iframe {
+    height: 575px;
   }
 }
 
