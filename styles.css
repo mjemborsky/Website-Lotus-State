@@ -1,4 +1,4 @@
-/*! FONTS */
+/* FONTS */
 @font-face {
     font-family: 'gilroy-ultralightuploadedfile';
     src: url('fonts/gilroy-ultralight-webfont.woff2') format('woff2'),
@@ -48,7 +48,9 @@
     font-weight: normal;
     font-style: normal;}
 
-/*! MAIN BODY */
+
+
+/* MAIN HTML AND BODY */
 html {
   overflow: hidden;
   max-width: 100%;
@@ -59,7 +61,9 @@ body {
   background-color: #000000;
 }
 
-/*! HEADER/LINKS */
+
+
+/* HEADER/TOP LINKS */
 #header {
   position: fixed;
   z-index: 2;
@@ -186,22 +190,55 @@ h2 {
 .header-text {
   display: flex;
   align-items: center;
-  justify-content: center; /* Center the content vertically */
+  justify-content: center;
 }
 
-/* Home Page Section */
+
+/* ALL INNER PAGE CONTENT - CONTAINER */ 
+.container {
+  width: 100%;
+  height: 100vh;
+  top: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+  color: ghostwhite;
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
+}
+
+
+
+/* HOME PAGE */
 #welcome-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   margin: 0 auto;
-  padding-top: 10%;
   position: relative;
+  width: 100%;
+  height: 100%;
 }
+
 .intro-video {
-  width: 1000px;
+  position: relative;
+  z-index: 10;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  width: 70%;
+  top: 7%;
 }
-/* Project Pages */
+
+
+
+
+
+/* CURRENTLY RELEASED PROJECT PAGE */
 #projects, #lotusmane, #new-projects  {
   position: relative;
   padding-top: 10%;
@@ -213,7 +250,6 @@ h2 {
   justify-content: center;
   margin: 0 auto;
 }
-
 .project-tile {
   min-width: 35%;
   padding: 2%;
@@ -221,7 +257,7 @@ h2 {
   z-index: 10;
 }
 .project-tile.active {
-  display: block; /* Show only the active tile */
+  display: block;
 }
 .spotify-iframe {
   pointer-events: auto;
@@ -235,22 +271,21 @@ h2 {
   bottom: 0;
   height: 20%;
 }
-
 .chevronLeft, .chevronRight {
   display: none;
-  --s: 30px; /* control the shape (can be percentage) */
+  --s: 30px;
   height: 70%;
   aspect-ratio: 2.5/5;
   background: ghostwhite;
   opacity: .8;
   align-items: center;
   justify-content: center;
-  font-size: 2em; /* Make sure chevrons are visible */
-  cursor: pointer; /* Pointer cursor for better UX */
+  font-size: 2em;
+  cursor: pointer;
 }
 .chevronLeft, .chevronRight {
-  z-index: 10; /* Ensure they are on top */
-  cursor: pointer; /* Ensure the pointer cursor appears */
+  z-index: 10;
+  cursor: pointer;
 }
 .chevronLeft {
   left: 5%;
@@ -261,6 +296,11 @@ h2 {
   right: 5%;
   clip-path: polygon(0 0, var(--s) 0, 100% 50%, var(--s) 100%, 0 100%, calc(100% - var(--s)) 50%);
 }
+
+
+
+
+/* LOTUSMANE PAGE */
 .lotusmane-coverart {
   position: absolute;
   width: 100%;
@@ -270,6 +310,9 @@ h2 {
 }
 
 
+
+
+/* BEAT PAGE */
 #beats {
   width: 100%;
   height: 100%;
@@ -277,7 +320,7 @@ h2 {
 .dark-beats {
   background-color: black;
   opacity: .5;
-  clip-path: polygon(0 0, 100% 0, 100% 30%, 0 45%);
+  clip-path: polygon(0 0, 100% 0, 100% 25%, 0 50%);
   z-index: 1;
   width: 100%;
   height: 100%;
@@ -287,7 +330,7 @@ h2 {
 .vinyl-beats {
   background-color: gold;
   opacity: .5;
-  clip-path: polygon(0 65%, 100% 80%, 100% 30%, 0 45%);
+  clip-path: polygon(0 60%, 100% 85%, 100% 25%, 0 50%);
   z-index: 1;
   width: 100%;
   height: 100%;
@@ -296,7 +339,7 @@ h2 {
 .light-beats {
   background-color: white;
   opacity: .5;
-  clip-path: polygon(0 65%, 100% 80%, 100% 100%, 0 100%);
+  clip-path: polygon(0 60%, 100% 85%, 100% 100%, 0 100%);
   z-index: 1;
   width: 100%;
   height: 100%;
@@ -329,7 +372,7 @@ h2 {
 
 
 
-/*  Extra Page  */
+/*  MORE PAGE  */
 #extra {
   width: 100%;
   height: 100%;
@@ -373,29 +416,14 @@ p {
   width: 50%;
   font-family: georgia;
 }
-.beat {
-  width: 100%;
-  padding-top: 5px;
-  margin: 0;
-}
-/* All inner page content - container */ 
-.container {
-  width: 100%;
-  height: 100vh;
-  top: 0px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  text-align: center;
-  color: ghostwhite;
-  overflow: hidden;
-  position: relative;
-  z-index: 0;
-}
+
+
+
+
+
+
 /* SVG's */
-/* Background Circles */
+/* BACKGROUND CIRCLES AND IDLE ANIMATIONS */
 .container .background-svg {
   position: absolute;
   top: 0;
@@ -409,7 +437,6 @@ p {
   pointer-events: none;
   z-index: -1;
 }
-/* Floating Paths */
 .container #idle {
   position: absolute;
   top: 0;
@@ -421,34 +448,29 @@ p {
   pointer-events: none;
   z-index: -1;
 }
-
 #overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+  background-color: rgba(0, 0, 0, 0.8);
   z-index: 2;
   transition: opacity 0.5s ease-in-out;
   opacity: 0;
 }
-
-/* Animations */
-/* For Container Contents Fade */
 .fade-target {
   opacity: 0;
   transition: opacity 2s ease-in-out
 }
-svg:nth-child(1) circle {
-  transition: r 4s ease-in-out;
-}
-/* Media Querys */ 
+
+
+
+
+
+
+/* MEDIA QUERIES */ 
 @media screen and (max-width: 1100px) {
-  .intro-video {
-    height: 315px;
-    width: 560px;
-  }
   #projects {
     top: 150;
   }
@@ -458,11 +480,10 @@ svg:nth-child(1) circle {
     top: 8%;
   }
   .project-tile {
-    display: none; /* Hide all tiles by default */
+    display: none;
   }
-
   .project-tile.active {
-      display: block; /* Show only the active tile */
+      display: block;
   } 
   .projects {
     flex-direction: column;
@@ -524,8 +545,8 @@ svg:nth-child(1) circle {
     height: 100vh;
   }
   .intro-video {
-    height: 212px;
-    width: 350px;
+    width: 90%;
+    top: 0;
   }
   .link, .extra-links {
     width: 60px;
@@ -571,24 +592,8 @@ svg:nth-child(1) circle {
 
 
 
-/*  To Do  */
-
-/* FINISHING ANIMATIONS */
-/* need javascript to register when page loads initially */
-/* IDLE */
-/* Manually change opacity in svg down */
-/* Get it working */
-/* When page transitioning or when fading, it should move at super speed */
-
-
-
-/*  */
-
-
 /* ADAPTING FOR SLOW/DIFFERENT SPEEDS/COMPUTERS */
 /* FOR SLIGHTLY SLOW INTERNET SPEEDS/SUBPAR GRAPHICS */
-/* Implement circle transition with css, or could try no cap on animation duration (just computer speed) */
-/* Idle with CSS */
 /* FOR VERY SLOW INTERNET/PHONE DISPLAY */
 /* Either no circle transition at all, or reduce elements and implement with css */
 /* @media (prefers-reduced-data: reduce) {
