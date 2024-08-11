@@ -18,9 +18,7 @@
 const svgUrls = [
   'backgroundOne.svg',
   'backgroundTwo.svg',
-  'backgroundFive.svg',
-  'backgroundThree.svg',
-  'backgroundFour.svg'
+  'backgroundFive.svg'
 ];
 // Preload SVGs
 async function preloadSVGs(urls) {
@@ -161,10 +159,12 @@ async function handlePageTransition(destinationURL, targetBackground) {
           // Update the reference to the container and content
           container = newContainer;
           content = container.querySelectorAll('.fade-target');
+          lotusmane = container.querySelector('.lotusmane-coverart');
           setTimeout(() => {
             content.forEach((newFadeItem) => {
               newFadeItem.style.opacity = '1';
             });
+            lotusmane.style.opacity = '.7';
           }, 100); // slight delay for browser rendering
           resolve();
         }, 2000);

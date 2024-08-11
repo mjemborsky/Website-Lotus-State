@@ -230,7 +230,7 @@ h2 {
   z-index: 10;
   aspect-ratio: 16 / 9;
   height: auto;
-  width: 70%;
+  width: 65%;
   top: 7%;
 }
 
@@ -239,7 +239,7 @@ h2 {
 
 
 /* CURRENTLY RELEASED PROJECT PAGE */
-#projects, #lotusmane, #new-projects  {
+#projects  {
   position: relative;
   padding-top: 10%;
   height: 90%;
@@ -291,7 +291,6 @@ h2 {
   left: 5%;
   clip-path: polygon(100% 0, calc(100% - var(--s)) 0, 0 50%, calc(100% - var(--s)) 100%, 100% 100%, var(--s) 50%);
 }
-
 .chevronRight {
   right: 5%;
   clip-path: polygon(0 0, var(--s) 0, 100% 50%, var(--s) 100%, 0 100%, calc(100% - var(--s)) 50%);
@@ -390,7 +389,7 @@ h2 {
   justify-content: space-around;
   margin: 0 auto;
   z-index: 10;
-  top: 20%;
+  top: 25%;
   width: 60%;
 }
 .link {
@@ -400,7 +399,7 @@ h2 {
 }
 .about-me {
   position: relative;
-  width: 80%;
+  width: 60%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -408,13 +407,16 @@ h2 {
   margin: 0 auto;
   background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #969ae5, #919ae9, #8c9aed, #988ded, #aa7ee9, #bd6be0, #d153d1);
   opacity: .95;
-  height: 400px;
+  height: 50%;
   border-radius: 15% 15% 30% 30%;
-  top: 25%;
+  top: 30%;
 }
-p {
-  width: 50%;
+.about-me p {
+  position: relative;
+  width: 70%;
   font-family: georgia;
+  font-size: 130%;
+  opacity: 1;
 }
 
 
@@ -470,6 +472,11 @@ p {
 
 
 /* MEDIA QUERIES */ 
+@media screen and (max-height: 800px) {
+  .about-me p {
+    font-size: 100%;
+  }
+}
 @media screen and (max-width: 1100px) {
   #projects {
     top: 150;
@@ -495,9 +502,9 @@ p {
     display: none;
   }
 }
-@media screen and (max-width: 600px) {
-  #links {
-    width: 100%;
+@media screen and (max-width: 800px) {
+  .about-me p {
+    font-size: 80%;
   }
 }
 @media screen and (max-width: 600px) {
@@ -510,6 +517,9 @@ p {
   }
   #projects {
     top: 5%;
+  }
+  #links {
+    width: 100%;
   }
 }
 @media screen and (max-width: 430px) {
@@ -582,6 +592,13 @@ p {
   }
   .spotify-iframe {
     height: 575px;
+  }
+  .about-me {
+    width: 90%;
+  }
+  .about-me p {
+    width: 90%;
+    font-size: 70%;
   }
 }
 
