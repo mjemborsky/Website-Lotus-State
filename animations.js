@@ -14,6 +14,8 @@
 // Need to establish categories of performance that determine what animation methods and how
 // much animation will be shown (2g + low cores/low performance, 3g + medium cores/medium performance, 4/5g)
 
+
+let lastTimestamp = null;
 // Preload SVGs for Background - Stores svg's as list of names
 const svgUrls = [
   'backgroundOne.svg',
@@ -94,11 +96,36 @@ function animatePathWithDelay(paths) {
     animateSinglePath(path, delay);
   });
 }
+// Handle tab visibility changes
+function handleVisibilityChange() {
+  if (document.hidden) {
+    // Tab is inactive, pause animations or adjust as needed
+    lastTimestamp = performance.now(); // Record the time the tab was hidden
+  } else {
+    // Tab is active again, calculate time elapsed and adjust animation
+    const timeElapsed = performance.now() - lastTimestamp;
+    const paths = idle.querySelectorAll('path');
+    paths.forEach(path => {
+      const currentTransform = path.getAttribute('transform');
+      const matrix = new DOMMatrix(currentTransform);
+      const currentY = matrix.m42;
+      const totalDistance = parseFloat(window.innerHeight * (isMobile() ? 8 : 4));
+      const newY = currentY - (timeElapsed / 20000) * totalDistance; // Adjust the position based on elapsed time
+
+      if (newY < 0) {
+        path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${newY + totalDistance})`); // Wrap around to top if necessary
+      } else {
+        path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${newY})`);
+      }
+    });
+  }
+}
 // Animate Idle SVG (rain.svg)
 function animateIdle() {
   const idle = document.getElementById("idle");
   const paths = idle.querySelectorAll('path');
   animatePathWithDelay(paths);
+  document.addEventListener('visibilitychange', handleVisibilityChange);
 }
 // Circle Animation
 function animateCircles(targetSVG) {
