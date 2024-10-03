@@ -53,80 +53,108 @@ function isCurrentSVG(filename) {
 function isMobile() {
   return window.innerWidth <= 430;
 }
+
+// Function to create and append paths dynamically into the <g> group
+function createPaths(numPaths, container) {
+  const group = container.querySelector('g'); // Target the <g> element inside the SVG
+  for (let i = 0; i < numPaths; i++) {
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    
+    // Randomize attributes for the path
+    const randomLength = Math.random() * 50 + 10; // Random length for path
+    const randomStrokeWidth = Math.random() * 3 + 1; // Random stroke width
+    const randomOpacity = Math.random() * 0.5 + 0.5; // Random opacity between 0.5 and 1
+    
+    // Set the path attributes
+    path.setAttribute("d", `M2.24 -${randomLength}L2.24 0Z`);
+    path.setAttribute("stroke-width", randomStrokeWidth);
+    path.setAttribute("stroke-linecap", "round");
+    path.setAttribute("stroke-linejoin", "round");
+    path.setAttribute("stroke", "#ffffff");
+    path.setAttribute("opacity", randomOpacity);
+    
+    // Randomize initial X and Y positions (spread across screen width and vertical position)
+    const initialX = Math.random() * (isMobile() ? window.innerWidth * 4 : window.innerWidth); // Random X position across the width of the screen
+    const initialY = Math.random() * window.innerHeight - window.innerHeight; // Random Y position
+    
+    // Apply transform with both X and Y translation
+    path.setAttribute("transform", `matrix(1, 0, 0, 1, ${initialX}, ${initialY})`);
+    
+    // Append the path to the <g> group
+    group.appendChild(path);
+  }
+}
+
 function setInitialPathPositions(paths) {
   paths.forEach(path => {
     const currentTransform = path.getAttribute('transform');
     const matrix = new DOMMatrix(currentTransform);
-    const initialY = matrix.m42 - (isMobile() ? parseFloat(window.innerHeight*2) : 0); // Adjust initial Y position
-    path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${initialY})`);
+    const initialY = matrix.m42 - (isMobile() ? parseFloat(window.innerHeight * 2) : 0); // Keep the same initial Y position
+    const initialX = matrix.m41; // Retain the initial X position
+    path.setAttribute('transform', `matrix(1, 0, 0, 1, ${initialX}, ${initialY})`);
   });
 }
-// Function for Idle animation, applies infinite animation to list of paths
+
 function animatePathWithDelay(paths) {
   setInitialPathPositions(paths);
-  const idleAnimationDuration = 20000;
-  const delayBetweenPaths = 1000;
+  const baseAnimationDuration = 20000; // Base duration
+  const maxRandomOffset = 5000; // Max random time offset
+
   function getInitialY(path) {
     const transformAttribute = path.getAttribute('transform');
     const matrix = new DOMMatrix(transformAttribute);
     return matrix.m42;
   }
-  const sortedPaths = [...paths].sort((a, b) => getInitialY(b) - getInitialY(a));
-  function animateSinglePath(path, delay) {
-    const startY = getInitialY(path) - (isMobile() ? parseFloat(window.innerHeight)*2 : 0);
+
+  function getInitialX(path) {
+    const transformAttribute = path.getAttribute('transform');
+    const matrix = new DOMMatrix(transformAttribute);
+    return matrix.m41;
+  }
+
+  function animateSinglePath(path, initialStaggerDelay = 0) {
+    const startY = getInitialY(path) - (isMobile() ? parseFloat(window.innerHeight) * 2 : 0);
+    const startX = getInitialX(path); // Keep X position the same
     const endY = parseFloat(window.innerHeight * (isMobile() ? 8 : 4));
     let startTime;
-    const duration = idleAnimationDuration + Math.random() * 2000 - 1000;
+
+    // Randomize duration for each path
+    const randomDuration = baseAnimationDuration + (Math.random() * maxRandomOffset - maxRandomOffset / 2); // Randomized duration
+    const randomInitialDelay = Math.random() * 5000 + initialStaggerDelay; // Randomized initial delay
+
     function step(timestamp) {
       if (!startTime) startTime = timestamp;
-      const progress = (timestamp - startTime) / duration;
+      const progress = (timestamp - startTime) / randomDuration;
+
       if (progress >= 1) {
-        path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${startY})`);
-        startTime = timestamp;
+        path.setAttribute('transform', `matrix(1, 0, 0, 1, ${startX}, ${startY})`);
+        startTime = timestamp; // Reset the time to repeat the animation
       } else {
         const newY = parseFloat(startY - progress * (startY - endY));
-        path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${newY})`);
+        path.setAttribute('transform', `matrix(1, 0, 0, 1, ${startX}, ${newY})`);
       }
+
       requestAnimationFrame(step);
     }
-    setTimeout(() => requestAnimationFrame(step), delay);
+
+    setTimeout(() => requestAnimationFrame(step), randomInitialDelay); // Apply the random initial delay
   }
-  sortedPaths.forEach((path, index) => {
-    const delay = index * delayBetweenPaths;
-    animateSinglePath(path, delay);
+
+  paths.forEach((path, index) => {
+    const initialStaggerDelay = index * 1000; // Staggered delay between path animations
+    animateSinglePath(path, initialStaggerDelay); // Start animations with staggered delay
   });
 }
-// Handle tab visibility changes
-function handleVisibilityChange() {
-  if (document.hidden) {
-    // Tab is inactive, pause animations or adjust as needed
-    lastTimestamp = performance.now(); // Record the time the tab was hidden
-  } else {
-    // Tab is active again, calculate time elapsed and adjust animation
-    const timeElapsed = performance.now() - lastTimestamp;
-    const paths = idle.querySelectorAll('path');
-    paths.forEach(path => {
-      const currentTransform = path.getAttribute('transform');
-      const matrix = new DOMMatrix(currentTransform);
-      const currentY = matrix.m42;
-      const totalDistance = parseFloat(window.innerHeight * (isMobile() ? 8 : 4));
-      const newY = currentY - (timeElapsed / 20000) * totalDistance; // Adjust the position based on elapsed time
 
-      if (newY < 0) {
-        path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${newY + totalDistance})`); // Wrap around to top if necessary
-      } else {
-        path.setAttribute('transform', `matrix(1, 0, 0, 1, 0, ${newY})`);
-      }
-    });
-  }
-}
+
 // Animate Idle SVG (rain.svg)
 function animateIdle() {
   const idle = document.getElementById("idle");
-  const paths = idle.querySelectorAll('path');
+  const paths = idle.querySelectorAll('g path');
   animatePathWithDelay(paths);
-  document.addEventListener('visibilitychange', handleVisibilityChange);
 }
+
+
 // Circle Animation
 function animateCircles(targetSVG) {
   const currentSVG = document.querySelector('.background-svg');
@@ -186,17 +214,16 @@ async function handlePageTransition(destinationURL, targetBackground) {
           // Update the reference to the container and content
           container = newContainer;
           content = container.querySelectorAll('.fade-target');
-          lotusmane = container.querySelector('.lotusmane-coverart');
           setTimeout(() => {
             content.forEach((newFadeItem) => {
               newFadeItem.style.opacity = '1';
             });
-            lotusmane.style.opacity = '.7';
           }, 100); // slight delay for browser rendering
           resolve();
         }, 2000);
       })
     ]);
+    createPaths(200, idle);
     animateIdle();
   } catch (error) {
     console.error('Error loading page:', error);
@@ -210,6 +237,7 @@ preloadSVGs(svgUrls).then(() => {
     const projects = document.querySelectorAll('.link-left');
     const more = document.querySelector('.link-right');
     var content = document.querySelectorAll('.fade-target');
+    const idle = document.getElementById("idle");
     // Add fade-in class to trigger fade-in animation
     setTimeout(() => {
       content.forEach((element) => {
@@ -249,6 +277,7 @@ preloadSVGs(svgUrls).then(() => {
       const destinationURL = home.getAttribute('href');
       const targetBackground = getStoredSVG('backgroundOne.svg');
       handlePageTransition(destinationURL, targetBackground);
+      home.blur();
     });
     // Event listeners for Projects links
     projects.forEach(link => {
@@ -259,6 +288,7 @@ preloadSVGs(svgUrls).then(() => {
         const destinationURL = link.getAttribute('href');
         const targetBackground = getStoredSVG('backgroundTwo.svg');
         handlePageTransition(destinationURL, targetBackground);
+        link.blur();
       });
     });
     // Event listener for More link
@@ -270,7 +300,9 @@ preloadSVGs(svgUrls).then(() => {
       const targetBackground = getStoredSVG('backgroundFive.svg');
       handlePageTransition(destinationURL, targetBackground);
       console.log("call page transition");
+      more.blur();
     });
+    createPaths(200, idle); // Generate 100 paths dynamically
     animateIdle();
   };
 });
