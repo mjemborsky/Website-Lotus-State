@@ -206,17 +206,17 @@ async function handlePageTransition(destinationURL, targetBackground) {
       await new Promise((resolve) => {
         setTimeout(() => {
           // Replace the container with the new page content
-          const newContainer = document.createElement('div');
-          newContainer.className = 'container';
-          newContainer.innerHTML = newPage;
-          container.parentNode.replaceChild(newContainer, container);
+          container.innerHTML = newPage;
 
           // Update the reference to the container and content
-          container = newContainer;
           content = container.querySelectorAll('.fade-target');
+          const lotusmane = document.querySelector('.lotusmane-coverart');
           setTimeout(() => {
             content.forEach((newFadeItem) => {
               newFadeItem.style.opacity = '1';
+              if (lotusmane) {
+                lotusmane.style.opacity = '.7';
+              }
             });
           }, 100); // slight delay for browser rendering
           resolve();
