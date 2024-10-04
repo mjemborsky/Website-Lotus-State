@@ -116,66 +116,33 @@ function animatePathWithDelay(paths) {
     const startX = getInitialX(path); // Keep X position the same
     const endY = parseFloat(window.innerHeight * (isMobile() ? 8 : 4));
     let startTime;
-    let pausedTime = 0;
-    let progress = 0;  // Track progress percentage
 
     // Randomize duration for each path
     const randomDuration = baseAnimationDuration + (Math.random() * maxRandomOffset - maxRandomOffset / 2); // Randomized duration
     const randomInitialDelay = Math.random() * 5000 + initialStaggerDelay; // Randomized initial delay
 
-    let animationId;
-
     function step(timestamp) {
-      if (!startTime) startTime = timestamp - pausedTime;
-      progress = (timestamp - startTime) / randomDuration;
+      if (!startTime) startTime = timestamp;
+      const progress = (timestamp - startTime) / randomDuration;
 
       if (progress >= 1) {
-        // Reset the path position to the start
         path.setAttribute('transform', `matrix(1, 0, 0, 1, ${startX}, ${startY})`);
         startTime = timestamp; // Reset the time to repeat the animation
       } else {
-        // Move the path based on progress
         const newY = parseFloat(startY - progress * (startY - endY));
         path.setAttribute('transform', `matrix(1, 0, 0, 1, ${startX}, ${newY})`);
       }
 
-      // Continue animation if the page is visible
+      // Only request animation frames if the page is visible
       if (!isPageHidden) {
-        animationId = requestAnimationFrame(step);
+        requestAnimationFrame(step);
       }
     }
 
-    // Handle pausing and resuming
-    const animation = {
-      isPaused: false,
-      pause: () => {
-        pausedTime = performance.now() - startTime;
-        cancelAnimationFrame(animationId);
-        animation.isPaused = true;
-      },
-      resume: () => {
-        if (animation.isPaused) {
-          startTime = performance.now() - pausedTime;
-          // Ensure the path continues from its current position
-          const currentTransform = path.getAttribute('transform');
-          const matrix = new DOMMatrix(currentTransform);
-          const currentY = matrix.m42;  // Get current Y position of the path
-          const newStartY = currentY;   // Update startY to continue from the current position
-
-          path.setAttribute('transform', `matrix(1, 0, 0, 1, ${startX}, ${newStartY})`);
-          requestAnimationFrame(step);
-          animation.isPaused = false;
-        }
-      }
-    };
-
-    // Store the animation reference
-    pathAnimations.push(animation);
-
-    // Start animation with the staggered initial delay
+    // Apply the random initial delay
     setTimeout(() => {
       if (!isPageHidden) {
-        animationId = requestAnimationFrame(step);
+        requestAnimationFrame(step);
       }
     }, randomInitialDelay);
   }
