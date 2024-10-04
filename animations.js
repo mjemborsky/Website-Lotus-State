@@ -52,7 +52,12 @@ function isCurrentSVG(filename) {
 function isMobile() {
   return window.innerWidth <= 430;
 }
-
+function clearPaths(container) {
+  const group = container.querySelector('g');
+  while (group.firstChild) {
+    group.removeChild(group.firstChild);
+  }
+}
 // Function to create and append paths dynamically into the <g> group
 function createPaths(numPaths, container) {
   const group = container.querySelector('g'); // Target the <g> element inside the SVG
@@ -163,9 +168,13 @@ function animateIdle() {
 
 document.addEventListener('visibilitychange', function () {
   isPageHidden = document.hidden;
+  const idle = document.getElementById("idle");
   if (!isPageHidden) {
     // When the page becomes visible again, restart the idle animation
+    createPaths(200, idle);
     animateIdle();
+  } else {
+    clearPaths(idle);
   }
 });
 
