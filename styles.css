@@ -408,6 +408,12 @@ h2 {
   width: 75px;
   height: 75px;
   border-radius: 30%;
+  transition: transform 0.5s ease;
+}
+
+#links .link:hover,
+#links .link:active {
+  transform: scale(1.33);
 }
 .about-me {
   position: relative;

@@ -203,11 +203,16 @@ async function handlePageTransition(destinationURL, targetBackground) {
           container.innerHTML = newPage;
           content = container.querySelectorAll('.fade-target');
           const lotusmane = document.querySelector('.lotusmane-coverart');
+          const centerHeaderText = document.querySelector('.center-link h1');
           setTimeout(() => {
             content.forEach((newFadeItem) => {
               newFadeItem.style.opacity = '1';
               if (lotusmane) {
+                centerHeaderText.textContent = 'LOTUSMANE';
                 lotusmane.style.opacity = '.7';
+              }
+              else {
+                centerHeaderText.textContent = 'Lotus State';
               }
             });
           }, 100);
