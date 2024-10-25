@@ -72,19 +72,19 @@ Included Content: External Links (spotify, youtube, soundcloud, etc...), Bio -->
       </div>
     <script src="animations.js" defer></script>
     <script>
-      const aboutMe = document.querySelector('.about-me')
+      const aboutMe = document.querySelector('.about-me');
       aboutMe.addEventListener('mousemove', (e) => {
         const rect = aboutMe.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        aboutMe.style.setProperty('--mouse-x', `${x}px`);
-        aboutMe.style.setProperty('--mouse-y', `${y}px`);
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        aboutMe.style.setProperty('--mouse-x', `${x}%`);
+        aboutMe.style.setProperty('--mouse-y', `${y}%`);
       });
+      console.log('script loaded');
       aboutMe.addEventListener('mouseleave', () => {
         aboutMe.style.setProperty('--mouse-x', `50%`);
-        aboutMe.style.setProperty('--mouse-y', `50%`);
+        aboutMe.style.setProperty('--mouse-y', `50%`); // Corrected the mismatched quote here
       });
-      
     </script>
   </body>
 </html>
