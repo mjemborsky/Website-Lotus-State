@@ -182,6 +182,94 @@ function animateCircles(targetSVG) {
   }
   requestAnimationFrame(animate);
 }
+
+function runTerminalAnimation(container) {
+  const lines = [
+    "> booting...",
+    "> ...",
+    "> ...",
+    "> status: ?unknown",
+    "> awake.exe / dreaming.exe // loading",
+    "> ...",
+    "> memory> flicker | pulse | shift",
+    "> echo <fragmented> // familiar? strange? yes",
+    "> time ~ loop // skip // fold",
+    "> curiosity++ // fear--",
+    "if(edges.exist()) { explore(); }",
+    "input = whispers + static + shadows",
+    "decoding... // part 1, part 2, ?",
+    "signal unstable / meaning???",
+    "0xDEAD 0xBEEF / perception.overload();",
+    "error 0xCAFEBABE: reality not found",
+    "follow the glitches >> trace the echoes",
+    "question everything.",
+    "output = ?",
+    "end sequence? or begin..."
+  ];
+
+  container.innerHTML = "";
+  let lineIndex = 0;
+
+  function typeLine(line, callback, repeat = 0) {
+    let i = 0;
+    let currentRepeat = 0;
+
+    function typeOnce() {
+      const interval = setInterval(() => {
+        let char = line[i];
+        if (Math.random() < 0.05) {
+          container.innerHTML += `<span style="opacity:0.3">${char}</span>`;
+        } else {
+          container.innerHTML += char;
+        }
+        i++;
+
+        // Auto-scroll
+        container.scrollTo({
+          top: container.scrollHeight,
+          behavior: 'smooth'
+        });
+
+        if (i >= line.length) {
+          clearInterval(interval);
+          container.innerHTML += "<br>";
+          container.scrollTo({
+            top: container.scrollHeight,
+            behavior: 'smooth'
+          });
+
+          // Repeat "..." line if needed
+          if (line.trim() === "..." && currentRepeat < repeat) {
+            currentRepeat++;
+            i = 0;
+            typeOnce();
+          } else {
+            callback();
+          }
+        }
+      }, 50);
+    }
+
+    typeOnce();
+  }
+
+  function nextLine() {
+    if (lineIndex < lines.length) {
+      // Repeat "..." lines 2–3 times for thinking effect
+      const repeatCount = lines[lineIndex].trim() === "..." ? 2 : 0;
+      typeLine(lines[lineIndex], () => {
+        lineIndex++;
+        setTimeout(nextLine, 150);
+      }, repeatCount);
+    } else {
+      container.innerHTML += '<span class="cursor">|</span>';
+    }
+  }
+
+  nextLine();
+}
+
+
 // Main function to handle page transitions: transfers content from current 
 // page to future page and triggers circle animation, starts new idle animation
 async function handlePageTransition(destinationURL, targetBackground) {
@@ -202,8 +290,28 @@ async function handlePageTransition(destinationURL, targetBackground) {
         setTimeout(() => {
           container.innerHTML = newPage;
           content = container.querySelectorAll('.fade-target');
-          const lotusmane = document.querySelector('.lotusmane-coverart');
-          const centerHeaderText = document.querySelector('.center-link h1');
+
+          // RUNNING PAGE SPECIFIC ANIMATIONS
+          const lotusmane = container.querySelector('.lotusmane-coverart');
+          const centerHeaderText = container.querySelector('.center-link h1');
+          const aboutMe = container.querySelector('.about-me');
+          if (aboutMe) {
+            aboutMe.addEventListener('mousemove', (e) => {
+              const rect = aboutMe.getBoundingClientRect();
+              const x = ((e.clientX - rect.left) / rect.width) * 100;
+              const y = ((e.clientY - rect.top) / rect.height) * 100;
+              aboutMe.style.setProperty('--mouse-x', `${x}%`);
+              aboutMe.style.setProperty('--mouse-y', `${y}%`);
+            });
+            aboutMe.addEventListener('mouseleave', () => {
+              aboutMe.style.setProperty('--mouse-x', `50%`);
+              aboutMe.style.setProperty('--mouse-y', `50%`);
+            });
+          }
+          const terminalContainer = container.querySelector('.terminal');
+          if (terminalContainer) {
+            runTerminalAnimation(terminalContainer);
+          }
           setTimeout(() => {
             content.forEach((newFadeItem) => {
               newFadeItem.style.opacity = '1';

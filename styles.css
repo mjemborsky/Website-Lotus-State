@@ -225,12 +225,23 @@ h2 {
   height: 100%;
 }
 
+.video-blob {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 9;
+  width: min(80%, 80vh * 16 / 9); /* scale down if height is too small */
+  height: auto;
+  z-index: 8;
+  bottom: 5%;
+}
+
 .intro-video {
   position: relative;
   z-index: 10;
   aspect-ratio: 16 / 9;
+  width: min(65%, 65vh * 16 / 9); /* scale down if height is too small */
   height: auto;
-  width: 65%;
   top: 7%;
 }
 
@@ -417,6 +428,8 @@ h2 {
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 #extra a {
   width: 75px;
@@ -426,11 +439,12 @@ h2 {
   position: relative;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-around;
-  margin: 0 auto;
+  margin: 0;
   z-index: 10;
-  top: 25%;
   width: 60%;
+  top: 10%;
 }
 .link {
   width: 75px;
@@ -438,7 +452,6 @@ h2 {
   border-radius: 30%;
   transition: transform 0.5s ease;
 }
-
 #links .link:hover,
 #links .link:active {
   transform: scale(1.33);
@@ -454,10 +467,11 @@ h2 {
   background-image: linear-gradient(to right top, rgba(209, 107, 165, 0.6), rgba(199, 119, 185, 0.6), rgba(186, 131, 202, 0.6), rgba(170, 143, 216, 0.6), rgba(154, 154, 225, 0.6), rgba(150, 154, 229, 0.6), rgba(145, 154, 233, 0.6), rgba(140, 154, 237, 0.6), rgba(152, 141, 237, 0.6), rgba(170, 126, 233, 0.6), rgba(189, 107, 224, 0.6), rgba(209, 83, 209, 0.6));
   height: 50%;
   border-radius: 15% 15% 30% 30%;
-  top: 30%;
   z-index: 3;
+  margin-top: 2%;
   overflow: hidden; /* Keeps hover effect within rounded corners */
   transition: opacity 0.2s ease-out;
+  top: 10%;
 }
 
 .about-me p {
@@ -493,7 +507,41 @@ h2 {
   opacity: 1; /* Fully visible gradient when hovered */
 }
 
+#links a {
+  height: auto;
+}
 
+
+.terminal {
+  position: relative;
+  width: 90%; /* or a fixed px value if you prefer */
+  max-width: 600px;
+  height: 400px; /* ensures enough vertical space for all lines */
+  margin: 2rem auto; /* centers horizontally */
+  padding: 1rem 1.5rem; /* space around text */
+  color: black;
+  opacity: 1;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  line-height: 1.4;
+  overflow-y: hidden; /* scroll if content exceeds container */
+  border-radius: 8px;
+}
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
+
+.cursor {
+  display: inline-block;
+  width: 1ch;
+  color: black;
+  animation: blink 1s infinite;
+}
+
+.flicker {
+  opacity: 0.3;
+}
 
 
 /* SVG's */
@@ -596,9 +644,9 @@ h2 {
 }
 @media screen and (max-width: 430px) {
   .center-link, .header-text {
-    font-size: 90%;
-    height: 90px;
-    width: 150px;
+    font-size: 100%;
+    height: 80px;
+    width: 200px;
     padding-right: 0;
     padding-left: 0;
   }
@@ -676,6 +724,16 @@ h2 {
   }
   .spotify-iframe {
     height: 575px;
+  }
+  #links {
+    width: 80%;
+    height: 30%;
+    top: 10%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  #links a {
+    padding: 10px;
   }
   .about-me {
     width: 90%;
