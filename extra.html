@@ -72,5 +72,28 @@ Included Content: External Links (spotify, youtube, soundcloud, etc...), Bio -->
       <div id="overlay"></div>
       </div>
     <script src="animations.js" defer></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const projects = document.querySelector('.projects');
+        if (!projects) return;
+      
+        function resetToFirstIfMobile() {
+          if (window.innerWidth <= 430) {
+            // forcefully show first tile
+            projects.scrollLeft = 0;
+            const first = projects.querySelector('.project-tile');
+            if (first) first.scrollIntoView({inline: 'center', behavior: 'auto'});
+          }
+        }
+      
+        // run on load and on orientation change / resize
+        resetToFirstIfMobile();
+        window.addEventListener('orientationchange', resetToFirstIfMobile);
+        window.addEventListener('resize', () => {
+          // small delay so layout settles
+          setTimeout(resetToFirstIfMobile, 60);
+        });
+      });
+      </script>
   </body>
 </html>
