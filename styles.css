@@ -719,11 +719,22 @@ h2 {
     margin-right: 1%;
     width: 30%;
   }
+  .projects {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* smooth on iOS */
+  }
   .project-tile {
-    display: none;
+    flex: 0 0 100%; /* take full width of screen */
+    scroll-snap-align: center;
+    display: flex;
   }
   .spotify-iframe {
     height: 575px;
+  }
+  .projects::-webkit-scrollbar {
+    display: none;
   }
   #links {
     width: 80%;
