@@ -33,37 +33,33 @@
 
 
 
-// Variable to check if page is hidden/visible
-let isPageHidden = false;
-// Array of Circle SVG's used
+// BACKGROUND SVG HANDLING, PRELOAD SET UP
+const svgCache = new Map();
 const svgUrls = [
   'backgroundOne.svg',
   'backgroundTwo.svg',
   'backgroundFive.svg'
 ];
-// Function to preload SVGs
 async function preloadSVGs(urls) {
-  try {
-    for (const url of urls) {
-      const cachedSVG = sessionStorage.getItem(url);
-      if (!cachedSVG) {
-        const response = await fetch(url);
-        const svgContent = await response.text();
-        sessionStorage.setItem(url, svgContent); // Cache the SVG content in SessionStorage
-      }
+  for (const url of urls) {
+    if (!svgCache.has(url)) {
+      const response = await fetch(url);
+      const svgContent = await response.text();
+      const parser = new DOMParser();
+      const svgDoc = parser.parseFromString(svgContent, 'image/svg+xml');
+      svgCache.set(url, svgDoc.documentElement);
     }
-    console.log("SVG's Preloaded");
-  } catch (error) {
-    console.error('Error preloading SVG:', error);
   }
 }
-// Get stored SVG from SessionStorage
 function getStoredSVG(url) {
-  const svgString = sessionStorage.getItem(url);
-  const parser = new DOMParser();
-  const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
-  return svgDoc.documentElement;
+  return svgCache.get(url).cloneNode(true);
 }
+const preloadPromise = preloadSVGs(svgUrls);
+
+
+
+// Variable to check if page is hidden/visible
+let isPageHidden = false;
 // Function to check if the currentSVG matches a specific SVG filename
 function isCurrentSVG(filename) {
   const currentSVG = document.querySelector('.background-svg');
@@ -73,6 +69,13 @@ function isCurrentSVG(filename) {
 function isMobile() {
   return window.innerWidth <= 430;
 }
+
+
+
+
+
+
+// IDLE ANIMATION
 // Function to clear all paths from the current page
 function clearPaths(container) {
   const group = container.querySelector('g');
@@ -170,8 +173,6 @@ function animateIdle() {
   const paths = idle.querySelectorAll('g path');
   animatePathWithDelay(paths);
 }
-
-
 // Checks if page is inactive/not visible, and stops and restarts idle animation
 document.addEventListener('visibilitychange', function () {
   isPageHidden = document.hidden;
@@ -183,7 +184,11 @@ document.addEventListener('visibilitychange', function () {
     clearPaths(idle);
   }
 });
-// Circle Animation
+
+
+
+
+// CIRCLE ANIMATION
 function animateCircles(targetSVG) {
   const currentSVG = document.querySelector('.background-svg');
   const currentCircles = currentSVG.querySelectorAll('circle');
@@ -210,7 +215,7 @@ function animateCircles(targetSVG) {
   }
   requestAnimationFrame(animate);
 }
-
+// EXTRA ANIMATION
 function runTerminalAnimation(container) {
   const lines = [
     "> booting...",
@@ -251,7 +256,6 @@ function runTerminalAnimation(container) {
           container.innerHTML += char;
         }
         i++;
-
         // Auto-scroll
         container.scrollTo({
           top: container.scrollHeight,
@@ -265,7 +269,6 @@ function runTerminalAnimation(container) {
             top: container.scrollHeight,
             behavior: 'smooth'
           });
-
           // Repeat "..." line if needed
           if (line.trim() === "..." && currentRepeat < repeat) {
             currentRepeat++;
@@ -280,7 +283,6 @@ function runTerminalAnimation(container) {
 
     typeOnce();
   }
-
   function nextLine() {
     if (lineIndex < lines.length) {
       // Repeat "..." lines 2–3 times for thinking effect
@@ -293,7 +295,6 @@ function runTerminalAnimation(container) {
       container.innerHTML += '<span class="cursor">|</span>';
     }
   }
-
   nextLine();
 }
 
@@ -362,75 +363,153 @@ async function handlePageTransition(destinationURL, targetBackground) {
     console.error('Error loading page:', error);
   }
 }
-// MAIN PAGE LISTENER/WINDOW ONLOAD FUNCTION TO SET UP EVENT LISTENERS
-preloadSVGs(svgUrls).then(() => {
-  window.onload = function() {
-    const home = document.querySelector('.header-text');
-    const projects = document.querySelectorAll('.link-left');
-    const more = document.querySelector('.link-right');
-    var content = document.querySelectorAll('.fade-target');
-    const idle = document.getElementById("idle");
-    setTimeout(() => {
-      content.forEach((element) => {
-        element.style.opacity = '1';
-      });
-    }, 100);
-    // PROJECT LINK EXPANSION //
-    // Initializing Properties
-    const leftLink = document.querySelector('.left-link');
-    const expandedLinks = document.querySelector('.expanded-links');
-    expandedLinks.style.display = 'none';
-    var isExpanded = false;
-    leftLink.addEventListener('click', function(e) {
-        e.preventDefault();
-        if (isExpanded) {
-            expandedLinks.style.display = 'none';
-            isExpanded = false;
-            overlay.style.opacity = '0';
-        } else {
-            expandedLinks.style.display = 'flex';
-            expandedLinks.style.alignItems = 'center';
-            expandedLinks.style.flexDirection = 'column';
-            expandedLinks.style.left = '25px';
-            expandedLinks.style.top = '75px';
-            isExpanded = true;
-            overlay.style.opacity = '1';
-        }
+
+
+// MAIN PAGE HANDLING FUNCTION AND INITIALIZER
+function initUI() {
+  const home = document.querySelector(".header-text");
+  const projects = document.querySelectorAll(".link-left");
+  const more = document.querySelector(".link-right");
+  var content = document.querySelectorAll(".fade-target");
+  const idle = document.getElementById("idle");
+  setTimeout(() => {
+    content.forEach((element) => {
+      element.style.opacity = "1";
     });
-    // Event listener for Home link
-    home.addEventListener('click', function (event) {
+  }, 100);
+  const leftLink = document.querySelector(".left-link");
+  const expandedLinks = document.querySelector(".expanded-links");
+  expandedLinks.style.display = "none";
+  let isExpanded = false;
+  leftLink.addEventListener("click", function (e) {
+    e.preventDefault();
+    if (isExpanded) {
+      expandedLinks.style.display = "none";
+      isExpanded = false;
+      overlay.style.opacity = "0";
+    } else {
+      expandedLinks.style.display = "flex";
+      expandedLinks.style.alignItems = "center";
+      expandedLinks.style.flexDirection = "column";
+      expandedLinks.style.left = "25px";
+      expandedLinks.style.top = "75px";
+      isExpanded = true;
+      overlay.style.opacity = "1";
+    }
+  });
+  home.addEventListener("click", function (event) {
+    event.preventDefault();
+    overlay.style.opacity = "0";
+    expandedLinks.style.display = "none";
+    const destinationURL = home.getAttribute("href");
+    const targetBackground = getStoredSVG("backgroundOne.svg");
+    handlePageTransition(destinationURL, targetBackground);
+    home.blur();
+  });
+  projects.forEach((link) => {
+    link.addEventListener("click", function (event) {
       event.preventDefault();
-      overlay.style.opacity = '0';
-      expandedLinks.style.display = 'none';
-      const destinationURL = home.getAttribute('href');
-      const targetBackground = getStoredSVG('backgroundOne.svg');
+      expandedLinks.style.display = "none";
+      overlay.style.opacity = "0";
+      const destinationURL = link.getAttribute("href");
+      const targetBackground = getStoredSVG("backgroundTwo.svg");
       handlePageTransition(destinationURL, targetBackground);
-      home.blur();
+      link.blur();
     });
-    // Event listeners for Projects links
-    projects.forEach(link => {
-      link.addEventListener('click', function (event) {
-        event.preventDefault();
-        expandedLinks.style.display = 'none';
-        overlay.style.opacity = '0';
-        const destinationURL = link.getAttribute('href');
-        const targetBackground = getStoredSVG('backgroundTwo.svg');
-        handlePageTransition(destinationURL, targetBackground);
-        link.blur();
-      });
-    });
-    // Event listener for More link
-    more.addEventListener('click', function (event) {
-      event.preventDefault();
-      overlay.style.opacity = '0';
-      expandedLinks.style.display = 'none';
-      const destinationURL = more.getAttribute('href');
-      const targetBackground = getStoredSVG('backgroundFive.svg');
-      handlePageTransition(destinationURL, targetBackground);
-      more.blur();
-    });
-    // Sets initial idle animation
-    createPaths(getNumPaths(), idle);
-    animateIdle();
-  };
+  });
+  more.addEventListener("click", function (event) {
+    event.preventDefault();
+    overlay.style.opacity = "0";
+    expandedLinks.style.display = "none";
+    const destinationURL = more.getAttribute("href");
+    const targetBackground = getStoredSVG("backgroundFive.svg");
+    handlePageTransition(destinationURL, targetBackground);
+    more.blur();
+  });
+  createPaths(getNumPaths(), idle);
+  animateIdle();
+}
+
+
+preloadPromise.then(() => {
+  if (document.readyState === "complete") {
+    initUI();
+  } else {
+    window.addEventListener("load", initUI);
+  }
 });
+
+
+
+// // MAIN PAGE LISTENER/WINDOW ONLOAD FUNCTION TO SET UP EVENT LISTENERS
+// preloadSVGs(svgUrls).then(() => {
+//   window.onload = function() {
+//     const home = document.querySelector('.header-text');
+//     const projects = document.querySelectorAll('.link-left');
+//     const more = document.querySelector('.link-right');
+//     var content = document.querySelectorAll('.fade-target');
+//     const idle = document.getElementById("idle");
+//     setTimeout(() => {
+//       content.forEach((element) => {
+//         element.style.opacity = '1';
+//       });
+//     }, 100);
+//     // PROJECT LINK EXPANSION //
+//     // Initializing Properties
+//     const leftLink = document.querySelector('.left-link');
+//     const expandedLinks = document.querySelector('.expanded-links');
+//     expandedLinks.style.display = 'none';
+//     var isExpanded = false;
+//     leftLink.addEventListener('click', function(e) {
+//         e.preventDefault();
+//         if (isExpanded) {
+//             expandedLinks.style.display = 'none';
+//             isExpanded = false;
+//             overlay.style.opacity = '0';
+//         } else {
+//             expandedLinks.style.display = 'flex';
+//             expandedLinks.style.alignItems = 'center';
+//             expandedLinks.style.flexDirection = 'column';
+//             expandedLinks.style.left = '25px';
+//             expandedLinks.style.top = '75px';
+//             isExpanded = true;
+//             overlay.style.opacity = '1';
+//         }
+//     });
+//     // Event listener for Home link
+//     home.addEventListener('click', function (event) {
+//       event.preventDefault();
+//       overlay.style.opacity = '0';
+//       expandedLinks.style.display = 'none';
+//       const destinationURL = home.getAttribute('href');
+//       const targetBackground = getStoredSVG('backgroundOne.svg');
+//       handlePageTransition(destinationURL, targetBackground);
+//       home.blur();
+//     });
+//     // Event listeners for Projects links
+//     projects.forEach(link => {
+//       link.addEventListener('click', function (event) {
+//         event.preventDefault();
+//         expandedLinks.style.display = 'none';
+//         overlay.style.opacity = '0';
+//         const destinationURL = link.getAttribute('href');
+//         const targetBackground = getStoredSVG('backgroundTwo.svg');
+//         handlePageTransition(destinationURL, targetBackground);
+//         link.blur();
+//       });
+//     });
+//     // Event listener for More link
+//     more.addEventListener('click', function (event) {
+//       event.preventDefault();
+//       overlay.style.opacity = '0';
+//       expandedLinks.style.display = 'none';
+//       const destinationURL = more.getAttribute('href');
+//       const targetBackground = getStoredSVG('backgroundFive.svg');
+//       handlePageTransition(destinationURL, targetBackground);
+//       more.blur();
+//     });
+//     // Sets initial idle animation
+//     createPaths(getNumPaths(), idle);
+//     animateIdle();
+//   };
+// });
