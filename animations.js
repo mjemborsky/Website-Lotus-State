@@ -8,9 +8,30 @@
 // floating 'paths'. 
 
 // TO DO: implement changes in animations done based on users speed and device settings to ensure clean design regardless
-// Need to TEST this performance with performance.now to determine user's machine capabilities
-// Need to establish categories of performance that determine what animation methods and how
-// much animation will be shown (2g + low cores/low performance, 3g + medium cores/medium performance, 4/5g)
+
+// -- 1 -- REWRITE IDLE PATHS TO BE BETTER ON MOBILE FOR PERFORMANCE
+// ----- possible steps - > use this instead path.style.transform = `translate(${startX}px, ${newY}px)`;
+// ----- also handle all paths at once, then animate one by one
+// function animateAllPaths(paths) {
+//   function step(timestamp) {
+//     paths.forEach(path => {
+//       // compute newY from stored start/end values
+//       // update path.style.transform
+//     });
+//     if (!isPageHidden) requestAnimationFrame(step);
+//   }
+//   requestAnimationFrame(step);
+// }
+//
+// -- 2 -- Reduced motion?
+// const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+// if (reduceMotion) {
+//   // use fewer paths and no circle transitions
+// }
+//
+// -- 3 -- Stagger animations of circles, optimize all code in general
+
+
 
 // Variable to check if page is hidden/visible
 let isPageHidden = false;
@@ -138,18 +159,25 @@ function animatePathWithDelay(paths) {
     animateSinglePath(path, initialStaggerDelay);
   });
 }
+function getNumPaths() {
+  if (isMobile()) return 50;       // mobile = light
+  if (navigator.hardwareConcurrency <= 4) return 100; // weaker desktops
+  return 200;                      // full effect
+}
 // Animate Idle SVG (bubbles.svg)
 function animateIdle() {
   const idle = document.getElementById("idle");
   const paths = idle.querySelectorAll('g path');
   animatePathWithDelay(paths);
 }
+
+
 // Checks if page is inactive/not visible, and stops and restarts idle animation
 document.addEventListener('visibilitychange', function () {
   isPageHidden = document.hidden;
   const idle = document.getElementById("idle");
   if (!isPageHidden) {
-    createPaths(200, idle);
+    createPaths(getNumPaths(), idle);
     animateIdle();
   } else {
     clearPaths(idle);
@@ -328,7 +356,7 @@ async function handlePageTransition(destinationURL, targetBackground) {
         }, 2000);
       })
     ]);
-    createPaths(200, idle);
+    createPaths(getNumPaths(), idle);
     animateIdle();
   } catch (error) {
     console.error('Error loading page:', error);
@@ -402,7 +430,7 @@ preloadSVGs(svgUrls).then(() => {
       more.blur();
     });
     // Sets initial idle animation
-    createPaths(200, idle);
+    createPaths(getNumPaths(), idle);
     animateIdle();
   };
 });
