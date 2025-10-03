@@ -310,12 +310,12 @@ async function handlePageTransition(destinationURL, targetBackground) {
   try {
     const response = await fetch(destinationURL);
     const newPage = await response.text();
-    const animationPromise = Promise.all([
-      await new Promise((resolve) => {
+    await Promise.all([
+      new Promise((resolve) => {
         animateCircles(targetBackground);
         resolve();
       }),
-      await new Promise((resolve) => {
+      new Promise((resolve) => {
         setTimeout(() => {
           container.innerHTML = newPage;
           content = container.querySelectorAll('.fade-target');
@@ -352,9 +352,9 @@ async function handlePageTransition(destinationURL, targetBackground) {
                 centerHeaderText.textContent = 'Lotus State';
               }
             });
-          }, 100);
+          }, 50);
           resolve();
-        }, 2000);
+        }, 1250);
       })
     ]);
     createPaths(getNumPaths(), idle);
