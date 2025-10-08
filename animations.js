@@ -58,6 +58,7 @@ const preloadPromise = preloadSVGs(svgUrls);
 
 
 
+
 // Variable to check if page is hidden/visible
 let isPageHidden = false;
 // Function to check if the currentSVG matches a specific SVG filename
@@ -113,65 +114,108 @@ function setInitialPathPositions(paths) {
     path.setAttribute('transform', `matrix(1, 0, 0, 1, ${initialX}, ${initialY})`);
   });
 }
-// Function for animating single path
-function animatePathWithDelay(paths) {
-  setInitialPathPositions(paths);
-  const baseAnimationDuration = 20000;
-  const maxRandomOffset = 5000;
-  function getInitialY(path) {
-    const transformAttribute = path.getAttribute('transform');
-    const matrix = new DOMMatrix(transformAttribute);
-    return matrix.m42;
-  }
-  function getInitialX(path) {
-    const transformAttribute = path.getAttribute('transform');
-    const matrix = new DOMMatrix(transformAttribute);
-    return matrix.m41;
-  }
-  function animateSinglePath(path, initialStaggerDelay = 0) {
-    const startY = getInitialY(path) - (isMobile() ? parseFloat(window.innerHeight) * 2 : 0);
-    const startX = getInitialX(path); 
-    const endY = parseFloat(window.innerHeight * (isMobile() ? 8 : 4));
-    let startTime;
-    const randomDuration = baseAnimationDuration + (Math.random() * maxRandomOffset - maxRandomOffset / 2);
-    const randomInitialDelay = Math.random() * 5000 + initialStaggerDelay; 
 
-    function step(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const progress = (timestamp - startTime) / randomDuration;
-      if (progress >= 1) {
-        path.setAttribute('transform', `matrix(1, 0, 0, 1, ${startX}, ${startY})`);
-        startTime = timestamp; 
-      } else {
-        const newY = parseFloat(startY - progress * (startY - endY));
-        path.setAttribute('transform', `matrix(1, 0, 0, 1, ${startX}, ${newY})`);
-      }
 
-      if (!isPageHidden) {
-        requestAnimationFrame(step);
-      }
-    }
-    setTimeout(() => {
-      if (!isPageHidden) {
-        requestAnimationFrame(step);
-      }
-    }, randomInitialDelay);
-  }
-  paths.forEach((path, index) => {
-    const initialStaggerDelay = index * 1000; 
-    animateSinglePath(path, initialStaggerDelay);
+function animatePaths(paths) {
+  const pathData = Array.from(paths).map((path, index) => {
+    const transformAttr = path.getAttribute('transform');
+    const matrix = new DOMMatrix(transformAttr);
+    const startX = matrix.m41;
+    const startY = matrix.m42 - (isMobile() ? window.innerHeight * 2 : 0);
+    const endY = window.innerHeight * (isMobile() ? 8 : 4);
+    const duration = 20000 + (Math.random() * 5000 - 2500);
+    const delay = Math.random() * 5000 + index * 1000;
+
+    return {
+      path,
+      startX,
+      startY,
+      endY,
+      duration,
+      delay,
+      startTime: null,
+    };
   });
+
+  function step(timestamp) {
+    pathData.forEach(data => {
+      if (isPageHidden) return;
+
+      if (timestamp < data.delay) return;
+
+      if (!data.startTime) data.startTime = timestamp;
+      const elapsed = timestamp - data.startTime - data.delay;
+      const progress = (elapsed % data.duration) / data.duration;
+
+      const newY = data.startY + (data.endY - data.startY) * progress;
+      data.path.setAttribute('transform', `matrix(1, 0, 0, 1, ${data.startX}, ${newY})`);
+    });
+
+    if (!isPageHidden) requestAnimationFrame(step);
+  }
+
+  requestAnimationFrame(step);
 }
+
+// // Function for animating single path
+// function animatePathWithDelay(paths) {
+//   setInitialPathPositions(paths);
+//   const baseAnimationDuration = 20000;
+//   const maxRandomOffset = 5000;
+//   function getInitialY(path) {
+//     const transformAttribute = path.getAttribute('transform');
+//     const matrix = new DOMMatrix(transformAttribute);
+//     return matrix.m42;
+//   }
+//   function getInitialX(path) {
+//     const transformAttribute = path.getAttribute('transform');
+//     const matrix = new DOMMatrix(transformAttribute);
+//     return matrix.m41;
+//   }
+//   function animateSinglePath(path, initialStaggerDelay = 0) {
+//     const startY = getInitialY(path) - (isMobile() ? parseFloat(window.innerHeight) * 2 : 0);
+//     const startX = getInitialX(path); 
+//     const endY = parseFloat(window.innerHeight * (isMobile() ? 8 : 4));
+//     let startTime;
+//     const randomDuration = baseAnimationDuration + (Math.random() * maxRandomOffset - maxRandomOffset / 2);
+//     const randomInitialDelay = Math.random() * 5000 + initialStaggerDelay; 
+
+//     function step(timestamp) {
+//       if (!startTime) startTime = timestamp;
+//       const progress = (timestamp - startTime) / randomDuration;
+//       if (progress >= 1) {
+//         path.setAttribute('transform', `matrix(1, 0, 0, 1, ${startX}, ${startY})`);
+//         startTime = timestamp; 
+//       } else {
+//         const newY = parseFloat(startY - progress * (startY - endY));
+//         path.setAttribute('transform', `matrix(1, 0, 0, 1, ${startX}, ${newY})`);
+//       }
+
+//       if (!isPageHidden) {
+//         requestAnimationFrame(step);
+//       }
+//     }
+//     setTimeout(() => {
+//       if (!isPageHidden) {
+//         requestAnimationFrame(step);
+//       }
+//     }, randomInitialDelay);
+//   }
+//   paths.forEach((path, index) => {
+//     const initialStaggerDelay = index * 1000; 
+//     animateSinglePath(path, initialStaggerDelay);
+//   });
+// }
 function getNumPaths() {
-  if (isMobile()) return 50;       // mobile = light
-  if (navigator.hardwareConcurrency <= 4) return 100; // weaker desktops
-  return 200;                      // full effect
+  if (isMobile()) return 30;       // mobile = light
+  if (navigator.hardwareConcurrency <= 4 || navigator.deviceMemory < 4) return 60; // weaker desktops
+  return 150;                      // full effect
 }
 // Animate Idle SVG (bubbles.svg)
 function animateIdle() {
   const idle = document.getElementById("idle");
   const paths = idle.querySelectorAll('g path');
-  animatePathWithDelay(paths);
+  animatePaths(paths);
 }
 // Checks if page is inactive/not visible, and stops and restarts idle animation
 document.addEventListener('visibilitychange', function () {
@@ -438,78 +482,3 @@ preloadPromise.then(() => {
     window.addEventListener("load", initUI);
   }
 });
-
-
-
-// // MAIN PAGE LISTENER/WINDOW ONLOAD FUNCTION TO SET UP EVENT LISTENERS
-// preloadSVGs(svgUrls).then(() => {
-//   window.onload = function() {
-//     const home = document.querySelector('.header-text');
-//     const projects = document.querySelectorAll('.link-left');
-//     const more = document.querySelector('.link-right');
-//     var content = document.querySelectorAll('.fade-target');
-//     const idle = document.getElementById("idle");
-//     setTimeout(() => {
-//       content.forEach((element) => {
-//         element.style.opacity = '1';
-//       });
-//     }, 100);
-//     // PROJECT LINK EXPANSION //
-//     // Initializing Properties
-//     const leftLink = document.querySelector('.left-link');
-//     const expandedLinks = document.querySelector('.expanded-links');
-//     expandedLinks.style.display = 'none';
-//     var isExpanded = false;
-//     leftLink.addEventListener('click', function(e) {
-//         e.preventDefault();
-//         if (isExpanded) {
-//             expandedLinks.style.display = 'none';
-//             isExpanded = false;
-//             overlay.style.opacity = '0';
-//         } else {
-//             expandedLinks.style.display = 'flex';
-//             expandedLinks.style.alignItems = 'center';
-//             expandedLinks.style.flexDirection = 'column';
-//             expandedLinks.style.left = '25px';
-//             expandedLinks.style.top = '75px';
-//             isExpanded = true;
-//             overlay.style.opacity = '1';
-//         }
-//     });
-//     // Event listener for Home link
-//     home.addEventListener('click', function (event) {
-//       event.preventDefault();
-//       overlay.style.opacity = '0';
-//       expandedLinks.style.display = 'none';
-//       const destinationURL = home.getAttribute('href');
-//       const targetBackground = getStoredSVG('backgroundOne.svg');
-//       handlePageTransition(destinationURL, targetBackground);
-//       home.blur();
-//     });
-//     // Event listeners for Projects links
-//     projects.forEach(link => {
-//       link.addEventListener('click', function (event) {
-//         event.preventDefault();
-//         expandedLinks.style.display = 'none';
-//         overlay.style.opacity = '0';
-//         const destinationURL = link.getAttribute('href');
-//         const targetBackground = getStoredSVG('backgroundTwo.svg');
-//         handlePageTransition(destinationURL, targetBackground);
-//         link.blur();
-//       });
-//     });
-//     // Event listener for More link
-//     more.addEventListener('click', function (event) {
-//       event.preventDefault();
-//       overlay.style.opacity = '0';
-//       expandedLinks.style.display = 'none';
-//       const destinationURL = more.getAttribute('href');
-//       const targetBackground = getStoredSVG('backgroundFive.svg');
-//       handlePageTransition(destinationURL, targetBackground);
-//       more.blur();
-//     });
-//     // Sets initial idle animation
-//     createPaths(getNumPaths(), idle);
-//     animateIdle();
-//   };
-// });
