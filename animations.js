@@ -295,7 +295,7 @@ function runTerminalAnimation(container) {
       const interval = setInterval(() => {
         let char = line[i];
         if (Math.random() < 0.05) {
-          container.innerHTML += `<span style="opacity:0.3">${char}</span>`;
+          container.innerHTML += `<span style="opacity:1">${char}</span>`;
         } else {
           container.innerHTML += char;
         }
