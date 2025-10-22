@@ -416,8 +416,8 @@ h2 {
 .soundcloud-preview {
   display: flex;
   position: relative;
-  width: 30%;
-  height: 80%;
+  width: 25%;
+  height: 75%;
   z-index: 3;
 }
 
@@ -534,6 +534,7 @@ h2 {
   line-height: 1.4;
   overflow-y: hidden; /* scroll if content exceeds container */
   border-radius: 8px;
+  z-index: 0;
 }
 @keyframes blink {
   0%, 50%, 100% { opacity: 1; }
