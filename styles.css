@@ -222,7 +222,7 @@ h2 {
 
 /* This is the class JavaScript will trigger */
 .show-effect {
-  animation: singleFadeIn 1.5s ease-out forwards;
+  animation: singleFadeIn 1s ease-out forwards;
 }
 
 
@@ -263,19 +263,23 @@ h2 {
   position: relative;
   z-index: 10;
   aspect-ratio: 16 / 9;
-  width: min(55%, 55vh * 16 / 9); /* scale down if height is too small */
+  width: min(55%, 55vh * 16 / 9);
   height: auto;
   top: 7%;
 }
 
 #video-blob-svg {
   position: absolute;
-  top: 50%;
+  top: 57%; 
   left: 50%;
-  transform: translate(-50%, -50%) scaleX(1.2);
-  width: min(70%, 65vh * 16 / 9);
+  transform: translate(-50%, -50%);
+  /* Changed from 65% to 55% to match the exact structural layout width of the .intro-video */
+  width: min(55%, 55% * 16 / 9); 
   height: auto;
   z-index: 5;
+  pointer-events: none;
+  shape-rendering: geometricPrecision;  
+  opacity: 1;
 }
 
 /* CURRENTLY RELEASED PROJECT PAGE */
