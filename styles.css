@@ -48,7 +48,19 @@
     font-weight: normal;
     font-style: normal;}
 
+@font-face {
+  font-family: 'Retrolight';
+  src: url('./fonts/newfonts/Retrolight.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 
+@font-face {
+  font-family: 'Darkcastle';
+  src: url('./fonts/newfonts/Darkcastle.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 
 /* MAIN HTML AND BODY */
 html {
@@ -170,16 +182,16 @@ h2 {
   color: ghostwhite;
 }
 .center-link, .header-text {
-  height: 125px;
-  width: 300px;
+  height: 15%;
+  width: 25%;
   margin: 0 auto;
   padding-left: 50px;
   padding-right: 50px;
   border-radius: 0% 0% 150% 150%;
   color: whitesmoke;
   text-decoration: none;
-  font-size: 140%;
-  font-family: 'zorus_serifnormal';
+  font-size: 150%;
+  font-family: 'Retrolight', sans-serif;
   position: fixed;
   left: 0;
   right: 0;
@@ -192,6 +204,28 @@ h2 {
   align-items: center;
   justify-content: center;
 }
+
+
+.defaultTitle {
+  font-family: 'Retrolight', sans-serif;
+}
+
+.lotusmaneTitle {
+  font-family: 'Darkcastle', sans-serif;
+}
+
+/* Define the look of the transition blueprint */
+@keyframes singleFadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* This is the class JavaScript will trigger */
+.show-effect {
+  animation: singleFadeIn 1.5s ease-out forwards;
+}
+
+
 
 
 /* ALL INNER PAGE CONTENT - CONTAINER */ 
@@ -252,11 +286,11 @@ h2 {
   justify-content: center;
   margin: 0 auto;
   padding-top: 7%;
-  height: 75%;
+  height: 72%;
 }
 .project-tile {
-  min-width: 35%;
-  padding: 2%;
+  min-width: 45%;
+  padding: 5%;
   overflow: off;
   z-index: 3;
 }

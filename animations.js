@@ -335,7 +335,7 @@ async function handlePageTransition(destinationURL, targetBackground) {
 
           // RUNNING PAGE SPECIFIC ANIMATIONS
           const lotusmane = container.querySelector('.lotusmane-coverart');
-          const centerHeaderText = container.querySelector('.center-link h1');
+          const centerHeaderText = document.querySelector('.center-link h1');
           const aboutMe = container.querySelector('.about-me');
           if (aboutMe) {
             aboutMe.addEventListener('mousemove', (e) => {
@@ -359,10 +359,15 @@ async function handlePageTransition(destinationURL, targetBackground) {
               newFadeItem.style.opacity = '1';
               if (lotusmane) {
                 centerHeaderText.textContent = 'LOTUSMANE';
+                // Swap fonts to Darkcastle
+                centerHeaderText.classList.remove('defaultTitle');
+                centerHeaderText.classList.add('lotusmaneTitle');
                 lotusmane.style.opacity = '.7';
               }
               else {
                 centerHeaderText.textContent = 'Lotus State';
+                centerHeaderText.classList.remove('lotusmaneTitle');
+                centerHeaderText.classList.add('defaultTitle');
               }
             });
           }, 50);
