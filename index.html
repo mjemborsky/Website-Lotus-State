@@ -293,13 +293,10 @@
             }
           }
           d += "Z";
-
           path.setAttribute("d", d);
-          
           // Store the loop ID into our global tracker
           blobAnimationFrameId = requestAnimationFrame(update);
         }
-        
         // Kick off the loop
         blobAnimationFrameId = requestAnimationFrame(update);
       }
