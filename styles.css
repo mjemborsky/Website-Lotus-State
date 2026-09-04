@@ -54,13 +54,17 @@
   font-weight: normal;
   font-style: normal;
 }
-
 @font-face {
   font-family: 'Darkcastle';
   src: url('./fonts/newfonts/Darkcastle.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
+
+
+
+
+
 
 /* MAIN HTML AND BODY */
 html {
@@ -75,6 +79,8 @@ body {
 
 
 
+
+
 /* HEADER/TOP LINKS */
 #header {
   position: fixed;
@@ -84,34 +90,35 @@ body {
 }
 .left-link, .link-right {
   display: flex;
-  padding-top: 10px;
-  padding-bottom: 5px;
+  padding-top: 0.5%;
+  padding-bottom: 0.5%;
 }
 .left-link {
   padding-left: 5px;
 }
 .link-right {
-  padding-left: 30px;
+  right: 0;
+  padding-right: 0;
 }
 .left-links,
 .right-links, .left-link, .link-right {
   position: fixed;
   top: 0;
-  height: 50px;
+  height: 5%;
   background-color: black;
   text-decoration: none;
   color: ghostwhite;
-  font-size: 18px;
+  font-size: 115%;
 }
 .left-links, .left-link {
   border-radius: 0% 0% 150% 0%;
   left: 0;
-  width: 100px;
+  width: 8%;
 }
 .right-links, .link-right {
   border-radius: 0% 0% 0% 150%;
   right: 0;
-  width: 75px;
+  width: 8%;
   justify-content: center;
 }
 .left-links a,
@@ -149,18 +156,18 @@ body {
   left: -20px;
 }
 #project-expanded-one {
-  top: 7px;
-  left: 106px;
+  top: 1%;
+  left: 10%;
   z-index: 3;
 }
 #project-expanded-two {
-  top: 53px;
-  left: 58px;
+  top: 6%;
+  left: 6%;
   z-index: 3;
 }
 #project-expanded-three {
-  top: 97px;
-  left: 10px;
+  top: 11%;
+  left: 1%;
   z-index: 3;
 }
 .link-left {
@@ -203,27 +210,17 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
+  top: -1%;
 }
-
-
 .defaultTitle {
   font-family: 'Retrolight', sans-serif;
 }
-
 .lotusmaneTitle {
   font-family: 'Darkcastle', sans-serif;
 }
 
-/* Define the look of the transition blueprint */
-@keyframes singleFadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
 
-/* This is the class JavaScript will trigger */
-.show-effect {
-  animation: singleFadeIn 1s ease-out forwards;
-}
+
 
 
 
@@ -247,6 +244,9 @@ h2 {
 
 
 
+
+
+
 /* HOME PAGE */
 #welcome-section {
   display: flex;
@@ -258,7 +258,6 @@ h2 {
   width: 100%;
   height: 100%;
 }
-
 .intro-video {
   position: relative;
   z-index: 10;
@@ -267,7 +266,6 @@ h2 {
   height: auto;
   top: 7%;
 }
-
 #video-blob-svg {
   position: absolute;
   top: 57%; 
@@ -327,8 +325,6 @@ h2 {
 }
 
 
-
-
 /* BEAT PAGE */
 #beats {
   width: 100%;
@@ -337,7 +333,6 @@ h2 {
   display: flex;
   flex-direction: column;
   z-index: 1;
-
 }
 .light-beats, .vinyl-beats, .dark-beats {
   height: 100%;
@@ -380,7 +375,6 @@ h2 {
   transform: scale(1.2);
 }
 
-
 .mid-extra-one {
   position: absolute;
   top: 50%;
@@ -392,7 +386,6 @@ h2 {
   pointer-events: none; /* allows clicks to pass through */
   clip-path: inherit;   /* copies the parent shape */
 }
-
 .mid-extra-two {
   position: absolute;
   top: 50%;
@@ -417,14 +410,11 @@ h2 {
   border-radius: 2rem;
 }
 
-
 .mid-light, .mid-vinyl, .mid-dark {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
 }
-
-
 
 .light-beats-title {
   opacity: 1;
@@ -450,7 +440,6 @@ h2 {
   align-content: center;
   margin: 0;
 }
-
 .soundcloud-preview {
   display: flex;
   position: relative;
@@ -458,7 +447,6 @@ h2 {
   height: 75%;
   z-index: 3;
 }
-
 .mobile-soundcloud-link {
   display: flex;
   position: relative;
@@ -466,7 +454,6 @@ h2 {
   background-color: #000000;
   height: 50px;
 }
-
 
 /*  MORE PAGE  */
 #extra {
@@ -519,7 +506,6 @@ h2 {
   transition: opacity 0.2s ease-out;
   top: 10%;
 }
-
 .about-me p {
   position: relative;
   width: 70%;
@@ -528,7 +514,6 @@ h2 {
   opacity: 1;
   z-index: 5;
 }
-
 /* Updated ::before pseudo-element for hover effect */
 .about-me::before {
   content: '';
@@ -544,19 +529,15 @@ h2 {
   border-radius: inherit;
   z-index: 0; /* Keep the highlight behind the content */
 }
-
 .about-me:hover {
   opacity: 0.8; /* Slightly increase base opacity on hover */
 }
-
 .about-me:hover::before {
   opacity: 1; /* Fully visible gradient when hovered */
 }
-
 #links a {
   height: auto;
 }
-
 
 .terminal {
   position: relative;
@@ -574,6 +555,7 @@ h2 {
   border-radius: 8px;
   z-index: 0;
 }
+
 @keyframes blink {
   0%, 50%, 100% { opacity: 1; }
   25%, 75% { opacity: 0; }
@@ -585,7 +567,6 @@ h2 {
   color: black;
   animation: blink 1s infinite;
 }
-
 .flicker {
   opacity: 0.3;
 }
@@ -633,9 +614,16 @@ h2 {
   transition: opacity 1s ease-in-out
 }
 
+/* Define the look of the transition blueprint */
+@keyframes singleFadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
 
-
-
+/* This is the class JavaScript will trigger */
+.show-effect {
+  animation: singleFadeIn 1s ease-out forwards;
+}
 
 
 /* MEDIA QUERIES */ 
@@ -644,7 +632,6 @@ h2 {
     font-size: 100%;
   }
 }
-
 @media screen and (max-width: 800px) {
   .about-me p {
     font-size: 80%;
@@ -658,7 +645,6 @@ h2 {
     padding-right: 0;
     padding-left: 0;
   }
-
   #links {
     width: 100%;
   }
@@ -704,28 +690,18 @@ h2 {
     width: 90%;
     top: 2.5%;
   }
-
   #video-blob-svg {
     width: 115%;
   }
-
   .link, .extra-links {
     width: 60px;
     height: 60px;
   }
-
-
-
-
-
   .lotusmane-coverart {
     height: 150%;
     width: fit-content;
     top: -6%;
   }
-
-
-  
   .light-beats, .dark-beats, .vinyl-beats {
     background-color: rgba(0, 0, 0, 0);
   }
@@ -736,8 +712,6 @@ h2 {
   .soundcloud-preview {
     display: none;
   }
-
-
   .nav-button {
     display: inline-block;
     position: relative;
@@ -752,7 +726,6 @@ h2 {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
-
     /* remove centering */
     justify-content: flex-start;
     padding: 0;
@@ -761,7 +734,6 @@ h2 {
     height: 90%;
     overflow-y: hidden;
   }
-
   .project-tile {
     flex: 0 0 100%;
     scroll-snap-align: start; /* start, not center */
@@ -773,13 +745,11 @@ h2 {
     position: relative;
     top: 10%;
   }
-
   .project-tile iframe {
     width: 95%;
     height: 85vh;
     border-radius: 12px;
   }
-
   #links {
     width: 80%;
     height: 30%;
@@ -801,11 +771,6 @@ h2 {
 
 
 
-
-
-
-
-
 /* ADAPTING FOR SLOW/DIFFERENT SPEEDS/COMPUTERS */
 /* FOR SLIGHTLY SLOW INTERNET SPEEDS/SUBPAR GRAPHICS */
 /* FOR VERY SLOW INTERNET/PHONE DISPLAY */
@@ -813,6 +778,3 @@ h2 {
 /* @media (prefers-reduced-data: reduce) {
 /* const userAgent = navigator.userAgent;
 const numCores = navigator.hardwareConcurrency; */
-
-
-
