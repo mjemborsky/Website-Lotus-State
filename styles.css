@@ -635,8 +635,8 @@ h2 {
 @media screen and (max-width: 600px) {
   .center-link, .header-text {
     font-size: 100%;
-    height: 100px;
-    width: 250px;
+    height: 20%;
+    width: 60%;
     padding-right: 0;
     padding-left: 0;
   }
@@ -651,10 +651,11 @@ h2 {
   }
   .center-link, .header-text {
     font-size: 100%;
-    height: 80px;
-    width: 200px;
+    height: 20%;
+    width: 50%;
     padding-right: 0;
     padding-left: 0;
+    align-content: center;
   }
   .header-text {
     z-index: 0;
@@ -683,10 +684,14 @@ h2 {
   }
   .intro-video {
     width: 90%;
-    top: 2.5%;
+    top: 0;
   }
   #video-blob-svg {
-    width: 115%;
+    width: 105%;
+    top: 50%;
+  }
+  .defaultTitle {
+    justify-content: center;
   }
   .link, .extra-links {
     width: 60px;
