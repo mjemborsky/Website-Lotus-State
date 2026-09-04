@@ -205,9 +205,21 @@
     </div>
     <script src="animations.js" defer></script>
     <script>
+      // 1. Create a global tracker for the animation frame outside the function
+      let blobAnimationFrameId = null;
+
       function animateBlob() {
         const path = document.getElementById("fluid-shape");
         const video = document.querySelector('.intro-video');
+        
+        // 2. SAFETY CHECK: If this page doesn't have the blob or video, stop immediately
+        if (!path || !video) return;
+
+        // 3. CLEANUP: Cancel any previous animation loop currently running in the background
+        if (blobAnimationFrameId) {
+          cancelAnimationFrame(blobAnimationFrameId);
+        }
+
         const points = 48; 
         const center = 200;
 
@@ -226,6 +238,9 @@
         function update() {
           t += 0.004; 
 
+          // Double check elements still exist in the DOM (in case user leaves mid-frame)
+          if (!video || !path) return;
+
           const rect = video.getBoundingClientRect();
           const aspectRatio = rect.width / rect.height;
           
@@ -236,21 +251,17 @@
             const cos = Math.cos(p.angle);
             const sin = Math.sin(p.angle);
             
-            // Sharp rectangle vector
             const rectScale = 1 / Math.max(Math.abs(cos), Math.abs(sin));
             const rectX = cos * rectScale * baseWidth;
             const rectY = sin * rectScale * baseHeight;
 
-            // Smooth circle vector matching the same proportions
             const circX = cos * baseWidth;
             const circY = sin * baseHeight;
 
-            // FIX: Blend the shapes. 0.85 keeps the straight edges, 0.15 pulls the corners in.
             const cornerSoftening = 0.85;
             const finalBaseX = (rectX * cornerSoftening) + (circX * (1 - cornerSoftening));
             const finalBaseY = (rectY * cornerSoftening) + (circY * (1 - cornerSoftening));
 
-            // Ferrofluid spike math remains the same
             const isSpikePeak = i % 2 === 0;
             const baseWave = (Math.sin(t * p.freq + p.phaseShift) + 1) / 2;
             
@@ -262,7 +273,6 @@
               fluidExtension += 0.02 * p.amp;
             }
             
-            // Apply coordinates using our softened base layout points
             const x = center + finalBaseX + (cos * fluidExtension);
             const y = center + finalBaseY + (sin * fluidExtension);
 
@@ -285,11 +295,14 @@
           d += "Z";
 
           path.setAttribute("d", d);
-          requestAnimationFrame(update);
+          
+          // Store the loop ID into our global tracker
+          blobAnimationFrameId = requestAnimationFrame(update);
         }
-        update();
+        
+        // Kick off the loop
+        blobAnimationFrameId = requestAnimationFrame(update);
       }
-      animateBlob();
     </script>
   </body>
 </html>
