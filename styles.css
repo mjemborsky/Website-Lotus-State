@@ -94,11 +94,7 @@ body {
   padding-bottom: 0.5%;
 }
 .left-link {
-  padding-left: 5px;
-}
-.link-right {
-  right: 0;
-  padding-right: 0;
+  padding-left: 1%;
 }
 .left-links,
 .right-links, .left-link, .link-right {
@@ -119,7 +115,9 @@ body {
   border-radius: 0% 0% 0% 150%;
   right: 0;
   width: 8%;
-  justify-content: center;
+  margin-right: 0;
+  justify-content: end;
+  padding-right: 1%;
 }
 .left-links a,
 .center-link a,
@@ -142,18 +140,15 @@ body {
 .expanded-links {
   display: none;
   position: absolute;
-  top: 40px;
-  left: 20px;
   background-color: black;
   border-radius: 50%;
-  padding: 10px;
+  font-size: 100%;
   z-index: 3;
 }
 .expanded-links.show  {
   display: flex;
   align-items: center;
   flex-direction: column;
-  left: -20px;
 }
 #project-expanded-one {
   top: 1%;
@@ -172,7 +167,7 @@ body {
 }
 .link-left {
   position: fixed;
-  width: 100px;
+  width: 7%;
   height: 40px;
   transform: skew(-28deg);
   background: black;
@@ -185,7 +180,7 @@ body {
 }
 h2 {
   transform: skew(28deg);
-  font-size: 14px;
+  font-size: 80%;
   color: ghostwhite;
 }
 .center-link, .header-text {
