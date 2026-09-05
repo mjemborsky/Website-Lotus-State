@@ -88,6 +88,37 @@ body {
   opacity: .92;
   font-family: 'montserratthin';
 }
+.center-link, .header-text {
+  height: 15%;
+  width: 25%;
+  margin: 0 auto;
+  padding-left: 50px;
+  padding-right: 50px;
+  border-radius: 0% 0% 150% 150%;
+  color: whitesmoke;
+  text-decoration: none;
+  font-size: 150%;
+  font-family: 'Retrolight', sans-serif;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  background-color: black;
+  z-index: 1;
+}
+.header-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: -1%;
+}
+.defaultTitle {
+  font-family: 'Retrolight', sans-serif;
+}
+.lotusmaneTitle {
+  font-family: 'Darkcastle', sans-serif;
+}
+
 .left-link, .link-right {
   display: flex;
   padding-top: 0.5%;
@@ -183,37 +214,6 @@ h2 {
   font-size: 80%;
   color: ghostwhite;
 }
-.center-link, .header-text {
-  height: 15%;
-  width: 25%;
-  margin: 0 auto;
-  padding-left: 50px;
-  padding-right: 50px;
-  border-radius: 0% 0% 150% 150%;
-  color: whitesmoke;
-  text-decoration: none;
-  font-size: 150%;
-  font-family: 'Retrolight', sans-serif;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  background-color: black;
-  z-index: 1;
-}
-.header-text {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: -1%;
-}
-.defaultTitle {
-  font-family: 'Retrolight', sans-serif;
-}
-.lotusmaneTitle {
-  font-family: 'Darkcastle', sans-serif;
-}
-
 
 
 
@@ -660,23 +660,63 @@ h2 {
   }
   .left-links, .right-links {
     width: 25%;
-    height: 6%;
-    border-radius: 0% 0% 0% 0%;
+    height: 7%;
+    font-size: 80%;
+  }
+  .right-links {
+    border-radius: 0% 0% 75% 0%;
+  }
+  .link-right {
+    width: 25%;
+    height: 7%;
+    border-radius: 0% 0% 75% 0%;
+  }
+  .left-links {
+    border-radius: 0% 0% 0% 75%;
+  }
+  .left-link {
+    width: 25%;
+    height: 7%;
+    border-radius: 0% 0% 0% 75%;
+  }
+
+  .left-links{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0
+  }
+  .expanded-links {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 60%;
+    top: 0;
+    left: 0;
+  }
+  .expanded-links.show {
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
   }
   #project-expanded-one {
-    top: 62px;
-    left: 10px;
-    z-index: 3;
+    top: 5%;
   }
   #project-expanded-two {
-    top: 105px;
-    left: 10px;
-    z-index: 3;
+    
   }
   #project-expanded-three {
-    top: 148px;
-    left: 10px;
-    z-index: 3;
+    
+  }
+  .link-left {
+    position: relative;
+    display: flex;
+    width: 80%;
+    height: 100%;
   }
   #projects h1 {
     display: none;

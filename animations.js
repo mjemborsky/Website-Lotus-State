@@ -365,9 +365,8 @@ async function handlePageTransition(destinationURL, targetBackground) {
                 lotusmane.style.opacity = '.7';
               }
               else {
-                centerHeaderText.textContent = 'Lotus State';
                 centerHeaderText.classList.remove('lotusmaneTitle');
-                centerHeaderText.classList.add('defaultTitle');
+                centerHeaderText.textContent = 'Lotus State';
               }
             });
           }, 50);
