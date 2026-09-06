@@ -315,8 +315,29 @@ function runTerminalAnimation(container) {
 // page to future page and triggers circle animation, starts new idle animation
 async function handlePageTransition(destinationURL, targetBackground) {
   var container = document.querySelector('.container');
-  // 1. Gather and fade out the existing elements on the current page
-  var currentContent = document.querySelectorAll('.fade-target');
+  
+  // 1. Target ALL elements that could contain or overlay your header text
+  const mainHeaderH1 = document.querySelector('.center-link h1, .Acenter-link h1');
+  const overlayHeaderText = document.querySelector('.header-text');
+  
+  // Check if the CURRENT page is Lotusmane before wiping the container
+  const isCurrentlyLotusmane = !!container.querySelector('.lotusmane-coverart');
+
+  // Query normal targets inside the container
+  var currentContent = Array.from(container.querySelectorAll('.fade-target'));
+
+  // If leaving Lotusmane, fade elements out smoothly
+  if (isCurrentlyLotusmane) {
+    if (mainHeaderH1) {
+      mainHeaderH1.style.transition = 'opacity 0.4s ease-in-out';
+      mainHeaderH1.style.opacity = '0';
+    }
+    if (overlayHeaderText) {
+      overlayHeaderText.style.transition = 'opacity 0.4s ease-in-out';
+      overlayHeaderText.style.opacity = '0';
+    }
+  }
+
   currentContent.forEach((fadeItem) => {
     fadeItem.style.opacity = '0';
   });
@@ -334,13 +355,41 @@ async function handlePageTransition(destinationURL, targetBackground) {
         setTimeout(() => {
           container.innerHTML = newPage;
           
-          // 2. CRITICAL FIX: Query the FRESHLY injected elements from the DOM
-          var newContent = container.querySelectorAll('.fade-target');
-
-          // RUNNING PAGE SPECIFIC ANIMATIONS
-          const lotusmane = container.querySelector('.lotusmane-coverart');
-          const centerHeaderText = document.querySelector('.Acenter-link h1');
+          // Query fresh elements inside the container
+          var newContent = Array.from(container.querySelectorAll('.fade-target'));
+          
+          // Check if the NEW incoming page is Lotusmane
+          const incomingLotusmane = container.querySelector('.lotusmane-coverart');
           const aboutMe = container.querySelector('.about-me');
+          
+          // 2. MULTI-LAYER TEXT SWAP: Update text and fonts on BOTH layers simultaneously
+          const headerLayers = [mainHeaderH1, overlayHeaderText].filter(Boolean);
+          
+          headerLayers.forEach(layer => {
+            // If the layer is an <h1> tag, update textContent; if it's an <a> link, update textContent or innerText safely
+            const textTarget = layer.tagName === 'H1' ? layer : (layer.querySelector('h1') || layer);
+            
+            if (incomingLotusmane) {
+              textTarget.textContent = 'LOTUSMANE';
+              layer.classList.remove('defaultTitle');
+              layer.classList.add('lotusmaneTitle');
+              
+              if (!isCurrentlyLotusmane) {
+                layer.style.transition = 'none';
+                layer.style.opacity = '0';
+              }
+            } else {
+              layer.classList.remove('lotusmaneTitle');
+              layer.classList.add('defaultTitle');
+              textTarget.textContent = 'Lotus State';
+              
+              if (!isCurrentlyLotusmane) {
+                layer.style.opacity = '1';
+              }
+            }
+          });
+
+          // RUNNING OTHER PAGE SPECIFIC INTERACTIONS
           if (aboutMe) {
             aboutMe.addEventListener('mousemove', (e) => {
               const rect = aboutMe.getBoundingClientRect();
@@ -354,31 +403,30 @@ async function handlePageTransition(destinationURL, targetBackground) {
               aboutMe.style.setProperty('--mouse-y', `50%`);
             });
           }
+          
           const terminalContainer = container.querySelector('.terminal');
           if (terminalContainer) {
             runTerminalAnimation(terminalContainer);
           }
+          
           animateBlob();
           
           setTimeout(() => {
-            // 3. Loop through the NEW elements explicitly to fade them in
+            // Fade container content back in
             newContent.forEach((newFadeItem) => {
               newFadeItem.style.opacity = '1';
             });
+            
+            // 3. Fade both header elements back up perfectly synchronized
+            headerLayers.forEach(layer => {
+              if (incomingLotusmane || isCurrentlyLotusmane) {
+                layer.style.transition = 'opacity 0.6s ease-in-out';
+                layer.style.opacity = '1';
+              }
+            });
 
-            // Handle title logic after opacity trigger loop finishes
-            if (lotusmane) {
-              if (centerHeaderText) {
-                centerHeaderText.textContent = 'LOTUSMANE';
-                centerHeaderText.classList.remove('defaultTitle');
-                centerHeaderText.classList.add('lotusmaneTitle');
-              }
-              lotusmane.style.opacity = '.7';
-            } else {
-              if (centerHeaderText) {
-                centerHeaderText.classList.remove('lotusmaneTitle');
-                centerHeaderText.textContent = 'Lotus State';
-              }
+            if (incomingLotusmane) {
+              incomingLotusmane.style.opacity = '.7';
             }
           }, 50);
           resolve();
