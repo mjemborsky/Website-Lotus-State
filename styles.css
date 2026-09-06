@@ -627,7 +627,7 @@ body {
     overflow-y: hidden;
   }
   .center-link, .header-text {
-    font-size: 100%;
+    font-size: 120%;
     height: 16%;
     width: 60%;
     text-align: center;
@@ -635,68 +635,33 @@ body {
   .header-text {
     z-index: 0;
   }
-  /* .left-links, .right-links {
-    width: 25%;
-    height: 7%;
-    font-size: 80%;
-    display: flex;
-    justify-content: center;
+  .lotusmaneTitle {
+    font-size: 130%;
   }
-  .right-links {
-    border-radius: 0% 0% 75% 0%;
+  .left-links, .right-links { 
+    width: 30%;
   }
-  .link-right {
-    width: 25%;
-    height: 7%;
-    border-radius: 0% 0% 75% 0%;
+  .left-link, .link-right {
+    font-size: 100%;
   }
-  .left-links {
-    border-radius: 0% 0% 0% 75%;
+  .left-links, .left-link {
+    border-radius: 0% 0% 50% 150%;
   }
-  .left-link {
-    width: 25%;
-    height: 7%;
-    border-radius: 0% 0% 0% 75%;
-  }
-
-  .left-links{
-    position: absolute;
-    width: 100%;
-    left: 0;
-    top: 0
-  }
-  .expanded-links {
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-    height: 60%;
-    top: 0;
-    left: 0;
+  .right-links, .link-right {
+    border-radius: 0% 0% 150% 50%;
   }
   .expanded-links.show {
-    position: absolute;
-    top: 0;
-    display: flex;
-    justify-content: center;
+    display: flex ;
+    align-items: center;
     flex-direction: column;
-    width: 100%;
-    height: 100%;
+    justify-content: space-around;
+    position: absolute;
+    top: 200%; 
+    left: 15%;
+    width: 300%; 
+    height: 200%;
+    z-index: 10;
   }
-  #project-expanded-one {
-    top: 5%;
-  }
-  #project-expanded-two {
-    
-  }
-  #project-expanded-three {
-    
-  }
-  .link-left {
-    position: relative;
-    display: flex;
-    width: 80%;
-    height: 100%;
-  } */
   #projects h1 {
     display: none;
   }
