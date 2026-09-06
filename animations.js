@@ -461,57 +461,62 @@ function initUI() {
   
   const leftLink = document.querySelector(".left-link");
   const expandedLinks = document.querySelector(".expanded-links");
-  const overlay = document.getElementById("overlay"); // Explicitly ensuring overlay is captured
   
   animateBlob();
   
-  // 1. CRITICAL INITIALIZATION: Force the state to be cleanly closed out-of-the-gate
+  // Clean up states out-of-the-gate
   expandedLinks.classList.remove("show");
-  if (overlay) {
-    overlay.style.opacity = "0";
-    overlay.style.zIndex = "4";
-    overlay.style.pointerEvents = "none";
+  const initialOverlay = document.getElementById("overlay");
+  if (initialOverlay) {
+    initialOverlay.style.opacity = "0";
+    initialOverlay.style.zIndex = "4";
+    initialOverlay.style.pointerEvents = "none";
   }
 
-  // 2. FIXED EVENT LISTENER: Clean toggle matching the actual state
+  // 1. LEFT LINK MENU TOGGLE WITH LIVE OVERLAY SCOPING
   leftLink.addEventListener("click", function (e) {
     e.preventDefault();
+    const liveOverlay = document.getElementById("overlay"); // Always find it fresh in the DOM
+    const isExpanded = expandedLinks.classList.contains("show");
     
-    // Check the actual class list presence instead of relying on a fragile external boolean variable
-    const currentlyShown = expandedLinks.classList.contains("show");
-    
-    if (currentlyShown) {
+    if (isExpanded) {
       expandedLinks.classList.remove("show");
-      if (overlay) {
-        overlay.style.opacity = "0";
-        overlay.style.zIndex = "4";
-        overlay.style.pointerEvents = "none";
+      if (liveOverlay) {
+        liveOverlay.style.opacity = "0";
+        liveOverlay.style.zIndex = "4";
+        liveOverlay.style.pointerEvents = "none";
       }
     } else {
       expandedLinks.classList.add("show");
-      if (overlay) {
-        overlay.style.opacity = "1";
-        overlay.style.zIndex = "15";
-        overlay.style.pointerEvents = "auto";
+      if (liveOverlay) {
+        liveOverlay.style.opacity = "1";
+        liveOverlay.style.zIndex = "15";
+        liveOverlay.style.pointerEvents = "auto";
       }
     }
   });
 
+  // 2. HOME NAVIGATION
   home.addEventListener("click", function (event) {
     event.preventDefault();
-    if (overlay) overlay.style.opacity = "0";
+    const liveOverlay = document.getElementById("overlay");
+    if (liveOverlay) liveOverlay.style.opacity = "0";
     expandedLinks.classList.remove("show");
+    
     const destinationURL = home.getAttribute("href");
     const targetBackground = getStoredSVG("backgroundOne.svg");
     handlePageTransition(destinationURL, targetBackground);
     home.blur();
   });
 
+  // 3. PROJECTS NAVIGATION
   projects.forEach((link) => {
     link.addEventListener("click", function (event) {
       event.preventDefault();
+      const liveOverlay = document.getElementById("overlay");
       expandedLinks.classList.remove("show");
-      if (overlay) overlay.style.opacity = "0";
+      if (liveOverlay) liveOverlay.style.opacity = "0";
+      
       const destinationURL = link.getAttribute("href");
       const targetBackground = getStoredSVG("backgroundTwo.svg");
       handlePageTransition(destinationURL, targetBackground);
@@ -519,10 +524,13 @@ function initUI() {
     });
   });
 
+  // 4. MORE NAVIGATION
   more.addEventListener("click", function (event) {
     event.preventDefault();
-    if (overlay) overlay.style.opacity = "0";
+    const liveOverlay = document.getElementById("overlay");
+    if (liveOverlay) liveOverlay.style.opacity = "0";
     expandedLinks.classList.remove("show");
+    
     const destinationURL = more.getAttribute("href");
     const targetBackground = getStoredSVG("backgroundFive.svg");
     handlePageTransition(destinationURL, targetBackground);
@@ -534,7 +542,6 @@ function initUI() {
     animateIdle();
   }
 }
-
 
 preloadPromise.then(() => {
   const initWhenReady = () => {

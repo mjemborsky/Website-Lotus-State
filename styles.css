@@ -116,8 +116,8 @@ body {
 .left-links, .right-links { 
   position: fixed;
   top: 0;
-  width: 10%;
-  height: 10%;
+  width: 8%;
+  height: 8%;
   display: flex;
   background-color: black;
   text-align: center;
@@ -136,7 +136,15 @@ body {
   color: ghostwhite;
   font-size: 150%;
   padding-top: 5%;
+  padding-right: 20%;
 }
+.left-link {
+  padding-right: 20%;
+}
+.link-right {
+  padding-left: 50%;
+}
+
 .left-links, .left-link {
   border-radius: 0% 0% 150% 0%;
 }
@@ -175,8 +183,8 @@ body {
 
 .link-left {
   position: relative;
-  width: 100%;
-  height: 50%;
+  width: 90%;
+  height: 30%;
   transform: skew(-14deg);
   background: black;
   border-radius: 25% 5% 25% 5%;
@@ -571,6 +579,7 @@ body {
   transition: opacity 0.5s ease-in-out;
   opacity: 0;
   pointer-events: none;
+  z-index: 12;
 }
 .fade-target {
   opacity: 0;
