@@ -315,13 +315,16 @@ function runTerminalAnimation(container) {
 // page to future page and triggers circle animation, starts new idle animation
 async function handlePageTransition(destinationURL, targetBackground) {
   var container = document.querySelector('.container');
-  var content = document.querySelectorAll('.fade-target');
-  content.forEach((fadeItem) => {
+  // 1. Gather and fade out the existing elements on the current page
+  var currentContent = document.querySelectorAll('.fade-target');
+  currentContent.forEach((fadeItem) => {
     fadeItem.style.opacity = '0';
   });
+
   try {
     const response = await fetch(destinationURL);
     const newPage = await response.text();
+    
     await Promise.all([
       new Promise((resolve) => {
         animateCircles(targetBackground);
@@ -330,7 +333,9 @@ async function handlePageTransition(destinationURL, targetBackground) {
       new Promise((resolve) => {
         setTimeout(() => {
           container.innerHTML = newPage;
-          content = container.querySelectorAll('.fade-target');
+          
+          // 2. CRITICAL FIX: Query the FRESHLY injected elements from the DOM
+          var newContent = container.querySelectorAll('.fade-target');
 
           // RUNNING PAGE SPECIFIC ANIMATIONS
           const lotusmane = container.querySelector('.lotusmane-coverart');
@@ -354,27 +359,35 @@ async function handlePageTransition(destinationURL, targetBackground) {
             runTerminalAnimation(terminalContainer);
           }
           animateBlob();
+          
           setTimeout(() => {
-            content.forEach((newFadeItem) => {
+            // 3. Loop through the NEW elements explicitly to fade them in
+            newContent.forEach((newFadeItem) => {
               newFadeItem.style.opacity = '1';
-              if (lotusmane) {
+            });
+
+            // Handle title logic after opacity trigger loop finishes
+            if (lotusmane) {
+              if (centerHeaderText) {
                 centerHeaderText.textContent = 'LOTUSMANE';
-                // Swap fonts to Darkcastle
                 centerHeaderText.classList.remove('defaultTitle');
                 centerHeaderText.classList.add('lotusmaneTitle');
-                lotusmane.style.opacity = '.7';
               }
-              else {
+              lotusmane.style.opacity = '.7';
+            } else {
+              if (centerHeaderText) {
                 centerHeaderText.classList.remove('lotusmaneTitle');
                 centerHeaderText.textContent = 'Lotus State';
               }
-            });
+            }
           }, 50);
           resolve();
         }, 1250);
       })
     ]);
+
     if (shouldAnimateIdle()) {
+      const idle = document.getElementById("idle");
       createPaths(getNumPaths(), idle);
       animateIdle();
     }
@@ -391,61 +404,83 @@ function initUI() {
   const more = document.querySelector(".link-right");
   var content = document.querySelectorAll(".fade-target");
   const idle = document.getElementById("idle");
+  
   setTimeout(() => {
     content.forEach((element) => {
       element.style.opacity = "1";
     });
   }, 100);
+  
   const leftLink = document.querySelector(".left-link");
   const expandedLinks = document.querySelector(".expanded-links");
+  const overlay = document.getElementById("overlay"); // Explicitly ensuring overlay is captured
+  
   animateBlob();
+  
+  // 1. CRITICAL INITIALIZATION: Force the state to be cleanly closed out-of-the-gate
   expandedLinks.classList.remove("show");
-  let isExpanded = false;
+  if (overlay) {
+    overlay.style.opacity = "0";
+    overlay.style.zIndex = "4";
+    overlay.style.pointerEvents = "none";
+  }
+
+  // 2. FIXED EVENT LISTENER: Clean toggle matching the actual state
   leftLink.addEventListener("click", function (e) {
     e.preventDefault();
-    if (isExpanded) {
+    
+    // Check the actual class list presence instead of relying on a fragile external boolean variable
+    const currentlyShown = expandedLinks.classList.contains("show");
+    
+    if (currentlyShown) {
       expandedLinks.classList.remove("show");
-      isExpanded = false;
-      overlay.style.opacity = "0";
-      overlay.style.zIndex = "4";
-      overlay.style.pointerEvents = "none";
+      if (overlay) {
+        overlay.style.opacity = "0";
+        overlay.style.zIndex = "4";
+        overlay.style.pointerEvents = "none";
+      }
     } else {
       expandedLinks.classList.add("show");
-      isExpanded = true;
-      overlay.style.opacity = "1";
-      overlay.style.zIndex = "15";
-      overlay.style.pointerEvents = "auto";
+      if (overlay) {
+        overlay.style.opacity = "1";
+        overlay.style.zIndex = "15";
+        overlay.style.pointerEvents = "auto";
+      }
     }
   });
+
   home.addEventListener("click", function (event) {
     event.preventDefault();
-    overlay.style.opacity = "0";
+    if (overlay) overlay.style.opacity = "0";
     expandedLinks.classList.remove("show");
     const destinationURL = home.getAttribute("href");
     const targetBackground = getStoredSVG("backgroundOne.svg");
     handlePageTransition(destinationURL, targetBackground);
     home.blur();
   });
+
   projects.forEach((link) => {
     link.addEventListener("click", function (event) {
       event.preventDefault();
       expandedLinks.classList.remove("show");
-      overlay.style.opacity = "0";
+      if (overlay) overlay.style.opacity = "0";
       const destinationURL = link.getAttribute("href");
       const targetBackground = getStoredSVG("backgroundTwo.svg");
       handlePageTransition(destinationURL, targetBackground);
       link.blur();
     });
   });
+
   more.addEventListener("click", function (event) {
     event.preventDefault();
-    overlay.style.opacity = "0";
+    if (overlay) overlay.style.opacity = "0";
     expandedLinks.classList.remove("show");
     const destinationURL = more.getAttribute("href");
     const targetBackground = getStoredSVG("backgroundFive.svg");
     handlePageTransition(destinationURL, targetBackground);
     more.blur();
   });
+
   if (shouldAnimateIdle()) {
     createPaths(getNumPaths(), idle);
     animateIdle();

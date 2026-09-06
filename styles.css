@@ -133,7 +133,7 @@ body {
   height: 100%;
   text-decoration: none;
   color: ghostwhite;
-  font-size: 115%;
+  font-size: 150%;
   padding-top: 5%;
 }
 .left-links, .left-link {
@@ -170,8 +170,8 @@ body {
 .right-links a:focus {
   background-color: ghostwhite;
   color: black;
-  font-size: 115%;
 }
+
 .link-left {
   position: relative;
   width: 100%;
@@ -185,6 +185,7 @@ body {
   text-decoration: none;
   z-index: 3;
   color: ghostwhite;
+  font-size: 120%;
 }
 
 
