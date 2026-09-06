@@ -334,7 +334,7 @@ async function handlePageTransition(destinationURL, targetBackground) {
 
           // RUNNING PAGE SPECIFIC ANIMATIONS
           const lotusmane = container.querySelector('.lotusmane-coverart');
-          const centerHeaderText = document.querySelector('.center-link h1');
+          const centerHeaderText = document.querySelector('.Acenter-link h1');
           const aboutMe = container.querySelector('.about-me');
           if (aboutMe) {
             aboutMe.addEventListener('mousemove', (e) => {
