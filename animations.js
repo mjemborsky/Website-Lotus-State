@@ -399,22 +399,18 @@ function initUI() {
   const leftLink = document.querySelector(".left-link");
   const expandedLinks = document.querySelector(".expanded-links");
   animateBlob();
-  expandedLinks.style.display = "none";
+  expandedLinks.classList.remove("show");
   let isExpanded = false;
   leftLink.addEventListener("click", function (e) {
     e.preventDefault();
     if (isExpanded) {
-      expandedLinks.style.display = "none";
+      expandedLinks.classList.remove("show");
       isExpanded = false;
       overlay.style.opacity = "0";
       overlay.style.zIndex = "4";
       overlay.style.pointerEvents = "none";
     } else {
-      expandedLinks.style.display = "flex";
-      expandedLinks.style.alignItems = "center";
-      expandedLinks.style.flexDirection = "column";
-      expandedLinks.style.left = "25px";
-      expandedLinks.style.top = "75px";
+      expandedLinks.classList.add("show");
       isExpanded = true;
       overlay.style.opacity = "1";
       overlay.style.zIndex = "15";
@@ -424,7 +420,7 @@ function initUI() {
   home.addEventListener("click", function (event) {
     event.preventDefault();
     overlay.style.opacity = "0";
-    expandedLinks.style.display = "none";
+    expandedLinks.classList.remove("show");
     const destinationURL = home.getAttribute("href");
     const targetBackground = getStoredSVG("backgroundOne.svg");
     handlePageTransition(destinationURL, targetBackground);
@@ -433,7 +429,7 @@ function initUI() {
   projects.forEach((link) => {
     link.addEventListener("click", function (event) {
       event.preventDefault();
-      expandedLinks.style.display = "none";
+      expandedLinks.classList.remove("show");
       overlay.style.opacity = "0";
       const destinationURL = link.getAttribute("href");
       const targetBackground = getStoredSVG("backgroundTwo.svg");
@@ -444,7 +440,7 @@ function initUI() {
   more.addEventListener("click", function (event) {
     event.preventDefault();
     overlay.style.opacity = "0";
-    expandedLinks.style.display = "none";
+    expandedLinks.classList.remove("show");
     const destinationURL = more.getAttribute("href");
     const targetBackground = getStoredSVG("backgroundFive.svg");
     handlePageTransition(destinationURL, targetBackground);

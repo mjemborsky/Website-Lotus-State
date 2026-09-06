@@ -62,10 +62,6 @@
 }
 
 
-
-
-
-
 /* MAIN HTML AND BODY */
 html {
   overflow: hidden;
@@ -76,8 +72,6 @@ body {
   margin: 0;
   background-color: #000000;
 }
-
-
 
 
 
@@ -118,89 +112,71 @@ body {
 .lotusmaneTitle {
   font-family: 'Darkcastle', sans-serif;
 }
-
-.left-link, .link-right {
-  display: flex;
-  padding-top: 0.5%;
-  padding-bottom: 0.5%;
-}
-.left-link {
-  padding-left: 1%;
-}
-.left-links,
-.right-links, .left-link, .link-right {
+.left-links, .right-links { 
   position: fixed;
   top: 0;
-  height: 5%;
+  width: 10%;
+  height: 10%;
+  display: flex;
   background-color: black;
+  text-align: center;
+}
+.left-links {
+  left: 0;
+}
+.right-links {
+  right: 0;
+}
+.left-link, .link-right {
+  position: relative;
+  width: 100%;
+  height: 100%;
   text-decoration: none;
   color: ghostwhite;
   font-size: 115%;
+  padding-top: 5%;
 }
 .left-links, .left-link {
   border-radius: 0% 0% 150% 0%;
-  left: 0;
-  width: 8%;
 }
 .right-links, .link-right {
   border-radius: 0% 0% 0% 150%;
-  right: 0;
-  width: 8%;
-  margin-right: 0;
-  justify-content: end;
-  padding-right: 1%;
 }
-.left-links a,
-.center-link a,
-.right-links a {
-  background-color: black;
+.expanded-links {
+  display: none;
+  position: absolute;
+  font-size: 100%;
+  z-index: 3;
+}
+.expanded-links.show {
+  display: flex ;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  position: absolute;
+  top: 75%; 
+  left: 25%;
+  width: 150%; 
+  height: 200%;
+  z-index: 3;
 }
 .left-links a:hover,
 .left-links a:focus,
 .link-left a:hover,
 .link-left a:focus,
-.link-left h2:hover,
-.link-left h2:focus,
 .center-link a:hover,
 .center-link a:focus,
 .right-links a:hover,
 .right-links a:focus {
   background-color: ghostwhite;
   color: black;
-}
-.expanded-links {
-  display: none;
-  position: absolute;
-  background-color: black;
-  border-radius: 50%;
-  font-size: 100%;
-  z-index: 3;
-}
-.expanded-links.show  {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-#project-expanded-one {
-  top: 1%;
-  left: 10%;
-  z-index: 3;
-}
-#project-expanded-two {
-  top: 6%;
-  left: 6%;
-  z-index: 3;
-}
-#project-expanded-three {
-  top: 11%;
-  left: 1%;
-  z-index: 3;
+  font-size: 115%;
 }
 .link-left {
-  position: fixed;
-  width: 7%;
-  height: 40px;
-  transform: skew(-28deg);
+  position: relative;
+  width: 100%;
+  height: 50%;
+  transform: skew(-14deg);
   background: black;
   border-radius: 25% 5% 25% 5%;
   display: flex;
@@ -208,15 +184,8 @@ body {
   align-items: center;
   text-decoration: none;
   z-index: 3;
-}
-h2 {
-  transform: skew(28deg);
-  font-size: 80%;
   color: ghostwhite;
 }
-
-
-
 
 
 
@@ -236,9 +205,6 @@ h2 {
   position: relative;
   z-index: 0;
 }
-
-
-
 
 
 
@@ -652,16 +618,18 @@ h2 {
   .center-link, .header-text {
     font-size: 100%;
     height: 16%;
-    width: 50%;
+    width: 60%;
     text-align: center;
   }
   .header-text {
     z-index: 0;
   }
-  .left-links, .right-links {
+  /* .left-links, .right-links {
     width: 25%;
     height: 7%;
     font-size: 80%;
+    display: flex;
+    justify-content: center;
   }
   .right-links {
     border-radius: 0% 0% 75% 0%;
@@ -717,7 +685,7 @@ h2 {
     display: flex;
     width: 80%;
     height: 100%;
-  }
+  } */
   #projects h1 {
     display: none;
   }
