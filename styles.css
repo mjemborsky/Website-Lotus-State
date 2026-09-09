@@ -303,10 +303,52 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   z-index: 1;
 }
 
+/* Base style for your new semi-rounded orange button */
+.shuffle-btn {
+  background-color: #ff5500; /* Iconic SoundCloud Orange */
+  color: black;
+  font-family: inherit; /* Inherits your design typography */
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  
+  /* Semi-rounded layout constraints */
+  padding: 14px 28px;
+  border: none;
+  border-radius: 8px; /* Smooth, semi-rounded sleek corners */
+  cursor: pointer;
+  
+  /* Smoothly interpolates the properties over 0.25 seconds */
+  transition: background-color 0.25s ease, transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease;
+  box-shadow: 0 4px 15px rgba(255, 85, 0, 0.2);
+  
+  /* Clean mobile tap optimization */
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
 
+/* Hover effect: transitions smoothly to a brighter orange, grows slightly, and adds an energetic drop glow */
+@media (hover: hover) {
+  .shuffle-btn:hover {
+    background-color: #ff6a1a;
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 6px 20px rgba(255, 85, 0, 0.4);
+  }
+}
+
+/* Click and Touch (Active) feedback: sinks down and squeezes slightly smaller than normal to give weight to the button click */
+.shuffle-btn:active {
+  background-color: #e04b00;
+  transform: translateY(1px) scale(0.97);
+  box-shadow: 0 2px 8px rgba(255, 85, 0, 0.3);
+  transition: transform 0.08s ease; /* Snappier response time for click feedback */
+}
 
 
 

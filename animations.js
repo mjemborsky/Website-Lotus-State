@@ -310,6 +310,34 @@ function runTerminalAnimation(container) {
   nextLine();
 }
 
+const trackUrls = [
+  "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A1858906977&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+  "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A1858905702&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
+];
+let playedTracks = [];
+
+function shuffleTrack() {
+  const player = document.getElementById('sc-player');
+  if (!player) return;
+
+  // If all tracks have played once, reset the history pool safely
+  if (playedTracks.length === trackUrls.length) {
+    playedTracks = [];
+  }
+
+  // Filter out tracks that have already been played
+  const availableTracks = trackUrls.filter(track => !playedTracks.includes(track));
+
+  // Pick a random track from the remaining unplayed options
+  const randomIndex = Math.floor(Math.random() * availableTracks.length);
+  const selectedTrack = availableTracks[randomIndex];
+
+  // Save this track to our played history so it won't be picked again
+  playedTracks.push(selectedTrack);
+
+  // Load the song into the player
+  player.src = selectedTrack;
+}
 
 // Main function to handle page transitions: transfers content from current 
 // page to future page and triggers circle animation, starts new idle animation
@@ -357,7 +385,7 @@ async function handlePageTransition(destinationURL, targetBackground) {
           
           // Query fresh elements inside the container
           var newContent = Array.from(container.querySelectorAll('.fade-target'));
-          
+
           // Check if the NEW incoming page is Lotusmane
           const incomingLotusmane = container.querySelector('.lotusmane-coverart');
           const aboutMe = container.querySelector('.about-me');
@@ -410,7 +438,9 @@ async function handlePageTransition(destinationURL, targetBackground) {
           }
           
           animateBlob();
-          
+          if (container.querySelector('#sc-player')) {
+            shuffleTrack();
+          }
           setTimeout(() => {
             // Fade container content back in
             newContent.forEach((newFadeItem) => {
@@ -452,6 +482,10 @@ function initUI() {
   const more = document.querySelector(".link-right");
   var content = document.querySelectorAll(".fade-target");
   const idle = document.getElementById("idle");
+
+  if (document.getElementById('sc-player')) {
+    shuffleTrack();
+  }
   
   setTimeout(() => {
     content.forEach((element) => {
@@ -462,8 +496,12 @@ function initUI() {
   const leftLink = document.querySelector(".left-link");
   const expandedLinks = document.querySelector(".expanded-links");
   
-  animateBlob();
-  
+  try {
+    animateBlob();
+  } catch (err) {
+    console.warn("Blob script skipped:", err.message);
+  }
+
   // Clean up states out-of-the-gate
   expandedLinks.classList.remove("show");
   const initialOverlay = document.getElementById("overlay");
