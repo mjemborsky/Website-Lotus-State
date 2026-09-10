@@ -337,6 +337,7 @@ body {
 }
 
 
+
 /*  MORE PAGE  */
 #extra {
   width: 100%;
@@ -659,7 +660,6 @@ body {
   }
   #sc-player {
     width: 100%;
-    Visual: false;
   }
 }
 

@@ -339,6 +339,9 @@ function shuffleTrack() {
   player.src = selectedTrack;
 }
 
+
+
+
 // Main function to handle page transitions: transfers content from current 
 // page to future page and triggers circle animation, starts new idle animation
 async function handlePageTransition(destinationURL, targetBackground) {
