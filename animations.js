@@ -312,7 +312,10 @@ function runTerminalAnimation(container) {
 
 const trackUrls = [
   "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A1858906977&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true",
-  "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A1858905702&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
+  "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A1858905702&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+  "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2401911327&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+  "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2403367047&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+  "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2404392147&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
 ];
 let playedTracks = [];
 
@@ -340,6 +343,41 @@ function shuffleTrack() {
 }
 
 
+const videoUrls = [
+  "https://www.youtube.com/embed/_Crf-vFNHNM?si=dy7AOstn90wRR7GD",
+  "https://www.youtube.com/embed/30yJlb5-0mQ?si=PgXtKYOs_LLrDJxj",
+  "https://www.youtube.com/embed/rRkpHfpYAo8?si=Uczqa5ZckrpbTuAh",
+  "https://www.youtube.com/embed/oy4ReeOaB9k?si=PrGVYmRrtsCvOkBI",
+  "https://www.youtube.com/embed/kQrBVd6QZAA?si=V5WnoEEvn6olMwuy",
+  "https://www.youtube.com/embed/H8pFcm9_tEg?si=1k5OXZ35gtP-iLhZ",
+  "https://www.youtube.com/embed/jyyE36DKAdk?si=C18rdo1ySwhkYnDm",
+  "https://www.youtube.com/embed/dWnM27Nn9YU?si=ix97YYscdIxaYYnw"
+];
+
+let playedVideos = [];
+
+function shuffleVideo() {
+  const player = document.getElementById('yt-player');
+  if (!player) return;
+
+  // If all videos have played once, reset the history pool safely
+  if (playedVideos.length === videoUrls.length) {
+    playedVideos = [];
+  }
+
+  // Filter out videos that have already been played
+  const availableVideos = videoUrls.filter(video => !playedVideos.includes(video));
+
+  // Pick a random video from the remaining unplayed options
+  const randomIndex = Math.floor(Math.random() * availableVideos.length);
+  const selectedVideo = availableVideos[randomIndex];
+
+  // Save this video to our played history so it won't be picked again
+  playedVideos.push(selectedVideo);
+
+  // Load the video into the player
+  player.src = selectedVideo;
+}
 
 
 // Main function to handle page transitions: transfers content from current 
@@ -443,6 +481,9 @@ async function handlePageTransition(destinationURL, targetBackground) {
           animateBlob();
           if (container.querySelector('#sc-player')) {
             shuffleTrack();
+          }
+          if (document.getElementById('yt-player')) {
+            shuffleVideo();
           }
           setTimeout(() => {
             // Fade container content back in
