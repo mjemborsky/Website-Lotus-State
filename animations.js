@@ -344,14 +344,15 @@ function shuffleTrack() {
 
 
 const videoUrls = [
-  "https://www.youtube.com/embed/_Crf-vFNHNM?si=dy7AOstn90wRR7GD",
-  "https://www.youtube.com/embed/30yJlb5-0mQ?si=PgXtKYOs_LLrDJxj",
-  "https://www.youtube.com/embed/rRkpHfpYAo8?si=Uczqa5ZckrpbTuAh",
-  "https://www.youtube.com/embed/oy4ReeOaB9k?si=PrGVYmRrtsCvOkBI",
-  "https://www.youtube.com/embed/kQrBVd6QZAA?si=V5WnoEEvn6olMwuy",
-  "https://www.youtube.com/embed/H8pFcm9_tEg?si=1k5OXZ35gtP-iLhZ",
-  "https://www.youtube.com/embed/jyyE36DKAdk?si=C18rdo1ySwhkYnDm",
-  "https://www.youtube.com/embed/dWnM27Nn9YU?si=ix97YYscdIxaYYnw"
+  "https://www.youtube-nocookie.com/embed/_Crf-vFNHNM?si=dy7AOstn90wRR7GD",
+  "https://www.youtube-nocookie.com/embed/30yJlb5-0mQ?si=PgXtKYOs_LLrDJxj",
+  "https://www.youtube-nocookie.com/embed/rRkpHfpYAo8?si=Uczqa5ZckrpbTuAh",
+  "https://www.youtube-nocookie.com/embed/oy4ReeOaB9k?si=PrGVYmRrtsCvOkBI",
+  "https://www.youtube-nocookie.com/embed/kQrBVd6QZAA?si=V5WnoEEvn6olMwuy",
+  "https://www.youtube-nocookie.com/embed/H8pFcm9_tEg?si=1k5OXZ35gtP-iLhZ",
+  "https://www.youtube-nocookie.com/embed/jyyE36DKAdk?si=C18rdo1ySwhkYnDm",
+  "https://www.youtube-nocookie.com/embed/Oi0qbaL0Pyo?si=8xaSilW3M8V4Dr1W",
+  "https://www.youtube-nocookie.com/embed/dWnM27Nn9YU?si=ix97YYscdIxaYYnw"
 ];
 
 let playedVideos = [];
@@ -530,7 +531,10 @@ function initUI() {
   if (document.getElementById('sc-player')) {
     shuffleTrack();
   }
-  
+  if (document.getElementById('yt-player')) {
+    shuffleVideo();
+  }
+
   setTimeout(() => {
     content.forEach((element) => {
       element.style.opacity = "1";
