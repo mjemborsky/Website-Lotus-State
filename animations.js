@@ -349,6 +349,7 @@ async function handlePageTransition(destinationURL, targetBackground) {
   const isCurrentlyLotusmane = !!container.querySelector('.lotusmane-coverart');
   // Query normal targets inside the container
   var currentContent = Array.from(container.querySelectorAll('.fade-target'));
+  
   // If leaving Lotusmane, fade elements out smoothly
   if (isCurrentlyLotusmane) {
     if (mainHeaderH1) {
@@ -360,12 +361,21 @@ async function handlePageTransition(destinationURL, targetBackground) {
       overlayHeaderText.style.opacity = '0';
     }
   }
+  
   currentContent.forEach((fadeItem) => {
     fadeItem.style.opacity = '0';
   });
+  
   try {
     const response = await fetch(destinationURL);
-    const newPage = await response.text();
+    const newPageText = await response.text(); 
+
+    // NEW: Parse the fetched text into a readable HTML document
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(newPageText, 'text/html');
+    // Extract ONLY the inner HTML of the fetched page's container
+    const newContainerHTML = doc.querySelector('.container').innerHTML;
+
     await Promise.all([
       new Promise((resolve) => {
         animateCircles(targetBackground);
@@ -373,12 +383,15 @@ async function handlePageTransition(destinationURL, targetBackground) {
       }),
       new Promise((resolve) => {
         setTimeout(() => {
-          container.innerHTML = newPage;
+          // NEW: Inject only the container contents, not the whole page
+          container.innerHTML = newContainerHTML;
+          
           // Query fresh elements inside the container
           var newContent = Array.from(container.querySelectorAll('.fade-target'));
           // Check if the NEW incoming page is Lotusmane
           const incomingLotusmane = container.querySelector('.lotusmane-coverart');
           const aboutMe = container.querySelector('.about-me');
+          
           // 2. MULTI-LAYER TEXT SWAP: Update text and fonts on BOTH layers simultaneously
           const headerLayers = [mainHeaderH1, overlayHeaderText].filter(Boolean);
           headerLayers.forEach(layer => {
@@ -401,6 +414,7 @@ async function handlePageTransition(destinationURL, targetBackground) {
               }
             }
           });
+          
           // RUNNING OTHER PAGE SPECIFIC INTERACTIONS
           if (aboutMe) {
             aboutMe.addEventListener('mousemove', (e) => {
@@ -415,17 +429,20 @@ async function handlePageTransition(destinationURL, targetBackground) {
               aboutMe.style.setProperty('--mouse-y', `50%`);
             });
           }
+          
           const terminalContainer = container.querySelector('.terminal');
           if (terminalContainer) {
             runTerminalAnimation(terminalContainer);
           }
           animateBlob();
+          
           if (container.querySelector('#sc-player')) {
             shuffleTrack();
           }
           if (document.getElementById('yt-player')) {
             shuffleVideo();
           }
+          
           setTimeout(() => {
             // Fade container content back in
             newContent.forEach((newFadeItem) => {
@@ -446,6 +463,7 @@ async function handlePageTransition(destinationURL, targetBackground) {
         }, 1250);
       })
     ]);
+    
     if (shouldAnimateIdle()) {
       const idle = document.getElementById("idle");
       createPaths(getNumPaths(), idle);
@@ -495,7 +513,6 @@ function initUI() {
     e.preventDefault();
     const liveOverlay = document.getElementById("overlay"); // Always find it fresh in the DOM
     const isExpanded = expandedLinks.classList.contains("show");
-    
     if (isExpanded) {
       expandedLinks.classList.remove("show");
       if (liveOverlay) {
@@ -518,7 +535,6 @@ function initUI() {
     const liveOverlay = document.getElementById("overlay");
     if (liveOverlay) liveOverlay.style.opacity = "0";
     expandedLinks.classList.remove("show");
-    
     const destinationURL = home.getAttribute("href");
     const targetBackground = getStoredSVG("backgroundOne.svg");
     handlePageTransition(destinationURL, targetBackground);
@@ -531,7 +547,6 @@ function initUI() {
       const liveOverlay = document.getElementById("overlay");
       expandedLinks.classList.remove("show");
       if (liveOverlay) liveOverlay.style.opacity = "0";
-      
       const destinationURL = link.getAttribute("href");
       const targetBackground = getStoredSVG("backgroundTwo.svg");
       handlePageTransition(destinationURL, targetBackground);
@@ -544,7 +559,6 @@ function initUI() {
     const liveOverlay = document.getElementById("overlay");
     if (liveOverlay) liveOverlay.style.opacity = "0";
     expandedLinks.classList.remove("show");
-    
     const destinationURL = more.getAttribute("href");
     const targetBackground = getStoredSVG("backgroundFive.svg");
     handlePageTransition(destinationURL, targetBackground);

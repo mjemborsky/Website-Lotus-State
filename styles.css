@@ -84,14 +84,13 @@ body {
 }
 .center-link, .header-text {
   height: 15%;
-  width: 25%;
+  width: 35%;
   margin: 0 auto;
   padding-left: 50px;
   padding-right: 50px;
   border-radius: 0% 0% 150% 150%;
   color: whitesmoke;
   text-decoration: none;
-  font-size: 150%;
   font-family: 'Retrolight', sans-serif;
   position: fixed;
   left: 0;
@@ -106,6 +105,9 @@ body {
   justify-content: center;
   top: -1%;
   z-index: 12;
+}
+.header-text h1 {
+  font-size: 350%;
 }
 .defaultTitle {
   font-family: 'Retrolight', sans-serif;
@@ -233,23 +235,54 @@ body {
   position: relative;
   z-index: 10;
   aspect-ratio: 16 / 9;
-  width: min(55%, 55vh * 16 / 9);
+  width: min(55%, calc(55vh * 16 / 9));
   height: auto;
   top: 7%;
 }
+
 #video-blob-svg {
   position: absolute;
-  top: 57%; 
+  top: calc(50% + 3.5%); /* Centers the blob directly behind the video with its top:7% offset */
   left: 50%;
   transform: translate(-50%, -50%);
-  /* Changed from 65% to 55% to match the exact structural layout width of the .intro-video */
-  width: min(55%, 55% * 16 / 9); 
+  width: min(65%, calc(65vh * 16 / 9)); /* Sized to ~65% so the fluid spikes peek out around the video */
   height: auto;
   z-index: 5;
   pointer-events: none;
   shape-rendering: geometricPrecision;  
   opacity: 1;
 }
+/* INTRO PAGE SPECIFIC SHUFFLE BUTTON */
+#welcome-section .shuffle-btn {
+  background-color: black;
+  color: ghostwhite;
+  font-family: 'Retrolight', sans-serif;
+  border: 1px solid ghostwhite;
+  border-radius: 8px;
+  padding: 0.6rem 1.6rem;
+  margin-top: 3.5rem; /* Moves the button further down beneath the video/blob */
+  box-shadow: none;
+  cursor: pointer;
+  /* Smooth transition for hover effects */
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, transform 0.25s ease, box-shadow 0.35s ease;
+}
+
+@media (hover: hover) {
+  #welcome-section .shuffle-btn:hover {
+    background-color: ghostwhite; /* Inverts to white like the header links */
+    color: black;
+    border-color: ghostwhite;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); /* Subtle white glow */
+    transform: translateY(-2px);
+  }
+}
+
+#welcome-section .shuffle-btn:active {
+  transform: translateY(1px) scale(0.97);
+}
+
+
+
 
 /* CURRENTLY RELEASED PROJECT PAGE */
 #projects  {
@@ -308,7 +341,7 @@ body {
   align-items: center;
   z-index: 1;
 }
-.shuffle-btn {
+#beats .shuffle-btn {
   background-color: #ff5500; 
   color: ghostwhite;
   font-family: inherit; 
@@ -324,12 +357,12 @@ body {
   outline: none;
 }
 @media (hover: hover) {
-  .shuffle-btn:hover {
+  #beats .shuffle-btn:hover {
     background-color: #ff6a1a;
     box-shadow: 0 6px 20px rgba(255, 85, 0, 0.4);
   }
 }
-.shuffle-btn:active {
+  #beats .shuffle-btn:active {
   background-color: #e04b00;
   transform: translateY(1px) scale(0.97);
   box-shadow: 0 2px 8px rgba(255, 85, 0, 0.3);
@@ -586,8 +619,8 @@ body {
     top: 0;
   }
   #video-blob-svg {
-    width: 105%;
-    top: 50%;
+    width: 108%; /* Gives enough margin for fluid spikes on mobile screens */
+    top: 43%;    /* Aligns vertically with the mobile video player */
   }
   .link, .extra-links {
     width: 60px;
