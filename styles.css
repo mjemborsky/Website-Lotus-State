@@ -107,7 +107,7 @@ body {
   z-index: 12;
 }
 .header-text h1 {
-  font-size: 350%;
+  font-size: clamp(1.75rem, 5vw + 1rem, 3.5rem);
 }
 .defaultTitle {
   font-family: 'Retrolight', sans-serif;
@@ -136,7 +136,7 @@ body {
   height: 100%;
   text-decoration: none;
   color: ghostwhite;
-  font-size: 150%;
+  font-size: 120%;
   padding-top: 5%;
   padding-right: 20%;
 }
@@ -291,12 +291,14 @@ body {
   flex-direction: row;
   justify-content: center;
   margin: 0 auto;
-  padding-top: 7%;
+  padding-top: 0;
   height: 72%;
+  width: 100%;
 }
 .project-tile {
-  min-width: 45%;
-  padding: 5%;
+  min-width: 25%;
+  height: 100%;
+  padding: 2%;
   overflow: off;
   z-index: 3;
 }
@@ -304,7 +306,15 @@ body {
   pointer-events: auto;
   z-index: 10;
 }
+/* Hides scrollbars everywhere while keeping touch-scrolling working */
+#projects {
+  -ms-overflow-style: none;  /* IE / Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 
+#projects::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, iOS */
+}
 
 
 /* LOTUSMANE PAGE */
@@ -549,9 +559,19 @@ body {
     font-size: 100%;
   }
 }
+
+@media screen and (max-width: 1200px) {
+  .header-text h1 {
+    font-size: 250%;
+  }
+}
+
 @media screen and (max-width: 800px) {
   .about-me p {
     font-size: 80%;
+  }
+  .header-text h1 {
+    font-size: 200%;
   }
 }
 @media screen and (max-width: 600px) {
@@ -568,7 +588,10 @@ body {
 }
 @media screen and (max-width: 430px) {
   .container {
-    overflow-x: auto; /* allow horizontal scroll inside container */
+    min-height: 100vh;
+    min-height: 100dvh; /* Handles mobile browser dynamic viewport address bars */
+    height: auto;
+    overflow-x: auto;
     overflow-y: hidden;
   }
   .center-link, .header-text {
@@ -607,8 +630,8 @@ body {
     height: 200%;
     z-index: 10;
   }
-  #projects h1 {
-    display: none;
+  #projects {
+    top: 5%;
   }
   .container #idle {
     height: 150vh;

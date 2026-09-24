@@ -58,7 +58,6 @@ FUTURE CONTENT: windmills (single) (UPDATE JANUARY 2024), new album (JULY 2024) 
       document.addEventListener('DOMContentLoaded', () => {
         const firstTile = document.querySelector('.project-tile.first');
         const projects = document.querySelector('#projects');
-
         if (window.innerWidth <= 430 && firstTile && projects) {
           projects.scrollLeft = 0; // start at the very beginning
           firstTile.scrollIntoView({inline: 'start', behavior: 'auto'});
