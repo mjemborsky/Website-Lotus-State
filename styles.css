@@ -237,7 +237,7 @@ body {
   aspect-ratio: 16 / 9;
   width: min(55%, calc(55vh * 16 / 9));
   height: auto;
-  top: 7%;
+  top: 11.25%;
 }
 
 #video-blob-svg {
@@ -604,7 +604,7 @@ body {
     z-index: 0;
   }
   .lotusmaneTitle {
-    font-size: 130%;
+    font-size: 100%;
   }
   .left-links, .right-links { 
     width: 30%;
@@ -668,13 +668,13 @@ body {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
-    /* remove centering */
     justify-content: flex-start;
     padding: 0;
     margin: 0;
     width: 95%;
-    height: 90%;
+    height: 100%;
     overflow-y: hidden;
+    transform: translateY(10%);
   }
   .project-tile {
     flex: 0 0 100%;
@@ -685,11 +685,10 @@ body {
     justify-content: center; /* centers the iframe inside the tile */
     align-items: center;
     position: relative;
-    top: 10%;
   }
   .project-tile iframe {
     width: 95%;
-    height: 85vh;
+    height: 75vh;
     border-radius: 12px;
   }
   #links {
@@ -716,6 +715,12 @@ body {
   }
   #sc-player {
     width: 100%;
+  }
+  #extra {
+    transform: translateY(10%);
+  }
+  #beats h3 {
+    transform: translateY(10%);
   }
 }
 
