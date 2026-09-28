@@ -187,11 +187,118 @@ function animateCircles(targetSVG) {
 
 
 // PAGE SPECIFIC MECHANICS
+// THE BLOB!
 
 
+let blobAnimationFrameId = null;
 
-// INTRO PAGE
-// Video shuffle functionality for the intro page
+function animateBlob() {
+  // Determine target element and target path shape based on active DOM elements
+  let targetElement = null;
+  let path = null;
+  let baseHeight = 100;
+
+  if (document.getElementById('yt-player')) {
+    targetElement = document.getElementById('yt-player');
+    path = document.getElementById('fluid-shape');
+    baseHeight = 100;
+  } else if (document.getElementById('sc-player')) {
+    targetElement = document.getElementById('sc-player');
+    path = document.getElementById('beats-fluid-shape');
+    baseHeight = 120; // Increased base height to allow organic overflow on wide elements
+  } else if (document.querySelector('.lotusmane-coverart')) {
+    targetElement = document.querySelector('.lotusmane-coverart');
+    path = document.getElementById('fluid-shape'); // Updated from 'lotusmane-fluid-shape' to match lotusmane.html
+    baseHeight = 100; // Updated from 110 to 100 to match intro video size
+  }
+
+  // Safety check: exit if no blob setup is present on the current page
+  if (!path || !targetElement) return;
+
+  // Cleanup prior animation loop
+  if (blobAnimationFrameId) {
+    cancelAnimationFrame(blobAnimationFrameId);
+  }
+
+  const points = 48;
+  const center = 200;
+
+  const pointData = Array.from({ length: points }, (_, i) => {
+    const angle = (i / points) * Math.PI * 2;
+    return {
+      angle: angle,
+      phaseShift: angle * 3,
+      freq: 1.4,
+      amp: 10 + Math.random() * 6
+    };
+  });
+
+  let t = 0;
+
+  function update() {
+    t += 0.004;
+
+    if (!targetElement || !path) return;
+
+    const rect = targetElement.getBoundingClientRect();
+    const aspectRatio = rect.height > 0 ? rect.width / rect.height : 1;
+    const baseWidth = baseHeight * aspectRatio;
+
+    const coords = pointData.map((p, i) => {
+      const cos = Math.cos(p.angle);
+      const sin = Math.sin(p.angle);
+
+      const rectScale = 1 / Math.max(Math.abs(cos), Math.abs(sin));
+      const rectX = cos * rectScale * baseWidth;
+      const rectY = sin * rectScale * baseHeight;
+
+      const circX = cos * baseWidth;
+      const circY = sin * baseHeight;
+
+      const cornerSoftening = 0.85;
+      const finalBaseX = (rectX * cornerSoftening) + (circX * (1 - cornerSoftening));
+      const finalBaseY = (rectY * cornerSoftening) + (circY * (1 - cornerSoftening));
+
+      const isSpikePeak = i % 2 === 0;
+      const baseWave = (Math.sin(t * p.freq + p.phaseShift) + 1) / 2;
+
+      let fluidExtension = 0.05;
+      if (isSpikePeak) {
+        fluidExtension += (0.2 + baseWave * 0.8) * p.amp;
+      } else {
+        fluidExtension += 0.02 * p.amp;
+      }
+
+      const x = center + finalBaseX + (cos * fluidExtension);
+      const y = center + finalBaseY + (sin * fluidExtension);
+
+      return { x, y };
+    });
+
+    let d = `M${coords[0].x},${coords[0].y}`;
+    for (let i = 0; i < coords.length; i++) {
+      const p0 = coords[i];
+      const p1 = coords[(i + 1) % coords.length];
+
+      if (i % 2 === 0) {
+        d += ` L${p0.x},${p0.y}`;
+      } else {
+        const midX = (p0.x + p1.x) / 2;
+        const midY = (p0.y + p1.y) / 2;
+        d += ` Q${p0.x},${p0.y} ${midX},${midY}`;
+      }
+    }
+    d += "Z";
+    path.setAttribute("d", d);
+
+    blobAnimationFrameId = requestAnimationFrame(update);
+  }
+
+  blobAnimationFrameId = requestAnimationFrame(update);
+}
+
+
+// VIDEO SHUFFLE FUNCTIONALITY (INTRO & LOTUSMANE)
 const videoUrls = [
   "https://www.youtube-nocookie.com/embed/_Crf-vFNHNM?si=dy7AOstn90wRR7GD",
   "https://www.youtube-nocookie.com/embed/30yJlb5-0mQ?si=PgXtKYOs_LLrDJxj",
@@ -203,25 +310,40 @@ const videoUrls = [
   "https://www.youtube-nocookie.com/embed/Oi0qbaL0Pyo?si=8xaSilW3M8V4Dr1W",
   "https://www.youtube-nocookie.com/embed/dWnM27Nn9YU?si=ix97YYscdIxaYYnw"
 ];
+
+const lotusmaneVideoUrls = [
+  "https://www.youtube.com/embed/y6I0NHgKHTk?si=9MeLyf1zoAvpiweN"
+];
+
 let playedVideos = [];
+let playedLotusmaneVideos = [];
+
 function shuffleVideo() {
   const player = document.getElementById('yt-player');
   if (!player) return;
-  // If all videos have played once, reset the history pool safely
-  if (playedVideos.length === videoUrls.length) {
-    playedVideos = [];
+
+  // Determine if we are currently on the Lotusmane page
+  const isLotusmane = !!document.getElementById('lotusmane') || window.location.pathname.includes('lotusmane');
+
+  const pool = isLotusmane ? lotusmaneVideoUrls : videoUrls;
+  let history = isLotusmane ? playedLotusmaneVideos : playedVideos;
+
+  // Reset history pool if all videos from current pool have been played
+  if (history.length >= pool.length) {
+    history.length = 0; // Clears the active history array in-place
   }
-  // Filter out videos that have already been played
-  const availableVideos = videoUrls.filter(video => !playedVideos.includes(video));
+
+  // Filter out videos that have already been played in this session
+  const availableVideos = pool.filter(video => !history.includes(video));
+
   // Pick a random video from the remaining unplayed options
   const randomIndex = Math.floor(Math.random() * availableVideos.length);
   const selectedVideo = availableVideos[randomIndex];
-  // Save this video to our played history so it won't be picked again
-  playedVideos.push(selectedVideo);
-  // Load the video into the player
+
+  // Save to history and load video into player
+  history.push(selectedVideo);
   player.src = selectedVideo;
 }
-
 // BEATS PAGE
 // Soundcloud shuffle functionality for the beats page
 const trackUrls = [
@@ -434,7 +556,11 @@ async function handlePageTransition(destinationURL, targetBackground) {
           if (terminalContainer) {
             runTerminalAnimation(terminalContainer);
           }
-          animateBlob();
+          try {
+            animateBlob();
+          } catch (err) {
+            console.warn("Blob script skipped:", err.message);
+          }
           
           if (container.querySelector('#sc-player')) {
             shuffleTrack();

@@ -242,15 +242,14 @@ body {
 
 #video-blob-svg {
   position: absolute;
-  top: calc(50% + 3.5%); /* Centers the blob directly behind the video with its top:7% offset */
+  top: calc(50% + 3.5%);
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min(65%, calc(65vh * 16 / 9)); /* Sized to ~65% so the fluid spikes peek out around the video */
+  width: min(65%, calc(65vh * 16 / 9));
   height: auto;
   z-index: 5;
   pointer-events: none;
-  shape-rendering: geometricPrecision;  
-  opacity: 1;
+  shape-rendering: geometricPrecision;
 }
 /* INTRO PAGE SPECIFIC SHUFFLE BUTTON */
 #welcome-section .shuffle-btn {
@@ -276,7 +275,6 @@ body {
     transform: translateY(-2px);
   }
 }
-
 #welcome-section .shuffle-btn:active {
   transform: translateY(1px) scale(0.97);
 }
@@ -316,7 +314,9 @@ body {
   display: none; /* Chrome, Safari, iOS */
 }
 
-
+#lotusmane #video-blob-svg {
+  top: 50%;
+}
 /* LOTUSMANE PAGE */
 #lotusmane {
   display: flex;
@@ -335,11 +335,11 @@ body {
   width: 100%;
   top: -28%;
   opacity: .7;
-  z-index: 0;
+  z-index: 1;
 }
 
 
-/* BEAT PAGE */
+/* Beats Page Blob */
 #beats {
   width: 100%;
   height: 60%;
@@ -351,6 +351,7 @@ body {
   align-items: center;
   z-index: 1;
 }
+
 #beats .shuffle-btn {
   background-color: #ff5500; 
   color: ghostwhite;
@@ -378,7 +379,21 @@ body {
   box-shadow: 0 2px 8px rgba(255, 85, 0, 0.3);
   transition: transform 0.08s ease; 
 }
+#beats-blob-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(50% + 80px); /* 50% width to match iframe, plus 80px padding for blob edges */
+  height: 240px;            /* Taller than 166px iframe so peaks pop out top/bottom */
+  z-index: 0;
+  pointer-events: none;
+}
 
+#sc-player {
+  position: relative;
+  z-index: 1;
+}
 
 
 /*  MORE PAGE  */
