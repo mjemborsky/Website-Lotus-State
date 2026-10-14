@@ -1,6 +1,6 @@
 // animations.js
 // Created by: Michael Emborsky
-// Last Modified: 11/4/2023
+// Last Modified: 10/14/2026
 
 // PURPOSE - Page Transition and Idle Animations //
 // This javascript file is used to load, manipulate, and 
@@ -37,7 +37,7 @@ let isPageHidden = false;
 // Function to check if the currentSVG matches a specific SVG filename
 function isCurrentSVG(filename) {
   const currentSVG = document.querySelector('.background-svg');
-  return currentSVG.src.includes(filename);
+  return currentSVG && currentSVG.src.includes(filename);
 }
 // Function to check if user is on mobile device
 function isMobile() {
@@ -80,7 +80,7 @@ function clearPaths(container) {
 function createPaths(numPaths, container) {
   const group = container.querySelector('g');
   for (let i = 0; i < numPaths; i++) {
-    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    const path = document.createElementNS("http://w3.org", "path");
     const randomLength = Math.random() * 50 + 10;
     const randomStrokeWidth = Math.random() * 3 + 1;
     const randomOpacity = Math.random() * 0.5 + 0.5;
@@ -107,12 +107,16 @@ function setInitialPathPositions(paths) {
   });
 }
 function animatePaths(paths) {
+  const mobileCheck = isMobile();
+  const cachedWidth = window.innerWidth;
+  const cachedHeight = window.innerHeight;
+
   const pathData = Array.from(paths).map((path, index) => {
     const transformAttr = path.getAttribute('transform');
     const matrix = new DOMMatrix(transformAttr);
     const startX = matrix.m41;
-    const startY = matrix.m42 - (isMobile() ? window.innerHeight * 2 : 0);
-    const endY = window.innerHeight * (isMobile() ? 8 : 4);
+    const startY = matrix.m42 - (mobileCheck ? cachedHeight * 2 : 0);
+    const endY = cachedHeight * (mobileCheck ? 8 : 4);
     const duration = 20000 + (Math.random() * 5000 - 2500);
     const delay = Math.random() * 5000 + index * 1000;
     return {
@@ -126,8 +130,8 @@ function animatePaths(paths) {
     };
   });
   function step(timestamp) {
+    if (isPageHidden) return;
     pathData.forEach(data => {
-      if (isPageHidden) return;
       if (timestamp < data.delay) return;
       if (!data.startTime) data.startTime = timestamp;
       const elapsed = timestamp - data.startTime - data.delay;
@@ -185,13 +189,12 @@ function animateCircles(targetSVG) {
 }
 
 
-
 // PAGE SPECIFIC MECHANICS
 // THE BLOB!
 
 
 let blobAnimationFrameId = null;
-
+let blobPaused = false;
 function animateBlob() {
   // Determine target element and target path shape based on active DOM elements
   let targetElement = null;
@@ -220,7 +223,7 @@ function animateBlob() {
     cancelAnimationFrame(blobAnimationFrameId);
   }
 
-  const points = 48;
+  const points = 24;
   const center = 200;
 
   const pointData = Array.from({ length: points }, (_, i) => {
@@ -237,44 +240,35 @@ function animateBlob() {
 
   function update() {
     t += 0.004;
-
+    
     if (!targetElement || !path) return;
 
     const rect = targetElement.getBoundingClientRect();
     const aspectRatio = rect.height > 0 ? rect.width / rect.height : 1;
     const baseWidth = baseHeight * aspectRatio;
-
     const coords = pointData.map((p, i) => {
       const cos = Math.cos(p.angle);
       const sin = Math.sin(p.angle);
-
       const rectScale = 1 / Math.max(Math.abs(cos), Math.abs(sin));
       const rectX = cos * rectScale * baseWidth;
       const rectY = sin * rectScale * baseHeight;
-
       const circX = cos * baseWidth;
       const circY = sin * baseHeight;
-
       const cornerSoftening = 0.85;
       const finalBaseX = (rectX * cornerSoftening) + (circX * (1 - cornerSoftening));
       const finalBaseY = (rectY * cornerSoftening) + (circY * (1 - cornerSoftening));
-
       const isSpikePeak = i % 2 === 0;
       const baseWave = (Math.sin(t * p.freq + p.phaseShift) + 1) / 2;
-
       let fluidExtension = 0.05;
       if (isSpikePeak) {
         fluidExtension += (0.2 + baseWave * 0.8) * p.amp;
       } else {
         fluidExtension += 0.02 * p.amp;
       }
-
       const x = center + finalBaseX + (cos * fluidExtension);
       const y = center + finalBaseY + (sin * fluidExtension);
-
       return { x, y };
     });
-
     let d = `M${coords[0].x},${coords[0].y}`;
     for (let i = 0; i < coords.length; i++) {
       const p0 = coords[i];
@@ -312,7 +306,6 @@ const videoUrls = [
 ];
 
 const lotusmaneVideoUrls = [
-  "https://www.youtube.com/embed/y6I0NHgKHTk?si=9MeLyf1zoAvpiweN"
 ];
 
 let playedVideos = [];
@@ -347,11 +340,11 @@ function shuffleVideo() {
 // BEATS PAGE
 // Soundcloud shuffle functionality for the beats page
 const trackUrls = [
-  "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A1858906977&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true",
-  "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A1858905702&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true",
-  "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2401911327&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true",
-  "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2403367047&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true",
-  "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2404392147&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
+  "https://soundcloud.com",
+  "https://soundcloud.com",
+  "https://soundcloud.com",
+  "https://soundcloud.com",
+  "https://soundcloud.com"
 ];
 let playedTracks = [];
 function shuffleTrack() {
@@ -454,7 +447,6 @@ function runTerminalAnimation(container) {
 
 
 
-
 // START OF MAIN JAVASCRIPT FUNCTIONALITY (RUNTIME)
 
 
@@ -463,6 +455,14 @@ function runTerminalAnimation(container) {
 // Main function to handle page transitions: transfers content from current 
 // page to future page and triggers circle animation, starts new idle animation
 async function handlePageTransition(destinationURL, targetBackground) {
+  if (window.isTransitioning) return;
+  window.isTransitioning = true;
+
+  if (blobAnimationFrameId) {
+    cancelAnimationFrame(blobAnimationFrameId);
+    blobAnimationFrameId = null;
+  }
+
   var container = document.querySelector('.container');
   // 1. Target ALL elements that could contain or overlay your header text
   const mainHeaderH1 = document.querySelector('.center-link h1, .Acenter-link h1');
@@ -584,6 +584,7 @@ async function handlePageTransition(destinationURL, targetBackground) {
             if (incomingLotusmane) {
               incomingLotusmane.style.opacity = '.7';
             }
+            window.isTransitioning = false; // Reset global lock
           }, 50);
           resolve();
         }, 1250);
@@ -597,6 +598,7 @@ async function handlePageTransition(destinationURL, targetBackground) {
     }
   } catch (error) {
     console.error('Error loading page:', error);
+    window.isTransitioning = false; // Reset global lock on error
   }
 }
 
