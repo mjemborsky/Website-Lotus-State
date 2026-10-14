@@ -306,6 +306,7 @@ const videoUrls = [
 ];
 
 const lotusmaneVideoUrls = [
+  "https://www.youtube-nocookie.com/embed/y6I0NHgKHTk?si=EuZ46JOCAtpi-Tvi",
 ];
 
 let playedVideos = [];
