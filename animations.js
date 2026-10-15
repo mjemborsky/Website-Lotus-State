@@ -244,16 +244,46 @@ function animateBlob() {
     if (!targetElement || !path) return;
 
     const rect = targetElement.getBoundingClientRect();
-    const aspectRatio = rect.height > 0 ? rect.width / rect.height : 1;
-    const baseWidth = baseHeight * aspectRatio;
+    
+    // --- LIVE VERTICAL ALIGNMENT CORRECTION ---
+    if (targetElement.id === 'sc-player') {
+      const parentContainer = targetElement.offsetParent;
+      if (parentContainer) {
+        const containerRect = parentContainer.getBoundingClientRect();
+        
+        // Find the absolute vertical center point of the SoundCloud iframe
+        const playerCenterY = (rect.top + rect.bottom) / 2;
+        
+        // Find the height of the actual SVG canvas layout bounding box
+        const svgElement = document.getElementById('beats-blob-svg');
+        if (svgElement) {
+          const svgRect = svgElement.getBoundingClientRect();
+          
+          // Calculate top property by subtracting half the SVG height to anchor from the true center
+          const relativeCenterY = (playerCenterY - containerRect.top) - (svgRect.height / 2);
+          svgElement.style.top = `${relativeCenterY}px`;
+        }
+      }
+    }
+    // ------------------------------------------
+
+    let aspectRatio = rect.height > 0 ? rect.width / rect.height : 1;
+    let currentBaseHeight = baseHeight;
+
+    if (targetElement.id === 'sc-player') {
+      aspectRatio = rect.width / rect.height; 
+      currentBaseHeight = 65; // Keep the shape round, smooth, and rectangular
+    }
+
+    const baseWidth = currentBaseHeight * aspectRatio;
     const coords = pointData.map((p, i) => {
       const cos = Math.cos(p.angle);
       const sin = Math.sin(p.angle);
       const rectScale = 1 / Math.max(Math.abs(cos), Math.abs(sin));
       const rectX = cos * rectScale * baseWidth;
-      const rectY = sin * rectScale * baseHeight;
+      const rectY = sin * rectScale * currentBaseHeight;
       const circX = cos * baseWidth;
-      const circY = sin * baseHeight;
+      const circY = sin * currentBaseHeight;
       const cornerSoftening = 0.85;
       const finalBaseX = (rectX * cornerSoftening) + (circX * (1 - cornerSoftening));
       const finalBaseY = (rectY * cornerSoftening) + (circY * (1 - cornerSoftening));
@@ -269,6 +299,7 @@ function animateBlob() {
       const y = center + finalBaseY + (sin * fluidExtension);
       return { x, y };
     });
+
     let d = `M${coords[0].x},${coords[0].y}`;
     for (let i = 0; i < coords.length; i++) {
       const p0 = coords[i];
@@ -290,6 +321,8 @@ function animateBlob() {
 
   blobAnimationFrameId = requestAnimationFrame(update);
 }
+
+
 
 
 // VIDEO SHUFFLE FUNCTIONALITY (INTRO & LOTUSMANE)
@@ -341,11 +374,11 @@ function shuffleVideo() {
 // BEATS PAGE
 // Soundcloud shuffle functionality for the beats page
 const trackUrls = [
-  "https://soundcloud.com",
-  "https://soundcloud.com",
-  "https://soundcloud.com",
-  "https://soundcloud.com",
-  "https://soundcloud.com"
+  "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A1858906977&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+  "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A1858905702&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+  "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2401911327&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+  "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2403367047&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+  "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2404392147&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
 ];
 let playedTracks = [];
 function shuffleTrack() {

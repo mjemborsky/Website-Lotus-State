@@ -338,18 +338,36 @@ body {
   z-index: 1;
 }
 
-
-/* Beats Page Blob */
+/* Beats Page Blob Alignment Correction */
 #beats {
   width: 100%;
   height: 60%;
-  position: relative;
+  position: relative; /* Keep this container relative */
   display: flex;
   flex-direction: column;
-  justify-content: center;
   justify-content: space-around;
   align-items: center;
   z-index: 1;
+}
+
+#beats-blob-svg {
+  /* CRITICAL CHANGE: Change to absolute so it completely breaks out of the flex column flow */
+  position: absolute;
+  /* Horizontal constraint settings matches your exact preferred width */
+  width: calc(50% + 10px); 
+  height: auto;            
+  
+  /* Layering checks keep the black path directly behind foreground text/players */
+  z-index: 0;
+  pointer-events: none;
+  shape-rendering: geometricPrecision;
+}
+
+#sc-player {
+  /* CRITICAL CHANGE: Ensure relative positioning is active so z-index works */
+  position: relative;
+  width: 50%;
+  z-index: 2; /* Forces player and cover art layout layer above the blob */
 }
 
 #beats .shuffle-btn {
@@ -373,27 +391,13 @@ body {
     box-shadow: 0 6px 20px rgba(255, 85, 0, 0.4);
   }
 }
-  #beats .shuffle-btn:active {
+#beats .shuffle-btn:active {
   background-color: #e04b00;
   transform: translateY(1px) scale(0.97);
   box-shadow: 0 2px 8px rgba(255, 85, 0, 0.3);
   transition: transform 0.08s ease; 
 }
-#beats-blob-svg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: calc(50% + 80px); /* 50% width to match iframe, plus 80px padding for blob edges */
-  height: 240px;            /* Taller than 166px iframe so peaks pop out top/bottom */
-  z-index: 0;
-  pointer-events: none;
-}
 
-#sc-player {
-  position: relative;
-  z-index: 1;
-}
 
 
 /*  MORE PAGE  */
