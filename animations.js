@@ -195,11 +195,13 @@ function animateCircles(targetSVG) {
 
 let blobAnimationFrameId = null;
 let blobPaused = false;
+let cachedBlobRect = null;
+let blobResizeObserver = null;
+
 function animateBlob() {
-  // Determine target element and target path shape based on active DOM elements
   let targetElement = null;
   let path = null;
-  let baseHeight = 100;
+  let baseHeight = 100; // --- RESTORED UNIFORM SYSTEM HEIGHT TO PREVENT DISTORTION ---
 
   if (document.getElementById('yt-player')) {
     targetElement = document.getElementById('yt-player');
@@ -208,93 +210,124 @@ function animateBlob() {
   } else if (document.getElementById('sc-player')) {
     targetElement = document.getElementById('sc-player');
     path = document.getElementById('beats-fluid-shape');
-    baseHeight = 120; // Increased base height to allow organic overflow on wide elements
+    baseHeight = 120; 
   } else if (document.querySelector('.lotusmane-coverart')) {
     targetElement = document.querySelector('.lotusmane-coverart');
-    path = document.getElementById('fluid-shape'); // Updated from 'lotusmane-fluid-shape' to match lotusmane.html
-    baseHeight = 100; // Updated from 110 to 100 to match intro video size
+    path = document.getElementById('fluid-shape'); 
+    baseHeight = 100; 
   }
 
-  // Safety check: exit if no blob setup is present on the current page
   if (!path || !targetElement) return;
 
-  // Cleanup prior animation loop
   if (blobAnimationFrameId) {
     cancelAnimationFrame(blobAnimationFrameId);
   }
+  if (blobResizeObserver) {
+    blobResizeObserver.disconnect();
+  }
 
-  const points = 24;
+  cachedBlobRect = targetElement.getBoundingClientRect();
+
+  blobResizeObserver = new ResizeObserver(entries => {
+    for (let entry of entries) {
+      cachedBlobRect = targetElement.getBoundingClientRect();
+    }
+  });
+  blobResizeObserver.observe(targetElement);
+
+  const points = 48; 
   const center = 200;
 
   const pointData = Array.from({ length: points }, (_, i) => {
     const angle = (i / points) * Math.PI * 2;
     return {
       angle: angle,
-      phaseShift: angle * 3,
-      freq: 1.4,
-      amp: 10 + Math.random() * 6
+      phaseShift: angle * 2.5, 
+      freq: 1.6, 
+      amp: 10 + Math.random() * 4 
     };
   });
 
   let t = 0;
 
   function update() {
-    t += 0.004;
+    t += 0.005; 
     
-    if (!targetElement || !path) return;
+    if (!targetElement || !path || !cachedBlobRect) return;
 
-    const rect = targetElement.getBoundingClientRect();
+    const rect = cachedBlobRect;
     
-    // --- LIVE VERTICAL ALIGNMENT CORRECTION ---
+    // --- FINE-TUNED POSITIONING VIA DYNAMIC STYLE OVERRIDES ---
+    const isLotusmane = !!document.getElementById('lotusmane') || window.location.pathname.includes('lotusmane');
+    const svgElement = document.getElementById('video-blob-svg');
+    if (svgElement && document.getElementById('yt-player')) {
+      if (isMobile()) {
+        if (isLotusmane) {
+          // Shifts the blob up further to perfectly frame the Lotusmane video player
+          svgElement.style.top = "calc(43% - 24px)"; 
+        } else {
+          // Adjust this value if you need the index page blob higher or lower
+          svgElement.style.top = "calc(43% + 14px)";   
+        }
+      } else {
+        // Desktop rules remain perfect and untouched
+        if (isLotusmane) {
+          svgElement.style.top = "calc(50% - 6px)";
+        } else {
+          svgElement.style.top = "calc(50% + 3.5% + 6px)"; 
+        }
+      }
+    }
+
     if (targetElement.id === 'sc-player') {
       const parentContainer = targetElement.offsetParent;
       if (parentContainer) {
         const containerRect = parentContainer.getBoundingClientRect();
-        
-        // Find the absolute vertical center point of the SoundCloud iframe
         const playerCenterY = (rect.top + rect.bottom) / 2;
-        
-        // Find the height of the actual SVG canvas layout bounding box
-        const svgElement = document.getElementById('beats-blob-svg');
-        if (svgElement) {
-          const svgRect = svgElement.getBoundingClientRect();
-          
-          // Calculate top property by subtracting half the SVG height to anchor from the true center
+        const beatsSvg = document.getElementById('beats-blob-svg');
+        if (beatsSvg) {
+          const svgRect = beatsSvg.getBoundingClientRect();
           const relativeCenterY = (playerCenterY - containerRect.top) - (svgRect.height / 2);
-          svgElement.style.top = `${relativeCenterY}px`;
+          beatsSvg.style.top = `${relativeCenterY}px`;
         }
       }
     }
-    // ------------------------------------------
 
     let aspectRatio = rect.height > 0 ? rect.width / rect.height : 1;
     let currentBaseHeight = baseHeight;
 
     if (targetElement.id === 'sc-player') {
       aspectRatio = rect.width / rect.height; 
-      currentBaseHeight = 65; // Keep the shape round, smooth, and rectangular
+      currentBaseHeight = 65; 
     }
 
     const baseWidth = currentBaseHeight * aspectRatio;
+    
     const coords = pointData.map((p, i) => {
       const cos = Math.cos(p.angle);
       const sin = Math.sin(p.angle);
+      
       const rectScale = 1 / Math.max(Math.abs(cos), Math.abs(sin));
       const rectX = cos * rectScale * baseWidth;
       const rectY = sin * rectScale * currentBaseHeight;
+      
       const circX = cos * baseWidth;
       const circY = sin * currentBaseHeight;
-      const cornerSoftening = 0.85;
-      const finalBaseX = (rectX * cornerSoftening) + (circX * (1 - cornerSoftening));
-      const finalBaseY = (rectY * cornerSoftening) + (circY * (1 - cornerSoftening));
-      const isSpikePeak = i % 2 === 0;
-      const baseWave = (Math.sin(t * p.freq + p.phaseShift) + 1) / 2;
-      let fluidExtension = 0.05;
-      if (isSpikePeak) {
-        fluidExtension += (0.2 + baseWave * 0.8) * p.amp;
-      } else {
-        fluidExtension += 0.02 * p.amp;
-      }
+      
+      const cornerSoftening = 0.95;
+      let finalBaseX = (rectX * cornerSoftening) + (circX * (1 - cornerSoftening));
+      let finalBaseY = (rectY * cornerSoftening) + (circY * (1 - cornerSoftening));
+      
+      const verticalStretch = 1.04;
+      finalBaseY *= verticalStretch;
+
+      const organicWave = Math.sin(i * 0.5 + t * p.freq + p.phaseShift);
+      const microRipple = Math.sin(i * 1.5 - t * 3.5) * 0.35; 
+      const baseWave = (organicWave + microRipple + 1) / 2; 
+      
+      let fluidExtension = 0.01;
+      fluidExtension += (0.04 + baseWave * 0.55) * p.amp; 
+      
       const x = center + finalBaseX + (cos * fluidExtension);
       const y = center + finalBaseY + (sin * fluidExtension);
       return { x, y };
@@ -304,14 +337,11 @@ function animateBlob() {
     for (let i = 0; i < coords.length; i++) {
       const p0 = coords[i];
       const p1 = coords[(i + 1) % coords.length];
-
-      if (i % 2 === 0) {
-        d += ` L${p0.x},${p0.y}`;
-      } else {
-        const midX = (p0.x + p1.x) / 2;
-        const midY = (p0.y + p1.y) / 2;
-        d += ` Q${p0.x},${p0.y} ${midX},${midY}`;
-      }
+      
+      const midX = (p0.x + p1.x) / 2;
+      const midY = (p0.y + p1.y) / 2;
+      
+      d += ` Q${p0.x},${p0.y} ${midX},${midY}`;
     }
     d += "Z";
     path.setAttribute("d", d);
@@ -321,7 +351,6 @@ function animateBlob() {
 
   blobAnimationFrameId = requestAnimationFrame(update);
 }
-
 
 
 

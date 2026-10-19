@@ -237,12 +237,12 @@ body {
   aspect-ratio: 16 / 9;
   width: min(55%, calc(55vh * 16 / 9));
   height: auto;
-  top: 11.25%;
+  top: 11.25%; /* Restored to original */
 }
 
 #video-blob-svg {
   position: absolute;
-  top: calc(50% + 3.5%);
+  top: calc(50% + 3.5%); /* Restored to original */
   left: 50%;
   transform: translate(-50%, -50%);
   width: min(65%, calc(65vh * 16 / 9));
@@ -661,8 +661,8 @@ body {
     top: 0;
   }
   #video-blob-svg {
-    width: 108%; /* Gives enough margin for fluid spikes on mobile screens */
-    top: 43%;    /* Aligns vertically with the mobile video player */
+    width: 108%; 
+    top: calc(50% + 3.5%);
   }
   .link, .extra-links {
     width: 60px;
