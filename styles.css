@@ -252,7 +252,7 @@ body {
   shape-rendering: geometricPrecision;
 }
 /* INTRO PAGE SPECIFIC SHUFFLE BUTTON */
-#welcome-section .shuffle-btn {
+.shuffle-btn {
   background-color: black;
   color: ghostwhite;
   font-family: 'Retrolight', sans-serif;
@@ -267,7 +267,7 @@ body {
 }
 
 @media (hover: hover) {
-  #welcome-section .shuffle-btn:hover {
+  .shuffle-btn:hover {
     background-color: ghostwhite; /* Inverts to white like the header links */
     color: black;
     border-color: ghostwhite;
@@ -275,7 +275,7 @@ body {
     transform: translateY(-2px);
   }
 }
-#welcome-section .shuffle-btn:active {
+.shuffle-btn:active {
   transform: translateY(1px) scale(0.97);
 }
 
@@ -369,36 +369,6 @@ body {
   width: 50%;
   z-index: 2; /* Forces player and cover art layout layer above the blob */
 }
-
-#beats .shuffle-btn {
-  background-color: #ff5500; 
-  color: ghostwhite;
-  font-family: inherit; 
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  padding: .75% 1.5%;
-  border: none;
-  border-radius: 8px; 
-  cursor: pointer;
-  transition: background-color 0.25s ease, transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease;
-  box-shadow: 0 4px 15px rgba(255, 85, 0, 0.2);
-  -webkit-tap-highlight-color: transparent;
-  outline: none;
-}
-@media (hover: hover) {
-  #beats .shuffle-btn:hover {
-    background-color: #ff6a1a;
-    box-shadow: 0 6px 20px rgba(255, 85, 0, 0.4);
-  }
-}
-#beats .shuffle-btn:active {
-  background-color: #e04b00;
-  transform: translateY(1px) scale(0.97);
-  box-shadow: 0 2px 8px rgba(255, 85, 0, 0.3);
-  transition: transform 0.08s ease; 
-}
-
-
 
 /*  MORE PAGE  */
 #extra {
