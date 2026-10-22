@@ -188,18 +188,19 @@ async function handlePageTransition(destinationURL, targetBackground) {
 }
 
 
-function initUI() {
-  const home = document.querySelector(".header-text");
-  const projects = document.querySelectorAll(".link-left");
-  const more = document.querySelector(".link-right");
-  const content = document.querySelectorAll(".fade-target");
-  const idle = document.getElementById("idle");
+let headerNavBound = false;
 
-  setTimeout(() => content.forEach(el => el.style.opacity = "1"), 100);
+function bindHeaderNav() {
+  // The header is never removed/recreated during page transitions (only
+  // .container's innerHTML is swapped), so these listeners must only ever
+  // be attached once. Re-binding on every initUI() call (which happens
+  // after every transition) was stacking duplicate listeners that fired
+  // together and effectively cancelled each other out.
+  if (headerNavBound) return;
+  headerNavBound = true;
 
   const leftLink = document.querySelector(".left-link");
   const expandedLinks = document.querySelector(".expanded-links");
-  try { Engine.animateBlob(); } catch(e) {}
 
   leftLink?.addEventListener("click", (e) => {
     e.preventDefault();
@@ -221,10 +222,12 @@ function initUI() {
         liveOverlay.style.pointerEvents = "auto";
       }
     }
+    leftLink.blur();
   });
 
-  home?.addEventListener("click", (e) => {
+  document.querySelector(".header-text")?.addEventListener("click", (e) => {
     e.preventDefault();
+    const home = e.currentTarget;
     expandedLinks?.classList.remove("show");
     const liveOverlay = document.getElementById("overlay");
     if (liveOverlay) {
@@ -232,9 +235,10 @@ function initUI() {
       liveOverlay.style.pointerEvents = "none";
     }
     handlePageTransition(home.getAttribute("href"), getStoredSVG("backgroundOne.svg"));
+    home.blur();
   });
 
-  projects.forEach(link => {
+  document.querySelectorAll(".link-left").forEach(link => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       expandedLinks?.classList.remove("show");
@@ -244,11 +248,13 @@ function initUI() {
         liveOverlay.style.pointerEvents = "none";
       }
       handlePageTransition(link.getAttribute("href"), getStoredSVG("backgroundTwo.svg"));
+      link.blur();
     });
   });
 
-  more?.addEventListener("click", (e) => {
+  document.querySelector(".link-right")?.addEventListener("click", (e) => {
     e.preventDefault();
+    const more = e.currentTarget;
     expandedLinks?.classList.remove("show");
     const liveOverlay = document.getElementById("overlay");
     if (liveOverlay) {
@@ -256,7 +262,19 @@ function initUI() {
       liveOverlay.style.pointerEvents = "none";
     }
     handlePageTransition(more.getAttribute("href"), getStoredSVG("backgroundFive.svg"));
+    more.blur();
   });
+}
+
+function initUI() {
+  const content = document.querySelectorAll(".fade-target");
+  const idle = document.getElementById("idle");
+
+  setTimeout(() => content.forEach(el => el.style.opacity = "1"), 100);
+
+  try { Engine.animateBlob(); } catch(e) {}
+
+  bindHeaderNav();
 
   if (Engine.shouldAnimateIdle() && idle) {
     Engine.createPaths(Engine.getNumPaths(), idle);
