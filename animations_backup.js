@@ -1,3 +1,4 @@
+
 // animations.js
 // Created by: Michael Emborsky
 // Last Modified: 10/14/2026
