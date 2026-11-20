@@ -282,8 +282,17 @@ body {
   transform: translateY(1px) scale(0.97);
 }
 
-
-
+#lotusmane .shuffle-btn {
+  margin-top: 10rem; /* Adjust this value (e.g., 12rem–16rem) to dial in exact spacing */
+}
+#lotusmane #links {
+ top: 0; 
+ width: 40%;
+}
+#lotusmane .link {
+  width: 65px; /* Scales icons down slightly from 75px so they fit cleanly */
+  height: 65px;
+}
 
 /* CURRENTLY RELEASED PROJECT PAGE */
 #projects  {
@@ -736,7 +745,7 @@ body {
     z-index: 10;
   }
 
-  /* 🚀 SHAPE ANCHOR PRESERVATION */
+  /*  SHAPE ANCHOR PRESERVATION */
   #video-blob-svg {
     width: 112% !important; /* Slightly optimized scaling footprint */
     height: auto !important;
