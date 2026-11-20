@@ -35,7 +35,15 @@ const videoUrls = [
   "https://www.youtube-nocookie.com/embed/dWnM27Nn9YU?si=ix97YYscdIxaYYnw"
 ];
 const lotusmaneVideoUrls = [
-  "https://www.youtube-nocookie.com/embed/y6I0NHgKHTk?si=EuZ46JOCAtpi-Tvi",
+  "https://www.youtube-nocookie.com/embed/lS154R1Co1k?si=WAlqClUJ2mAWdJId",
+  "https://www.youtube-nocookie.com/embed/T1IWqGXBkGs?si=6sSyRnEPevJNtL6m",
+  "https://www.youtube-nocookie.com/embed/g56WWb8mC0Q?si=SaqEvy7aR2oHIX58",
+  "https://www.youtube-nocookie.com/embed/kEXbG3FbMXY?si=SqtDBfzDh2FoE9_u",
+  "https://www.youtube-nocookie.com/embed/_XucUctfFZM?si=Jpgf1xYXrUuKdsrW",
+  "https://www.youtube-nocookie.com/embed/FW1BmCBPP5s?si=OS0GC_4p_2jpyYpr",
+  "https://www.youtube-nocookie.com/embed/JtHz35wE_lM?si=hsOPJRaDsmUwgu5V",
+  "https://www.youtube-nocookie.com/embed/Q6ge6pgjYJk?si=DsC6D0jSsXh_Tdcb",
+  "https://www.youtube-nocookie.com/embed/lio8olunAhM?si=tnbtQw9b1b0W_oVQ"
 ];
 
 let playedVideos = [];
